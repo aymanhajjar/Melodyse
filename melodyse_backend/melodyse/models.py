@@ -66,3 +66,21 @@ class Task(models.Model):
     is_milestone = models.BooleanField(default=False)
     payout = models.IntegerField(blank=True)
 
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
+
+class Track(models.Model):
+    track = models.FileField(upload_to='user_tracks/')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tracks")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tracks", blank=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    number_of_plays = models.BigIntegerField(default=0)
+    is_personal = models.BooleanField()
+    likes = models.ManyToManyField(User, on_delete=models.CASCADE, related_name="likes")
+
+class TrackComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, related_name="comments")
+    content = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
