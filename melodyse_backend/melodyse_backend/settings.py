@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'melodyse'
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'melodyse_backend.wsgi.application'
 
+AUTH_USER_MODEL = 'melodyse.User'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

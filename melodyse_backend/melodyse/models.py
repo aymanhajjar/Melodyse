@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.postgres.fields import JSONField, ArrayField
+from django.contrib.postgres.fields import ArrayField
+from django.db.models import JSONField
 
 # Create your models here.
 class SubscriptionPlan(models.Model):
-    level = models.IntegerField()
+    level = models.IntegerField(unique=True)
     name = models.CharField(max_length=200)
     card_color = models.CharField(max_length=200)
     is_popular = models.BooleanField()
@@ -35,7 +36,7 @@ class UserInfo(models.Model):
     favorite_songs = ArrayField(JSONField(), blank=True)
     picture = models.ImageField(upload_to='profile_pictures/')
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
-    subscription = models.ForeignKey(SubscriptionPlan, related_name="users", default=0, to_field='level')
+    subscription = models.ForeignKey(SubscriptionPlan, related_name="users_subscribed", default=0, to_field='level', on_delete=models.CASCADE)
     subscription_started = models.DateTimeField(auto_now_add=True)
     points_used = models.IntegerField(default=0)
 
@@ -62,7 +63,7 @@ class Project(models.Model):
     description = models.TextField(blank=True)
     is_collab = models.BooleanField()
     is_completed = models.BooleanField(default=False)
-    members = models.ManyToManyField(User, on_delete=models.CASCADE, related_name="projects_active")
+    members = models.ManyToManyField(User, related_name="projects_active")
 
 class ProjectInvite(models.Model):
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="invites_sent")
@@ -99,22 +100,22 @@ class Notification(models.Model):
 class Track(models.Model):
     track = models.FileField(upload_to='user_tracks/')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tracks")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tracks", blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="final_track", blank=True)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     number_of_plays = models.BigIntegerField(default=0)
     is_personal = models.BooleanField()
-    likes = models.ManyToManyField(User, on_delete=models.CASCADE, related_name="likes")
+    likes = models.ManyToManyField(User, related_name="likes")
 
 class TrackComment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_sent")
     track = models.ForeignKey(Track, on_delete=models.CASCADE, related_name="comments")
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
 
 class Chat(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chats_admin")
-    participants = models.ManyToManyField(User, related_name='chats', related_name = "chats")
+    participants = models.ManyToManyField(User, related_name='chats')
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="chat", blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
