@@ -4,8 +4,8 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path("login", views.login),
+    path("login", views.userLogin),
     path("logout", views.logout),
     path("register", views.register),
-    path("checkusername", views.checkusername)
+    path("checkusername", views.checkUsername)
 ]

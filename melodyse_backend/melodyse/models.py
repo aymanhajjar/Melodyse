@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
+from django.core import serializers
 
 # Create your models here.
 class SubscriptionPlan(models.Model):
@@ -37,9 +38,9 @@ class UserInfo(models.Model):
     ]
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    favorite_artists = ArrayField(JSONField(), blank=True)
-    favorite_songs = ArrayField(JSONField(), blank=True)
-    picture = models.ImageField(upload_to='profile_pictures/')
+    favorite_artists = ArrayField(JSONField(), blank=True, null=True)
+    favorite_songs = ArrayField(JSONField(), blank=True, null=True)
+    picture = models.ImageField(upload_to='profile_pictures/',default='profile_pictures/avatar.png')
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     subscription = models.ForeignKey(SubscriptionPlan, related_name="users_subscribed", default=0, to_field='level', on_delete=models.CASCADE)
     subscription_started = models.DateTimeField(auto_now_add=True)

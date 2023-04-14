@@ -5,7 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from .models import *
 # Create your views here.
 
-def login(request):
+def userLogin(request):
     username_email = request.POST['username_email']
     password = request.POST['password']
 
@@ -41,7 +41,7 @@ def logout(request):
     logout(request)
     return JsonResponse({'status': 'user logged out'})
 
-def checkusername(request):
+def checkUsername(request):
     username = request.POST['username']
     if User.objects.filter(username=username).exists():
         return HttpResponse('username already exists', status=400)
@@ -70,11 +70,12 @@ def register(request):
     
     user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
 
-    UserInfo.objects.create(gender, date_of_birth)
+    user_info = UserInfo.objects.create(user=user, gender=gender, date_of_birth=date_of_birth)
 
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
     login(request, user)
         
-    points_remaining = user.info.subscription.points - user.info.points_used 
+    points_remaining = user_info.subscription.points - user_info.points_used 
 
     response_data = {
         'status': 'success',
@@ -82,10 +83,10 @@ def register(request):
         'username': user.username,
         'first_name': user.first_name,
         'last_name': user.last_name,
-        'pic': user.info.picture,
+        'pic': user_info.picture.url,
         'points_remaining': points_remaining
     }
-
+    
     return JsonResponse(response_data)
 
 
