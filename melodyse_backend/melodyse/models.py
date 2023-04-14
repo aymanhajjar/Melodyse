@@ -9,17 +9,22 @@ class SubscriptionPlan(models.Model):
     name = models.CharField(max_length=200)
     card_color = models.CharField(max_length=200)
     is_popular = models.BooleanField()
-    number_of_users = models.BigIntegerField()
+    number_of_users = models.BigIntegerField(default=0)
     price_per_month = models.IntegerField()
     max_personal_projects = models.IntegerField()
+    max_active_projects = models.IntegerField(default=0)
     points = models.IntegerField()
-    tag_on_profile = models.CharField(max_length=100)
+    tag_on_profile = models.CharField(max_length=100, blank=True)
     profile_color = models.CharField(max_length=200, blank=True)
     features = ArrayField(models.CharField(max_length=200))
+    def __str__(self):
+        return self.name
     
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.username
 
 class UserInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name="info")
@@ -39,22 +44,29 @@ class UserInfo(models.Model):
     subscription = models.ForeignKey(SubscriptionPlan, related_name="users_subscribed", default=0, to_field='level', on_delete=models.CASCADE)
     subscription_started = models.DateTimeField(auto_now_add=True)
     points_used = models.IntegerField(default=0)
+    def __str__(self):
+        return self.user.username + "'s info"
 
 class UserFriend(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_of')
     date_accepted = models.DateTimeField(auto_now_add=True)
-
+    def __str__(self):
+        return self.user.username + "'s friends"
 
 class FriendRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_requests")
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     is_accepted = models.BooleanField(default=False)
-
+    def __str__(self):
+        return self.user.username + "'s friend requests"
+    
 class UserRating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
     target_user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
+    def __str__(self):
+        return self.user.username + "'s ratings"
 
 class Project(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projects")
@@ -64,7 +76,9 @@ class Project(models.Model):
     is_collab = models.BooleanField()
     is_completed = models.BooleanField(default=False)
     members = models.ManyToManyField(User, related_name="projects_active")
-
+    def __str__(self):
+        return self.title
+    
 class ProjectInvite(models.Model):
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="invites_sent")
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="project_invites")
@@ -72,11 +86,16 @@ class ProjectInvite(models.Model):
     is_collab = models.BooleanField()
     offered_amount = models.IntegerField(blank=True)
     is_accepted = models.BooleanField(default=False)
-
+    def __str__(self):
+        return self.initiator.username + "'s invite"
+    
 class File(models.Model):
     file = models.FileField(upload_to='project_files/')
+    name = models.CharField(max_length=200, default='File')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="uploaded_files")
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="files")
+    def __str__(self):
+        return self.name + ' in ' + self.project.title
 
 class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
@@ -87,6 +106,8 @@ class Task(models.Model):
     is_completed = models.BooleanField(default=False)
     is_milestone = models.BooleanField(default=False)
     payout = models.IntegerField(blank=True)
+    def __str__(self):
+        return self.name + ' in ' + self.project.title
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
@@ -96,6 +117,8 @@ class Notification(models.Model):
     is_read = models.BooleanField(default=False)
     target_user = models.ForeignKey(User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.username + "'s notification " + self.title
 
 class Track(models.Model):
     track = models.FileField(upload_to='user_tracks/')
@@ -106,12 +129,16 @@ class Track(models.Model):
     number_of_plays = models.BigIntegerField(default=0)
     is_personal = models.BooleanField()
     likes = models.ManyToManyField(User, related_name="likes")
+    def __str__(self):
+        return self.name
 
 class TrackComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_sent")
     track = models.ForeignKey(Track, on_delete=models.CASCADE, related_name="comments")
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.content
 
 class Chat(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chats_admin")
@@ -125,3 +152,5 @@ class Message(models.Model):
     is_read = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")
+    def __str__(self):
+        return self.content
