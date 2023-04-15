@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.scss'
+import Login from '../components/login/login'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,14 +16,11 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         <div className={styles.leftSide}>
-          <h2>LOG IN</h2>
-          <input className={styles.inputField} placeholder='Username or Email'/>
-          <input className={styles.inputField} type="password" placeholder='Password'/>
-          <button type='button' className={styles.loginBtn}>LOG IN</button>
-          <span>Don't have an account? <a>Create one</a></span>
-          <span>or, log in using:</span>
+          <Login/>
         </div>
         <div className={styles.rightSide}>
+
+          <img src='/musical.png' className={styles.musicalNotes}></img>
           <img className={styles.logoImage} src="/logo.png"/>
         </div>
       </div>

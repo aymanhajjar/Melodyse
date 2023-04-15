@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Head from 'next/head'
 import { Inter } from '@next/font/google';
 import styles from '../styles/Layout.module.scss'
 
@@ -7,6 +8,11 @@ const Layout = ({children}: any) => {
     const [selected, setSelected] = useState('Home')
 
     return (
+        <>
+        <Head>
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <meta name="google-signin-client_id" content={process.env.GOOGLE_CLIENT_ID}/>
+        </Head>
         <div className={styles.container}>
             <header className={styles.header}>
                 <div className={styles.titleContainer}>
@@ -33,6 +39,7 @@ const Layout = ({children}: any) => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

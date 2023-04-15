@@ -1,5 +1,16 @@
 $main_red: #AB4967;
 
+@keyframes slideIn {
+  0% {
+    transform: translateX(-5%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .container {
   display: flex;
   height: calc(100vh - 6.5rem);
@@ -7,6 +18,7 @@ $main_red: #AB4967;
 }
 
 .leftSide {
+  animation: slideIn 0.6s ease-out;
   width: 65%;
   display: flex;
   flex-direction: column;
@@ -40,6 +52,7 @@ $main_red: #AB4967;
 .inputField:focus {
   background-color: #dedede;
   outline: none;
+  width: 45%;
   transition: all 0.3s;
 }
 
@@ -51,6 +64,33 @@ $main_red: #AB4967;
   font-size: 1.1rem;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
+}
+
+.socialIcons img {
+  width: 3.5rem;
+  transition: all 0.3s;
+}
+
+.socialIcons img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.socialIcons {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.forgotPassword {
+  text-decoration: none;
+  margin-top: -1.2rem;
+  text-align: right;
+  width: 40%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: $main_red;
 }
 
 .rightSide {
@@ -68,4 +108,11 @@ $main_red: #AB4967;
 .logoImage:hover {
   transform: scale(1.1);
   transition: all 0.3s;
+}
+
+.musicalNotes {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  width: 40%;
 }
