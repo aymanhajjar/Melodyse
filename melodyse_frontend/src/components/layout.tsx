@@ -29,7 +29,7 @@ const Layout = ({children}: any) => {
                     <span>© 2023 MELODYSE</span>
                 </nav>
                 <div className={styles.page}>
-                    {/* page goes here */}
+                    {children}
                 </div>
             </div>
         </div>
