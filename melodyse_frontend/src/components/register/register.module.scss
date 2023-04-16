@@ -6,7 +6,7 @@ $main_red: #AB4967;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     opacity: 1;
     transition: all 0.3s ease-out;
 }
@@ -22,9 +22,37 @@ $main_red: #AB4967;
     font-weight: 600;
     cursor: pointer;
   }
+
+  .visible-label {
+    opacity: 1;
+    transition: all 0.3s;
+  }
+
+  .hidden-label {
+    opacity: 0;
+    transition: all 0.3s;
+  }
   
-  .inputField {
+  .inputGroup {
     width: 40%;
+    position: relative;
+    transition: all 0.3s;
+  }
+    .inputGroup:focus-within {
+    width: 45%;
+    transition: all 0.3s;
+    }
+
+  .inputGroup label {
+    position: absolute;
+    left: -1.2rem;
+    top: -1.2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: right;
+  }
+  .inputField {
+    width: 100%;
     border: none;
     padding: 1.1rem;
     font-size: 1rem;
@@ -33,19 +61,57 @@ $main_red: #AB4967;
     box-shadow: 2px 2px 10px #cdcdcd;
     transition: all 0.3s;
   }
-  
+
+  .fullName {
+    width: 40%;
+    display: flex;
+    justify-content: space-between
+  }
+
+  .inputName {
+    @extend .inputField;
+    width: 48%;
+  }
+
+  .selectField {
+    width: 48%;
+    border: none;
+    padding: 1.1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 2px 2px 10px #cdcdcd;
+    transition: all 0.3s;
+  }
+
+  .selectField:focus {
+    background-color: #dedede;
+    outline: none;
+    transition: all 0.3s;
+  }
+
   .inputField:focus {
     background-color: #dedede;
     outline: none;
-    width: 45%;
+    // width: 45%;
     transition: all 0.3s;
   }
+
+
+  .inputName:focus {
+    background-color: #dedede;
+    outline: none;
+    width: 60%;
+    transition: all 0.3s;
+  }
+  
   
   .loginBtn {
     @extend .inputField;
     cursor: pointer;
     background-color: $main_red;
     color: white;
+    width: 40%;
     font-size: 1.1rem;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -85,7 +151,7 @@ $main_red: #AB4967;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     opacity: 0;
     transform: translate(-5%);
     transition: all 0.3s ease-out;

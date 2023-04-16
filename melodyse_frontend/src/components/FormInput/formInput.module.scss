@@ -1,0 +1,58 @@
+
+  
+  .inputGroup {
+    width: 40%;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+.inputGroup:focus-within {
+    width: 45%;
+    transition: all 0.3s;
+}
+
+  .inputGroup label {
+    position: absolute;
+    left: -1.2rem;
+    top: -1.2rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .visibleLabel {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.3s;
+  }
+
+  .hiddenLabel {
+    opacity: 0;
+    transform: translateX(5rem);
+    transition: all 0.3s;
+  }
+  .inputField {
+    width: 100%;
+    border: none;
+    padding: 1.1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 2px 2px 10px #cdcdcd;
+    transition: all 0.3s;
+  }
+
+  .inputField:focus {
+    background-color: #dedede;
+    outline: none;
+    // width: 45%;
+    transition: all 0.3s;
+  }
+
+.usernameImg {
+    width: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}

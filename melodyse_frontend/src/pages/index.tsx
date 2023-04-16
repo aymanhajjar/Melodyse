@@ -1,12 +1,16 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.scss'
 import Login from '../components/login/login'
-
-const inter = Inter({ subsets: ['latin'] })
+import Register from '../components/register/register'
+import { useState } from 'react'
 
 export default function Home() {
+  const [loginActive, setLoginActive] = useState(true)
+
+  function handleFormChange() {
+    setLoginActive(!loginActive)
+  }
+
   return (
     <>
       <Head>
@@ -16,7 +20,7 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         <div className={styles.leftSide}>
-          <Login/>
+          {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange}/> : <Register active={loginActive} onChangeForm={handleFormChange}/>}
         </div>
         <div className={styles.rightSide}>
 
