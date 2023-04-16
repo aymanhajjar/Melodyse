@@ -1,12 +1,32 @@
 import styles from './formInput.module.scss'
 import { useEffect, useState } from 'react'
 import axios  from 'axios'
+import { setFips } from 'crypto'
 
 export default function FromInput(props: any) {
     const [labelVisible, setLabelVisible] = useState(false)
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
+    const [focus, setFocus] = useState(false)
     const [usernameAvailable, setUsernameAvailable] = useState(false)
+
+    useEffect(() => {
+        if(props.onChange) {
+            props.onChange(value)
+        }
+    }, [value])
+
+    useEffect(() => {
+        if(props.onCheck) {
+            props.onCheck(usernameAvailable)
+        }
+    }, [usernameAvailable])
+
+    useEffect(() => {
+        if(props.onFocus) {
+            props.onFocus(focus)
+        }
+    }, [focus])
 
     const handleUsername = (e : any) => {
         setValue(e.target.value)
@@ -23,8 +43,16 @@ export default function FromInput(props: any) {
         <div className={styles.inputGroup}>
             <input 
                 type={props.type ? props.type : 'text'} 
-                className={styles.inputField} 
-                onFocus={() => setLabelVisible(true)} onBlur={() => setLabelVisible(false)} placeholder={props.placeholder}
+                className={props.error ? styles.inputError : styles.inputField} 
+                onFocus={() => {
+                    setLabelVisible(true)
+                    setFocus(true)
+                }} 
+                onBlur={() => {
+                    setLabelVisible(false)
+                    setFocus(false)
+                }} 
+                placeholder={props.placeholder}
                 onChange={props.type == 'username' ? (e) => handleUsername(e) : (e) => setValue(e.target.value)}
                 value={value}
             />

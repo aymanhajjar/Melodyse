@@ -1,3 +1,4 @@
+$main_red: #AB4967;
 
   
   .inputGroup {
@@ -55,4 +56,14 @@
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.inputError, .inputError:focus {
+    @extend .inputField;
+    background-color: #D49BAE;
+    color: white;
+}
+
+.inputError::placeholder {
+    color: white;
 }

@@ -1,13 +1,30 @@
 import { useEffect, useState } from 'react'
 import styles from './register.module.scss'
 import FormInput from '../FormInput/FormInput'
+import PasswordStrengthBar from 'react-password-strength-bar'
 
 export default function Register(props : any) {
     const [active, setActive] = useState(false)
-    const [errormessage, setErrorMessage] = useState('Please enter an email!')
+    const [usernameAvailable, setUsernameAvailable] = useState(false)
+    const [errormessage, setErrorMessage] = useState('')
+    const [passwordFocus, setPasswordFocus] = useState(false)
     const [genderValue, setGenderValue] = useState('')
+    const [firstNameValue, setFirstNameValue] = useState('')
+    const [lastNameValue, setLastNameValue] = useState('')
+    const [usernameValue, setUsernameValue] = useState('')
+    const [emailValue, setEmailValue] = useState('')
+    const [passwordValue, setPasswordValue] = useState('')
+    const [confPasswordValue, setConfPasswordValue] = useState('')
     const [dateValue, setDateValue] = useState('')
 
+    const [firstNameError, setFirstNameError] = useState(false)
+    const [lastNameError, setLastNameError] = useState(false)
+    const [usernameError, setUsernameError] = useState(false)
+    const [emailError, setEmailError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [confPasswordError, setConfPasswordError] = useState(false)
+    const [dateError, setDateError] = useState(false)
+    
     useEffect(() => {
         setActive(!props.active)
     }, [props.active])
@@ -19,28 +36,150 @@ export default function Register(props : any) {
         }, 300)
     }
 
+    const handleSubmit = () => {
+        if(validateForm()) {
+            
+        }
+    }
+
+    const validateForm = () => {
+        if(firstNameValue.length == 0) {
+            setFirstNameError(true)
+            setErrorMessage('Please provide a valid first name!')
+            return false
+        } else setFirstNameError(false)
+        if(lastNameValue.length == 0) {
+            setLastNameError(true)
+            setErrorMessage('Please provide a valid last name!')
+            return false
+        } else setLastNameError(false)
+        if(usernameValue.length == 0) {
+            setUsernameError(true)
+            setErrorMessage('Please choose a username!')
+            return false
+        } else setUsernameError(false)
+        if(passwordValue.length == 0) {
+            setPasswordError(true)
+            setErrorMessage('Please choose a password!')
+            return false
+        } else setPasswordError(false)
+        if(confPasswordValue.length == 0) {
+            setConfPasswordError(true)
+            setErrorMessage('Please confirm your password!')
+            return false
+        } else setConfPasswordError(false)
+        if(emailValue.length == 0) {
+            setEmailError(true)
+            setErrorMessage('Please enter your email address!')
+            return false
+        } else setEmailError(false)
+        if(dateValue.length == 0) {
+            setDateError(true)
+            setErrorMessage('Please enter your date of birth!')
+            return false
+        } else setDateError(false)
+
+        if(!usernameAvailable) {
+            setUsernameError(true)
+            setErrorMessage('This username is not available. Choose another one!')
+            return false
+        } else setUsernameError(false)
+
+        if(!emailValue.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/)) {
+            setEmailError(true)
+            setErrorMessage('Please enter a valid email address!')
+            return false
+        } else setEmailError(false)
+
+        if(passwordValue.length < 6) {
+            setPasswordError(true)
+            setErrorMessage('Passwords must have at least 6 characters!')
+            return false
+        } else setPasswordError(false)
+
+        if(passwordValue != confPasswordValue) {
+            setPasswordError(true)
+            setConfPasswordError(true)
+            setErrorMessage('Passwords do not match!')
+            return false
+        } else  {
+            setPasswordError(false)
+            setConfPasswordError(false)
+        }
+
+        const twelveYearsAgo = new Date()
+        twelveYearsAgo.setFullYear(twelveYearsAgo.getFullYear() - 12)
+        var userDate = new Date(dateValue)
+
+        if (userDate > twelveYearsAgo) {
+            setDateError(true)
+            setErrorMessage('You must be at least 12 years old to sign up!')
+            return false
+          } else setDateError(false)
+
+        return true
+    }
+
   return (
     <div className={active ? styles.active : styles.hidden}>
         <h2>Register</h2>
         <div className={styles.fullName}>
-            <input className={styles.inputName} placeholder='First Name'/>
-            <input className={styles.inputName} placeholder='Last Name'/>
+            <input className={firstNameError ? styles.inputErrorName : styles.inputName} 
+                placeholder='First Name' 
+                value={firstNameValue} 
+                onChange={(e) => setFirstNameValue(e.target.value)}/>
+            <input 
+                className={lastNameError ? styles.inputErrorName : styles.inputName} 
+                placeholder='Last Name'
+                value={lastNameValue} 
+                onChange={(e) => setLastNameValue(e.target.value)}/>
         </div>
-        <FormInput type="username" label="Username:" placeholder="Username" />
-        <FormInput type="email" label="Email:" placeholder="Email"/>
-        <FormInput type="password" label="Password:" placeholder="Password"/>
-        <FormInput type="password" label="Confirm Password:" placeholder="Confirm Password"/>
+        <FormInput 
+            type="username" 
+            label="Username:" 
+            placeholder="Username" 
+            onChange={(val) =>setUsernameValue(val)}
+            onCheck={(available) => setUsernameAvailable(available)}
+            error={usernameError} />
+        <FormInput 
+            type="email" 
+            label="Email:" 
+            placeholder="Email" 
+            onChange={(val) => setEmailValue(val)}
+            error={emailError}/>
+        <FormInput 
+            type="password" 
+            label="Password:" 
+            placeholder="Password" 
+            onFocus={(focused) => setPasswordFocus(focused)}
+            onChange={(val) => setPasswordValue(val)}
+            error={passwordError}/>
+            {passwordFocus && <PasswordStrengthBar password={passwordValue} className={styles.strengthBar} minLength={6}/>}
+        <FormInput 
+            type="password" 
+            label="Confirm Password:" 
+            placeholder="Confirm Password" 
+            onChange={(val) => setConfPasswordValue(val)}
+            error={confPasswordError}/>
         <div className={styles.fullName}>
-            <select className={styles.selectField} value={genderValue} onChange={(e) => setGenderValue(e.target.value)}>
+            <select 
+                className={styles.selectField} 
+                value={genderValue} 
+                onChange={(e) => setGenderValue(e.target.value)}>
                 <option disabled selected>Gender</option>
                 <option value={'M'}>Male</option>
                 <option value={'F'}>Female</option>
                 <option value={'O'}>Other</option>
             </select>
-            <input className={styles.selectField} type='date' placeholder='Date of Birth' value={dateValue} onChange={(e) => setDateValue(e.target.value)}/>
+            <input 
+                className={styles.selectField} 
+                type='date' 
+                placeholder='Date of Birth' 
+                value={dateValue} 
+                onChange={(e) => setDateValue(e.target.value)}/>
         </div>
         {errormessage && <span className={styles.errorMsg}>{errormessage}</span>}
-        <button type='button' className={styles.loginBtn}>SIGN UP</button>
+        <button type='button' className={styles.loginBtn} onClick={handleSubmit}>SIGN UP</button>
         <span>Already have an account? <a onClick={() => changeForm()}>Log In</a></span>
         <span>or, sign up using:</span>
         <div className={styles.socialIcons}>

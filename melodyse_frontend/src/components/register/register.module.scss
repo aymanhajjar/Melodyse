@@ -93,7 +93,6 @@ $main_red: #AB4967;
   .inputField:focus {
     background-color: #dedede;
     outline: none;
-    // width: 45%;
     transition: all 0.3s;
   }
 
@@ -160,4 +159,20 @@ $main_red: #AB4967;
 
 .errorMsg {
     color: $main_red;
+}
+
+
+.inputErrorName, .inputErrorName:focus {
+    @extend .inputName;
+    background-color: #D49BAE;
+    color: white;
+}
+
+.inputErrorName::placeholder {
+    color: white;
+}
+
+.strengthBar {
+    width: 40%;
+    margin-top: -1rem;
 }
