@@ -1,5 +1,6 @@
 import styles from './formInput.module.scss'
 import { useEffect, useState } from 'react'
+import axios  from 'axios'
 
 export default function FromInput(props: any) {
     const [labelVisible, setLabelVisible] = useState(false)
@@ -10,6 +11,13 @@ export default function FromInput(props: any) {
     const handleUsername = (e : any) => {
         setValue(e.target.value)
         setLoading(true)
+        const data = new FormData
+        console.log(`${process.env.SITE_URL}/checkusername`)
+        data.append('username', e.target.value)
+        axios.post(`${process.env.SITE_URL}/checkusername`, data).then((res) => {
+            res.data.status == 'available' ? setUsernameAvailable(true) : setUsernameAvailable(false)
+            setLoading(false)
+        })
     }
     return (
         <div className={styles.inputGroup}>

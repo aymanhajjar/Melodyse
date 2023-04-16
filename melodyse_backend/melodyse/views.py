@@ -44,7 +44,7 @@ def logout(request):
 def checkUsername(request):
     username = request.POST['username']
     if User.objects.filter(username=username).exists():
-        return HttpResponse('not available', status=400)
+        return JsonResponse({'status' : 'not available'})
     else:
         return JsonResponse({'status': 'available'})
     

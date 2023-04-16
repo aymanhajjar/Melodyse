@@ -90,3 +90,8 @@ $main_red: #AB4967;
     transform: translate(-5%);
     transition: all 0.3s ease-out;
 }
+
+
+.errorMsg {
+    color: $main_red;
+}
