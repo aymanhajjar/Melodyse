@@ -141,6 +141,15 @@ class Notification(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     def __str__(self):
         return self.user.username + "'s notification " + self.title
+    def serialize(self):
+        return {
+            'title': self.title,
+            'content': self.content,
+            'date': self.date_created,
+            'is_read': self.is_read,
+            'target_user': self.target_user.id,
+            'target_project': self.project.id
+        }
 
 class Track(models.Model):
     track = models.FileField(upload_to='user_tracks/')

@@ -33,13 +33,14 @@ export default function FromInput(props: any) {
         setValue(e.target.value)
         setLoading(true)
         const data = new FormData
-        console.log(`${process.env.SITE_URL}/checkusername`)
         data.append('username', e.target.value)
         axios.post(`${process.env.SITE_URL}/checkusername`, data, {
             withCredentials: true
         }).then((res) => {
             res.data.status == 'available' ? setUsernameAvailable(true) : setUsernameAvailable(false)
             setLoading(false)
+        }).catch(err => {
+            console.error(err)
         })
     }
     return (

@@ -50,6 +50,15 @@ $main_red: #AB4967;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
   }
+
+  .loginBtn:active {
+    background-color: #D49BAE;
+  }
+
+  .loginBtn:focus {
+    width: 40%;
+    background-color: $main_red;
+  }
   
   .socialIcons img {
     width: 3.5rem;
@@ -91,6 +100,9 @@ $main_red: #AB4967;
     transition: all 0.3s ease-out;
 }
 
+.loginBtn img {
+    width: 1.1rem;
+  }
 
 .errorMsg {
     color: $main_red;

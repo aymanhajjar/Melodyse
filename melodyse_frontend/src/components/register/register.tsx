@@ -3,7 +3,7 @@ import styles from './register.module.scss'
 import FormInput from '../FormInput/FormInput'
 import PasswordStrengthBar from 'react-password-strength-bar'
 import axios from 'axios'
-
+import Cookies from 'js-cookie'
 
 export default function Register(props : any) {
     const [active, setActive] = useState(false)
@@ -28,6 +28,15 @@ export default function Register(props : any) {
     const [confPasswordError, setConfPasswordError] = useState(false)
     const [dateError, setDateError] = useState(false)
     
+    useEffect(() => {
+        // Load the Google Sign-In API
+        // gapi.load('auth2', () => {
+        //   gapi.auth2.init({
+        //     client_id: 'YOUR_CLIENT_ID',
+        //   });
+          
+        // });
+      }, []);
 
     useEffect(() => {
         setActive(!props.active)
@@ -41,7 +50,6 @@ export default function Register(props : any) {
     }
 
     const handleSubmit = () => {
-        console.log('tokas', props.token)
         if(validateForm()) {
             setLoading(true)
 
@@ -54,13 +62,15 @@ export default function Register(props : any) {
             data.append('gender', genderValue)
             data.append('date_of_birth', dateValue)
 
-            axios.defaults.headers.common['X-CSRFToken'] = props.token
-
             axios.post(`${process.env.SITE_URL}/register`, data, {
                 withCredentials: true
               }).then((res) => {
+                setLoading(false)
+                const csrf = Cookies.get('csrftoken')
+                axios.defaults.headers.common['X-CSRFToken'] = csrf
                 console.log(res)
             }).catch(err => {
+                setLoading(false)
                 if(err.response.data == 'failed to validate password') {
                     setErrorMessage('Failed to validate password. Please make sure your password meets the requirements.')
                 }
@@ -70,7 +80,6 @@ export default function Register(props : any) {
                 if(err.response.data == 'email already exists') {
                     setErrorMessage('An account with this email address already exists. Please choose another one, or log in instead.')
                 }
-                console.log(err)
             })
         }
     }

@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.password_validation import validate_password
 from .models import *
+from .modules import dataHandler
+
 # Create your views here.
 
 def getToken(request):
@@ -19,29 +21,10 @@ def userLogin(request):
 
     if user is not None:
         login(request, user)
-        
-        user_info = UserInfo.objects.get(user=user)
-        points_remaining = user_info.subscription.points - user_info.points_used 
-        user_chats = Chat.objects.filter(project=None, participants=user)
 
+        user_data = dataHandler.getData(user)
 
-        response_data = {
-            'status': 'success',
-            'user_id': user.id,
-            'username': user.username,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'pic': user_info.picture.url,
-            'points_remaining': points_remaining,
-            # 'subscription_level': user_info.subscription.level,
-            # 'subscription_name': user_info.subscription.name,
-            # 'notifications': user.notifications,
-            'chats': [chat.serialize() for chat in user_chats],
-            'friend_requests': [request.serialize() for request in user.friend_requests.all()],
-            'project_invites':[invite.serialize() for invite in user.project_invites.all()]
-        }
-
-        return JsonResponse(response_data)
+        return JsonResponse(user_data)
     
     else:
         return HttpResponse('User not found', status=404)
@@ -82,24 +65,16 @@ def register(request):
     user_info = UserInfo.objects.create(user=user, gender=gender, date_of_birth=date_of_birth)
 
     user.backend = 'django.contrib.auth.backends.ModelBackend'
+
     login(request, user)
         
-    points_remaining = user_info.subscription.points - user_info.points_used 
-
-    response_data = {
-        'status': 'success',
-        'user_id': user.id,
-        'username': user.username,
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'pic': user_info.picture.url,
-        'points_remaining': points_remaining
-    }
+    user_data = dataHandler.getData(user)
     
-    return JsonResponse(response_data)
+    return JsonResponse(user_data)
 
-
-
-
-
-    
+def getInfo(request):
+    if request.user.is_authenticated:
+        user_data = dataHandler.getData(request.user)
+        return JsonResponse(user_data)
+    else:
+        return HttpResponse('User not logged in', status=403)

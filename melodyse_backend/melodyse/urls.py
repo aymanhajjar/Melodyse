@@ -9,5 +9,5 @@ urlpatterns = [
     path("register", views.register),
     path("checkusername", views.checkUsername),
     path("gettoken", views.getToken),
-    # path("", views.checkUsername),
+    path("getinfo", views.getInfo),
 ]
