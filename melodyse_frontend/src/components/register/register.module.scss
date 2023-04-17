@@ -115,6 +115,10 @@ $main_red: #AB4967;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
   }
+
+  .loginBtn img {
+    width: 1.1rem;
+  }
   
   .socialIcons img {
     width: 3.5rem;
@@ -159,6 +163,8 @@ $main_red: #AB4967;
 
 .errorMsg {
     color: $main_red;
+    width: 40%;
+    text-align: center;
 }
 
 

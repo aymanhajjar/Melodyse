@@ -1,9 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
+from django.middleware.csrf import get_token
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.password_validation import validate_password
 from .models import *
 # Create your views here.
+
+def getToken(request):
+    response = JsonResponse({'status': 'success'})
+    response['X-CSRFToken'] = get_token(request)
+    return response
 
 def userLogin(request):
     username_email = request.POST['username_email']
@@ -14,7 +20,10 @@ def userLogin(request):
     if user is not None:
         login(request, user)
         
-        points_remaining = user.info.subscription.points - user.info.points_used 
+        user_info = UserInfo.objects.get(user=user)
+        points_remaining = user_info.subscription.points - user_info.points_used 
+        user_chats = Chat.objects.filter(project=None, participants=user)
+
 
         response_data = {
             'status': 'success',
@@ -22,14 +31,14 @@ def userLogin(request):
             'username': user.username,
             'first_name': user.first_name,
             'last_name': user.last_name,
-            'pic': user.info.picture,
+            'pic': user_info.picture.url,
             'points_remaining': points_remaining,
-            'subscription_level': user.info.subscription.level,
-            'subscription_name': user.info.subscription.name,
-            'notifications': user.notifications,
-            'chats': user.chats.filter(project = None),
-            'friend_requests': user.friend_requests,
-            'project_invites': user.project_invites
+            # 'subscription_level': user_info.subscription.level,
+            # 'subscription_name': user_info.subscription.name,
+            # 'notifications': user.notifications,
+            'chats': [chat.serialize() for chat in user_chats],
+            'friend_requests': [request.serialize() for request in user.friend_requests.all()],
+            'project_invites':[invite.serialize() for invite in user.project_invites.all()]
         }
 
         return JsonResponse(response_data)

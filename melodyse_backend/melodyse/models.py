@@ -61,6 +61,13 @@ class FriendRequest(models.Model):
     is_accepted = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username + "'s friend requests"
+    def serialize(self):
+        return {
+            "sender_id": self.sender.id,
+            "sender_name": self.sender.username,
+            "sender_picture": self.sender.info.picture.url,
+            "is_accepted": self.is_accepted
+        }
     
 class UserRating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
@@ -75,6 +82,7 @@ class Project(models.Model):
     date_started = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
     is_collab = models.BooleanField()
+    picture = models.ImageField(blank=True, upload_to='project_pictures/')
     is_completed = models.BooleanField(default=False)
     members = models.ManyToManyField(User, related_name="projects_active")
     def __str__(self):
@@ -84,11 +92,24 @@ class ProjectInvite(models.Model):
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="invites_sent")
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="project_invites")
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="invites")
+    message = models.TextField(blank=True)
     is_collab = models.BooleanField()
     offered_amount = models.IntegerField(blank=True)
     is_accepted = models.BooleanField(default=False)
     def __str__(self):
         return self.initiator.username + "'s invite"
+    def serialize(self):
+        return {
+            "sender_id": self.initiator.id,
+            "sender_name": self.initiator.username,
+            "sender_picture": self.initiator.info.picture.url,
+            "project_name": self.project.title,
+            "project_id": self.project.id,
+            "message": self.message,
+            "is_collab": self.is_collab,
+            "offered_amount": self.offered_amount,
+            "is_accepted": self.is_accepted
+        }
     
 class File(models.Model):
     file = models.FileField(upload_to='project_files/')
@@ -144,8 +165,22 @@ class TrackComment(models.Model):
 class Chat(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="chats_admin")
     participants = models.ManyToManyField(User, related_name='chats')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="chat", blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="chat", blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    def serialize(self):
+        participants_list = [{'id': p.id, 'username': p.username} for p in self.participants.all()]
+        latest_message = self.messages.latest('date_created')
+        return {
+            'chat_id': self.id,
+            'participants': participants_list,
+            'latest_message': {
+                'author_id': latest_message.author.id,
+                'author_username': latest_message.author.username,
+                'content': latest_message.content,
+                'is_read': latest_message.is_read,
+                'date_created': latest_message.date_created
+            }
+        }
 
 class Message(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")

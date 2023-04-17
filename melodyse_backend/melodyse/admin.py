@@ -10,7 +10,7 @@ class SubscriptionPlanForm(forms.ModelForm):
     class Meta:
         model = SubscriptionPlan
         fields = '__all__'
-        
+
 class SubscriptionPlanAdmin(admin.ModelAdmin):
     form = SubscriptionPlanForm
 
@@ -26,3 +26,5 @@ admin.site.register(Task)
 admin.site.register(Notification)
 admin.site.register(Track)
 admin.site.register(TrackComment)
+admin.site.register(Chat)
+admin.site.register(Message)

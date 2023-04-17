@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
-import { Inter } from '@next/font/google';
 import styles from '../styles/Layout.module.scss'
+import axios from 'axios'
+import { GetStaticProps } from 'next'
 
-const Layout = ({children}: any) => {
+
+export default function Layout({ children, token}) {
 
     const [selected, setSelected] = useState('Home')
 
@@ -43,4 +45,3 @@ const Layout = ({children}: any) => {
     )
 }
 
-export default Layout

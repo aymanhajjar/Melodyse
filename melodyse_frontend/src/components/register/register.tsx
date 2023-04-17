@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import styles from './register.module.scss'
 import FormInput from '../FormInput/FormInput'
 import PasswordStrengthBar from 'react-password-strength-bar'
+import axios from 'axios'
+
 
 export default function Register(props : any) {
     const [active, setActive] = useState(false)
     const [usernameAvailable, setUsernameAvailable] = useState(false)
     const [errormessage, setErrorMessage] = useState('')
     const [passwordFocus, setPasswordFocus] = useState(false)
-    const [genderValue, setGenderValue] = useState('')
+    const [genderValue, setGenderValue] = useState('M')
     const [firstNameValue, setFirstNameValue] = useState('')
     const [lastNameValue, setLastNameValue] = useState('')
     const [usernameValue, setUsernameValue] = useState('')
@@ -16,6 +18,7 @@ export default function Register(props : any) {
     const [passwordValue, setPasswordValue] = useState('')
     const [confPasswordValue, setConfPasswordValue] = useState('')
     const [dateValue, setDateValue] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
@@ -25,6 +28,7 @@ export default function Register(props : any) {
     const [confPasswordError, setConfPasswordError] = useState(false)
     const [dateError, setDateError] = useState(false)
     
+
     useEffect(() => {
         setActive(!props.active)
     }, [props.active])
@@ -37,8 +41,37 @@ export default function Register(props : any) {
     }
 
     const handleSubmit = () => {
+        console.log('tokas', props.token)
         if(validateForm()) {
-            
+            setLoading(true)
+
+            const data = new FormData
+            data.append('first_name', firstNameValue)
+            data.append('last_name', lastNameValue)
+            data.append('username', usernameValue)
+            data.append('email', emailValue)
+            data.append('password', passwordValue)
+            data.append('gender', genderValue)
+            data.append('date_of_birth', dateValue)
+
+            axios.defaults.headers.common['X-CSRFToken'] = props.token
+
+            axios.post(`${process.env.SITE_URL}/register`, data, {
+                withCredentials: true
+              }).then((res) => {
+                console.log(res)
+            }).catch(err => {
+                if(err.response.data == 'failed to validate password') {
+                    setErrorMessage('Failed to validate password. Please make sure your password meets the requirements.')
+                }
+                if(err.response.data == 'username already exists') {
+                    setErrorMessage('Username already exists. Please choose another one.')
+                }
+                if(err.response.data == 'email already exists') {
+                    setErrorMessage('An account with this email address already exists. Please choose another one, or log in instead.')
+                }
+                console.log(err)
+            })
         }
     }
 
@@ -127,12 +160,14 @@ export default function Register(props : any) {
             <input className={firstNameError ? styles.inputErrorName : styles.inputName} 
                 placeholder='First Name' 
                 value={firstNameValue} 
-                onChange={(e) => setFirstNameValue(e.target.value)}/>
+                onChange={(e) => setFirstNameValue(e.target.value)}
+                autoComplete="new-password"/>
             <input 
                 className={lastNameError ? styles.inputErrorName : styles.inputName} 
                 placeholder='Last Name'
                 value={lastNameValue} 
-                onChange={(e) => setLastNameValue(e.target.value)}/>
+                onChange={(e) => setLastNameValue(e.target.value)}
+                autoComplete="new-password"/>
         </div>
         <FormInput 
             type="username" 
@@ -166,7 +201,7 @@ export default function Register(props : any) {
                 className={styles.selectField} 
                 value={genderValue} 
                 onChange={(e) => setGenderValue(e.target.value)}>
-                <option disabled selected>Gender</option>
+                <option disabled>Gender</option>
                 <option value={'M'}>Male</option>
                 <option value={'F'}>Female</option>
                 <option value={'O'}>Other</option>
@@ -179,7 +214,7 @@ export default function Register(props : any) {
                 onChange={(e) => setDateValue(e.target.value)}/>
         </div>
         {errormessage && <span className={styles.errorMsg}>{errormessage}</span>}
-        <button type='button' className={styles.loginBtn} onClick={handleSubmit}>SIGN UP</button>
+        <button type='button' className={styles.loginBtn} onClick={handleSubmit}>{loading ? <img src='/loadinggif.gif'/> : 'SIGN UP'}</button>
         <span>Already have an account? <a onClick={() => changeForm()}>Log In</a></span>
         <span>or, sign up using:</span>
         <div className={styles.socialIcons}>
@@ -189,3 +224,5 @@ export default function Register(props : any) {
         </div>
     </div>
   )}
+
+  

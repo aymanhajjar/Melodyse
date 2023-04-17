@@ -3,8 +3,9 @@ import styles from '@/styles/Home.module.scss'
 import Login from '../components/login/login'
 import Register from '../components/register/register'
 import { useState } from 'react'
+import axios from 'axios'
 
-export default function Home() {
+export default function Home(props : any) {
   const [loginActive, setLoginActive] = useState(true)
 
   function handleFormChange() {
@@ -20,7 +21,7 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         <div className={styles.leftSide}>
-          {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange}/> : <Register active={loginActive} onChangeForm={handleFormChange}/>}
+          {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token}/> : <Register active={loginActive} onChangeForm={handleFormChange} token={props.token}/>}
         </div>
         <div className={styles.rightSide}>
 

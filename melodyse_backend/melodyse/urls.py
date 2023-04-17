@@ -8,5 +8,6 @@ urlpatterns = [
     path("logout", views.logout),
     path("register", views.register),
     path("checkusername", views.checkUsername),
+    path("gettoken", views.getToken),
     # path("", views.checkUsername),
 ]

@@ -9,6 +9,7 @@ export default function FromInput(props: any) {
     const [loading, setLoading] = useState(false)
     const [focus, setFocus] = useState(false)
     const [usernameAvailable, setUsernameAvailable] = useState(false)
+    const [csrfToken, setCSRF] = useState()
 
     useEffect(() => {
         if(props.onChange) {
@@ -34,7 +35,9 @@ export default function FromInput(props: any) {
         const data = new FormData
         console.log(`${process.env.SITE_URL}/checkusername`)
         data.append('username', e.target.value)
-        axios.post(`${process.env.SITE_URL}/checkusername`, data).then((res) => {
+        axios.post(`${process.env.SITE_URL}/checkusername`, data, {
+            withCredentials: true
+        }).then((res) => {
             res.data.status == 'available' ? setUsernameAvailable(true) : setUsernameAvailable(false)
             setLoading(false)
         })
@@ -55,6 +58,7 @@ export default function FromInput(props: any) {
                 placeholder={props.placeholder}
                 onChange={props.type == 'username' ? (e) => handleUsername(e) : (e) => setValue(e.target.value)}
                 value={value}
+                autoComplete="new-password"
             />
             <label className={labelVisible ? styles.visbleLabel : styles.hiddenLabel}>{props.label}</label>
             {props.type == 'username' && (value.length > 0 && <img 
