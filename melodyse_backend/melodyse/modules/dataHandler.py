@@ -6,6 +6,7 @@ def getData(user):
     points_remaining = user_info.subscription.points - user_info.points_used 
     unread_chats = Chat.objects.filter(participants=user, messages__is_read=False).exclude(messages__author=user).count()
     notification_count = Notification.objects.filter(user=user, is_read=False).count()
+    request_count = FriendRequest.objects.filter(user=user, is_seen=False).count() + ProjectInvite.objects.filter(recipient=user, is_seen=False).count()
 
     return {
         'status': 'success',
@@ -17,8 +18,7 @@ def getData(user):
         'points_remaining': points_remaining,
         'subscription_level': user_info.subscription.level,
         'subscription_name': user_info.subscription.name,
-        'notifications': [notf.serialize() for notf in user.notifications.all()],
+        'notifications': notification_count,
         'chats': unread_chats,
-        'friend_requests': [request.serialize() for request in user.friend_requests.all()],
-        'project_invites':[invite.serialize() for invite in user.project_invites.all()]
+        'requests': request_count
     }
