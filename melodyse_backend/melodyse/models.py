@@ -140,6 +140,7 @@ class Track(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     number_of_plays = models.BigIntegerField(default=0)
+    cover = models.ImageField(default='tracks/track.png', upload_to='tracks/')
     is_personal = models.BooleanField()
     likes = models.ManyToManyField(User, related_name="likes")
     def __str__(self):
@@ -163,6 +164,7 @@ class Notification(models.Model):
             'date': self.date_created,
             'is_read': self.is_read,
             'target_user': self.target_user.id,
+            'target_user_pic': self.target_user.info.picture.url,
             'target_project': self.project.id,
             'target_track': self.track.id
         }
