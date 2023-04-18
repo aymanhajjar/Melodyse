@@ -40,7 +40,18 @@ export default function NotificationButton(props: any) {
             {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/> : 
             <div className={styles.notificationsContainer}>
                 <h2>Notifications:</h2>
-                {notifications ? 'ok' :
+                {notifications ? notifications.map(notf => (
+                    <div className={styles.notification}>
+                        <div className={styles.details}>
+                        <h3>{notf.title}</h3>
+                        <span>{notf.content}</span>
+                        </div>
+                        {notf.target_user_pic && <img src={process.env.SITE_URL + notf.target_user_pic}/>}
+                        {notf.project_pic && <img src={process.env.SITE_URL + notf.project_pic}/>}
+                    </div>
+                ))
+                
+                :
                 <span className={styles.noNotf}>You don't have any notifications</span>}
                 </div>
             }

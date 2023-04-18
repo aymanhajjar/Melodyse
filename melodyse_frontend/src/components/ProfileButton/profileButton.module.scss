@@ -1,6 +1,10 @@
+$main_red: #AB4967;
+
 .profileimg {
     width: 3rem;
     object-fit: contain;
+    border-radius: 10px;
+    border: solid $main_red 2px;
     transition: all 0.3s;
 }
 

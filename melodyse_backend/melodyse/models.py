@@ -163,10 +163,10 @@ class Notification(models.Model):
             'content': self.content,
             'date': self.date_created,
             'is_read': self.is_read,
-            'target_user': self.target_user.id,
-            'target_user_pic': self.target_user.info.picture.url,
-            'target_project': self.project.id,
-            'target_track': self.track.id
+            'target_user': self.target_user.id if self.target_user else None,
+            'target_user_pic': self.target_user.info.get().picture.url if self.target_user else None,
+            'target_project': self.project.id if self.project else None,
+            'target_track': self.track.id if self.track else None
         }
 
 class TrackComment(models.Model):

@@ -27,14 +27,14 @@ $main_red: #AB4967;
     visibility: visible;
     position: absolute;
     background-color: #D49BAE;
-    color: black;
+    color: white;
     right: 0;
     margin-top: 1rem;
     display: flex;
-    width: 22rem;
+    width: 25rem;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.5rem;
+    padding: 1.2rem;
     z-index: 1;
     box-shadow: 2px 2px 10px #cdcdcd;
     transition: all 0.2s ease-out;
@@ -45,12 +45,13 @@ $main_red: #AB4967;
     visibility: hidden;
     position: absolute;
     right: 0;
-    width: 22rem;
+    width: 25rem;
     display: flex;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.5rem;
+    padding: 1.2rem;
     margin-top: 1rem;
+    color: white;
     z-index: 1;
     transform: translateX(-10%) scale(1.1);
     transition: all 0.2s ease-out;
@@ -62,4 +63,31 @@ $main_red: #AB4967;
 
 .noNotf {
     opacity: 0.5;
+}
+
+.notification {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #FFE8D1;
+    padding: 1rem;
+    color: black;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.notification img {
+    width: 4rem;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.notification span {
+    font-size: 0.8rem;
+}
+
+.notification:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+    transition: all 0.3s;
 }
