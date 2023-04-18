@@ -133,26 +133,6 @@ class Task(models.Model):
     def __str__(self):
         return self.name + ' in ' + self.project.title
 
-class Notification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    date_created = models.DateTimeField(auto_now_add=True)
-    is_read = models.BooleanField(default=False)
-    target_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.user.username + "'s notification " + self.title
-    def serialize(self):
-        return {
-            'title': self.title,
-            'content': self.content,
-            'date': self.date_created,
-            'is_read': self.is_read,
-            'target_user': self.target_user.id,
-            'target_project': self.project.id
-        }
-
 class Track(models.Model):
     track = models.FileField(upload_to='user_tracks/')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tracks")
@@ -164,6 +144,28 @@ class Track(models.Model):
     likes = models.ManyToManyField(User, related_name="likes")
     def __str__(self):
         return self.name
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+    target_user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, blank=True, null=True)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, blank=True, null=True)
+    def __str__(self):
+        return self.user.username + "'s notification " + self.title
+    def serialize(self):
+        return {
+            'title': self.title,
+            'content': self.content,
+            'date': self.date_created,
+            'is_read': self.is_read,
+            'target_user': self.target_user.id,
+            'target_project': self.project.id,
+            'target_track': self.track.id
+        }
 
 class TrackComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_sent")
