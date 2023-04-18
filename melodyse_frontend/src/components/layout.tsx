@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Layout.module.scss'
 import axios from 'axios'
+import ProfileButton from './ProfileButton/ProfileButton'
+import MessageButton from './MessageButton/MessageButton'
+import NotificationButton from './NotificationButton/NotificationButton'
 
 
 export default function Layout({ children }) {
 
     const [selected, setSelected] = useState('Home')
     const [loggedIn, setLoggedIn] = useState(false)
+    const [userData, setUserData] = useState({})
 
     useEffect(() => {
         getUserInfo()
@@ -17,7 +21,8 @@ export default function Layout({ children }) {
         axios.get(`${process.env.SITE_URL}/getinfo`, {
             withCredentials: true
         }).then(res => {
-            console.log(res)
+            setLoggedIn(true)
+            setUserData(res.data)
         }).catch(err => {
             if (err.response.status === 403 && err.response.data == 'User not logged in') {
                 setLoggedIn(false)
@@ -39,9 +44,11 @@ export default function Layout({ children }) {
                     <h1>MELODYSE</h1>
                 </div>
 
-                {loggedIn ? 
-                <div>
-                    loggedin
+                {loggedIn && userData ? 
+                <div className={styles.userbuttons}>
+                    <MessageButton/>
+                    <NotificationButton/>
+                    <ProfileButton picture={userData['pic']}/>
                 </div>
                 
                 :<button type='button' className={styles.loginBtn}>LOG IN</button>}

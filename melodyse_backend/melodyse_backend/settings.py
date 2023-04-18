@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -45,6 +46,8 @@ CORS_ALLOW_METHODS = [
     'POST'
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # Application definition
 
 INSTALLED_APPS = [
@@ -137,6 +140,8 @@ TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
 
 USE_TZ = True
+
+
 
 
 # Static files (CSS, JavaScript, Images)
