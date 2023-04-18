@@ -103,3 +103,11 @@ $background_gray: #ECECEC;
     box-shadow: 0 0 0px $background_gray;
     background-color: $background_gray;
 }
+
+.userbuttons {
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+}

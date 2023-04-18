@@ -58,7 +58,8 @@ class UserFriend(models.Model):
 class FriendRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_requests")
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    is_accepted = models.BooleanField(default=False)
+    is_accepted = models.BooleanField(blank=True, null=True)
+    is_seen = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username + "'s friend requests"
     def serialize(self):
@@ -95,7 +96,8 @@ class ProjectInvite(models.Model):
     message = models.TextField(blank=True)
     is_collab = models.BooleanField()
     offered_amount = models.IntegerField(blank=True)
-    is_accepted = models.BooleanField(default=False)
+    is_accepted = models.BooleanField(blank=True, null=True)
+    is_seen = models.BooleanField(default=False)
     def __str__(self):
         return self.initiator.username + "'s invite"
     def serialize(self):

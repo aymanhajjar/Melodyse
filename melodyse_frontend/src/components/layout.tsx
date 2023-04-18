@@ -5,6 +5,7 @@ import axios from 'axios'
 import ProfileButton from './ProfileButton/ProfileButton'
 import MessageButton from './MessageButton/MessageButton'
 import NotificationButton from './NotificationButton/NotificationButton'
+import FriendButton from './FriendButton/FriendButton'
 
 
 export default function Layout({ children }) {
@@ -23,9 +24,14 @@ export default function Layout({ children }) {
         }).then(res => {
             setLoggedIn(true)
             setUserData(res.data)
+            console.log(res.data)
         }).catch(err => {
-            if (err.response.status === 403 && err.response.data == 'User not logged in') {
-                setLoggedIn(false)
+            try {
+                if (err.response.status === 403 && err.response.data == 'User not logged in') {
+                    setLoggedIn(false)
+                }
+            } catch {
+                console.error(err)
             }
         })
     }
@@ -46,6 +52,7 @@ export default function Layout({ children }) {
 
                 {loggedIn && userData ? 
                 <div className={styles.userbuttons}>
+                    <FriendButton/>
                     <MessageButton/>
                     <NotificationButton/>
                     <ProfileButton picture={userData['pic']}/>

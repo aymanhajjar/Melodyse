@@ -78,3 +78,28 @@ def getInfo(request):
         return JsonResponse(user_data)
     else:
         return HttpResponse('User not logged in', status=403)
+
+def getChats(request):
+    if request.user.is_authenticated:
+        user_chats = Chat.objects.filter(project=None, participants=request.user)
+        chats = [chat.serialize() for chat in user_chats]
+        return JsonResponse(chats)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getNotifications(request):
+    if request.user.is_authenticated:
+        notifications = [notf.serialize() for notf in request.user.notifications.all()]
+        return JsonResponse(notifications)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getRequests(request):
+    if request.user.is_authenticated:
+        requests = {
+            'friends': [request.serialize() for request in request.user.friend_requests.all()],
+            'projects': [invite.serialize() for invite in request.user.project_invites.all()]
+        } 
+        return JsonResponse(requests)
+    else:
+        return HttpResponse('User not logged in', status=403)

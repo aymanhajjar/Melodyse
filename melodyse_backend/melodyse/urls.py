@@ -10,4 +10,5 @@ urlpatterns = [
     path("checkusername", views.checkUsername),
     path("gettoken", views.getToken),
     path("getinfo", views.getInfo),
+    path("getmessages", views.getChats)
 ]

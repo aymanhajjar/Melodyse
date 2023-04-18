@@ -1,3 +1,58 @@
+$main_red: #AB4967;
+
 .ntfimg {
-    width: 2rem;
+    width: 2.2rem;
+    object-fit: contain;
+    transition: all 0.3s;
+}
+
+.container {
+    position: relative;
+}
+
+.loading {
+    width: 5rem;
+    text-align: center;
+}
+
+.ntfimg:hover {
+    cursor: pointer;
+    filter: brightness(130%);
+    transition: all 0.3s;
+}
+
+.dropdownOpen {
+    opacity: 1;
+    visibility: visible;
+    position: absolute;
+    background-color: #D49BAE;
+    color: black;
+    right: 0;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 20rem;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 1rem;
+    z-index: 1;
+    box-shadow: 2px 2px 10px #cdcdcd;
+    transition: all 0.2s ease-out;
+}
+
+.dropdownHidden {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    width: 20rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 1rem;
+    margin-top: 1rem;
+    z-index: 1;
+    transform: translateX(-10%) scale(1.1);
+    transition: all 0.2s ease-out;
 }
