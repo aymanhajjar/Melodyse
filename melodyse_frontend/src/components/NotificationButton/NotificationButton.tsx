@@ -41,7 +41,7 @@ export default function NotificationButton(props: any) {
             <div className={styles.notificationsContainer}>
                 <h2>Notifications:</h2>
                 {notifications ? notifications.map(notf => (
-                    <div className={styles.notification}>
+                    <div className={notf.is_read ? styles.notfRead : styles.notfUnread}>
                         <div className={styles.details}>
                         <h3>{notf.title}</h3>
                         <span>{notf.content}</span>

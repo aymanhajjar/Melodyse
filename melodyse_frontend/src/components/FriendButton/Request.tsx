@@ -4,22 +4,24 @@ import FormInput from '../FormInput/FormInput'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-export default function Request(props: any) {
+export default function Request({ type, request }) {
 
     return(
-            <div className={chat.number_unread > 0 ? styles.chatUnread : styles.chatRead}>
-                <img className={styles.profPic} src={process.env.SITE_URL + chat.participant_img}/>
+
+        <div className={styles.request}>
+        {type == 'friend' ?
+    
+            <div className={request.is_seen ? styles.reqRead :  styles.reqUnread}>
+                <img className={styles.profPic} src={process.env.SITE_URL + request.sender_picture}/>
                 <div className={styles.details}>
-                <h3>{chat.participant}</h3>
-                <span>{chat.user_id == chat.latest_message.author_id 
-                        && (chat.latest_message.is_read ? <img className={styles.checkMark} src={'/msg-read.png'}/> : <img className={styles.checkMark} src={'/msg-unread.png'}/>) }
-                        {chat.latest_message.content}
-                        </span>
+                    <h3>{request.sender_name}   <span>(@{request.sender_username})</span></h3>
+                    <div className={styles.actions}>
+                        <button className={styles.accept}><img src={'/icons/check.png'} />Accept</button>
+                        <button className={styles.reject}><img src={'/icons/x.png'} />Reject</button>
+                    </div>
                 </div>
-                {chat.number_unread > 0 && <div className={styles.unreadNumber}>
-                    {chat.number_unread}
-                </div>}
-            </div>
+            </div> : 'ok'}
+        </div>
         
     )
 }

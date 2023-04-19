@@ -65,7 +65,7 @@ $main_red: #AB4967;
     opacity: 0.5;
 }
 
-.notification {
+.notfRead {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -77,23 +77,28 @@ $main_red: #AB4967;
     transition: all 0.3s;
 }
 
-.notification h3 {
+.notfRead h3 {
     font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 
-.notification img {
+.notfRead img {
     width: 4rem;
     object-fit: contain;
     border-radius: 10px;
 }
 
-.notification span {
+.notfRead span {
     font-size: 0.8rem;
 }
 
-.notification:hover {
+.notfRead:hover {
     filter: brightness(110%);
     cursor: pointer;
     transition: all 0.3s;
+}
+
+.notfUnread {
+    @extend .notfRead;
+    border: solid $main_red 2px;
 }
