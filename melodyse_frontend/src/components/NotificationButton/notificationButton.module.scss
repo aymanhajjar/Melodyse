@@ -73,7 +73,13 @@ $main_red: #AB4967;
     padding: 1rem;
     color: black;
     border-radius: 10px;
+    align-items: center;
     transition: all 0.3s;
+}
+
+.notification h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .notification img {

@@ -182,6 +182,8 @@ class Chat(models.Model):
     participants = models.ManyToManyField(User, related_name='chats')
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="chat", blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return 'chat between ' + ', '.join([participant.username for participant in self.participants.all()])
     def serialize(self):
         participants_list = [{'id': p.id, 'username': p.username} for p in self.participants.all()]
         latest_message = self.messages.latest('date_created')

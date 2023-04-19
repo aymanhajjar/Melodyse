@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.password_validation import validate_password
 from .models import *
+from django.db.models import Max
 from .modules import dataHandler
 
 # Create your views here.
@@ -81,8 +82,21 @@ def getInfo(request):
 
 def getChats(request):
     if request.user.is_authenticated:
-        user_chats = Chat.objects.filter(project=None, participants=request.user)
-        chats = [chat.serialize() for chat in user_chats]
+        user_chats = Chat.objects.filter(project=None, participants=request.user).annotate(latest_message_date=Max('messages__date_created')).order_by('-latest_message_date')
+        chats = []
+        for chat in user_chats:
+
+            serialized = chat.serialize()
+
+            serialized['number_unread'] = Message.objects.filter(chat=chat, is_read=False).exclude(author=request.user).count()
+
+            serialized['participant'] = ', '.join([participant.first_name + ' ' + participant.last_name for participant in chat.participants.all().exclude(id=request.user.id)])
+
+            serialized['participant_img'] = chat.participants.exclude(id=request.user.id).first().info.get().picture.url
+            chats.append(serialized)
+
+            serialized['user_id'] = request.user.id
+
         return JsonResponse(chats, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)

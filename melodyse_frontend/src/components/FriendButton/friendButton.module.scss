@@ -1,3 +1,5 @@
+$main_red: #AB4967;
+
 .frdimg {
     width: 2.2rem;
     object-fit: contain;
@@ -8,4 +10,126 @@
     cursor: pointer;
     filter: brightness(130%);
     transition: all 0.3s;
+}
+
+.container {
+    position: relative;
+}
+
+.loading {
+    width: 5rem;
+    text-align: center;
+    margin: auto;
+}
+
+.dropdownOpen {
+    opacity: 1;
+    visibility: visible;
+    position: absolute;
+    background-color: #D49BAE;
+    color: white;
+    right: 0;
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    width: 25rem;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 1.2rem;
+    z-index: 1;
+    box-shadow: 2px 2px 10px #cdcdcd;
+    transition: all 0.2s ease-out;
+}
+
+.dropdownOpen h2, .dropdownHidden h2 {
+    margin-bottom: 1rem;
+}
+
+.dropdownHidden {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    width: 25rem;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 1.2rem;
+    margin-top: 1rem;
+    color: white;
+    z-index: 1;
+    transform: translateX(-10%) scale(1.1);
+    transition: all 0.2s ease-out;
+}
+
+.chatsContainer h2 {
+    margin-bottom: 1rem;
+}
+
+.chatsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.noChat {
+    opacity: 0.5;
+}
+
+.chatRead {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    background-color: #FFE8D1;
+    padding: 1rem;
+    color: black;
+    border-radius: 10px;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.chatRead h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.chatRead img {
+    width: 4rem;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.chatRead span {
+    font-size: 0.8rem;
+    display: inline-block;
+    width: 85%;
+}
+
+.chatRead:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.unreadNumber {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $main_red;
+    border-radius: 50%;
+    color: white;
+    font-size: 0.8rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatUnread {
+    @extend .chatRead;
+    border: solid $main_red 2px;
 }
