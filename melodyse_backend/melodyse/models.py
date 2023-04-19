@@ -95,7 +95,7 @@ class ProjectInvite(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="invites")
     message = models.TextField(blank=True)
     is_collab = models.BooleanField()
-    offered_amount = models.IntegerField(blank=True)
+    offered_amount = models.IntegerField(blank=True, null=True)
     is_accepted = models.BooleanField(blank=True, null=True)
     is_seen = models.BooleanField(default=False)
     def __str__(self):
