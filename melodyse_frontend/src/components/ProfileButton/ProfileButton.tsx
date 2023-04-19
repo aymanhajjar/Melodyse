@@ -1,13 +1,48 @@
 import styles from './profileButton.module.scss'
 import { useEffect, useState } from 'react'
-import FormInput from '../FormInput/FormInput'
+import ActionButton from './ActionButton'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 
 export default function ProfileButton(props: any) {
+    const [dropdownOpen, setDropdownOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [sub, setChats] = useState()
 
-    console.log(`${process.env.SITE_URL + props.picture}`)
+    const openDropDown = () => {
+        if(!dropdownOpen) {
+            setLoading(true)
+            getSubscription()
+        }
+        setDropdownOpen(!dropdownOpen)
+    }
+
+    const getSubscription = () => {
+        axios.get(`${process.env.SITE_URL}/getsubscription`, {
+            withCredentials: true
+        })
+        .then(res => {
+            if(res.data.length > 0) {
+                setChats(res.data)
+            } else {
+                setChats('')
+            }
+            console.log(res)
+            setLoading(false)
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+
     return(
-        <img className={styles.profileimg} src={`${process.env.SITE_URL + props.picture}`}/>
+        <div className={styles.container}>
+            <img className={styles.profileimg} src={`${process.env.SITE_URL + props.picture}`} onClick={openDropDown}/>
+            <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
+                <div className={styles.subContainer}>
+                    <div className={styles.subPic}></div>
+                </div>
+                <ActionButton name="My Profile"/>
+                <ActionButton name="My Profile"/>
+            </div>
+        </div>
     )
 }

@@ -18,6 +18,7 @@ def getData(user):
         'points_remaining': points_remaining,
         'subscription_level': user_info.subscription.level,
         'subscription_name': user_info.subscription.name,
+        'subscription_tag': user_info.subscription.tag_on_profile,
         'notifications': notification_count,
         'chats': unread_chats,
         'requests': request_count

@@ -12,5 +12,6 @@ urlpatterns = [
     path("getinfo", views.getInfo),
     path("getchats", views.getChats),
     path("getnotifications", views.getNotifications),
-    path("getrequests", views.getRequests)
+    path("getrequests", views.getRequests),
+    path("getsubscription", views.getSubscription)
 ]

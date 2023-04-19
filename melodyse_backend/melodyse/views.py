@@ -117,3 +117,13 @@ def getRequests(request):
         return JsonResponse(requests, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def getSubscription(request):
+    if request.user.is_authenticated:
+        sub = {
+            'subscription_plan': request.user,
+            'projects': [invite.serialize() for invite in request.user.project_invites.all()]
+        } 
+        return JsonResponse(requests, safe=False)
+    else:
+        return HttpResponse('User not logged in', status=403)

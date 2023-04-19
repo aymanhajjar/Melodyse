@@ -15,8 +15,8 @@ class SubscriptionPlan(models.Model):
     max_personal_projects = models.IntegerField()
     max_active_projects = models.IntegerField(default=0)
     points = models.IntegerField()
-    tag_on_profile = models.CharField(max_length=100, blank=True)
-    profile_color = models.CharField(max_length=200, blank=True)
+    tag_on_profile = models.CharField(max_length=100, blank=True, null=True)
+    profile_color = models.CharField(max_length=200, blank=True, null=True)
     features = ArrayField(models.CharField(max_length=200))
     def __str__(self):
         return self.name

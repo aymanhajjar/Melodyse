@@ -99,6 +99,29 @@ $main_red: #AB4967;
     width: 100%;
 }
 
+.messages {
+    position: relative;
+}
+
+.topActions {
+    position: absolute;
+    top: 0rem;
+    display: flex;
+    gap: 1rem;
+    right: 1rem;
+}
+
+.topActions img {
+    width: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.topActions img:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+}
+
 .profPic {
     width: 4rem;
     object-fit: contain;

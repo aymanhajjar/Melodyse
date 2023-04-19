@@ -97,7 +97,6 @@ $main_green: #47E5BC;
 
 .reqRead h3 {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
     transition: all 0.3s;
 }
 
@@ -108,10 +107,15 @@ $main_green: #47E5BC;
     transition: all 0.3s;
 }
 
-.reqRead h3 span {
+.username {
     display: inline;
     font-weight: normal;
     opacity: 0.5;
+}
+
+.reqRead h3 span {
+    display: inline;
+    font-weight: normal;
 }
 
 .reqRead img {
@@ -134,6 +138,23 @@ $main_green: #47E5BC;
 
 .details {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.moredetails {
+    font-weight: 600;
+    color: $main_red;
+    font-size: 0.9rem !important;
+    transition: all 0.3s;
+}
+
+.moredetails:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+    transform: translateX(10%);
+    transition: all 0.3s;
 }
 
 .profPic {

@@ -39,7 +39,11 @@ export default function MessageButton(props: any) {
             <img className={styles.msgimg} src='/msg.png' onClick={openDropDown}/>
             <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
                 {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/> : 
-                <div>
+                <div className={styles.messages}>
+                    <div className={styles.topActions}>
+                        <img src={'/icons/compose.png'}/>
+                        <img src={'/icons/inbox.png'}/>
+                    </div>
                     <h2>Inbox:</h2>
                 <div className={styles.chatsContainer}>
                     {chats ? chats.map(chat => (

@@ -55,7 +55,11 @@ export default function Layout({ children }) {
                     <FriendButton/>
                     <MessageButton/>
                     <NotificationButton/>
-                    <ProfileButton picture={userData['pic']}/>
+                    <ProfileButton 
+                        picture={userData['pic']} 
+                        points={userData['points_remaining']}
+                        subscription_level ={userData['subscription_level']}
+                        subscription_name={[userData['subscription_name']]} />
                 </div>
                 
                 :<button type='button' className={styles.loginBtn}>LOG IN</button>}
