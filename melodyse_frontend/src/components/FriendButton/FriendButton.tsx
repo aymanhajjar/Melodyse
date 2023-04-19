@@ -9,7 +9,8 @@ export default function FriendButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [friendsTab, setFriendsTab] = useState(true)
-    const [requests, setRequests] = useState()
+    const [friendRequests, setFriendRequests] = useState()
+    const [projectRequests, setProjectRequests] = useState()
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -25,9 +26,11 @@ export default function FriendButton(props: any) {
         })
         .then(res => {
             if(res.data.length > 0) {
-                setRequests(res.data)
+                setFriendRequests(res.data.friends)
+                setProjectRequests(res.data.projects)
             } else {
-                setRequests('')
+                setFriendRequests('')
+                setProjectRequests('')
             }
             console.log(res)
             setLoading(false)
@@ -55,11 +58,11 @@ export default function FriendButton(props: any) {
                                 onClick={() => setFriendsTab(!friendsTab)}>Projects</button>
                         </div>
 
-                        { friendsTab && (requests.friends ? requests.friends.map(req => (
+                        { friendsTab && (friendRequests ? friendRequests.map(req => (
                                     <Request type='friend' request={req}/>
                                 )) :   <span className={styles.noChat}>You don't have any friend requests</span>)}
 
-                        { !friendsTab && (requests.projects ? requests.projects.map(req => (
+                        { !friendsTab && (projectRequests ? projectRequests.map(req => (
                                     <Request type='project' request={req}/>
                                 )) :   <span className={styles.noChat}>You don't have any project requests</span>)}
                     </div>
