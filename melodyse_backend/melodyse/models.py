@@ -65,8 +65,9 @@ class FriendRequest(models.Model):
     def serialize(self):
         return {
             "sender_id": self.sender.id,
-            "sender_name": self.sender.username,
-            "sender_picture": self.sender.info.picture.url,
+            "sender_name": self.sender.first_name + ' ' + self.sender.last_name,
+            "sender_username": self.sender.username,
+            "sender_picture": self.sender.info.get().picture.url,
             "is_accepted": self.is_accepted
         }
     
@@ -103,8 +104,9 @@ class ProjectInvite(models.Model):
     def serialize(self):
         return {
             "sender_id": self.initiator.id,
-            "sender_name": self.initiator.username,
-            "sender_picture": self.initiator.info.picture.url,
+            "sender_name": self.initiator.first_name + ' ' + self.initiator.last_name,
+            "sender_username": self.initiator.username,
+            "sender_picture": self.initiator.info.get().picture.url,
             "project_name": self.project.title,
             "project_id": self.project.id,
             "message": self.message,
