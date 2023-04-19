@@ -73,7 +73,8 @@ $main_red: #AB4967;
 }
 
 .noChat {
-    opacity: 0.5;
+    opacity: 0.6;
+    font-size: 0.8rem;
 }
 
 .chatRead {
@@ -112,24 +113,34 @@ $main_red: #AB4967;
     transition: all 0.3s;
 }
 
-.unreadNumber {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: $main_red;
-    border-radius: 50%;
-    color: white;
-    font-size: 0.8rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    text-align: center;
+.tabs {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 1rem;
 }
 
-.chatUnread {
-    @extend .chatRead;
-    border: solid $main_red 2px;
+.reqBtn {
+    border: none;
+    border-radius: 10px;
+    width: 8rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.reqBtn:hover {
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.reqBtnActive {
+    @extend .reqBtn;
+    background-color: $main_red;
+    color: white;
+}
+
+.reqBtnInactive {
+    @extend .reqBtn;
+    background-color: $main_red;
+    opacity: 0.5;
+    color: white;
 }

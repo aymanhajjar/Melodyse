@@ -95,7 +95,11 @@ $main_red: #AB4967;
     margin-bottom: 0.5rem;
 }
 
-.chatRead img {
+.details {
+    width: 100%;
+}
+
+.profPic {
     width: 4rem;
     object-fit: contain;
     border-radius: 10px;
@@ -103,7 +107,8 @@ $main_red: #AB4967;
 
 .chatRead span {
     font-size: 0.8rem;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     width: 85%;
 }
 
@@ -133,4 +138,10 @@ $main_red: #AB4967;
 .chatUnread {
     @extend .chatRead;
     border: solid $main_red 2px;
+}
+
+.checkMark {
+    width: 0.8rem;
+    object-fit: contain;
+    margin-right: 0.5rem;
 }

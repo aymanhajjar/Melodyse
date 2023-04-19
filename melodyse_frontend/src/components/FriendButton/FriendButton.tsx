@@ -7,25 +7,26 @@ import Cookies from 'js-cookie'
 export default function FriendButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [chats, setChats] = useState()
+    const [friendsTab, setFriendsTab] = useState(true)
+    const [requests, setRequests] = useState()
 
     const openDropDown = () => {
         if(!dropdownOpen) {
             setLoading(true)
-            getChats()
+            getRequests()
         }
         setDropdownOpen(!dropdownOpen)
     }
 
-    const getChats = () => {
-        axios.get(`${process.env.SITE_URL}/getchats`, {
+    const getRequests = () => {
+        axios.get(`${process.env.SITE_URL}/getrequests`, {
             withCredentials: true
         })
         .then(res => {
             if(res.data.length > 0) {
-                setChats(res.data)
+                setRequests(res.data)
             } else {
-                setChats('')
+                setRequests('')
             }
             console.log(res)
             setLoading(false)
@@ -33,11 +34,47 @@ export default function FriendButton(props: any) {
             console.error(err)
         })
     }
-    
-    console.log(`${process.env.SITE_URL + props.picture}`)
+
     return(
         <div className={styles.container}>
-        <img className={styles.frdimg} src='/friendss.png'/>
-        </div>
+            <img className={styles.frdimg} src='/friendss.png' onClick={openDropDown}/>
+            <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
+                {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/> : 
+                <div>
+                    <h2>Requests:</h2>
+                    <div className={styles.chatsContainer}>
+                        <div className={styles.tabs}>
+                            <button 
+                                type='button' 
+                                className={friendsTab ? styles.reqBtnActive : styles.reqBtnInactive}
+                                onClick={() => setFriendsTab(!friendsTab)}>Friends</button>
+                            <button 
+                                type='button' 
+                                className={friendsTab ? styles.reqBtnInactive : styles.reqBtnActive}
+                                onClick={() => setFriendsTab(!friendsTab)}>Projects</button>
+                        </div>
+                        {requests ? requests.map(chat => (
+                            <div className={chat.number_unread > 0 ? styles.chatUnread : styles.chatRead}>
+                                <img className={styles.profPic} src={process.env.SITE_URL + chat.participant_img}/>
+                                <div className={styles.details}>
+                                <h3>{chat.participant}</h3>
+                                <span>{chat.user_id == chat.latest_message.author_id 
+                                        && (chat.latest_message.is_read ? <img className={styles.checkMark} src={'/msg-read.png'}/> : <img className={styles.checkMark} src={'/msg-unread.png'}/>) }
+                                        {chat.latest_message.content}
+                                        </span>
+                                </div>
+                                {chat.number_unread > 0 && <div className={styles.unreadNumber}>
+                                    {chat.number_unread}
+                                </div>}
+                            </div>
+                        ))
+                        
+                        :
+                        <span className={styles.noChat}>You don't have any friend requests</span>}
+                    </div>
+                </div>
+                }
+                </div>
+            </div>
     )
 }
