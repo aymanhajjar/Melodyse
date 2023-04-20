@@ -41,7 +41,7 @@ export default function ProfileButton(props: any) {
                     <div className={styles.subPic}></div>
                 </div>
                 <ActionButton name="My Profile"/>
-                <ActionButton name="My Profile"/>
+                <ActionButton name="Log Out"/>
             </div>
         </div>
     )

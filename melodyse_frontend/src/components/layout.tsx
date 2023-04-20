@@ -6,6 +6,7 @@ import ProfileButton from './ProfileButton/ProfileButton'
 import MessageButton from './MessageButton/MessageButton'
 import NotificationButton from './NotificationButton/NotificationButton'
 import FriendButton from './FriendButton/FriendButton'
+import { useRouter } from 'next/router'
 
 
 export default function Layout({ children }) {
@@ -13,6 +14,8 @@ export default function Layout({ children }) {
     const [selected, setSelected] = useState('Home')
     const [loggedIn, setLoggedIn] = useState(false)
     const [userData, setUserData] = useState({})
+
+    const router = useRouter()
 
     useEffect(() => {
         getUserInfo()
@@ -68,9 +71,9 @@ export default function Layout({ children }) {
             <div className={styles.bodyContainer}>
                 <nav className={styles.navBar}>
                     <div className={styles.navBtnDiv}>
-                    <button type='button' className={styles.navBtn}>HOME</button>
-                    <button type='button' className={styles.navBtn}>LISTEN</button>
-                    <button type='button' className={styles.navBtn}>COLLAB</button>
+                    <button type='button' className={styles.navBtn} onClick={() => router.push('/')}>HOME</button>
+                    <button type='button' className={styles.navBtn} onClick={() => router.push('/listen')}>LISTEN</button>
+                    <button type='button' className={styles.navBtn} onClick={() => router.push('/collab')}>COLLAB</button>
                     <button type='button' className={styles.navBtn}>ASSISTANT</button>
                     <button type='button' className={styles.navBtn}>ABOUT</button>
                     </div>
