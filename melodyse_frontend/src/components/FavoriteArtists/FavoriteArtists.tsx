@@ -8,7 +8,7 @@ export default function FavoriteArtists(props: any) {
     const [spotifyToken, setToken] = useState()
     const [artists, setArtists] = useState()
     const [searchVal, setSearchVal] = useState()
-    const [index, setIndex] = useState(0)
+    const [chosenArtists, setChosenArtists] = useState([])
 
     useEffect(() => {
         !spotifyToken && getToken()
@@ -17,13 +17,6 @@ export default function FavoriteArtists(props: any) {
     useEffect(() => {
         spotifyToken && getArtists()
     }, [spotifyToken])
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-          setIndex((i) => i + 1)
-        }, 200)
-        return () => clearInterval(interval)
-      }, [])
 
     const getToken = () => {
         const client_id = process.env.SPOTIFY_CLIENT_ID
@@ -78,6 +71,10 @@ export default function FavoriteArtists(props: any) {
           }
     }
 
+    const addArtist = () => {
+
+    }
+
     return(
         <div className={styles.container}>
             <h2>Choose up to 5 of your favorite artists!</h2>
@@ -93,7 +90,7 @@ export default function FavoriteArtists(props: any) {
                     </div>
                         <div className={styles.artists}>
                         {artists.map((artist, index) => (
-                            <Artist data={artist} index={index}/>
+                            <Artist data={artist} index={index} onClick={addArtist}/>
                         ))}
                     </div>
                 </div>}
