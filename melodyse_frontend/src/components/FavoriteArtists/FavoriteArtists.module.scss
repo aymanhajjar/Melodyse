@@ -22,17 +22,6 @@ $main_red: #AB4967;
   }
 }
 
-@keyframes fadeIn {
-  0% {
-    transform: translateX(-5%) scale(1.1);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0) scale(1);
-    opacity: 1;
-  }
-}
-
 .container {
   display: flex;
   height: calc(100vh - 6.5rem);
@@ -41,12 +30,13 @@ $main_red: #AB4967;
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
+  width: 100%;
   position: relative;
 }
 
 .later {
   position: absolute;
-  top: 10%;
+  top: 0;
   right: 5%;
   padding: 0.5rem 1rem;
   border: none;
@@ -62,11 +52,23 @@ $main_red: #AB4967;
 
 }
 
+.artistsContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  transition: all 0.5s;
+  justify-content: center;
+}
+
 .artistSearch {
   border: none;
   width: 20rem;
   padding: 1rem;
+  padding-right: 4rem;
   border-radius: 10px;
+  margin: auto;
   transition: 0.2s all;
 }
 
@@ -76,9 +78,35 @@ $main_red: #AB4967;
   transition: 0.2s all;
 }
 
+.search {
+  position: relative;
+}
+
 .artists {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  gap: 2rem;
   justify-content: space-around;
+  transition: all 0.5s;
+}
+
+.searchBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.searchBtn:hover {
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #dcdcdc;
+}
+
+.searchBtn img {
+  width: 1.2rem;
 }

@@ -7,6 +7,8 @@ export default function FavoriteArtists(props: any) {
     const [loading, setLoading] = useState(true)
     const [spotifyToken, setToken] = useState()
     const [artists, setArtists] = useState()
+    const [searchVal, setSearchVal] = useState()
+    const [index, setIndex] = useState(0)
 
     useEffect(() => {
         !spotifyToken && getToken()
@@ -15,6 +17,13 @@ export default function FavoriteArtists(props: any) {
     useEffect(() => {
         spotifyToken && getArtists()
     }, [spotifyToken])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setIndex((i) => i + 1)
+        }, 200)
+        return () => clearInterval(interval)
+      }, [])
 
     const getToken = () => {
         const client_id = process.env.SPOTIFY_CLIENT_ID
@@ -42,27 +51,52 @@ export default function FavoriteArtists(props: any) {
                 "Authorization": `Bearer ${spotifyToken}`
             }
         }).then(res => {
+            console.log(res)
             setArtists(res.data.artists)
             setLoading(false)
         })
+    }
+
+    const search = () => {
+        setArtists()
+        setLoading(true)
+        axios.get(`https://api.spotify.com/v1/search?q=${searchVal}&&type=artist`, {
+            headers: {
+                "x-csrftoken": null,
+                "Authorization": `Bearer ${spotifyToken}`
+            }
+        }).then(res => {
+            console.log(res)
+            setArtists(res.data.artists.items)
+            setLoading(false)
+        })
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            search()
+          }
     }
 
     return(
         <div className={styles.container}>
             <h2>Choose up to 5 of your favorite artists!</h2>
             <button type='button' className={styles.later}>I will finish my profile later >></button>
-            <div >
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :
                 artists && 
-                <div>
-                <input className={styles.artistSearch}/>
-                    <div className={styles.artists}>
-                        {artists.map(artist => (
-                            <Artist data={artist}/>
+                <div className={styles.artistsContainer}>
+                    <div className={styles.search}>
+                        <input className={styles.artistSearch} placeholder='Search' value={searchVal} onChange={(e) => setSearchVal(e.target.value)} onKeyDown={handleKeyDown}/>
+                        <div className={styles.searchBtn}>
+                            <img src={'/icons/search.png'}/>
+                        </div>
+                    </div>
+                        <div className={styles.artists}>
+                        {artists.map((artist, index) => (
+                            <Artist data={artist} index={index}/>
                         ))}
                     </div>
                 </div>}
-            </div>
         </div>
     )
 }
