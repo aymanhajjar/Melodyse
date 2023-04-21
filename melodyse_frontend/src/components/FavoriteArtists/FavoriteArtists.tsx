@@ -2,12 +2,13 @@ import styles from './FavoriteArtists.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Artist from '../Artist/Artist'
+import ChosenArtistCard from '../ChosenArtistCard/ChosenArtistCard'
 
 export default function FavoriteArtists(props: any) {
     const [loading, setLoading] = useState(true)
     const [spotifyToken, setToken] = useState()
     const [artists, setArtists] = useState()
-    const [searchVal, setSearchVal] = useState()
+    const [searchVal, setSearchVal] = useState('')
     const [chosenArtists, setChosenArtists] = useState([])
     const [chosenIDs, setChosenIDs] = useState([])
 
@@ -56,18 +57,20 @@ export default function FavoriteArtists(props: any) {
     }
 
     const search = () => {
-        setArtists()
-        setLoading(true)
-        axios.get(`https://api.spotify.com/v1/search?q=${searchVal}&&type=artist`, {
-            headers: {
-                "x-csrftoken": null,
-                "Authorization": `Bearer ${spotifyToken}`
-            }
-        }).then(res => {
-            console.log(res)
-            setArtists(res.data.artists.items)
-            setLoading(false)
-        })
+        if(searchVal.length > 0) {
+            setArtists()
+            setLoading(true)
+            axios.get(`https://api.spotify.com/v1/search?q=${searchVal}&&type=artist`, {
+                headers: {
+                    "x-csrftoken": null,
+                    "Authorization": `Bearer ${spotifyToken}`
+                }
+            }).then(res => {
+                console.log(res)
+                setArtists(res.data.artists.items)
+                setLoading(false)
+            })
+        }
     }
 
     const handleKeyDown = (e) => {
@@ -76,33 +79,46 @@ export default function FavoriteArtists(props: any) {
           }
     }
 
+    const remove = (artist) => {
+        setChosenArtists(chosenArtists.filter(item => item['id'] !== artist['id']))
+        setChosenIDs(chosenIDs.filter(id => id !== artist.id))
+    }
+
     const addRemoveArtist = (artist) => {
-        chosenArtists.includes(artist) ? setChosenArtists(chosenArtists.filter(item => item !== artist))
-            : setChosenArtists([...chosenArtists, artist])
+        chosenIDs.includes(artist.id) ? setChosenArtists(chosenArtists.filter(item => item['id'] !== artist['id']))
+            : (chosenArtists.length <= 10 && setChosenArtists([...chosenArtists, artist]))
         chosenIDs.includes(artist.id) ? setChosenIDs(chosenIDs.filter(id => id !== artist.id))
-            : setChosenIDs([...chosenIDs, artist.id])
+            : (chosenArtists.length <= 10 && setChosenIDs([...chosenIDs, artist.id]))
     }
 
     return(
         <div className={styles.container}>
-            <h2>Choose up to 5 of your favorite artists!</h2>
+            <h2>Choose up to 10 of your favorite artists!</h2>
             <button type='button' className={styles.later}>I will finish my profile later >></button>
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :
+                
                 artists && 
                 <div className={styles.artistsContainer}>
-                    hey
+                    
+                    {chosenArtists && 
+                        <div className={styles.chosenArtists}>
+                            {chosenArtists.map(artist => (
+                            <ChosenArtistCard name={artist.name} remove={() => remove(artist)}/>))}
+                        </div>
+                    }
+                    
                     <div className={styles.search}>
                         <input className={styles.artistSearch} placeholder='Search' value={searchVal} onChange={(e) => setSearchVal(e.target.value)} onKeyDown={handleKeyDown}/>
                         <div className={styles.searchBtn}>
-                            <img src={'/icons/search.png'}/>
+                            <img src={'/icons/search.png'} onClick={search}/>
                         </div>
                     </div>
                         <div className={styles.artists}>
                         {artists.map((artist, index) => {
                             if(chosenIDs.includes(artist.id)) {
-                                return <Artist data={artist} index={index} checked={true} addRemove={addRemoveArtist}/>
+                                return <Artist data={artist} index={index} checked={true} addRemove={() => addRemoveArtist(artist)}/>
                             } else {
-                                return <Artist data={artist} index={index} checked={false} addRemove={addRemoveArtist}/>
+                                return <Artist data={artist} index={index} checked={false} addRemove={() => addRemoveArtist(artist)}/>
                             }
                            
                         })}
