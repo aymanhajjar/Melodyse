@@ -1,6 +1,7 @@
 import styles from './FavoriteArtists.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Artist from '../Artist/Artist'
 
 export default function FavoriteArtists(props: any) {
     const [loading, setLoading] = useState(true)
@@ -52,11 +53,15 @@ export default function FavoriteArtists(props: any) {
             <button type='button' className={styles.later}>I will finish my profile later >></button>
             <div >
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :
-                artists && <div className={styles.artists}>
+                artists && 
+                <div>
+                <input className={styles.artistSearch}/>
+                    <div className={styles.artists}>
                         {artists.map(artist => (
-                            <Artist/>
+                            <Artist data={artist}/>
                         ))}
-                    </div>}
+                    </div>
+                </div>}
             </div>
         </div>
     )

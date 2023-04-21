@@ -40,6 +40,7 @@ $main_red: #AB4967;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  gap: 2rem;
   position: relative;
 }
 
@@ -59,4 +60,25 @@ $main_red: #AB4967;
   width: 10rem;
   filter: drop-shadow(0px 0px 5px #808080);
 
+}
+
+.artistSearch {
+  border: none;
+  width: 20rem;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: 0.2s all;
+}
+
+.artistSearch:focus {
+  outline: none;
+  background-color: #c8c8c8;
+  transition: 0.2s all;
+}
+
+.artists {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
