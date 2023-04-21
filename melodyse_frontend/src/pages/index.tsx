@@ -6,12 +6,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 export default function Home(props : any) {
-  const [loginActive, setLoginActive] = useState(true)
-
-  function handleFormChange() {
-    setLoginActive(!loginActive)
-  }
-
+  
   return (
     <>
       <Head>
@@ -20,14 +15,7 @@ export default function Home(props : any) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.leftSide}>
-          {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token}/> : <Register active={loginActive} onChangeForm={handleFormChange} token={props.token}/>}
-        </div>
-        <div className={styles.rightSide}>
-
-          <img src='/musical.png' className={styles.musicalNotes}></img>
-          <img className={styles.logoImage} src="/logo.png"/>
-        </div>
+        HOME
       </div>
     </>
   )

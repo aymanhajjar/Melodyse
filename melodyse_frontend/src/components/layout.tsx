@@ -65,7 +65,7 @@ export default function Layout({ children }) {
                         subscription_name={[userData['subscription_name']]} />
                 </div>
                 
-                :<button type='button' className={styles.loginBtn}>LOG IN</button>}
+                :<button type='button' className={styles.loginBtn} onClick={() => router.push('/login')}>LOG IN</button>}
             </header>
 
             <div className={styles.bodyContainer}>
