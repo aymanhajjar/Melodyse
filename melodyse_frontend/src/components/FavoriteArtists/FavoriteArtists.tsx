@@ -9,6 +9,7 @@ export default function FavoriteArtists(props: any) {
     const [artists, setArtists] = useState()
     const [searchVal, setSearchVal] = useState()
     const [chosenArtists, setChosenArtists] = useState([])
+    const [chosenIDs, setChosenIDs] = useState([])
 
     useEffect(() => {
         !spotifyToken && getToken()
@@ -17,6 +18,10 @@ export default function FavoriteArtists(props: any) {
     useEffect(() => {
         spotifyToken && getArtists()
     }, [spotifyToken])
+
+    useEffect(() => {
+        console.log('chos', chosenArtists)
+    }, [chosenArtists])
 
     const getToken = () => {
         const client_id = process.env.SPOTIFY_CLIENT_ID
@@ -71,8 +76,11 @@ export default function FavoriteArtists(props: any) {
           }
     }
 
-    const addArtist = () => {
-
+    const addRemoveArtist = (artist) => {
+        chosenArtists.includes(artist) ? setChosenArtists(chosenArtists.filter(item => item !== artist))
+            : setChosenArtists([...chosenArtists, artist])
+        chosenIDs.includes(artist.id) ? setChosenIDs(chosenIDs.filter(id => id !== artist.id))
+            : setChosenIDs([...chosenIDs, artist.id])
     }
 
     return(
@@ -89,9 +97,14 @@ export default function FavoriteArtists(props: any) {
                         </div>
                     </div>
                         <div className={styles.artists}>
-                        {artists.map((artist, index) => (
-                            <Artist data={artist} index={index} onClick={addArtist}/>
-                        ))}
+                        {artists.map((artist, index) => {
+                            if(chosenIDs.includes(artist.id)) {
+                                return <Artist data={artist} index={index} checked={true} addRemove={addRemoveArtist}/>
+                            } else {
+                                return <Artist data={artist} index={index} checked={false} addRemove={addRemoveArtist}/>
+                            }
+                           
+                        })}
                     </div>
                 </div>}
         </div>
