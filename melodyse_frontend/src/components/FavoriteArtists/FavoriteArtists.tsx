@@ -90,6 +90,7 @@ export default function FavoriteArtists(props: any) {
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :
                 artists && 
                 <div className={styles.artistsContainer}>
+                    hey
                     <div className={styles.search}>
                         <input className={styles.artistSearch} placeholder='Search' value={searchVal} onChange={(e) => setSearchVal(e.target.value)} onKeyDown={handleKeyDown}/>
                         <div className={styles.searchBtn}>

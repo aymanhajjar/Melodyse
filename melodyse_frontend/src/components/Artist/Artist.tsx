@@ -1,6 +1,5 @@
 import styles from './Artist.module.scss'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 export default function Artist({data, index, checked, addRemove}: any) {
     const [loading, setLoading] = useState(true)
