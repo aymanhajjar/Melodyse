@@ -2,7 +2,7 @@ import styles from './FavoriteArtists.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Artist from '../Artist/Artist'
-import ChosenArtistCard from '../ChosenArtistCard/ChosenArtistCard'
+import ChosenCard from '../ChosenCard/ChosenCard'
 import NextButton from '../NextButton/NextButton'
 
 export default function FavoriteArtists(props: any) {
@@ -101,9 +101,9 @@ export default function FavoriteArtists(props: any) {
 
     const addRemoveArtist = (artist) => {
         chosenIDs.includes(artist.id) ? setChosenArtists(chosenArtists.filter(item => item['id'] !== artist['id']))
-            : (chosenArtists.length <= 10 && setChosenArtists([...chosenArtists, artist]))
+            : (chosenArtists.length <= 9 && setChosenArtists([...chosenArtists, artist]))
         chosenIDs.includes(artist.id) ? setChosenIDs(chosenIDs.filter(id => id !== artist.id))
-            : (chosenArtists.length <= 10 && setChosenIDs([...chosenIDs, artist.id]))
+            : (chosenArtists.length <= 9 && setChosenIDs([...chosenIDs, artist.id]))
     }
 
     return(
@@ -122,7 +122,7 @@ export default function FavoriteArtists(props: any) {
                     {chosenArtists.length > 0 && 
                         <div className={styles.chosenArtists}>
                             {chosenArtists.map(artist => (
-                            <ChosenArtistCard name={artist.name} remove={() => remove(artist)}/>))}
+                            <ChosenCard name={artist.name} remove={() => remove(artist)}/>))}
                         </div>
                     }
                     

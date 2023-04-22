@@ -13,5 +13,7 @@ urlpatterns = [
     path("getchats", views.getChats),
     path("getnotifications", views.getNotifications),
     path("getrequests", views.getRequests),
-    path("getsubscription", views.getSubscription)
+    path("getsubscription", views.getSubscription),
+    path("addartists", views.addArtists),
+    path("addsongs", views.addSongs)
 ]

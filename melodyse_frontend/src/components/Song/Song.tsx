@@ -6,8 +6,8 @@ export default function Song({data, index, checked, addRemove}: any) {
     return(
         <div className={styles.artist} style={{ '--index': index }} onClick={() => addRemove()}>
             {checked && <img src={'/icons/check.png'} className={styles.check}/>}
-            <img src={data.images[0] ? data.images[0].url : '/icons/avatar.png'}/>
-            <span>{data.name}</span>
+            <img src={data.album.images[0] ? data.album.images[0].url : '/icons/avatar.png'}/>
+            <span>{data.artists[0].name} - {data.name}</span>
         </div>
     )
 }

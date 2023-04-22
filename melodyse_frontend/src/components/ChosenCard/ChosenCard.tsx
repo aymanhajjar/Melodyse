@@ -1,7 +1,7 @@
-import styles from './ChosenArtistCard.module.scss'
+import styles from './ChosenCard.module.scss'
 import { useEffect, useState } from 'react'
 
-export default function ChosenArtistCard({name, remove}: any) {
+export default function ChosenCard({name, remove}: any) {
 
     return(
         <div className={styles.artistCard}>
