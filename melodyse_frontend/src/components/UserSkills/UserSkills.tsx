@@ -61,8 +61,20 @@ export default function UserSkills(props: any) {
     }
 
     const addRemoveSkill = (skill) => {
+        skill['rating'] = 4
         chosenSkills.includes(skill) ? setChosenSkills(chosenSkills.filter(item => item !== skill))
             : (chosenSkills.length <= 7 && setChosenSkills([...chosenSkills, skill]))
+    }
+
+    const updateRating = (name, rating) => {
+        const updatedSkills = chosenSkills.map(obj => {
+            if (obj.name === name) {
+              return { ...obj, rating: rating }
+            } else {
+              return obj
+            }
+          });
+          setChosenSkills(updatedSkills)
     }
 
     return(
@@ -82,7 +94,7 @@ export default function UserSkills(props: any) {
                     {chosenSkills.length > 0 && 
                         <div className={styles.chosenSongs}>
                             {chosenSkills.map(skill => (
-                            <ChosenSkill name={skill.name} remove={() => remove(skill)}/>))}
+                            <ChosenSkill name={skill.name} remove={() => remove(skill)} rating={skill['rating']} updateRating={(name, rating) => updateRating(name,rating)}/>))}
                         </div>
                     }
                     
