@@ -225,6 +225,6 @@ class UserSkill(models.Model):
     def serialize(self):
         return {
             'name': self.skill.name,
-            'picture': self.skill.picture,
+            'picture': self.skill.picture.url,
             'rating': self.rating
         }

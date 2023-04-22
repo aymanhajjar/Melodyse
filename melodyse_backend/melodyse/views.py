@@ -170,8 +170,16 @@ def addSkills(request):
     if request.user.is_authenticated:
         skills = json.loads(request.POST['skills'])
         for skill in skills:
-            skillObject = Skill.objects.get(name=skill.name)
-            UserSkill.objects.create(user=request.user, skill=skillObject, rating=skill.rating)
+            skillObject = Skill.objects.get(name=skill['name'])
+            UserSkill.objects.update_or_create(user=request.user, skill=skillObject, defaults={'rating': skill['rating']})
         return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getChosenSkills(request):
+    if request.user.is_authenticated:
+        skills = UserSkill.objects.filter(user=request.user)
+        skillsObject = [skill.serialize() for skill in skills]
+        return JsonResponse(skillsObject, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)
