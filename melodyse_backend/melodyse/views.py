@@ -165,3 +165,13 @@ def getSkills(request):
     queryset = Skill.objects.all()
     skills = [{'name': skill.name, 'picture': skill.picture.url} for skill in queryset]
     return JsonResponse(skills, safe=False)
+
+def addSkills(request):
+    if request.user.is_authenticated:
+        skills = json.loads(request.POST['skills'])
+        for skill in skills:
+            skillObject = Skill.objects.get(name=skill.name)
+            UserSkill.objects.create(user=request.user, skill=skillObject, rating=skill.rating)
+        return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponse('User not logged in', status=403)
