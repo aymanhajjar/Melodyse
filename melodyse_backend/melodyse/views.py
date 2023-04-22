@@ -129,7 +129,12 @@ def getSubscription(request):
         return HttpResponse('User not logged in', status=403)
     
 def addArtists(request):
-    pass
+    if request.user.is_authenticated:
+        artists = request.POST['artists']
+        UserInfo.objects.filter(user=request.user).update(favorite_artists = artists)
+        return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponse('User not logged in', status=403)
 
 def addSongs(request):
     pass
