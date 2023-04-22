@@ -5,10 +5,11 @@ import Register from '../components/register/register'
 import { useState } from 'react'
 import axios from 'axios'
 import FavoriteArtists from '@/components/FavoriteArtists/FavoriteArtists'
+import FavoriteSongs from '@/components/FavoriteSongs/FavoriteSongs'
 
 export default function Home(props : any) {
   const [loginActive, setLoginActive] = useState(true)
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(2)
 
   function handleFormChange() {
     setLoginActive(!loginActive)
@@ -27,7 +28,7 @@ export default function Home(props : any) {
           (
             step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)}/> :
             (step == 1 ? <FavoriteArtists/> :
-            step == 2 ? 'songs' : 'info')
+            step == 2 ? <FavoriteSongs/> : 'info')
           )}
         </div>
         <div className={step==0? styles.rightSide : styles.rightSideHidden}>
