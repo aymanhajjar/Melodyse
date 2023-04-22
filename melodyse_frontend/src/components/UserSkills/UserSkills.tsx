@@ -6,13 +6,11 @@ import SkillCard from '../SkillCard/SkillCard'
 import NextButton from '../NextButton/NextButton'
 import Song from '../Song/Song'
 
-export default function FavoriteSongs(props: any) {
+export default function UserSkills(props: any) {
     const [loading, setLoading] = useState(true)
     const [spotifyToken, setToken] = useState()
-    const [songs, setSongs] = useState()
-    const [searchVal, setSearchVal] = useState('')
-    const [chosenSongs, setChosenSongs] = useState([])
-    const [chosenIDs, setChosenIDs] = useState([])
+    const [skills, setSkills] = useState()
+    const [chosenSkills, setChosenSkills] = useState([])
     const [buttonLoading, setButtonLoading] = useState(false)
     const [errorMsg, setErrorMessage] = useState()
 
@@ -22,7 +20,7 @@ export default function FavoriteSongs(props: any) {
     }, [])
 
     useEffect(() => {
-        spotifyToken && getSongs()
+        spotifyToken && getSkills()
     }, [spotifyToken])
 
     const getToken = () => {
@@ -45,16 +43,11 @@ export default function FavoriteSongs(props: any) {
     }
 
     const getSkills = () => {
-        axios.get(`${process.env.SITE_URL}/getfavoritesongs`, {
+        axios.get(`${process.env.SITE_URL}/getskills`, {
             withCredentials: true
         }).then(res => {
-            console.log(res)
-            setChosenSongs(res.data)
-            const ids = []
-            res.data.forEach(song => {
-                ids.push(song.id)
-            })
-            setChosenIDs(ids)
+            console.log('skiiii', res)
+            setSkills(res.data)
             setLoading(false)
         }).catch(err => console.log(err))
     }
@@ -119,7 +112,7 @@ export default function FavoriteSongs(props: any) {
         setChosenIDs(chosenIDs.filter(id => id !== song.id))
     }
 
-    const addRemoveSong = (song) => {
+    const addRemoveSkill = (song) => {
         delete song['available_markets']
         delete song['preview_url']
         delete song['album'].available_markets
@@ -133,7 +126,7 @@ export default function FavoriteSongs(props: any) {
 
     return(
         <div className={styles.container}>
-            <h2>Choose up to 10 of your favorite songs!</h2>
+            <h2>Choose up to 8 skills and talents!</h2>
             <button type='button' className={styles.backbutton}  onClick={() => props.prevStep()}>BACK</button>
             <div className={styles.later}>
                 <a >I will finish my profile later >></a>
@@ -142,28 +135,22 @@ export default function FavoriteSongs(props: any) {
             </div>
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :
                 
-                songs && 
+                skills && 
                 <div className={styles.songsContainer}>
                     
-                    {chosenSongs.length > 0 && 
+                    {chosenSkills.length > 0 && 
                         <div className={styles.chosenSongs}>
                             {chosenSongs.map(song => (
                             <ChosenCard name={song.name} remove={() => remove(song)}/>))}
                         </div>
                     }
                     
-                    <div className={styles.search}>
-                        <input className={styles.songSearch} placeholder='Search' value={searchVal} onChange={(e) => setSearchVal(e.target.value)} onKeyDown={handleKeyDown}/>
-                        <div className={styles.searchBtn}  onClick={search}>
-                            <img src={'/icons/search.png'}/>
-                        </div>
-                    </div>
                         <div className={styles.songs}>
-                        {songs.map((song, index) => {
-                            if(chosenIDs.includes(song.id)) {
-                                return <Song data={song} index={index} checked={true} addRemove={() => addRemoveSong(song)}/>
+                        {skills.map((skill, index) => {
+                            if(chosenSkills.includes(skill)) {
+                                return <SkillCard skill={skill} index={index} checked={true} addRemove={() => addRemoveSkill(skill)}/>
                             } else {
-                                return <Song data={song} index={index} checked={false} addRemove={() => addRemoveSong(song)}/>
+                                return <SkillCard skill={skill} index={index} checked={false} addRemove={() => addRemoveSkill(skill)}/>
                             }
                            
                         })}

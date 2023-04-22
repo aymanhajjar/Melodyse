@@ -163,5 +163,5 @@ def getFavoriteSongs(request):
     
 def getSkills(request):
     queryset = Skill.objects.all()
-    data = list(queryset.values())
-    return JsonResponse(data, safe=False)
+    skills = [{'name': skill.name, 'picture': skill.picture.url} for skill in queryset]
+    return JsonResponse(skills, safe=False)

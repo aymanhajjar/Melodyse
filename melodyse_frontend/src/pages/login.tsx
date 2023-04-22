@@ -6,6 +6,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import FavoriteArtists from '@/components/FavoriteArtists/FavoriteArtists'
 import FavoriteSongs from '@/components/FavoriteSongs/FavoriteSongs'
+import UserSkills from '@/components/UserSkills/UserSkills'
 
 export default function Home(props : any) {
   const [loginActive, setLoginActive] = useState(true)
@@ -28,7 +29,8 @@ export default function Home(props : any) {
           (
             step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)}/> :
             (step == 1 ? <FavoriteArtists nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
-            step == 2 ? <FavoriteSongs nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : 'info')
+            step == 2 ? <FavoriteSongs nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
+            step == 3 ? <UserSkills nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : 'success')
           )}
         </div>
         <div className={step==0? styles.rightSide : styles.rightSideHidden}>
