@@ -17,6 +17,7 @@ export default function FavoriteArtists(props: any) {
 
     useEffect(() => {
         !spotifyToken && getToken()
+        getFavoriteArtists()
     }, [])
 
     useEffect(() => {
@@ -42,6 +43,16 @@ export default function FavoriteArtists(props: any) {
           ).then(res => setToken(res.data.access_token))
     }
 
+    const getFavoriteArtists = () => {
+        axios.get(`${process.env.SITE_URL}/getfavoriteartists`, {
+            withCredentials: true
+        }).then(res => {
+            console.log(res)
+            // setFavoriteArtists(res.data.artists)
+            // setLoading(false)
+        }).catch(err => console.log(err))
+    }
+
     const getArtists = () => {
         axios.get(`https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02/related-artists`, {
             headers: {
@@ -52,13 +63,13 @@ export default function FavoriteArtists(props: any) {
             console.log(res)
             setArtists(res.data.artists)
             setLoading(false)
-        })
+        }).catch(err => console.log(err))
     }
 
     const submit = () => {
         setButtonLoading(true)
         const data = new FormData()
-        data.append('artists', chosenArtists)
+        data.append('artists', JSON.stringify(chosenArtists))
 
         axios.post(`${process.env.SITE_URL}/addartists`, data, {
             withCredentials: true
