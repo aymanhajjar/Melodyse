@@ -215,7 +215,6 @@ class Skill(models.Model):
     picture = models.ImageField(upload_to='skills/')
     def __str__(self) -> str:
         return self.name
-    
 
 class UserSkill(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='skills')
@@ -223,3 +222,9 @@ class UserSkill(models.Model):
     rating = models.IntegerField()
     def __str__(self) -> str:
         return self.user.username + ' ' + self.skill.name
+    def serialize(self):
+        return {
+            'name': self.skill.name,
+            'picture': self.skill.picture,
+            'rating': self.rating
+        }
