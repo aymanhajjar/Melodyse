@@ -59,15 +59,16 @@ export default function FavoriteSongs(props: any) {
     const submit = () => {
         setButtonLoading(true)
         const data = new FormData()
-        data.append('artists', chosenArtists)
+        data.append('songs', JSON.stringify(chosenSongs))
 
-        axios.post(`${process.env.SITE_URL}/addartists`, data, {
+        axios.post(`${process.env.SITE_URL}/addsongs`, data, {
             withCredentials: true
             }).then((res) => {
             setLoading(false)
             props.nextStep()
         }).catch(err => {
             setLoading(false)
+            console.error(err)
             setErrorMessage('Server Error')
         })
     }
@@ -101,6 +102,11 @@ export default function FavoriteSongs(props: any) {
     }
 
     const addRemoveSong = (song) => {
+        delete song['available_markets']
+        delete song['preview_url']
+        delete song['album'].available_markets
+        delete song['album'].artists
+        delete song['album'].external_urls
         chosenIDs.includes(song.id) ? setChosenSongs(chosenSongs.filter(item => item['id'] !== song['id']))
             : (chosenSongs.length <= 9 && setChosenSongs([...chosenSongs, song]))
         chosenIDs.includes(song.id) ? setChosenIDs(chosenIDs.filter(id => id !== song.id))
