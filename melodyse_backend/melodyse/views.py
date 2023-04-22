@@ -127,3 +127,9 @@ def getSubscription(request):
         return JsonResponse(requests, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def addArtists(request):
+    pass
+
+def addSongs(request):
+    pass
