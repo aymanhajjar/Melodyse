@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.password_validation import validate_password
 from .models import *
+import json
 from django.db.models import Max
 from .modules import dataHandler
 
@@ -130,8 +131,8 @@ def getSubscription(request):
     
 def addArtists(request):
     if request.user.is_authenticated:
-        artists = request.POST['artists']
-        # UserInfo.objects.filter(user=request.user).update(favorite_artists = artists)
+        artists = json.loads(request.POST['artists'])
+        UserInfo.objects.filter(user=request.user).update(favorite_artists = artists)
         print(artists)
         return JsonResponse({'status': 'success'})
     else:
@@ -139,8 +140,8 @@ def addArtists(request):
 
 def addSongs(request):
     if request.user.is_authenticated:
-        songs = request.POST['songs']
-        # UserInfo.objects.filter(user=request.user).update(favorite_songs = songs)
+        songs = json.loads(request.POST['songs'])
+        UserInfo.objects.filter(user=request.user).update(favorite_songs = songs)
         print(songs)
         return JsonResponse({'status': 'success'})
     else:
