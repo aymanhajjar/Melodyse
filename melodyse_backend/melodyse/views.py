@@ -160,3 +160,8 @@ def getFavoriteSongs(request):
         return JsonResponse(songs, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def getSkills(request):
+    queryset = Skill.objects.all()
+    data = list(queryset.values())
+    return JsonResponse(data, safe=False)
