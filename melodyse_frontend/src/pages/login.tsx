@@ -27,8 +27,8 @@ export default function Home(props : any) {
           {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token}/> : 
           (
             step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)}/> :
-            (step == 1 ? <FavoriteArtists/> :
-            step == 2 ? <FavoriteSongs/> : 'info')
+            (step == 1 ? <FavoriteArtists nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
+            step == 2 ? <FavoriteSongs nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : 'info')
           )}
         </div>
         <div className={step==0? styles.rightSide : styles.rightSideHidden}>

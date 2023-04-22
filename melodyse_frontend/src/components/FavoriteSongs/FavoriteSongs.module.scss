@@ -132,3 +132,18 @@ $main_red: #AB4967;
   color: $main_red;
   text-align: center;
 }
+
+.backbutton {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  width: 10%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: $main_red;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+}

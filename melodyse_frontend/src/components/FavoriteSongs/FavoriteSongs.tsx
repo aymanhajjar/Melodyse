@@ -116,6 +116,7 @@ export default function FavoriteSongs(props: any) {
     return(
         <div className={styles.container}>
             <h2>Choose up to 10 of your favorite songs!</h2>
+            <button type='button' className={styles.backbutton}  onClick={() => props.prevStep()}>BACK</button>
             <div className={styles.later}>
                 <a >I will finish my profile later >></a>
                 <NextButton loading={buttonLoading} submit={submit}/>
