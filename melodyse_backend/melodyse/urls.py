@@ -19,5 +19,5 @@ urlpatterns = [
     path("getfavoriteartists", views.getFavoriteArtists),
     path("getfavoritesongs", views.getFavoriteSongs),
     path("getskills", views.getSkills),
-
+    path("addskills", views.addSkills)
 ]
