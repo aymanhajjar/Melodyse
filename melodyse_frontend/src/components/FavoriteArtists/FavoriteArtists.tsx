@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Artist from '../Artist/Artist'
 import ChosenArtistCard from '../ChosenArtistCard/ChosenArtistCard'
+import NextButton from '../NextButton/NextButton'
 
 export default function FavoriteArtists(props: any) {
     const [loading, setLoading] = useState(true)
@@ -11,6 +12,7 @@ export default function FavoriteArtists(props: any) {
     const [searchVal, setSearchVal] = useState('')
     const [chosenArtists, setChosenArtists] = useState([])
     const [chosenIDs, setChosenIDs] = useState([])
+    const [buttonLoading, setButtonLoading] = useState(false)
 
     useEffect(() => {
         !spotifyToken && getToken()
@@ -56,11 +58,15 @@ export default function FavoriteArtists(props: any) {
         })
     }
 
+    const submit = () => {
+        setButtonLoading(true)
+    }
+
     const search = () => {
         if(searchVal.length > 0) {
             setArtists()
             setLoading(true)
-            axios.get(`https://api.spotify.com/v1/search?q=${searchVal}&&type=artist`, {
+            axios.get(`https://api.spotify.com/v1/search?q=${searchVal}&&type=artist&&limit=21`, {
                 headers: {
                     "x-csrftoken": null,
                     "Authorization": `Bearer ${spotifyToken}`
@@ -94,13 +100,16 @@ export default function FavoriteArtists(props: any) {
     return(
         <div className={styles.container}>
             <h2>Choose up to 10 of your favorite artists!</h2>
-            <button type='button' className={styles.later}>I will finish my profile later >></button>
+            <div className={styles.later}>
+                <a >I will finish my profile later >></a>
+                <NextButton loading={buttonLoading} submit={submit}/>
+            </div>
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :
                 
                 artists && 
                 <div className={styles.artistsContainer}>
                     
-                    {chosenArtists && 
+                    {chosenArtists.length > 0 && 
                         <div className={styles.chosenArtists}>
                             {chosenArtists.map(artist => (
                             <ChosenArtistCard name={artist.name} remove={() => remove(artist)}/>))}

@@ -22,7 +22,7 @@ export default function Home(props : any) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.leftSide}>
+        <div className={step==0 ? styles.leftSide : styles.leftSideExpanded}>
           {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token}/> : 
           (
             step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)}/> :
@@ -30,10 +30,10 @@ export default function Home(props : any) {
             step == 2 ? 'songs' : 'info')
           )}
         </div>
-        <div className={styles.rightSide}>
+        <div className={step==0? styles.rightSide : styles.rightSideHidden}>
 
-          <img src='/musical.png' className={styles.musicalNotes}></img>
-          <img className={styles.logoImage} src="/logo.png"/>
+          {step == 0 && <img src='/musical.png' className={styles.musicalNotes}></img>}
+          {step == 0 && <img className={styles.logoImage} src="/logo.png"/>}
         </div>
       </div>
     </>

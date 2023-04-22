@@ -34,8 +34,16 @@ $main_red: #AB4967;
   z-index: 1;
 }
 
+.leftSideExpanded {
+  width: 100%;
+}
+
 .rightSide {
   width: 35%;
+}
+
+.rightSideHidden {
+  width: 0rem;
 }
 
 .logoImage {
