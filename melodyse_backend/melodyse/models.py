@@ -213,3 +213,13 @@ class Message(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='skills/')
+    def __str__(self) -> str:
+        return self.name
+    
+
+class UserSkill(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='skills')
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE, related_name='users')
+    rating = models.IntegerField()
+    def __str__(self) -> str:
+        return self.user.username + ' ' + self.skill.name
