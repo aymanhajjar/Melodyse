@@ -48,8 +48,13 @@ export default function FavoriteArtists(props: any) {
             withCredentials: true
         }).then(res => {
             console.log(res)
-            // setFavoriteArtists(res.data.artists)
-            // setLoading(false)
+            setChosenArtists(res.data)
+            const ids = []
+            res.data.forEach(artist => {
+                ids.push(artist.id)
+            })
+            setChosenIDs(ids)
+            setLoading(false)
         }).catch(err => console.log(err))
     }
 

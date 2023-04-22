@@ -133,7 +133,6 @@ def addArtists(request):
     if request.user.is_authenticated:
         artists = json.loads(request.POST['artists'])
         UserInfo.objects.filter(user=request.user).update(favorite_artists = artists)
-        print(artists)
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('User not logged in', status=403)
@@ -142,7 +141,22 @@ def addSongs(request):
     if request.user.is_authenticated:
         songs = json.loads(request.POST['songs'])
         UserInfo.objects.filter(user=request.user).update(favorite_songs = songs)
-        print(songs)
         return JsonResponse({'status': 'success'})
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getFavoriteArtists(request):
+    if request.user.is_authenticated:
+        info = UserInfo.objects.get(user=request.user)
+        artists = info.favorite_artists
+        return JsonResponse(artists, safe=False)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getFavoriteSongs(request):
+    if request.user.is_authenticated:
+        info = UserInfo.objects.get(user=request.user)
+        songs = info.favorite_songs
+        return JsonResponse(songs, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)

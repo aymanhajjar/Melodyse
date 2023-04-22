@@ -18,6 +18,7 @@ export default function FavoriteSongs(props: any) {
 
     useEffect(() => {
         !spotifyToken && getToken()
+        getFavoriteSongs()
     }, [])
 
     useEffect(() => {
@@ -54,6 +55,21 @@ export default function FavoriteSongs(props: any) {
             setSongs(res.data.tracks)
             setLoading(false)
         })
+    }
+
+    const getFavoriteSongs = () => {
+        axios.get(`${process.env.SITE_URL}/getfavoritesongs`, {
+            withCredentials: true
+        }).then(res => {
+            console.log(res)
+            setChosenSongs(res.data)
+            const ids = []
+            res.data.forEach(song => {
+                ids.push(song.id)
+            })
+            setChosenIDs(ids)
+            setLoading(false)
+        }).catch(err => console.log(err))
     }
 
     const submit = () => {

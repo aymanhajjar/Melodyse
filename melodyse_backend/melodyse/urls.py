@@ -15,5 +15,8 @@ urlpatterns = [
     path("getrequests", views.getRequests),
     path("getsubscription", views.getSubscription),
     path("addartists", views.addArtists),
-    path("addsongs", views.addSongs)
+    path("addsongs", views.addSongs),
+    path("getfavoriteartists", views.getFavoriteArtists),
+    path("getfavoritesongs", views.getFavoriteSongs),
+
 ]

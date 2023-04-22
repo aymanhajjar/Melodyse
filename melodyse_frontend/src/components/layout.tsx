@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 export default function Layout({ children }) {
 
-    const [selected, setSelected] = useState('Home')
+    const [selected, setSelected] = useState('home')
     const [loggedIn, setLoggedIn] = useState(false)
     const [userData, setUserData] = useState({})
 
@@ -37,6 +37,11 @@ export default function Layout({ children }) {
                 console.error(err)
             }
         })
+    }
+
+    const switchPage = (page) => {
+        router.push('/' + page)
+        page == '' ? setSelected('home') : setSelected(page)
     }
 
     return (
@@ -71,9 +76,19 @@ export default function Layout({ children }) {
             <div className={styles.bodyContainer}>
                 <nav className={styles.navBar}>
                     <div className={styles.navBtnDiv}>
-                    <button type='button' className={styles.navBtn} onClick={() => router.push('/')}>HOME</button>
-                    <button type='button' className={styles.navBtn} onClick={() => router.push('/listen')}>LISTEN</button>
-                    <button type='button' className={styles.navBtn} onClick={() => router.push('/collab')}>COLLAB</button>
+
+                    <button type='button' 
+                        className={selected == "home" ? styles.navBtnFocus : styles.navBtn} 
+                        onClick={() => switchPage('')}>HOME</button>
+
+                    <button type='button'
+                        className={selected == "listen" ? styles.navBtnFocus : styles.navBtn} 
+                        onClick={() => switchPage('listen')}>LISTEN</button>
+
+                    <button type='button'
+                        className={selected == "collab" ? styles.navBtnFocus : styles.navBtn} 
+                        onClick={() => switchPage('collab')}>COLLAB</button>
+
                     <button type='button' className={styles.navBtn}>ASSISTANT</button>
                     <button type='button' className={styles.navBtn}>ABOUT</button>
                     </div>

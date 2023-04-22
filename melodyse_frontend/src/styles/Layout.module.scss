@@ -99,7 +99,13 @@ $background_gray: #ECECEC;
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-.navBtn:focus {
+.navBtnFocus {
+    font-family: 'Inter';
+    padding: 1.5rem;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.5s;
     box-shadow: 0 0 0px $background_gray;
     background-color: $background_gray;

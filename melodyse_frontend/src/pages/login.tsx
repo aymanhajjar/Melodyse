@@ -9,7 +9,7 @@ import FavoriteSongs from '@/components/FavoriteSongs/FavoriteSongs'
 
 export default function Home(props : any) {
   const [loginActive, setLoginActive] = useState(true)
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(0)
 
   function handleFormChange() {
     setLoginActive(!loginActive)
