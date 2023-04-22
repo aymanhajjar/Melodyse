@@ -5,42 +5,19 @@ import Artist from '../Artist/Artist'
 import SkillCard from '../SkillCard/SkillCard'
 import NextButton from '../NextButton/NextButton'
 import Song from '../Song/Song'
+import ChosenSkill from '../ChosenSkill/ChosenSkill'
 
 export default function UserSkills(props: any) {
     const [loading, setLoading] = useState(true)
-    const [spotifyToken, setToken] = useState()
     const [skills, setSkills] = useState()
     const [chosenSkills, setChosenSkills] = useState([])
     const [buttonLoading, setButtonLoading] = useState(false)
     const [errorMsg, setErrorMessage] = useState()
 
     useEffect(() => {
-        !spotifyToken && getToken()
-        getFavoriteSongs()
+        getChosenSkills()
+        getSkills()
     }, [])
-
-    useEffect(() => {
-        spotifyToken && getSkills()
-    }, [spotifyToken])
-
-    const getToken = () => {
-        const client_id = process.env.SPOTIFY_CLIENT_ID
-        const client_secret = process.env.SPOTIFY_CLIENT_SECRET
-        console.log(client_id, client_secret)
-        axios.post(
-            'https://accounts.spotify.com/api/token',
-            new URLSearchParams({
-              'grant_type': 'client_credentials',
-              'client_id': client_id.toString(),
-              'client_secret': client_secret.toString()
-            }), {
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "x-csrftoken": null,
-                }
-            }
-          ).then(res => setToken(res.data.access_token))
-    }
 
     const getSkills = () => {
         axios.get(`${process.env.SITE_URL}/getskills`, {
@@ -52,17 +29,12 @@ export default function UserSkills(props: any) {
         }).catch(err => console.log(err))
     }
 
-    const getFavoriteSongs = () => {
-        axios.get(`${process.env.SITE_URL}/getfavoritesongs`, {
+    const getChosenSkills = () => {
+        axios.get(`${process.env.SITE_URL}/getchosenskills`, {
             withCredentials: true
         }).then(res => {
             console.log(res)
-            setChosenSongs(res.data)
-            const ids = []
-            res.data.forEach(song => {
-                ids.push(song.id)
-            })
-            setChosenIDs(ids)
+            setChosenSkills(res.data)
             setLoading(false)
         }).catch(err => console.log(err))
     }
@@ -70,9 +42,9 @@ export default function UserSkills(props: any) {
     const submit = () => {
         setButtonLoading(true)
         const data = new FormData()
-        data.append('songs', JSON.stringify(chosenSongs))
+        data.append('skills', JSON.stringify(chosenSkills))
 
-        axios.post(`${process.env.SITE_URL}/addsongs`, data, {
+        axios.post(`${process.env.SITE_URL}/addskills`, data, {
             withCredentials: true
             }).then((res) => {
             setLoading(false)
@@ -84,44 +56,13 @@ export default function UserSkills(props: any) {
         })
     }
 
-    const search = () => {
-        if(searchVal.length > 0) {
-            setSongs()
-            setLoading(true)
-            axios.get(`https://api.spotify.com/v1/search?q=${searchVal}&&type=track&&limit=14`, {
-                headers: {
-                    "x-csrftoken": null,
-                    "Authorization": `Bearer ${spotifyToken}`
-                }
-            }).then(res => {
-                console.log(res)
-                setSongs(res.data.tracks.items)
-                setLoading(false)
-            })
-        }
+    const remove = (skill) => {
+        setChosenSkills(chosenSkills.filter(item => item !== skill))
     }
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            search()
-          }
-    }
-
-    const remove = (song) => {
-        setChosenSongs(chosenSongs.filter(item => item['id'] !== song['id']))
-        setChosenIDs(chosenIDs.filter(id => id !== song.id))
-    }
-
-    const addRemoveSkill = (song) => {
-        delete song['available_markets']
-        delete song['preview_url']
-        delete song['album'].available_markets
-        delete song['album'].artists
-        delete song['album'].external_urls
-        chosenIDs.includes(song.id) ? setChosenSongs(chosenSongs.filter(item => item['id'] !== song['id']))
-            : (chosenSongs.length <= 9 && setChosenSongs([...chosenSongs, song]))
-        chosenIDs.includes(song.id) ? setChosenIDs(chosenIDs.filter(id => id !== song.id))
-            : (chosenSongs.length <= 9 && setChosenIDs([...chosenIDs, song.id]))
+    const addRemoveSkill = (skill) => {
+        chosenSkills.includes(skill) ? setChosenSkills(chosenSkills.filter(item => item !== skill))
+            : (chosenSkills.length <= 7 && setChosenSkills([...chosenSkills, skill]))
     }
 
     return(
@@ -140,8 +81,8 @@ export default function UserSkills(props: any) {
                     
                     {chosenSkills.length > 0 && 
                         <div className={styles.chosenSongs}>
-                            {chosenSongs.map(song => (
-                            <ChosenCard name={song.name} remove={() => remove(song)}/>))}
+                            {chosenSkills.map(skill => (
+                            <ChosenSkill name={skill.name} remove={() => remove(skill)}/>))}
                         </div>
                     }
                     
