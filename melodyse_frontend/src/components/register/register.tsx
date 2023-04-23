@@ -50,40 +50,38 @@ export default function Register(props : any) {
     }
 
     const handleSubmit = () => {
-        // if(validateForm()) {
-        //     setLoading(true)
+        if(validateForm()) {
+            setLoading(true)
 
-        //     const data = new FormData
-        //     data.append('first_name', firstNameValue)
-        //     data.append('last_name', lastNameValue)
-        //     data.append('username', usernameValue)
-        //     data.append('email', emailValue)
-        //     data.append('password', passwordValue)
-        //     data.append('gender', genderValue)
-        //     data.append('date_of_birth', dateValue)
+            const data = new FormData
+            data.append('first_name', firstNameValue)
+            data.append('last_name', lastNameValue)
+            data.append('username', usernameValue)
+            data.append('email', emailValue)
+            data.append('password', passwordValue)
+            data.append('gender', genderValue)
+            data.append('date_of_birth', dateValue)
 
-        //     axios.post(`${process.env.SITE_URL}/register`, data, {
-        //         withCredentials: true
-        //       }).then((res) => {
-        //         setLoading(false)
-        //         const csrf = Cookies.get('csrftoken')
-        //         axios.defaults.headers.common['X-CSRFToken'] = csrf
-        //         setStep(step+1)
-        //         console.log(res)
-        //     }).catch(err => {
-        //         setLoading(false)
-        //         if(err.response.data == 'failed to validate password') {
-        //             setErrorMessage('Failed to validate password. Please make sure your password meets the requirements.')
-        //         }
-        //         if(err.response.data == 'username already exists') {
-        //             setErrorMessage('Username already exists. Please choose another one.')
-        //         }
-        //         if(err.response.data == 'email already exists') {
-        //             setErrorMessage('An account with this email address already exists. Please choose another one, or log in instead.')
-        //         }
-        //     })
-        // }
-        props.nextStep()
+            axios.post(`${process.env.SITE_URL}/register`, data, {
+                withCredentials: true
+              }).then((res) => {
+                setLoading(false)
+                const csrf = Cookies.get('csrftoken')
+                axios.defaults.headers.common['X-CSRFToken'] = csrf   
+                props.nextStep()
+            }).catch(err => {
+                setLoading(false)
+                if(err.response.data == 'failed to validate password') {
+                    setErrorMessage('Failed to validate password. Please make sure your password meets the requirements.')
+                }
+                if(err.response.data == 'username already exists') {
+                    setErrorMessage('Username already exists. Please choose another one.')
+                }
+                if(err.response.data == 'email already exists') {
+                    setErrorMessage('An account with this email address already exists. Please choose another one, or log in instead.')
+                }
+            })
+        }
     }
 
     const validateForm = () => {

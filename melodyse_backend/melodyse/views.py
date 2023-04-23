@@ -31,7 +31,7 @@ def userLogin(request):
     else:
         return HttpResponse('User not found', status=404)
     
-def logout(request):
+def logoutUser(request):
     logout(request)
     return JsonResponse({'status': 'user logged out'})
 

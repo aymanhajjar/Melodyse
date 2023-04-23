@@ -15,7 +15,21 @@ export default function Home(props : any) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
-        HOME
+        <section>
+            <img className={styles.pic1} src='/home/pic1.png'/>
+            <div>
+                <h1>STREAMLINE YOUR MUSIC JOURNEY WITH <h1 className={styles.redHeadline}>EASE</h1></h1>
+                <p>Collaborate with Musicians Worldwide:
+                Find the Perfect Match for Your Musical Projects</p>
+
+            </div>
+        </section>
+        <section>
+            SECC2
+            </section>
+        <section>
+            SECC3
+            </section>
       </div>
     </>
   )

@@ -48,7 +48,7 @@ export default function UserSkills(props: any) {
             withCredentials: true
             }).then((res) => {
             setLoading(false)
-            // props.nextStep()
+            props.nextStep()
         }).catch(err => {
             setLoading(false)
             console.error(err)

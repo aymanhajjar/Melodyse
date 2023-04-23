@@ -67,7 +67,8 @@ export default function Layout({ children }) {
                         picture={userData['pic']} 
                         points={userData['points_remaining']}
                         subscription_level ={userData['subscription_level']}
-                        subscription_name={[userData['subscription_name']]} />
+                        subscription_name={userData['subscription_name']} 
+                        loggedOut = {() => setLoggedIn(false)}/>
                 </div>
                 
                 :<button type='button' className={styles.loginBtn} onClick={() => router.push('/login')}>LOG IN</button>}

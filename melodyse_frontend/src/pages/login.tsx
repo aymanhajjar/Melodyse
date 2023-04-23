@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/Login.module.scss'
 import Login from '../components/login/login'
 import Register from '../components/register/register'
 import { useState } from 'react'
@@ -7,6 +7,7 @@ import axios from 'axios'
 import FavoriteArtists from '@/components/FavoriteArtists/FavoriteArtists'
 import FavoriteSongs from '@/components/FavoriteSongs/FavoriteSongs'
 import UserSkills from '@/components/UserSkills/UserSkills'
+import Success from '@/components/Success/Success'
 
 export default function Home(props : any) {
   const [loginActive, setLoginActive] = useState(true)
@@ -30,7 +31,7 @@ export default function Home(props : any) {
             step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)}/> :
             (step == 1 ? <FavoriteArtists nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
             step == 2 ? <FavoriteSongs nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
-            step == 3 ? <UserSkills nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : 'success')
+            step == 3 ? <UserSkills nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : <Success prevStep = {() => setStep(step-1)}/>)
           )}
         </div>
         <div className={step==0? styles.rightSide : styles.rightSideHidden}>

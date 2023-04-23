@@ -1,6 +1,7 @@
 import styles from './profileButton.module.scss'
 import { useEffect, useState } from 'react'
 import ActionButton from './ActionButton'
+import Cookies from 'js-cookie';
 import axios from 'axios'
 
 export default function ProfileButton(props: any) {
@@ -33,6 +34,18 @@ export default function ProfileButton(props: any) {
         })
     }
 
+    const logout = () => {
+        const csrf = Cookies.get('csrftoken')
+        axios.post(`${process.env.SITE_URL}/logout`, 'ok', {
+            withCredentials: true
+        })
+        .then(res => {
+            props.loggedOut()
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+
     return(
         <div className={styles.container}>
             <img className={styles.profileimg} src={`${process.env.SITE_URL + props.picture}`} onClick={openDropDown}/>
@@ -41,7 +54,7 @@ export default function ProfileButton(props: any) {
                     <div className={styles.subPic}></div>
                 </div>
                 <ActionButton name="My Profile"/>
-                <ActionButton name="Log Out"/>
+                <ActionButton name="Log Out" onClick={logout}/>
             </div>
         </div>
     )

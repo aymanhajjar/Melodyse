@@ -1,0 +1,68 @@
+$main_red: #AB4967;
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-5%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-5%);
+    opacity: 0;
+  }
+}
+
+.container {
+  display: flex;
+  height: calc(100vh - 6.5rem);
+  align-items: center;
+}
+
+.leftSide {
+  width: 65%;
+  animation: slideIn 0.6s ease-out;
+  z-index: 1;
+}
+
+.leftSideExpanded {
+  width: 100%;
+}
+
+.rightSide {
+  width: 35%;
+}
+
+.rightSideHidden {
+  width: 0rem;
+}
+
+.logoImage {
+  width: 80%;
+  -webkit-filter: drop-shadow(0px 0px 10px #808080);
+  filter: drop-shadow(0px 0px 10px #808080);
+  transform: scale(1);
+  transition: all 0.3s;
+}
+
+.logoImage:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+
+.musicalNotes {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  width: 40%;
+  z-index: 0;
+}
