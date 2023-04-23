@@ -4,6 +4,7 @@ import Login from '../components/login/login'
 import Register from '../components/register/register'
 import { useState } from 'react'
 import axios from 'axios'
+import HomeButton from '@/components/HomeButton/HomeButton'
 
 export default function Home(props : any) {
   
@@ -17,18 +18,31 @@ export default function Home(props : any) {
       <div className={styles.container}>
         <section>
             <img className={styles.pic1} src='/home/pic1.png'/>
-            <div>
-                <h1>STREAMLINE YOUR MUSIC JOURNEY WITH <h1 className={styles.redHeadline}>EASE</h1></h1>
+            <div className={styles.textSectionLeft}>
+                <h1>STREAMLINE YOUR MUSIC JOURNEY WITH <span className={styles.redHeadline}>EASE</span></h1>
                 <p>Collaborate with Musicians Worldwide:
                 Find the Perfect Match for Your Musical Projects</p>
 
+                <HomeButton text={'GET STARTED'} link='/login'/>
             </div>
         </section>
         <section>
-            SECC2
+        <img className={styles.pic2} src='/home/pic2.png'/>
+            <div className={styles.textSectionLeft}>
+                <h1>DISCOVER THE <br/><span className={styles.redHeadline}>HOTTEST</span> <br/>NEW <span className={styles.redHeadline}>MUSIC</span></h1>
+                <p>Listen to the Latest Tracks Created on Our Platform</p>
+
+                <HomeButton text={'DISCOVER'} link='/listen'/>
+            </div>
             </section>
         <section>
-            SECC3
+            <img className={styles.pic3} src='/home/pic3.png'/>
+            <div className={styles.textSectionTop}>
+                <h1>CONNECT WITH YOUR MUSICAL DREAM <span className={styles.redHeadline}>TEAM</span></h1>
+                <p>Find Your Perfect Musical Match! Organize Your Team and Assign Tasks with Ease. Chat, Share Files, and Make Payments</p>
+
+                <HomeButton text={'COLLAB'} link='/listen' top={true}/>
+            </div>
             </section>
       </div>
     </>

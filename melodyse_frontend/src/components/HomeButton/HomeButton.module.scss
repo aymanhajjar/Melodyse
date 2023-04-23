@@ -1,13 +1,20 @@
 $main_red: #AB4967;
 
 .homebutton {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 500;
     background-color: $main_red;
     color: white;
     border: none;
-    padding: 0.5rem;
+    padding: 1rem 2rem;
     border-radius: 10px;
     cursor: pointer;
+    margin-top: 5rem;
+    width: 50%;
+  }
+
+  .homebuttonTop {
+    @extend .homebutton;
+    width: 20%;
   }
 
