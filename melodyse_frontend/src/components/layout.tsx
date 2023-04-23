@@ -9,29 +9,36 @@ import FriendButton from './FriendButton/FriendButton'
 import { useRouter } from 'next/router'
 
 
-export default function Layout({ children }) {
+export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut }) {
 
     const [selected, setSelected] = useState('home')
-    const [loggedIn, setLoggedIn] = useState(false)
     const [userData, setUserData] = useState({})
 
     const router = useRouter()
 
     useEffect(() => {
         getUserInfo()
-    }, [])
+    }, [loggedIn])
+
+    useEffect(() => {
+        router.asPath == '/' ? setSelected('home')
+        : router.asPath == '/listen' ? setSelected('listen')
+        : router.asPath =='/collab' ? setSelected('collab')
+        : router.asPath == '/assistant' ? setSelected('assistant')
+        : router.asPath == '/about' && setSelected('about')
+    }, [router])
 
     const getUserInfo = () => {
         axios.get(`${process.env.SITE_URL}/getinfo`, {
             withCredentials: true
         }).then(res => {
-            setLoggedIn(true)
+            setLoggedIn()
             setUserData(res.data)
             console.log(res.data)
         }).catch(err => {
             try {
                 if (err.response.status === 403 && err.response.data == 'User not logged in') {
-                    setLoggedIn(false)
+                    setLoggedOut()
                 }
             } catch {
                 console.error(err)
@@ -68,7 +75,7 @@ export default function Layout({ children }) {
                         points={userData['points_remaining']}
                         subscription_level ={userData['subscription_level']}
                         subscription_name={userData['subscription_name']} 
-                        loggedOut = {() => setLoggedIn(false)}/>
+                        loggedOut = {() => setLoggedOut()}/>
                 </div>
                 
                 :<button type='button' className={styles.loginBtn} onClick={() => router.push('/login')}>LOG IN</button>}

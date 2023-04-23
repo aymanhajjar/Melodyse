@@ -34,7 +34,7 @@ export default function UserSkills(props: any) {
             withCredentials: true
         }).then(res => {
             console.log(res)
-            setChosenSkills(res.data)
+            res.data && setChosenSkills(res.data)
             setLoading(false)
         }).catch(err => console.log(err))
     }

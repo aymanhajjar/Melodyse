@@ -17,6 +17,9 @@ $main_red: #AB4967;
     scroll-snap-stop: always;
     scroll-snap-align: start;
     overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    overflow: -moz-scrollbars-none;
 
     section {
         display: flex;
@@ -27,6 +30,7 @@ $main_red: #AB4967;
         height: 100%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
+        z-index: 1;
 
         &:nth-of-type(1) {
             opacity: 0;
@@ -50,6 +54,10 @@ $main_red: #AB4967;
     }
 }
 
+.container::-webkit-scrollbar { 
+    display: none; 
+}
+
 .container section h1 {
     font-size: 3.2rem;
 }
@@ -70,6 +78,8 @@ $main_red: #AB4967;
     position: absolute;
     bottom: 0;
     right: 5rem;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .pic2 {
@@ -77,12 +87,25 @@ $main_red: #AB4967;
     position: absolute;
     bottom: 0;
     right: 0;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .pic3 {
     width: 70%;
     position: absolute;
     bottom: 0;
+    max-height: 100%;
+    object-fit: contain;
+    right: 0;
+}
+
+.pic4 {
+    width: 70%;
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+    object-fit: contain;
     right: 0;
 }
 
@@ -102,4 +125,33 @@ $main_red: #AB4967;
     width: 60%;
     position: absolute;
     top: 4rem;
+}
+
+.navDots {
+    position: absolute;
+    right: 2.5rem;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.dot {
+    cursor: pointer;
+    width: 1rem;
+    border-radius: 50%;
+    border: none;
+    height: 1rem;
+}
+
+.dotInactive {
+    @extend .dot;
+    background-color: #5E5E5E;
+}
+
+.dotActive {
+    @extend .dot;
+    background-color: $main_red;
 }

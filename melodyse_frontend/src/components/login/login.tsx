@@ -2,6 +2,7 @@ import styles from './login.module.scss'
 import { useEffect, useState } from 'react'
 import FormInput from '../FormInput/FormInput'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 
 export default function Login(props: any) {
@@ -10,6 +11,8 @@ export default function Login(props: any) {
     const [passwordValue, setPasswordValue] = useState('')
     const [errormessage, setErrorMessage] = useState('')
     const [loading, setLoading] = useState(false)
+
+    const router = useRouter()
 
     useEffect(() => {
         setActive(props.active)
@@ -35,7 +38,8 @@ export default function Login(props: any) {
             setLoading(false)
             const csrf = Cookies.get('csrftoken')
             axios.defaults.headers.common['X-CSRFToken'] = csrf
-            console.log(res)
+            props.setLoggedIn()
+            router.push('/')
         }).catch(err => {
             setLoading(false)
             if(err.response.data == 'User not found') {

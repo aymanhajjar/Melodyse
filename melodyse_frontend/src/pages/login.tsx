@@ -26,9 +26,9 @@ export default function Home(props : any) {
       </Head>
       <div className={styles.container}>
         <div className={step==0 ? styles.leftSide : styles.leftSideExpanded}>
-          {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token}/> : 
+          {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token} setLoggedIn={() => props.setLoggedIn()}/> : 
           (
-            step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)}/> :
+            step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)} setLoggedIn={() => props.setLoggedIn()}/> :
             (step == 1 ? <FavoriteArtists nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
             step == 2 ? <FavoriteSongs nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
             step == 3 ? <UserSkills nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : <Success prevStep = {() => setStep(step-1)}/>)

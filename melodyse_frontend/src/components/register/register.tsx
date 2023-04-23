@@ -34,7 +34,6 @@ export default function Register(props : any) {
         //   gapi.auth2.init({
         //     client_id: 'YOUR_CLIENT_ID',
         //   });
-          
         // });
       }, []);
 
@@ -68,6 +67,7 @@ export default function Register(props : any) {
                 setLoading(false)
                 const csrf = Cookies.get('csrftoken')
                 axios.defaults.headers.common['X-CSRFToken'] = csrf   
+                props.setLoggedIn()
                 props.nextStep()
             }).catch(err => {
                 setLoading(false)
@@ -80,6 +80,7 @@ export default function Register(props : any) {
                 if(err.response.data == 'email already exists') {
                     setErrorMessage('An account with this email address already exists. Please choose another one, or log in instead.')
                 }
+                console.error(err)
             })
         }
     }

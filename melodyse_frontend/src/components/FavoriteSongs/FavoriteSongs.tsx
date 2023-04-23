@@ -62,9 +62,9 @@ export default function FavoriteSongs(props: any) {
             withCredentials: true
         }).then(res => {
             console.log(res)
-            setChosenSongs(res.data)
+            res.data && setChosenSongs(res.data)
             const ids = []
-            res.data.forEach(song => {
+            res.data && res.data.forEach(song => {
                 ids.push(song.id)
             })
             setChosenIDs(ids)

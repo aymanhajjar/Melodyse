@@ -64,7 +64,7 @@ def register(request):
     
     user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
 
-    user_info = UserInfo.objects.create(user=user, gender=gender, date_of_birth=date_of_birth)
+    UserInfo.objects.create(user=user, gender=gender, date_of_birth=date_of_birth)
 
     user.backend = 'django.contrib.auth.backends.ModelBackend'
 
