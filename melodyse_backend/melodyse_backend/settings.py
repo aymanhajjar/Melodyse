@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'melodyse'
+    'users',
+    'django_rename_app',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'melodyse_backend.wsgi.application'
 
-AUTH_USER_MODEL = 'melodyse.User'
+AUTH_USER_MODEL = 'users.User'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -112,7 +113,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
-AUTHENTICATION_BACKENDS = [    'melodyse.modules.auth.AuthBackend',    'django.contrib.auth.backends.ModelBackend',]
+AUTHENTICATION_BACKENDS = [    'users.modules.auth.AuthBackend',    'django.contrib.auth.backends.ModelBackend',]
 
 AUTH_PASSWORD_VALIDATORS = [
     {

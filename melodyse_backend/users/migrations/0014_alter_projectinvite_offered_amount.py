@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0013_track_cover'),
+        ('users', '0013_track_cover'),
     ]
 
     operations = [

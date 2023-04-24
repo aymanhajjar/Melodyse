@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0003_file_name'),
+        ('users', '0003_file_name'),
     ]
 
     operations = [

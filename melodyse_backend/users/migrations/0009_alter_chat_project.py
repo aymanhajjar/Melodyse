@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0008_project_picture_projectinvite_message'),
+        ('users', '0008_project_picture_projectinvite_message'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='chat',
             name='project',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='chat', to='melodyse.project'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='chat', to='users.project'),
         ),
     ]

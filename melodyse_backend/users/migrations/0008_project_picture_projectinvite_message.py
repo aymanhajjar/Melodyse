@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0007_alter_userinfo_picture'),
+        ('users', '0007_alter_userinfo_picture'),
     ]
 
     operations = [

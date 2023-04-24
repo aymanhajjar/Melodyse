@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0016_skill'),
+        ('users', '0016_skill'),
     ]
 
     operations = [
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('rating', models.IntegerField()),
-                ('skill', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users', to='melodyse.skill')),
+                ('skill', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users', to='users.skill')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='skills', to=settings.AUTH_USER_MODEL)),
             ],
         ),

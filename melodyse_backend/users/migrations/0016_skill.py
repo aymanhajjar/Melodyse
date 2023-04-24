@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0015_alter_subscriptionplan_profile_color_and_more'),
+        ('users', '0015_alter_subscriptionplan_profile_color_and_more'),
     ]
 
     operations = [

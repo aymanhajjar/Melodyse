@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0012_notification_track_alter_notification_project_and_more'),
+        ('users', '0012_notification_track_alter_notification_project_and_more'),
     ]
 
     operations = [

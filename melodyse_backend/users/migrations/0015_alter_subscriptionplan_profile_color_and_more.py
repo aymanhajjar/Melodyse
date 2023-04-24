@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0014_alter_projectinvite_offered_amount'),
+        ('users', '0014_alter_projectinvite_offered_amount'),
     ]
 
     operations = [

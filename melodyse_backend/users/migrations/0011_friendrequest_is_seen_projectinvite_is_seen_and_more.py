@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0010_alter_friendrequest_is_accepted'),
+        ('users', '0010_alter_friendrequest_is_accepted'),
     ]
 
     operations = [

@@ -8,19 +8,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('melodyse', '0011_friendrequest_is_seen_projectinvite_is_seen_and_more'),
+        ('users', '0011_friendrequest_is_seen_projectinvite_is_seen_and_more'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='notification',
             name='track',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='melodyse.track'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='users.track'),
         ),
         migrations.AlterField(
             model_name='notification',
             name='project',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='melodyse.project'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='users.project'),
         ),
         migrations.AlterField(
             model_name='notification',
