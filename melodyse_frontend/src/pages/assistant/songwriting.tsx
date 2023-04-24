@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import styles from '@/styles/Assistant.module.scss'
-import Login from '../components/login/login'
 import { useState } from 'react'
 import axios from 'axios'
 

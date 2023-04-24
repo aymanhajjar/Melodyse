@@ -9,7 +9,7 @@ export default function Listen(props : any) {
   
     useEffect(() => {
         if(props.loggedIn) {
-            axios.get(`${process.env.SITE_URL}/getinfo`, {
+            axios.get(`${process.env.SITE_URL}/getsubscription`, {
                 withCredentials: true
             }).then(res => {
                 console.log(res.data)
@@ -24,6 +24,7 @@ export default function Listen(props : any) {
             })
         }
     }, [props.loggedIn])
+
   return (
     <>
       <Head>

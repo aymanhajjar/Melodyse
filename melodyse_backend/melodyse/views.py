@@ -122,10 +122,10 @@ def getRequests(request):
 def getSubscription(request):
     if request.user.is_authenticated:
         user_info = request.user.info.get()
-        subscription = request.user.subscription.get()
+        subscription = request.user.info.get().subscription
         points = subscription.points - user_info.points_used 
         sub = {
-            'subscription_plan': request.user.subscription.get(),
+            'subscription_plan': subscription.serialize(),
             'points': points
         } 
         return JsonResponse(sub, safe=False)
