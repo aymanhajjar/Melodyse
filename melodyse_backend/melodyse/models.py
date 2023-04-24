@@ -20,6 +20,21 @@ class SubscriptionPlan(models.Model):
     features = ArrayField(models.CharField(max_length=200))
     def __str__(self):
         return self.name
+    def serialize(self):
+        return {
+            "level": self.level,
+            "name": self.name,
+            "card_color": self.card_color,
+            "is_popular": self.is_popular,
+            "number_of_users": self.number_of_users,
+            "price_per_month": self.price_per_month,
+            "max_personal_projects": self.max_personal_projects,
+            "max_active_projects": self.max_active_projects,
+            "points": self.points,
+            "tag_on_profile": self.tag_on_profile,
+            "profile_color": self.profile_color,
+            "features": [feature for feature in self.features],
+        }
     
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
