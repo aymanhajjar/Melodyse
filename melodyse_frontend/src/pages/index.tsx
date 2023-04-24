@@ -17,26 +17,32 @@ export default function Home(props : any) {
       const container = useRef(null)
     
     useEffect(() => {
-    const handleScroll = () => {
-        const { scrollTop, clientHeight } = document.documentElement;
-        sections.forEach(({ id, ref }) => {
-        const { top, height } = ref.current.getBoundingClientRect();
-        if (top < clientHeight / 2 && top + height > clientHeight / 2) {
-            setActiveSection(id)
+        sections[0].ref.current.classList.add(styles.visibleFirst)
+        const handleScroll = () => {
+            const { scrollTop, clientHeight } = document.documentElement
+            sections.forEach(({ id, ref }) => {
+            const { top, height } = ref.current.getBoundingClientRect()
+            const sectionElement = ref.current
+            if (top < clientHeight / 2 && top + height > clientHeight / 2) {
+                setActiveSection(id)
+                sectionElement.classList.add(styles.visible)
+            } else {
+                sectionElement.classList.remove(styles.visible)
+                sectionElement.classList.remove(styles.visibleFirst)
+              }
+            })
         }
-        });
-    };
-    const containerRef = container.current;
-    containerRef.addEventListener('scroll', handleScroll)
-    return () => {
-        containerRef.removeEventListener('scroll', handleScroll)
-    }
+        const containerRef = container.current
+        containerRef.addEventListener('scroll', handleScroll)
+        return () => {
+            containerRef.removeEventListener('scroll', handleScroll)
+        }
     }, [])
 
     const scrollToSection = (id) => {
-        const section = sections.find((s) => s.id === id);
-        section.ref.current.scrollIntoView({ behavior: 'smooth' });
-      };
+        const section = sections.find((s) => s.id === id)
+        section.ref.current.scrollIntoView({ behavior: 'smooth' })
+      }
 
   return (
     <>
