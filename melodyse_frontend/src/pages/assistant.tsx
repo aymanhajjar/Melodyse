@@ -1,11 +1,29 @@
 import Head from 'next/head'
 import styles from '@/styles/Assistant.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import AIButton from '@/components/AIButton/AIButton'
 
 export default function Listen(props : any) {
+    const [points, setPoints] = useState()
   
+    useEffect(() => {
+        if(props.loggedIn) {
+            axios.get(`${process.env.SITE_URL}/getinfo`, {
+                withCredentials: true
+            }).then(res => {
+                console.log(res.data)
+            }).catch(err => {
+                try {
+                    if (err.response.status === 403 && err.response.data == 'User not logged in') {
+                        props.setLoggedOut()
+                    }
+                } catch {
+                    console.error(err)
+                }
+            })
+        }
+    }, [props.loggedIn])
   return (
     <>
       <Head>
