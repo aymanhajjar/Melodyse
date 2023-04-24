@@ -90,10 +90,10 @@ export default function Home(props : any) {
         <section ref={sections[3].ref} id={sections[3].id}>
             <img className={styles.pic4} src='/home/pic4.png'/>
             <div className={styles.textSectionLeft}>
-                <h1>DISCOVER THE <br/><span className={styles.redHeadline}>HOTTEST</span> <br/>NEW <span className={styles.redHeadline}>MUSIC</span></h1>
-                <p>Listen to the Latest Tracks Created on Our Platform</p>
+                <h1>REVOLUTIONIZE YOUR MUSIC WITH <span className={styles.redHeadline}>AI</span></h1>
+                <p>Get Songwriting Help, Learn Music Theory and More!</p>
 
-                <HomeButton text={'DISCOVER'} link='/listen'/>
+                <HomeButton text={'ASSISTANT'} link='/assistant'/>
             </div>
         </section>
       </div>
