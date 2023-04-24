@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '@/styles/Songwriting.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
 import UndoButton from '@/components/UndoButton/UndoButton'
@@ -9,6 +9,52 @@ function Songwriting({subscriptions = []}) {
 
   const [lyrics, setLyrics] = useState('')
   const [useInterests, setUseInterests] = useState(true)
+  const [undoEnabled, setUndoEnabled] = useState(false)
+  const [redoEnabled, setRedoEnabled] = useState(false)
+  const historyRef = useRef({ past: [], present: lyrics, future: [] })
+
+  useEffect(() => {
+    const { past, present, future } = historyRef.current
+    past.length > 0 ? setUndoEnabled(true) : setUndoEnabled(false)
+    future.length > 0 ? setRedoEnabled(true) : setRedoEnabled(false)
+  }, [historyRef.current])
+
+  function handleUndo() {
+    const { past, present, future } = historyRef.current
+    if (past.length > 0) {
+      const previous = past[past.length - 1]
+      historyRef.current = {
+        past: past.slice(0, past.length - 1),
+        present: previous,
+        future: [present, ...future],
+      }
+    console.log(historyRef.current)
+    setLyrics(previous)
+    }
+  }
+
+  function handleRedo() {
+    const { past, present, future } = historyRef.current
+    if (future.length > 0) {
+      const next = future[0]
+      historyRef.current = {
+        past: [...past, present],
+        present: next,
+        future: future.slice(1),
+      }
+      setLyrics(next)
+    }
+  }
+
+  function handleChange(value) {
+    historyRef.current = {
+      past: [...historyRef.current.past, historyRef.current.present],
+      present: value,
+      future: [],
+    }
+    console.log(historyRef.current)
+    setLyrics(value)
+  }
 
   return (
     <>
@@ -20,7 +66,7 @@ function Songwriting({subscriptions = []}) {
       <div className={styles.container}>
         <div className={styles.leftSide}>
             <h1>SONGWRITING ASSISTANT</h1>
-            <textarea placeholder='Write down your lyrics...' value={lyrics} onChange={(e) => setLyrics(e.target.value)}></textarea>
+            <textarea placeholder='Write down your lyrics...' value={lyrics} onChange={(e) => handleChange(e.target.value)}></textarea>
             <div className={styles.belowText}>
             <AIActionButton name="Help with Melody" pic='/assistant/music.png'/>
             <div className={styles.useInterests}>
@@ -33,8 +79,8 @@ function Songwriting({subscriptions = []}) {
         </div>
         <div className={styles.rightSide}>
             <div className={styles.undobuttons}>
-                <UndoButton type='undo' />
-                <UndoButton type='redo' />
+                <UndoButton type='undo' enabled={undoEnabled} undo={handleUndo} />
+                <UndoButton type='redo' enabled={redoEnabled} redo={handleRedo}/>
             </div>
 
             <AIActionButton 
