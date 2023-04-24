@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import styles from '@/styles/Assistant.module.scss'
+import styles from '@/styles/Songwriting.module.scss'
 import { useState } from 'react'
 import axios from 'axios'
+import AIActionButton from '@/components/AIActionButton/AIActionButton'
 
 export default function Listen(props : any) {
   
@@ -14,12 +15,18 @@ export default function Listen(props : any) {
       </Head>
       <div className={styles.container}>
         <div className={styles.leftSide}>
-            <h2>SONGWRITING ASSISTANT</h2>
+            <h1>SONGWRITING ASSISTANT</h1>
             <textarea placeholder='Write Down Your Lyrics...'></textarea>
+            <div className={styles.belowText}>
+                <button>Hey</button>
+                <label>
+                    Use my interests to improve responses
+                </label>
+            </div>
 
         </div>
         <div className={styles.rightSide}>
-            
+            <AIActionButton name="Improve Lyrics" pic='/assistant/composing.png'/>
         </div>
 
       </div>

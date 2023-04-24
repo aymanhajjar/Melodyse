@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 92%;
+    margin: auto;
+    height: 100%;
+    padding-top: 2rem;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 60%;
+}
+
+.leftSide textarea {
+    min-height: 70%;
+    width: 100%;
+    padding: 1.5rem;
+    border: none;
+    resize: none;
+    transition: all 0.3s;
+    border-radius: 10px;
+}
+
+.leftSide textarea:focus {
+    outline: none;
+    background-color: rgb(221, 221, 221);
+    transition: all 0.3s;
+}
