@@ -186,3 +186,8 @@ def getChosenSkills(request):
         return JsonResponse(skillsObject, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def getSubscriptions(request):
+    subs = SubscriptionPlan.objects.all()
+    subsArray = [sub.serialize() for sub in subs]
+    return JsonResponse(subsArray, safe=False)
