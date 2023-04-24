@@ -23,7 +23,6 @@ export default function Listen(props : any) {
                     Use my interests to improve responses
                 </label>
             </div>
-
         </div>
         <div className={styles.rightSide}>
             <AIActionButton name="Improve Lyrics" pic='/assistant/composing.png'/>

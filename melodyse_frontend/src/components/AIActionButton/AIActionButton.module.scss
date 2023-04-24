@@ -2,17 +2,24 @@
 $main_red: #AB4967;
 
 .aibutton {
-    position: relative;
-    padding: 3.5rem 2rem;
-    padding-left: 10rem;
+    padding: 0.8rem 2rem;
     border: none;
     border-radius: 10px;
     background-color: $main_red;
     color: white;
     font-family: 'Inter', sans-serif;
-    width: 45%;
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     transition: all 0.3s;
     cursor: pointer;
+}
+
+.aibutton h3 {
+    width: 80%;
+    font-size: 1.2rem;
+    text-align: center;
 }
 
 .aibutton:hover {
@@ -21,9 +28,6 @@ $main_red: #AB4967;
 }
 
 .aibutton img {
-    width: 7.5rem;
+    width: 15%;
     object-fit: contain;
-    top: -1rem;
-    left: 1rem;
-    position: absolute;
 }
