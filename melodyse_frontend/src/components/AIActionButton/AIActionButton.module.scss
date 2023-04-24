@@ -27,6 +27,11 @@ $main_red: #AB4967;
     transition: all 0.3s;
 }
 
+.aibutton:active, .aibutton:focus {
+    transform: scale(1);
+    transition: all 0.3s;
+}
+
 .aibutton img {
     width: 15%;
     object-fit: contain;

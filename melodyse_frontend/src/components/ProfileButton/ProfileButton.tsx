@@ -7,7 +7,7 @@ import axios from 'axios'
 export default function ProfileButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [sub, setChats] = useState()
+    const [sub, setSub] = useState()
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -23,9 +23,8 @@ export default function ProfileButton(props: any) {
         })
         .then(res => {
             if(res.data.length > 0) {
-                setChats(res.data)
-            } else {
-                setChats('')
+                setSub(res.data)
+                props.setSub(res.data)
             }
             console.log(res)
             setLoading(false)

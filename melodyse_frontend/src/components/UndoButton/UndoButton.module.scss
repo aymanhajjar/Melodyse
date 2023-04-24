@@ -1,0 +1,28 @@
+$main_red: #AB4967;
+
+.undobutton {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $main_red;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.undobutton:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+}
+
+.undobutton img {
+    width: 1.5rem;
+    object-fit: contain;
+    filter: invert(100%);
+}
+
+.redo {
+    transform: scaleX(-1)
+}

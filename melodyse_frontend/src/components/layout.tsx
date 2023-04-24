@@ -9,7 +9,7 @@ import FriendButton from './FriendButton/FriendButton'
 import { useRouter } from 'next/router'
 
 
-export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut }) {
+export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, setSubscription }) {
 
     const [selected, setSelected] = useState('home')
     const [userData, setUserData] = useState({})
@@ -34,7 +34,25 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut }
         }).then(res => {
             setLoggedIn()
             setUserData(res.data)
-            console.log(res.data)
+            getSubscription()
+        }).catch(err => {
+            try {
+                if (err.response.status === 403 && err.response.data == 'User not logged in') {
+                    setLoggedOut()
+                }
+            } catch {
+                console.error(err)
+            }
+        })
+        
+    }
+
+
+    const getSubscription = () => {
+        axios.get(`${process.env.SITE_URL}/getsubscription`, {
+            withCredentials: true
+        }).then(res => {
+            setSubscription(res.data)
         }).catch(err => {
             try {
                 if (err.response.status === 403 && err.response.data == 'User not logged in') {
@@ -45,6 +63,7 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut }
             }
         })
     }
+
 
     const switchPage = (page) => {
         router.push('/' + page)
@@ -72,9 +91,7 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut }
                     <NotificationButton/>
                     <ProfileButton 
                         picture={userData['pic']} 
-                        points={userData['points_remaining']}
-                        subscription_level ={userData['subscription_level']}
-                        subscription_name={userData['subscription_name']} 
+                        setSub={(val) => setSubscription(val)}
                         loggedOut = {() => setLoggedOut()}/>
                 </div>
                 

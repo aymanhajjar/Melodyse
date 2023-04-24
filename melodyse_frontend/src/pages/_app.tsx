@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 
 export default function MyApp({ Component, pageProps } : AppProps) {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [subscription, setSubscription] = useState({})
   
   useEffect(() => {
     axios.get(`${process.env.SITE_URL}/gettoken`, {
@@ -20,8 +21,21 @@ export default function MyApp({ Component, pageProps } : AppProps) {
 
 
   return (
-    <Layout {...pageProps} loggedIn={loggedIn} setLoggedIn={() => setLoggedIn(true)} setLoggedOut={() => setLoggedIn(false)}>
-      <Component {...pageProps} loggedIn={loggedIn} setLoggedIn={() => setLoggedIn(true)} setLoggedOut={() => setLoggedIn(false)}/>
+
+    <Layout {...pageProps} 
+      loggedIn={loggedIn} 
+      setLoggedIn={() => setLoggedIn(true)} 
+      setLoggedOut={() => setLoggedIn(false)} 
+      setSubscription={(sub) => setSubscription(sub)}
+      subscription={subscription}>
+
+      <Component {...pageProps} 
+        loggedIn={loggedIn} 
+        setLoggedIn={() => setLoggedIn(true)} 
+        setLoggedOut={() => setLoggedIn(false)} 
+        setSubscription={(sub) => setSubscription(sub)}
+        subscription={subscription}/>
+        
     </Layout>
   )
 }
