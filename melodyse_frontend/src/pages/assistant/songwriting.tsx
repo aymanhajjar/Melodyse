@@ -10,11 +10,11 @@ export default function Listen(props : any) {
   const [lyrics, setLyrics] = useState('')
 
   useEffect(() =>{
-
+    getSubscriptions()
   }, [])
 
   const getSubscriptions = () => {
-    
+
   }
 
   return (

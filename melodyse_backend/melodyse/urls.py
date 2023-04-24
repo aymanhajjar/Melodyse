@@ -21,4 +21,5 @@ urlpatterns = [
     path("getskills", views.getSkills),
     path("addskills", views.addSkills),
     path("getchosenskills", views.getChosenSkills),
+    path("getsubscriptions", views.getSubscriptions),
 ]
