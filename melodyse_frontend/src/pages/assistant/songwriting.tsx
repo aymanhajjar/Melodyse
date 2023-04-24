@@ -13,7 +13,14 @@ export default function Listen(props : any) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
-        SONGWRIT
+        <div className={styles.leftSide}>
+            <h2>SONGWRITING ASSISTANT</h2>
+            <textarea placeholder='Write Down Your Lyrics...'></textarea>
+
+        </div>
+        <div className={styles.rightSide}>
+            
+        </div>
 
       </div>
     </>

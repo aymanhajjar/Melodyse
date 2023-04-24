@@ -28,7 +28,6 @@ export default function Home(props : any) {
     };
     const containerRef = container.current;
     containerRef.addEventListener('scroll', handleScroll)
-    console.log(containerRef.current)
     return () => {
         containerRef.removeEventListener('scroll', handleScroll)
     }

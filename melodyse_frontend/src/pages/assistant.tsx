@@ -12,7 +12,7 @@ export default function Listen(props : any) {
             axios.get(`${process.env.SITE_URL}/getsubscription`, {
                 withCredentials: true
             }).then(res => {
-                console.log(res.data)
+                setPoints(res.data.points)
             }).catch(err => {
                 try {
                     if (err.response.status === 403 && err.response.data == 'User not logged in') {
@@ -33,7 +33,7 @@ export default function Listen(props : any) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
-        <span className={styles.points}>{props.loggedIn ? 'logs' : 'You Must Be Logged In to Use Assistant'}</span>
+        <span className={styles.points}>{points ? `${points} Melody Points Remaining` : 'You Must Be Logged In to Use Assistant'}</span>
         <div className={styles.header}>
             <h1>AI ASSISTANT</h1>
             <h4>An AI-powered assistant for all your musical needs!</h4>
