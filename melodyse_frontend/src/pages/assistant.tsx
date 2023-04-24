@@ -4,6 +4,7 @@ import Login from '../components/login/login'
 import Register from '../components/register/register'
 import { useState } from 'react'
 import axios from 'axios'
+import AIButton from '@/components/AIButton/AIButton'
 
 export default function Listen(props : any) {
   
@@ -21,7 +22,10 @@ export default function Listen(props : any) {
         </div>
 
         <div className={styles.aiButtons}>
-            
+            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
+            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
+            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
+            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
         </div>
       </div>
     </>
