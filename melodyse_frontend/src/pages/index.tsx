@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.scss'
-import Login from '../components/login/login'
-import Register from '../components/register/register'
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import HomeButton from '@/components/HomeButton/HomeButton'

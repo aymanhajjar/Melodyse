@@ -3,7 +3,7 @@ $main_red: #AB4967;
 
 .aibutton {
     position: relative;
-    padding: 3rem 2rem;
+    padding: 3.5rem 2rem;
     padding-left: 10rem;
     border: none;
     border-radius: 10px;
@@ -11,6 +11,13 @@ $main_red: #AB4967;
     color: white;
     font-family: 'Inter', sans-serif;
     width: 45%;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.aibutton:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
 }
 
 .aibutton img {

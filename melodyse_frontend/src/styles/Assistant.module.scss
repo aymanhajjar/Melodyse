@@ -1,10 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700&display=swap');
+$main_red: #AB4967;
+
+@keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
 .container {
     display: flex;
     align-items: center;
     padding-top: 1rem;
     flex-direction: column;
     gap: 20%;
+    opacity: 0;
+    font-family: 'Inter';
     height: 100%;
+    animation: fade 1s ease-in-out;
+    animation-fill-mode: forwards;
 }
 
 .header {
@@ -31,4 +47,10 @@
     justify-content: space-around;
     gap: 2rem;
     flex-wrap: wrap;
+}
+
+.points {
+    position: absolute;
+    right: 4rem;
+    color: $main_red;
 }
