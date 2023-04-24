@@ -23,9 +23,9 @@ export default function Listen(props : any) {
 
         <div className={styles.aiButtons}>
             <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
-            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
-            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
-            <AIButton name="SONGWRITING ASSISTANT" pic='/icons/writing.png' route="/assistant/songwriting"/>
+            <AIButton name="PRODUCTION ASSISTANT" pic='/icons/producer.png' route="/assistant/production"/>
+            <AIButton name="LEARNING ASSISTANT" pic='/icons/guitar.png' route="/assistant/learning"/>
+            <AIButton name="RELEASE ASSISTANT" pic='/icons/vinyl-record.png' route="/assistant/release"/>
         </div>
       </div>
     </>

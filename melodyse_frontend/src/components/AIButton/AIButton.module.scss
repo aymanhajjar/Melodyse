@@ -3,17 +3,18 @@ $main_red: #AB4967;
 
 .aibutton {
     position: relative;
-    padding: 3rem;
-    padding-left: 8rem;
+    padding: 3rem 2rem;
+    padding-left: 10rem;
     border: none;
     border-radius: 10px;
     background-color: $main_red;
     color: white;
     font-family: 'Inter', sans-serif;
+    width: 45%;
 }
 
 .aibutton img {
-    width: 6rem;
+    width: 7.5rem;
     object-fit: contain;
     top: -1rem;
     left: 1rem;
