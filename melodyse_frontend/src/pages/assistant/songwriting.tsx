@@ -5,23 +5,10 @@ import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
 import UndoButton from '@/components/UndoButton/UndoButton'
 
-export default function Listen(props : any) {
+function Songwriting({subscriptions = []}) {
 
   const [lyrics, setLyrics] = useState('')
-  const [subscriptions, setSubscriptions] = useState([])
-
-  useEffect(() =>{
-    getSubscriptions()
-  }, [])
-
-  const getSubscriptions = () => {
-    axios.get(`${process.env.SITE_URL}/getsubscriptions`, {
-        withCredentials: true
-    }).then(res => {
-        setSubscriptions(res.data)
-        console.log(res.data)
-    }).catch(err => console.error(err))
-  }
+  const [useInterests, setUseInterests] = useState(true)
 
   return (
     <>
@@ -40,7 +27,7 @@ export default function Listen(props : any) {
                 <label>
                         Use my interests to improve responses
                     </label>
-                    <input type='checkbox' checked={true}/>
+                    <input type='checkbox' checked={useInterests} onChange={() => setUseInterests(!useInterests)}/>
                 </div>
             </div>
         </div>
@@ -74,3 +61,15 @@ export default function Listen(props : any) {
     </>
   )
 }
+
+Songwriting.getInitialProps = async (ctx) => {
+  let data = []
+  await axios.get(`${process.env.SERVER_SITE_URL}/getsubscriptions`, {
+            withCredentials: true
+        }).then(res => {
+            data = res.data
+        }).catch(err => console.error(err))
+  return {subscriptions: data}
+};
+
+export default Songwriting
