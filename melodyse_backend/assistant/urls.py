@@ -4,9 +4,9 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path("improve", views.Improve),
-    path("feedback", views.Feedback),
-    path("grammar", views.Grammar),
-    path("generate", views.Generate),
-    path("generatemelody", views.GenerateMelody),
+    path("improve", views.improve),
+    path("feedback", views.feedback),
+    path("grammar", views.grammar),
+    path("generate", views.generate),
+    path("generatemelody", views.generateMelody),
 ]
