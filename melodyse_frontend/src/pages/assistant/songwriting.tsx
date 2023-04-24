@@ -8,13 +8,19 @@ import UndoButton from '@/components/UndoButton/UndoButton'
 export default function Listen(props : any) {
 
   const [lyrics, setLyrics] = useState('')
+  const [subscriptions, setSubscriptions] = useState([])
 
   useEffect(() =>{
     getSubscriptions()
   }, [])
 
   const getSubscriptions = () => {
-
+    axios.get(`${process.env.SITE_URL}/getsubscriptions`, {
+        withCredentials: true
+    }).then(res => {
+        setSubscriptions(res.data)
+        console.log(res.data)
+    }).catch(err => console.error(err))
   }
 
   return (
@@ -47,7 +53,7 @@ export default function Listen(props : any) {
             <AIActionButton 
                 name="Improve Lyrics" 
                 pic='/assistant/composing.png' 
-                tier={}/>
+                subscription={subscriptions.find(sub => sub.level == 1)}/>
 
             <AIActionButton 
                 name="Feedback" 

@@ -47,7 +47,6 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, 
         
     }
 
-
     const getSubscription = () => {
         axios.get(`${process.env.SITE_URL}/getsubscription`, {
             withCredentials: true

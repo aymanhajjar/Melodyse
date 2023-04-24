@@ -14,6 +14,7 @@ $main_red: #AB4967;
     align-items: center;
     transition: all 0.3s;
     cursor: pointer;
+    position: relative;
 }
 
 .aibutton h3 {
@@ -35,4 +36,21 @@ $main_red: #AB4967;
 .aibutton img {
     width: 15%;
     object-fit: contain;
+}
+
+.subscription {
+    padding: 1rem;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 0.6rem;
+    font-weight: 600;
+    box-shadow: 0 0 2px gray;
+    top: -0.5rem;
+    right: -0.5rem;
 }
