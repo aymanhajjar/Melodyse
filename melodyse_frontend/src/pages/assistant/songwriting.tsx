@@ -47,8 +47,9 @@ function Songwriting({subscriptions = []}) {
   }
 
   function handleChange(value) {
+    const { past, present, future } = historyRef.current
     historyRef.current = {
-      past: [...historyRef.current.past, historyRef.current.present],
+      past: past.length > 14 ? [...historyRef.current.past.slice(1), historyRef.current.present] : [...historyRef.current.past, historyRef.current.present],
       present: value,
       future: [],
     }
