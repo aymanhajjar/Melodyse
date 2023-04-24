@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700&display=swap');
+$main_red: #AB4967;
+
+.aibutton {
+    padding: 2rem;
+    border: none;
+    border-radius: 10px;
+    background-color: $main_red;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}

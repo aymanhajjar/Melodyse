@@ -97,8 +97,11 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut }
                         className={selected == "collab" ? styles.navBtnFocus : styles.navBtn} 
                         onClick={() => switchPage('collab')}>COLLAB</button>
 
-                    <button type='button' className={styles.navBtn}>ASSISTANT</button>
-                    <button type='button' className={styles.navBtn}>ABOUT</button>
+                    <button type='button' className={selected == "assistant" ? styles.navBtnFocus : styles.navBtn} 
+                        onClick={() => switchPage('assistant')}>ASSISTANT</button>
+                        
+                    <button type='button' className={selected == "about" ? styles.navBtnFocus : styles.navBtn} 
+                        onClick={() => switchPage('about')}>ABOUT</button>
                     </div>
                     <span>© 2023 MELODYSE</span>
                 </nav>
