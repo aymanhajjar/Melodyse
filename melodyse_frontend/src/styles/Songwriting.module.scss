@@ -29,3 +29,9 @@
     background-color: rgb(221, 221, 221);
     transition: all 0.3s;
 }
+
+.rightSide {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

@@ -26,6 +26,9 @@ export default function Listen(props : any) {
         </div>
         <div className={styles.rightSide}>
             <AIActionButton name="Improve Lyrics" pic='/assistant/composing.png'/>
+            <AIActionButton name="Feedback" pic='/assistant/feedback.png'/>
+            <AIActionButton name="Fix Grammar" pic='/assistant/grammar.png'/>
+            <AIActionButton name="Generate New Lyrics" pic='/assistant/magic-wand.png'/>
         </div>
 
       </div>
