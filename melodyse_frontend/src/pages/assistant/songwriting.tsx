@@ -78,6 +78,23 @@ function Songwriting({subscriptions = []}) {
     })
   }
 
+  const fixGrammar = () => {
+    setLoading(true)
+    const data = new FormData()
+    data.append('lyrics', lyrics)
+    data.append('with_interests', useInterests.toString())
+    axios.post(`${process.env.SITE_URL}/grammar`, data, {
+      withCredentials: true
+    }).then((res) => {
+      setLoading(false)
+      // const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      console.log(res)
+    }).catch(err => {
+        setLoading(false)
+        console.error(err)
+    })
+  }
+
   const improveLyrics = () => {
 
   }
@@ -133,7 +150,8 @@ function Songwriting({subscriptions = []}) {
 
             <AIActionButton 
                 name="Fix Grammar" 
-                pic='/assistant/grammar.png'/>
+                pic='/assistant/grammar.png'
+                submit={fixGrammar}/>
 
             <AIActionButton 
                 name="Generate New Lyrics" 
