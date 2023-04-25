@@ -3,6 +3,7 @@ import styles from '@/styles/Production.module.scss'
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
+import Piano from '@/components/Piano/Piano'
 
 function Production({subscriptions = []}) {
 
@@ -15,7 +16,7 @@ function Production({subscriptions = []}) {
       </Head>
       <div className={styles.container}>
         <h1>MUSIC PRODUCTION ASSISTANT</h1>
-
+            <Piano/>
       </div>
     </>
   )
