@@ -8,3 +8,13 @@
     cursor: pointer;
     background-color: rgb(104, 104, 104);
 }
+
+.blackButtonActive {
+    @extend .blackButton;
+    background-color: #47E5BC;
+    border: solid gray 1px;
+}
+
+.blackButtonActive:hover {
+    background-color: #8bf4d8;
+}

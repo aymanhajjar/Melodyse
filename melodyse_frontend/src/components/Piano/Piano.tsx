@@ -4,12 +4,22 @@ import axios from 'axios'
 import WhiteButton from './buttons/WhiteButton'
 import BlackButton from './buttons/BlackButton'
 
-export default function Piano() {
+export default function Piano({selected}) {
+    const [notes, setNotes] = useState([])
+
+    useState(() => {
+        selected(notes)
+    }, [notes])
+
+    const handleSelect = (note) => {
+        const index = notes.indexOf(note)
+        index >= 0 ? setNotes(notes.filter((n) => n !== note)) : setNotes([...notes, note])
+    }
 
   return (
     <>
       <div className={styles.container}>
-        <WhiteButton note='B'/>
+        <WhiteButton note='B' select={() => handleSelect('B')}/>
         <WhiteButton note='A'/>
         <WhiteButton note='G'/>
         <WhiteButton note='F'/>

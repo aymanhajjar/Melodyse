@@ -26,6 +26,7 @@
     "react-dom": "18.2.0",
     "react-password-strength-bar": "^0.4.1",
     "sass": "^1.62.0",
+    "tonal": "^4.14.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {

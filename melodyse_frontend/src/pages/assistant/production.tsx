@@ -4,8 +4,14 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
 import Piano from '@/components/Piano/Piano'
+const Tonal = require('tonal')
 
 function Production({subscriptions = []}) {
+    const [notes, setNotes] = useState([])
+
+    useEffect(() => {
+
+    }, [notes])
 
   return (
     <>
@@ -17,7 +23,13 @@ function Production({subscriptions = []}) {
       <div className={styles.container}>
         <h1>MUSIC PRODUCTION ASSISTANT</h1>
         <div className={styles.UIContainer}>
-            <Piano/>
+            <Piano selected={(val) => setNotes(val)} />
+            <div className={styles.DIV2}>
+                DIV2
+            </div>
+            <div className={styles.DIV3}>
+                DIV3
+            </div>
         </div>
       </div>
     </>
