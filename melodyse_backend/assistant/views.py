@@ -12,7 +12,23 @@ environ.Env.read_env()
 # Create your views here.
 
 def improve(request):
-    pass
+    if request.user.is_authenticated:
+
+        lyrics = request.POST['lyrics']
+        with_interests = request.POST['with_interests'].lower() == "true"
+
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt= prompt.genPrompt(user=request.user, lyrics=lyrics, with_interests=with_interests, type="improve"),
+            temperature=0,
+            max_tokens=1000,
+            top_p=1.0,
+            frequency_penalty=0.0,
+            presence_penalty=0.0,
+            stop=["\"\"\""]
+        )
+
+        return JsonResponse(response, safe=False)
 
 def feedback(request):
     if request.user.is_authenticated:
