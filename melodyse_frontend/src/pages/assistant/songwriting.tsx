@@ -121,6 +121,7 @@ function Songwriting({subscriptions = []}) {
       const difs = diff.diffWords(lyrics, cleanText)
       setTempLyrics(cleanText)
       setDifferences(difs)
+      console.log(res)
     }).catch(err => {
         setLoading(false)
         console.error(err)
