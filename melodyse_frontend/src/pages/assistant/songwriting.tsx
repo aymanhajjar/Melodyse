@@ -80,8 +80,10 @@ function Songwriting({subscriptions = []}) {
       setLoading(false)
       const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
       setFeedbackText(cleanText)
+      setDisabled(false)
       setFeedbackBox(true)
     }).catch(err => {
+        setDisabled(false)
         setLoading(false)
         console.error(err)
     })
@@ -100,8 +102,10 @@ function Songwriting({subscriptions = []}) {
       const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
       const difs = diff.diffWords(lyrics, cleanText)
       setTempLyrics(cleanText)
+      setDisabled(false)
       setDifferences(difs)
     }).catch(err => {
+        setDisabled(false)
         setLoading(false)
         console.error(err)
     })
@@ -121,8 +125,9 @@ function Songwriting({subscriptions = []}) {
       const difs = diff.diffWords(lyrics, cleanText)
       setTempLyrics(cleanText)
       setDifferences(difs)
-      console.log(res)
+      setDisabled(false)
     }).catch(err => {
+        setDisabled(false)
         setLoading(false)
         console.error(err)
     })
@@ -139,8 +144,10 @@ function Songwriting({subscriptions = []}) {
     }).then((res) => {
       setLoading(false)
       const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      setDisabled(false)
       setLyrics(cleanText)
     }).catch(err => {
+        setDisabled(false)
         setLoading(false)
         console.error(err)
     })
@@ -153,10 +160,12 @@ function Songwriting({subscriptions = []}) {
     axios.post(`${process.env.SITE_URL}/generatemelody`, data, {
       withCredentials: true
     }).then((res) => {
+      setDisabled(false)
       setLoading(false)
       const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
       setLyrics(cleanText)
     }).catch(err => {
+        setDisabled(false)
         setLoading(false)
         console.error(err)
     })
@@ -185,8 +194,8 @@ function Songwriting({subscriptions = []}) {
         <div className={styles.leftSide}>
             <h1>SONGWRITING ASSISTANT</h1>
             {differences.length > 0 && <div className={styles.actions}>
-                <button className={styles.accept}><img src={'/icons/check.png'} onClick={() => accept()}/>Accept Changes</button>
-                <button className={styles.reject}><img src={'/icons/x.png'} onClick={() => setDifferences([])} />Reject</button>
+                <button className={styles.accept} onClick={() => accept()}><img src={'/icons/check.png'} />Accept Changes</button>
+                <button className={styles.reject} onClick={() => setDifferences([])}><img src={'/icons/x.png'}/>Reject</button>
               </div>}
             <div className={styles.lyricsContainer}>
 
