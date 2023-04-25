@@ -110,15 +110,55 @@ function Songwriting({subscriptions = []}) {
   const improveLyrics = () => {
     setLoading(true)
     setDisabled(true)
+    const data = new FormData()
+    data.append('lyrics', lyrics)
+    data.append('with_interests', useInterests.toString())
+    axios.post(`${process.env.SITE_URL}/improve`, data, {
+      withCredentials: true
+    }).then((res) => {
+      setLoading(false)
+      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      const difs = diff.diffWords(lyrics, cleanText)
+      setTempLyrics(cleanText)
+      setDifferences(difs)
+    }).catch(err => {
+        setLoading(false)
+        console.error(err)
+    })
   }
 
   const generate = () => {
     setLoading(true)
     setDisabled(true)
+    const data = new FormData()
+    data.append('lyrics', lyrics)
+    data.append('with_interests', useInterests.toString())
+    axios.post(`${process.env.SITE_URL}/generate`, data, {
+      withCredentials: true
+    }).then((res) => {
+      setLoading(false)
+      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      setLyrics(cleanText)
+    }).catch(err => {
+        setLoading(false)
+        console.error(err)
+    })
   }
 
   const generateMelody = () => {
-    
+    const data = new FormData()
+    data.append('lyrics', lyrics)
+    data.append('with_interests', useInterests.toString())
+    axios.post(`${process.env.SITE_URL}/generatemelody`, data, {
+      withCredentials: true
+    }).then((res) => {
+      setLoading(false)
+      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      setLyrics(cleanText)
+    }).catch(err => {
+        setLoading(false)
+        console.error(err)
+    })
   }
 
   const accept = () => {
