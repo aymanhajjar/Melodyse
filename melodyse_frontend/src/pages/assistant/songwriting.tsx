@@ -11,6 +11,10 @@ function Songwriting({subscriptions = []}) {
   const [useInterests, setUseInterests] = useState(true)
   const [undoEnabled, setUndoEnabled] = useState(false)
   const [redoEnabled, setRedoEnabled] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [feedbackBox, setFeedbackBox] = useState(false)
+  const [feedbackText, setFeedbackText] = useState()
+
   const historyRef = useRef({ past: [], present: lyrics, future: [] })
 
   useEffect(() => {
@@ -57,6 +61,29 @@ function Songwriting({subscriptions = []}) {
     setLyrics(value)
   }
 
+  const feedback = () => {
+    setLoading(true)
+    const data = new FormData()
+    data.append('lyrics', lyrics)
+    data.append('with_interests', useInterests.toString())
+    axios.post(`${process.env.SITE_URL}/feedback`, data, {
+      withCredentials: true
+    }).then((res) => {
+      setLoading(false)
+      console.log(res.data.choices[0].text)
+      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      setFeedbackText(cleanText)
+      setFeedbackBox(true)
+    }).catch(err => {
+        setLoading(false)
+        console.error(err)
+    })
+  }
+
+  const improveLyrics = () => {
+
+  }
+
   return (
     <>
       <Head>
@@ -67,7 +94,18 @@ function Songwriting({subscriptions = []}) {
       <div className={styles.container}>
         <div className={styles.leftSide}>
             <h1>SONGWRITING ASSISTANT</h1>
-            <textarea placeholder='Write down your lyrics...' value={lyrics} onChange={(e) => handleChange(e.target.value)}></textarea>
+            <div className={styles.lyricsContainer}>
+              <textarea className={feedbackBox && styles.textMinimized} placeholder='Write down your lyrics...' value={lyrics} onChange={(e) => handleChange(e.target.value)}></textarea>
+              <div className={loading ? styles.loadingOverlay : styles.loadingHidden}>
+                <img src='/loading-melodyse.gif'/>
+              </div>
+            <div style={{whiteSpace: "pre-wrap"}} className={feedbackBox ? styles.feedbackOpen : styles.feedbackClosed}>{feedbackText}
+            <div className={styles.close} onClick={() => setFeedbackBox(false)}>
+              <img src='/icons/close.png'/>
+              </div>
+            </div>
+
+            </div>
             <div className={styles.belowText}>
             <AIActionButton name="Help with Melody" pic='/assistant/music.png'/>
             <div className={styles.useInterests}>
@@ -87,11 +125,13 @@ function Songwriting({subscriptions = []}) {
             <AIActionButton 
                 name="Improve Lyrics" 
                 pic='/assistant/composing.png' 
-                subscription={subscriptions.find(sub => sub.level == 1)}/>
+                subscription={subscriptions.find(sub => sub.level == 1)}
+                submit={improveLyrics}/>
 
             <AIActionButton 
                 name="Feedback" 
-                pic='/assistant/feedback.png'/>
+                pic='/assistant/feedback.png'
+                submit={feedback}/>
 
             <AIActionButton 
                 name="Fix Grammar" 
@@ -111,9 +151,7 @@ function Songwriting({subscriptions = []}) {
 
 Songwriting.getInitialProps = async (ctx) => {
   let data = []
-  await axios.get(`${process.env.SERVER_SITE_URL}/getsubscriptions`, {
-            withCredentials: true
-        }).then(res => {
+  await axios.get(`${process.env.SERVER_SITE_URL}/getsubscriptions`).then(res => {
             data = res.data
         }).catch(err => console.error(err))
   return {subscriptions: data}

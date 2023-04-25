@@ -116,6 +116,8 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = [    'users.modules.auth.AuthBackend',    'django.contrib.auth.backends.ModelBackend',]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

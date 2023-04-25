@@ -2,7 +2,7 @@ from django.shortcuts import render
 import environ
 import openai
 from django.http import JsonResponse, HttpResponse
-from modules import prompt
+from .modules import prompt
 
 env = environ.Env()
 environ.Env.read_env()
@@ -20,17 +20,18 @@ def feedback(request):
         lyrics = request.POST['lyrics']
 
         response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt= prompt(request.user, lyrics),
-        temperature=0,
-        max_tokens=100,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        stop=["\"\"\""]
+            model="text-davinci-003",
+            prompt= prompt.genPrompt(request.user, lyrics),
+            temperature=0,
+            max_tokens=1000,
+            top_p=1.0,
+            frequency_penalty=0.0,
+            presence_penalty=0.0,
+            stop=["\"\"\""]
         )
 
         return JsonResponse(response, safe=False)
+    
     else:
         return HttpResponse('User not logged in', status=403)
 
