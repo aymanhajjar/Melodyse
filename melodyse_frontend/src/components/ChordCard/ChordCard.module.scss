@@ -1,0 +1,35 @@
+$main_red: #AB4967;
+
+.chord {
+    height: 2rem;
+    background-color: $main_red;
+    border-radius: 10px;
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chord span {
+    font-weight: 500;
+}
+
+.chord:hover {
+    cursor: pointer;
+    background-color: rgb(222, 222, 222);
+}
+
+.chordActive {
+    @extend .chord;
+    background-color: #47E5BC;
+}
+
+.chordActive:hover {
+    background-color: #8bf4d8;
+}
+
+.chordActive span {
+    color: white;
+}

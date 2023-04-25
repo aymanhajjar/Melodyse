@@ -20,12 +20,28 @@ $main_red: #AB4967;
 
 .DIV2 {
     width: 34%;
-    background-color: aqua;
     height: 100%;
+    font-size: 1.2rem;
+}
+
+.DIV2 h4 {
+    display: inline;
+}
+
+.scalesNotes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .DIV3 {
     background-color: rgb(12, 96, 96);
     height: 100%;
     width: 34%;
+}
+
+.chords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }

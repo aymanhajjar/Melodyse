@@ -4,14 +4,28 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
 import Piano from '@/components/Piano/Piano'
-const Tonal = require('tonal')
+import { Chord, Scale } from "@tonaljs/tonal"
+import * as Scales from "tonal-scale"
+import ChordCard from '@/components/ChordCard/ChordCard'
+
 
 function Production({subscriptions = []}) {
     const [notes, setNotes] = useState([])
+    const [scale, setScale] = useState([])
+    const [chords, setChords] = useState([])
 
     useEffect(() => {
-        console.log(notes)
+        setScale(Scale.detect(notes))
     }, [notes])
+
+    useEffect(() => {
+        const new_chords = Scales.chords(scale[0])
+        setChords(new_chords)
+    }, [scale])
+
+    const handleChord = () => {
+
+    }
 
   return (
     <>
@@ -25,7 +39,24 @@ function Production({subscriptions = []}) {
         <div className={styles.UIContainer}>
             <Piano selected={(val) => setNotes(val)} />
             <div className={styles.DIV2}>
-                DIV2
+                <div className={styles.scalesNotes}>
+                    <div>
+                        <h4>Notes Selected: </h4> 
+                        {notes.length > 0 && notes.join(", ")}
+                    </div>
+                    <div>
+                        <h4>Scale(s): </h4> 
+                        {scale.length > 0 && scale.slice(0, 2).join(", ")}
+                    </div>
+                    <div>
+                        <h4>Chords in this scale: </h4> <br/>
+                        <div className={styles.chords}>
+                        {chords.length > 0 && chords.map(chord => (
+                            <ChordCard chord={chord} select={handleChord}/>
+                        ))}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className={styles.DIV3}>
                 DIV3
