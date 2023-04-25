@@ -57,7 +57,6 @@ function Songwriting({subscriptions = []}) {
       present: value,
       future: [],
     }
-    console.log(historyRef.current)
     setLyrics(value)
   }
 
@@ -70,7 +69,6 @@ function Songwriting({subscriptions = []}) {
       withCredentials: true
     }).then((res) => {
       setLoading(false)
-      console.log(res.data.choices[0].text)
       const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
       setFeedbackText(cleanText)
       setFeedbackBox(true)

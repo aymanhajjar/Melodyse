@@ -18,10 +18,11 @@ def feedback(request):
     if request.user.is_authenticated:
 
         lyrics = request.POST['lyrics']
+        with_interests = request.POST['with_interests'].lower() == "true"
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= prompt.genPrompt(request.user, lyrics),
+            prompt= prompt.genPrompt(user=request.user, lyrics=lyrics, with_interests=with_interests),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,
