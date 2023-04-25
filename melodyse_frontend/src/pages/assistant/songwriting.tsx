@@ -117,6 +117,10 @@ function Songwriting({subscriptions = []}) {
     setDisabled(true)
   }
 
+  const generateMelody = () => {
+    
+  }
+
   const accept = () => {
     setLyrics(tempLyrics)
     const { past, present, future } = historyRef.current
@@ -126,7 +130,6 @@ function Songwriting({subscriptions = []}) {
       future: [],
     }
     setDifferences([])
-    console.log('clkc')
     setTempLyrics()
   }
 
@@ -175,8 +178,14 @@ function Songwriting({subscriptions = []}) {
 
             </div>
             <div className={styles.belowText}>
-              <AIActionButton name="Help with Melody" pic='/assistant/music.png'/>
-            <div className={styles.useInterests}>
+
+              <AIActionButton 
+                name="Help with Melody" 
+                pic='/assistant/music.png' 
+                onClick={generateMelody}
+                disabled={disabled}/>
+
+              <div className={styles.useInterests}>
                 <label>
                         Use my interests to improve responses
                     </label>

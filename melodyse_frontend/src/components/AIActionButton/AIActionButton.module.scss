@@ -17,7 +17,7 @@ $main_red: #AB4967;
     position: relative;
 }
 
-.aibutton h3 {
+.aibutton h3, .disabled h3 {
     width: 80%;
     font-size: 1.2rem;
     text-align: center;
@@ -33,7 +33,7 @@ $main_red: #AB4967;
     transition: all 0.3s;
 }
 
-.aibutton img {
+.aibutton img, .disabled img {
     width: 15%;
     object-fit: contain;
 }
@@ -53,4 +53,9 @@ $main_red: #AB4967;
     box-shadow: 0 0 2px gray;
     top: -0.5rem;
     right: -0.5rem;
+}
+
+.disabled {
+    @extend .aibutton;
+    pointer-events: none;
 }
