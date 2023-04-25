@@ -22,6 +22,10 @@ function Songwriting({subscriptions = []}) {
   const historyRef = useRef({ past: [], present: lyrics, future: [] })
 
   useEffect(() => {
+    differences.length > 0 ? setDisabled(true) : setDisabled(false)
+  }, [differences])
+
+  useEffect(() => {
     const { past, present, future } = historyRef.current
     past.length > 0 ? setUndoEnabled(true) : setUndoEnabled(false)
     future.length > 0 ? setRedoEnabled(true) : setRedoEnabled(false)
@@ -66,6 +70,7 @@ function Songwriting({subscriptions = []}) {
 
   const feedback = () => {
     setLoading(true)
+    setDisabled(true)
     const data = new FormData()
     data.append('lyrics', lyrics)
     data.append('with_interests', useInterests.toString())
@@ -84,6 +89,7 @@ function Songwriting({subscriptions = []}) {
 
   const fixGrammar = () => {
     setLoading(true)
+    setDisabled(true)
     const data = new FormData()
     data.append('lyrics', lyrics)
     data.append('with_interests', useInterests.toString())
@@ -102,11 +108,13 @@ function Songwriting({subscriptions = []}) {
   }
 
   const improveLyrics = () => {
-
+    setLoading(true)
+    setDisabled(true)
   }
 
   const generate = () => {
-
+    setLoading(true)
+    setDisabled(true)
   }
 
   const accept = () => {
