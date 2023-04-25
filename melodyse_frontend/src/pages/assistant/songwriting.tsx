@@ -154,16 +154,19 @@ function Songwriting({subscriptions = []}) {
   }
 
   const generateMelody = () => {
+    setLoading(true)
+    setDisabled(true)
     const data = new FormData()
     data.append('lyrics', lyrics)
     data.append('with_interests', useInterests.toString())
     axios.post(`${process.env.SITE_URL}/generatemelody`, data, {
       withCredentials: true
     }).then((res) => {
-      setDisabled(false)
       setLoading(false)
       const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-      setLyrics(cleanText)
+      setFeedbackText(cleanText)
+      setDisabled(false)
+      setFeedbackBox(true)
     }).catch(err => {
         setDisabled(false)
         setLoading(false)
@@ -232,7 +235,7 @@ function Songwriting({subscriptions = []}) {
               <AIActionButton 
                 name="Help with Melody" 
                 pic='/assistant/music.png' 
-                onClick={generateMelody}
+                submit={generateMelody}
                 disabled={disabled}/>
 
               <div className={styles.useInterests}>
