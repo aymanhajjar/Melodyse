@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
 import UndoButton from '@/components/UndoButton/UndoButton'
+const diff = require('diff')
 
 function Songwriting({subscriptions = []}) {
 
@@ -14,6 +15,9 @@ function Songwriting({subscriptions = []}) {
   const [loading, setLoading] = useState(false)
   const [feedbackBox, setFeedbackBox] = useState(false)
   const [feedbackText, setFeedbackText] = useState()
+  const [tempLyrics, setTempLyrics] = useState()
+  const [differences, setDifferences] = useState([])
+  const [disabled, setDisabled] = useState(false)
 
   const historyRef = useRef({ past: [], present: lyrics, future: [] })
 
@@ -87,8 +91,10 @@ function Songwriting({subscriptions = []}) {
       withCredentials: true
     }).then((res) => {
       setLoading(false)
-      // const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-      console.log(res)
+      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+      const difs = diff.diffWords(lyrics, cleanText)
+      setTempLyrics(cleanText)
+      setDifferences(difs)
     }).catch(err => {
         setLoading(false)
         console.error(err)
@@ -97,6 +103,19 @@ function Songwriting({subscriptions = []}) {
 
   const improveLyrics = () => {
 
+  }
+
+  const accept = () => {
+    setLyrics(tempLyrics)
+    const { past, present, future } = historyRef.current
+    historyRef.current = {
+      past: past.length > 14 ? [...historyRef.current.past.slice(1), historyRef.current.present] : [...historyRef.current.past, historyRef.current.present],
+      present: tempLyrics,
+      future: [],
+    }
+    setDifferences([])
+    console.log('clkc')
+    setTempLyrics()
   }
 
   return (
@@ -109,8 +128,30 @@ function Songwriting({subscriptions = []}) {
       <div className={styles.container}>
         <div className={styles.leftSide}>
             <h1>SONGWRITING ASSISTANT</h1>
+            {differences.length > 0 && <div className={styles.actions}>
+                <button className={styles.accept}><img src={'/icons/check.png'} onClick={() => accept()}/>Accept Changes</button>
+                <button className={styles.reject}><img src={'/icons/x.png'} onClick={() => setDifferences([])} />Reject</button>
+              </div>}
             <div className={styles.lyricsContainer}>
-              <textarea className={feedbackBox && styles.textMinimized} placeholder='Write down your lyrics...' value={lyrics} onChange={(e) => handleChange(e.target.value)}></textarea>
+
+              {differences.length == 0 && <textarea 
+                className={feedbackBox && styles.textMinimized} 
+                placeholder='Write down your lyrics...' 
+                value={lyrics} 
+                onChange={(e) => handleChange(e.target.value)}>
+                </textarea>}
+
+                {differences.length > 0 && <div style={{whiteSpace: "pre-wrap"}} className={styles.diffDiv}>
+                  
+                {  differences.map(part => (
+                    part.added ? <span className={styles.lyricGreen}>{part.value}</span>
+                    : part.removed ? <span className={styles.lyricRed}>{part.value}</span>
+                    : <span className={styles.lyricNeutral}>{part.value}</span>
+                  ))}
+                  
+                  </div>
+                }
+
               <div className={loading ? styles.loadingOverlay : styles.loadingHidden}>
                 <img src='/loading-melodyse.gif'/>
               </div>
@@ -122,7 +163,7 @@ function Songwriting({subscriptions = []}) {
 
             </div>
             <div className={styles.belowText}>
-            <AIActionButton name="Help with Melody" pic='/assistant/music.png'/>
+              <AIActionButton name="Help with Melody" pic='/assistant/music.png'/>
             <div className={styles.useInterests}>
                 <label>
                         Use my interests to improve responses
