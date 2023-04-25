@@ -105,6 +105,10 @@ function Songwriting({subscriptions = []}) {
 
   }
 
+  const generate = () => {
+
+  }
+
   const accept = () => {
     setLyrics(tempLyrics)
     const { past, present, future } = historyRef.current
@@ -182,21 +186,26 @@ function Songwriting({subscriptions = []}) {
                 name="Improve Lyrics" 
                 pic='/assistant/composing.png' 
                 subscription={subscriptions.find(sub => sub.level == 1)}
-                submit={improveLyrics}/>
+                submit={improveLyrics}
+                disabled={disabled}/>
 
             <AIActionButton 
                 name="Feedback" 
                 pic='/assistant/feedback.png'
-                submit={feedback}/>
+                submit={feedback}
+                disabled={disabled}/>
 
             <AIActionButton 
                 name="Fix Grammar" 
                 pic='/assistant/grammar.png'
-                submit={fixGrammar}/>
+                submit={fixGrammar}
+                disabled={disabled}/>
 
             <AIActionButton 
                 name="Generate New Lyrics" 
-                pic='/assistant/magic-wand.png'/>
+                pic='/assistant/magic-wand.png'
+                submit={generate}
+                disabled={disabled}/>
 
             <img className={styles.aiImage} src='/icons/writing.png'/>
         </div>
