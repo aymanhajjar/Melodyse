@@ -25,4 +25,10 @@ def genPrompt(user, with_interests, type, lyrics=None):
         else :
             return "Write lyrics, based on a topic of your choice. In your response, I only want you to return the generated lyrics, no text before or after or other than the generated lyrics."
         
+    if type == "generateMelody":
+        if with_interests:
+            return "For this prompt, I want you to assume that i am a songwriter who likes " + ', '.join([str(artist['name']) for artist in info.favorite_artists[:5]]) + ' and whose favorite songs include ' + ', '.join([str(song['name']) for song in info.favorite_songs[:5]]) + '. Keeping this in mind, I want you to write me a melody for the provided lyrics inspired by my favorite artists and songs. In your response, i want you to provide the melody, and explain why you chose that melody, mentioning the artists or songs you got inspired by, if any. Here are the lyrics: ' + lyrics
+        else :
+            return "Write me a melody for these lyrics. In your response, i want you to provide the melody, and explain why you chose that melody. Here are the lyrics: " + lyrics
+        
     return None
