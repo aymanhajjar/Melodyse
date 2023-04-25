@@ -10,7 +10,7 @@ function Production({subscriptions = []}) {
     const [notes, setNotes] = useState([])
 
     useEffect(() => {
-
+        console.log(notes)
     }, [notes])
 
   return (

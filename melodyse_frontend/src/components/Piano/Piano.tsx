@@ -7,7 +7,7 @@ import BlackButton from './buttons/BlackButton'
 export default function Piano({selected}) {
     const [notes, setNotes] = useState([])
 
-    useState(() => {
+    useEffect(() => {
         selected(notes)
     }, [notes])
 
@@ -20,20 +20,20 @@ export default function Piano({selected}) {
     <>
       <div className={styles.container}>
         <WhiteButton note='B' select={() => handleSelect('B')}/>
-        <WhiteButton note='A'/>
-        <WhiteButton note='G'/>
-        <WhiteButton note='F'/>
-        <WhiteButton note='E'/>
-        <WhiteButton note='D'/>
-        <WhiteButton note='C'/>
+        <WhiteButton note='A' select={() => handleSelect('A')}/>
+        <WhiteButton note='G' select={() => handleSelect('G')}/>
+        <WhiteButton note='F' select={() => handleSelect('F')}/>
+        <WhiteButton note='E' select={() => handleSelect('E')}/>
+        <WhiteButton note='D' select={() => handleSelect('D')}/>
+        <WhiteButton note='C' select={() => handleSelect('C')}/>
         <div className={styles.blackButtons}>
-            <BlackButton/>
-            <BlackButton/>
-            <BlackButton/>
+            <BlackButton select={() => handleSelect('A#')}/>
+            <BlackButton select={() => handleSelect('G#')}/>
+            <BlackButton select={() => handleSelect('F#')}/>
         </div>
         <div className={styles.blackButtonsBottom}>
-            <BlackButton/>
-            <BlackButton/>
+            <BlackButton select={() => handleSelect('D#')}/>
+            <BlackButton select={() => handleSelect('C#')}/>
         </div>
       </div>
     </>
