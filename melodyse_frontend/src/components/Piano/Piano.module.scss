@@ -1,0 +1,19 @@
+.container {
+    position: relative;
+}
+
+.blackButtons {
+    position: absolute;
+    top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.blackButtonsBottom {
+    position: absolute;
+    top: 23.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}

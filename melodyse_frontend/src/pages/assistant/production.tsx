@@ -16,7 +16,9 @@ function Production({subscriptions = []}) {
       </Head>
       <div className={styles.container}>
         <h1>MUSIC PRODUCTION ASSISTANT</h1>
+        <div className={styles.UIContainer}>
             <Piano/>
+        </div>
       </div>
     </>
   )

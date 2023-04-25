@@ -2,9 +2,17 @@ $main_red: #AB4967;
 
 .container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 2rem;
     width: 92%;
     margin: auto;
     height: 100%;
     padding-top: 1%;
+}
+
+.UIContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
 }

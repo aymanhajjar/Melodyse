@@ -1,0 +1,35 @@
+.whiteButton {
+    width: 20rem;
+    height: 5rem;
+    background-color: white;
+    border: solid rgb(85, 85, 85) 1px;
+    border-radius: 8px;
+    text-align: right;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.whiteButton span {
+    color: gray;
+    font-weight: 500;
+}
+
+.whiteButton:hover {
+    cursor: pointer;
+    background-color: rgb(222, 222, 222);
+}
+
+.whiteButtonActive {
+    @extend .whiteButton;
+    background-color: #47E5BC;
+}
+
+.whiteButtonActive:hover {
+    background-color: #8bf4d8;
+}
+
+.whiteButtonActive span {
+    color: white;
+}
