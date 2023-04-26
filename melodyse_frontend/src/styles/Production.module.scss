@@ -88,3 +88,25 @@ $main_red: #AB4967;
     background-color: rgb(207, 207, 207);
     transition: all 0.3s;
 }
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items:end;
+}
+
+.useInterests {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.useInterests input {
+    -ms-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -o-transform: scale(1.4);
+    transform: scale(1.4);
+    cursor: pointer;
+}

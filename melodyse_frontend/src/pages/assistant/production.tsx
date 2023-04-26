@@ -111,8 +111,17 @@ function Production({subscriptions = []}) {
                     </div>
                 </div>
 
-                <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png' submit={findBassline} loading={bassLoading}/>
+                <div className={styles.bottom}>
+                    <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png' submit={findBassline} loading={bassLoading}/>
 
+                    <div className={styles.useInterests}>
+                        <label>
+                            Use my interests to improve responses
+                        </label>
+                        <input type='checkbox' checked={withInterests} onChange={() => setWithInterests(!withInterests)}/>
+                    </div>
+
+                </div>
             </div>
 
             <div className={styles.DIV3}>
