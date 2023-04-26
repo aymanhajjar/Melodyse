@@ -21,6 +21,7 @@ function Production({subscriptions = []}) {
     const [pluginValue, setPluginValue] = useState('')
     const [soundResponse, setSoundResponse] = useState()
     const [soundLoading, setSoundLoading] = useState(false)
+    const [bassLoading, setBassLoading] = useState(false)
 
     useEffect(() => {
         setScale(Scale.detect(notes))
