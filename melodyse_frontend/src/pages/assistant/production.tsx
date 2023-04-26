@@ -20,6 +20,7 @@ function Production({subscriptions = []}) {
     const [soundValue, setSoundValue] = useState('')
     const [pluginValue, setPluginValue] = useState('')
     const [soundResponse, setSoundResponse] = useState()
+    const [soundLoading, setSoundLoading] = useState(false)
 
     useEffect(() => {
         setScale(Scale.detect(notes))
@@ -38,17 +39,23 @@ function Production({subscriptions = []}) {
     }
 
     const buildSound = () => {
-        const data = new FormData()
-        data.append('sound', soundValue)
-        data.append('plugin', pluginValue)
-        axios.post(`${process.env.SITE_URL}/buildsound`, data, {
-            withCredentials: true
-          }).then((res) => {
-            const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-            setSoundResponse(cleanText)
-          }).catch(err => {
-              console.error(err)
-          })
+        if(soundValue.length > 0) {
+            setSoundLoading(true)
+            const data = new FormData()
+            data.append('sound', soundValue)
+            data.append('plugin', pluginValue)
+            axios.post(`${process.env.SITE_URL}/buildsound`, data, {
+                withCredentials: true
+            }).then((res) => {
+                setSoundLoading(true)
+                const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+                setSoundResponse(cleanText)
+            }).catch(err => {
+                setSoundLoading(true)
+                console.error(err)
+            })
+        }
+       
     }
 
   return (
@@ -99,7 +106,7 @@ function Production({subscriptions = []}) {
                         <label>Using the plugin:</label>
                         <input placeholder='Sylenth1, Serum, Nexus, Massive...' value={pluginValue} onChange={(e) => setPluginValue(e.target.value)}/>
                     </div>
-                    <AIActionButtonWide name="Go" pic='/icons/send.png' bright={true} submit={buildSound}/>
+                    <AIActionButtonWide name="Go" pic='/icons/send.png' bright={true} submit={buildSound} loading={soundLoading}/>
                 </div>
                 <img src='/icons/producer.png' className={styles.aiImage}/>
             </div>
