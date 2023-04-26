@@ -22,7 +22,7 @@ function Production({subscriptions = []}) {
 
     useEffect(() => {
         const new_chords = Scales.chords(scale[0])
-        setChords(new_chords)
+        setChords(new_chords.splice(0, 8))
     }, [scale])
 
     const handleChord = (chord) => {
@@ -47,24 +47,24 @@ function Production({subscriptions = []}) {
                 <div className={styles.scalesNotes}>
                     <div>
                         <h4>Notes Selected: </h4> 
-                        {notes.length > 0 && notes.join(", ")}
+                        {notes.length > 0 ? notes.join(", ") : 'No notes selected'}
                     </div>
                     <div>
                         <h4>Scale(s): </h4> 
-                        {scale.length > 0 && scale.slice(0, 2).join(", ")}
+                        {scale.length > 0 ? scale.slice(0, 2).join(", ") : 'Select notes to show scales'}
                     </div>
                     <div>
                         <h4>Chords in this scale: </h4> <br/>
                         <div className={styles.chords}>
-                        {chords.length > 0 && chords.map(chord => (
+                        {chords.length > 0 ? chords.map(chord => (
                             <ChordCard chord={chord} select={(chord) => handleChord(chord)} selected={chord == selectedChord}/>
-                        ))}
+                        )): 'Select notes to show chords'}
                         </div>
                     </div>
                 </div>
             </div>
             <div className={styles.DIV3}>
-                DIV3
+                <img src='/icons/producer.png'/>
             </div>
         </div>
       </div>
