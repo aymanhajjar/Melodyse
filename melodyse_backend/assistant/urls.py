@@ -9,4 +9,5 @@ urlpatterns = [
     path("grammar", views.grammar),
     path("generate", views.generate),
     path("generatemelody", views.generateMelody),
+    path("buildsound", views.buildSound),
 ]
