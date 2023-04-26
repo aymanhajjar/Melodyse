@@ -20,6 +20,7 @@ function Production({subscriptions = []}) {
     const [soundValue, setSoundValue] = useState('')
     const [pluginValue, setPluginValue] = useState('')
     const [soundResponse, setSoundResponse] = useState()
+    const [bassResponse, setBassResponse] = useState()
     const [soundLoading, setSoundLoading] = useState(false)
     const [bassLoading, setBassLoading] = useState(false)
 
@@ -52,14 +53,28 @@ function Production({subscriptions = []}) {
                 const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
                 setSoundResponse(cleanText)
             }).catch(err => {
-                setSoundLoading(true)
+                setSoundLoading(false)
                 console.error(err)
             })
         }
     }
 
     const findBassline = () => {
-        
+        if(scale.length > 0) {
+            setBassLoading(true)
+            const data = new FormData()
+            data.append('scale', scale[0])
+            axios.post(`${process.env.SITE_URL}/findbass`, data, {
+                withCredentials: true
+            }).then((res) => {
+                setBassLoading(false)
+                const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+                setBassResponse(cleanText)
+            }).catch(err => {
+                setBassLoading(false)
+                console.error(err)
+            })
+        }
     }
 
   return (
