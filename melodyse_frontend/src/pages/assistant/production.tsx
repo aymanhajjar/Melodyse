@@ -8,6 +8,7 @@ import { Scale } from "@tonaljs/tonal"
 import * as Scales from "tonal-scale"
 import ChordCard from '@/components/ChordCard/ChordCard'
 import { Chord } from "tonal";
+import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWide'
 
 function Production({subscriptions = []}) {
     const [notes, setNotes] = useState([])
