@@ -19,11 +19,13 @@ $main_red: #AB4967;
 .chord:hover {
     cursor: pointer;
     background-color: rgb(222, 222, 222);
+    color: black;
 }
 
 .chordActive {
     @extend .chord;
     background-color: #47E5BC;
+    color: black;
 }
 
 .chordActive:hover {
@@ -31,5 +33,5 @@ $main_red: #AB4967;
 }
 
 .chordActive span {
-    color: white;
+    color: black;
 }

@@ -4,15 +4,16 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import AIActionButton from '@/components/AIActionButton/AIActionButton'
 import Piano from '@/components/Piano/Piano'
-import { Chord, Scale } from "@tonaljs/tonal"
+import { Scale } from "@tonaljs/tonal"
 import * as Scales from "tonal-scale"
 import ChordCard from '@/components/ChordCard/ChordCard'
-
+import { Chord } from "tonal";
 
 function Production({subscriptions = []}) {
     const [notes, setNotes] = useState([])
     const [scale, setScale] = useState([])
     const [chords, setChords] = useState([])
+    const [chordNotes, setChordNotes] = useState([])
 
     useEffect(() => {
         setScale(Scale.detect(notes))
@@ -23,8 +24,10 @@ function Production({subscriptions = []}) {
         setChords(new_chords)
     }, [scale])
 
-    const handleChord = () => {
-
+    const handleChord = (chord) => {
+        const chordObj = Chord.getChord('m7', notes[Math.floor(Math.random() * notes.length)])
+        setChordNotes(chordObj.notes)
+        setNotes(chordObj.notes)
     }
 
   return (
@@ -37,7 +40,7 @@ function Production({subscriptions = []}) {
       <div className={styles.container}>
         <h1>MUSIC PRODUCTION ASSISTANT</h1>
         <div className={styles.UIContainer}>
-            <Piano selected={(val) => setNotes(val)} />
+            <Piano selected={(val) => setNotes(val)} chordNotes={chordNotes}/>
             <div className={styles.DIV2}>
                 <div className={styles.scalesNotes}>
                     <div>
@@ -52,7 +55,7 @@ function Production({subscriptions = []}) {
                         <h4>Chords in this scale: </h4> <br/>
                         <div className={styles.chords}>
                         {chords.length > 0 && chords.map(chord => (
-                            <ChordCard chord={chord} select={handleChord}/>
+                            <ChordCard chord={chord} select={(chord) => handleChord(chord)}/>
                         ))}
                         </div>
                     </div>

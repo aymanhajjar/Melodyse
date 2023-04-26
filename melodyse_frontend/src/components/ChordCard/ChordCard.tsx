@@ -6,7 +6,7 @@ export default function ChordCard({chord, select}) {
 
     const handleClick = () => {
         setActive(!active)
-        select()
+        select(chord)
     }
 
   return (
