@@ -14,6 +14,7 @@ function Production({subscriptions = []}) {
     const [scale, setScale] = useState([])
     const [chords, setChords] = useState([])
     const [chordNotes, setChordNotes] = useState([])
+    const [selectedChord, setSelectedChord] = useState('')
 
     useEffect(() => {
         setScale(Scale.detect(notes))
@@ -28,6 +29,7 @@ function Production({subscriptions = []}) {
         const chordObj = Chord.getChord('m7', notes[Math.floor(Math.random() * notes.length)])
         setChordNotes(chordObj.notes)
         setNotes(chordObj.notes)
+        setSelectedChord(chord)
     }
 
   return (
@@ -55,7 +57,7 @@ function Production({subscriptions = []}) {
                         <h4>Chords in this scale: </h4> <br/>
                         <div className={styles.chords}>
                         {chords.length > 0 && chords.map(chord => (
-                            <ChordCard chord={chord} select={(chord) => handleChord(chord)}/>
+                            <ChordCard chord={chord} select={(chord) => handleChord(chord)} selected={chord == selectedChord}/>
                         ))}
                         </div>
                     </div>
