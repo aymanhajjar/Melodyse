@@ -36,7 +36,16 @@ function Production({subscriptions = []}) {
     }
 
     const buildSound = () => {
-
+        const data = new FormData()
+        data.append('sound', soundValue)
+        data.append('plugin', pluginValue)
+        axios.post(`${process.env.SITE_URL}/buildsound`, data, {
+            withCredentials: true
+          }).then((res) => {
+            console.log(res.data)
+          }).catch(err => {
+              console.error(err)
+          })
     }
 
   return (
