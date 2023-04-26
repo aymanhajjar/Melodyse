@@ -127,7 +127,7 @@ def buildSound(request):
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= prompt.genPrompt(user=request.user, with_interests=False, sound=sound, plugin=plugin type="buildsound"),
+            prompt= prompt.genPrompt(user=request.user, with_interests=False, sound=sound, plugin=plugin, type="buildsound"),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,

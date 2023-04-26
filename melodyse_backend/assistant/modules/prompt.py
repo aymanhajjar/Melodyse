@@ -32,6 +32,10 @@ def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None):
             return 'Write me a melody for these lyrics. In your response, i want you to include the melody you chose, and explain why i should use that melody. I need you to tell me the melody for each part (i.e. "verse: melody chords", "chorus: melody chords", etc.). Here are the lyrics: ' + lyrics
         
     if type == "buildsound":
-        return
+        if plugin:
+            return "Using my music DAW, I want to build a sound similar to '" + sound + "', using the plugin '" + plugin + "'. Guide me step by step how to do it."
+        else:    
+            return "Using my music DAW, I want to build a sound similar to '" + sound + "'. Guide me step by step how to do it, mentioning the name of the plugin i need to use for this build."
+        
         
     return None
