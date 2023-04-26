@@ -44,6 +44,7 @@ function Production({subscriptions = []}) {
         <h1>MUSIC PRODUCTION ASSISTANT</h1>
         <div className={styles.UIContainer}>
             <Piano selected={(val) => setNotes(val)} chordNotes={chordNotes}/>
+
             <div className={styles.DIV2}>
                 <div className={styles.scalesNotes}>
                     <div>
@@ -63,7 +64,11 @@ function Production({subscriptions = []}) {
                         </div>
                     </div>
                 </div>
+
+                <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png'/>
+
             </div>
+
             <div className={styles.DIV3}>
                 <div className={styles.soundLab}>
                     <h2>Sound Lab</h2>
@@ -75,7 +80,7 @@ function Production({subscriptions = []}) {
                         <label>Using the plugin:</label>
                         <input placeholder='Sylenth1, Serum, Nexus, Massive...'/>
                     </div>
-                    <AIActionButtonWide bright={true}/>
+                    <AIActionButtonWide name="Go" pic='/icons/send.png' bright={true}/>
                 </div>
                 <img src='/icons/producer.png' className={styles.aiImage}/>
             </div>

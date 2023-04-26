@@ -24,7 +24,7 @@ $main_red: #AB4967;
 }
 
 .aibutton:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: all 0.3s;
 }
 
@@ -34,7 +34,7 @@ $main_red: #AB4967;
 }
 
 .aibutton img, .disabled img {
-    width: 15%;
+    width: 10%;
     object-fit: contain;
 }
 

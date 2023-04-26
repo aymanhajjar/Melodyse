@@ -20,9 +20,12 @@ $main_red: #AB4967;
 
 .DIV2 {
     width: 34%;
-    padding-top: 2%;
-    height: 100%;
+    // padding-top: %;
+    height: 85%;
     font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .DIV2 h4 {
@@ -41,6 +44,7 @@ $main_red: #AB4967;
     display: flex;
     justify-content: center;
     position: relative;
+    align-items: flex-start;
 }
 
 .chords {
@@ -65,7 +69,6 @@ $main_red: #AB4967;
     flex-direction: column;
     gap: 2rem;
     border-radius: 10px;
-    height: 20rem;
 }
 
 .inputGroup {
@@ -79,4 +82,8 @@ $main_red: #AB4967;
     border: none;
     border-radius: 10px;
     outline: none;
+}
+
+.inputGroup input:hover {
+    
 }
