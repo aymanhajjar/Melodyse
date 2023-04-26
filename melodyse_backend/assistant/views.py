@@ -145,10 +145,11 @@ def findBass(request):
     if request.user.is_authenticated:
 
         scale = request.POST['scale']
+        with_interests = request.POST['with_interests'].lower() == "true"
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= prompt.genPrompt(user=request.user, with_interests=False, scale=scale, type="findbass"),
+            prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, scale=scale, type="findbass"),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,
