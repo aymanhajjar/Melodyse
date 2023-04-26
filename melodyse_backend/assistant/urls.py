@@ -10,4 +10,5 @@ urlpatterns = [
     path("generate", views.generate),
     path("generatemelody", views.generateMelody),
     path("buildsound", views.buildSound),
+    path("findbass", views.findBass),
 ]
