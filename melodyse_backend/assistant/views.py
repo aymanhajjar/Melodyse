@@ -122,11 +122,12 @@ def generateMelody(request):
 def buildSound(request):
     if request.user.is_authenticated:
 
-        lyrics = request.POST['lyrics']
+        sound = request.POST['sound']
+        plugin = request.POST['plugin']
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= prompt.genPrompt(user=request.user, with_interests=False, type="buildsound"),
+            prompt= prompt.genPrompt(user=request.user, with_interests=False, sound=sound, plugin=plugin type="buildsound"),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,
