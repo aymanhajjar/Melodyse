@@ -65,6 +65,7 @@ function Production({subscriptions = []}) {
             setBassLoading(true)
             const data = new FormData()
             data.append('scale', scale[0])
+            data.append('with_interests', withInterests)
             axios.post(`${process.env.SITE_URL}/findbass`, data, {
                 withCredentials: true
             }).then((res) => {
