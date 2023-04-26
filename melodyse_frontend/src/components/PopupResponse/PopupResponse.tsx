@@ -7,6 +7,7 @@ export default function PopupResponse({response}) {
     <>
       <div className={styles.popup}>
         <span>{response}</span>
+        <img src='/icons/close.png'/>
       </div>
     </>
   )
