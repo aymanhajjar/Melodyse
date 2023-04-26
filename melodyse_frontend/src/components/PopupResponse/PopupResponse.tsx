@@ -3,8 +3,6 @@ import { useEffect, useState} from 'react'
 
 export default function PopupResponse({response, close}) {
 
-    console.log('ress', response)
-
   return (
     <>
       <div className={styles.popup}>

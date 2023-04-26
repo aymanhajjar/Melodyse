@@ -71,7 +71,7 @@ function Production({subscriptions = []}) {
             }).then((res) => {
                 setBassLoading(false)
                 const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-                setBassResponse(cleanText)
+                setSoundResponse(cleanText)
             }).catch(err => {
                 setBassLoading(false)
                 console.error(err)
