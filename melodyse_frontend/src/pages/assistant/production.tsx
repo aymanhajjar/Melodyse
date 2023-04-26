@@ -9,6 +9,7 @@ import * as Scales from "tonal-scale"
 import ChordCard from '@/components/ChordCard/ChordCard'
 import { Chord } from "tonal";
 import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWide'
+import PopupResponse from '@/components/PopupResponse/PopupResponse'
 
 function Production({subscriptions = []}) {
     const [notes, setNotes] = useState([])
@@ -18,6 +19,7 @@ function Production({subscriptions = []}) {
     const [selectedChord, setSelectedChord] = useState('')
     const [soundValue, setSoundValue] = useState('')
     const [pluginValue, setPluginValue] = useState('')
+    const [soundResponse, setSoundResponse] = useState()
 
     useEffect(() => {
         setScale(Scale.detect(notes))
@@ -42,7 +44,7 @@ function Production({subscriptions = []}) {
         axios.post(`${process.env.SITE_URL}/buildsound`, data, {
             withCredentials: true
           }).then((res) => {
-            console.log(res.data)
+            setSoundResponse(res.data.choices[0])
           }).catch(err => {
               console.error(err)
           })
@@ -58,6 +60,7 @@ function Production({subscriptions = []}) {
       <div className={styles.container}>
         <h1>MUSIC PRODUCTION ASSISTANT</h1>
         <div className={styles.UIContainer}>
+
             <Piano selected={(val) => setNotes(val)} chordNotes={chordNotes}/>
 
             <div className={styles.DIV2}>
@@ -100,6 +103,7 @@ function Production({subscriptions = []}) {
                 <img src='/icons/producer.png' className={styles.aiImage}/>
             </div>
         </div>
+        {soundResponse && <PopupResponse response={soundResponse} close={() => setSoundResponse()}/>}
       </div>
     </>
   )
