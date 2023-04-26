@@ -82,8 +82,10 @@ $main_red: #AB4967;
     border: none;
     border-radius: 10px;
     outline: none;
+    transition: all 0.3s;
 }
 
-.inputGroup input:hover {
-    
+.inputGroup input:focus {
+    background-color: rgb(212, 212, 212);
+    transition: all 0.3s;
 }
