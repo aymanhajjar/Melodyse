@@ -12,12 +12,13 @@
 .popup {
     position: absolute;
     top: 50%;
-    right: 50%;
+    left: 50%;
     transform: translate(-50%,-50%);
     width: 50%;
     background-color: #47E5BC;
-    padding: 1.5rem;
+    padding: 2rem;
     animation: fadeIn 0.5s ease-in-out;
+    border-radius: 10px;
 }
 
 .popup span {
@@ -26,8 +27,8 @@
 }
 
 .popup img {
-    width: 2rem;
+    width: 1rem;
     position: absolute;
     top: 1rem;
-    left: 1rem;
+    right: 1rem;
 }

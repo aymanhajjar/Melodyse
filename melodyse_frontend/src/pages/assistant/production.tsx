@@ -44,7 +44,7 @@ function Production({subscriptions = []}) {
         axios.post(`${process.env.SITE_URL}/buildsound`, data, {
             withCredentials: true
           }).then((res) => {
-            setSoundResponse(res.data.choices[0])
+            setSoundResponse(res.data.choices[0].text)
           }).catch(err => {
               console.error(err)
           })
