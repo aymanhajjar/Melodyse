@@ -9,7 +9,7 @@ export default function AIActionButtonWide({name, pic, subscription, submit, dis
             bright ? `${styles.aibutton} ${styles.bright}` : styles.aibutton } 
             onClick={submit}>
 
-            {loading ? <img src='/loadinggif.gif'/> : <h3>{name}</h3>}
+            {loading ? <img className={styles.loading} src='/loadinggif.gif'/> : <h3>{name}</h3>}
             <img src={pic} />
 
             {subscription && <div style={{backgroundColor: subscription.card_color}} className={styles.subscription}>
