@@ -110,7 +110,7 @@ function Production({subscriptions = []}) {
                     </div>
                 </div>
 
-                <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png' submit={findBassline}/>
+                <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png' submit={findBassline} loading={bassLoading}/>
 
             </div>
 
