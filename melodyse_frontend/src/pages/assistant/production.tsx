@@ -75,7 +75,7 @@ function Production({subscriptions = []}) {
                         <label>Using the plugin:</label>
                         <input placeholder='Sylenth1, Serum, Nexus, Massive...'/>
                     </div>
-                    <AIActionButtonWide/>
+                    <AIActionButtonWide bright={true}/>
                 </div>
                 <img src='/icons/producer.png' className={styles.aiImage}/>
             </div>
