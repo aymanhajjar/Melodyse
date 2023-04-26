@@ -16,6 +16,8 @@ function Production({subscriptions = []}) {
     const [chords, setChords] = useState([])
     const [chordNotes, setChordNotes] = useState([])
     const [selectedChord, setSelectedChord] = useState('')
+    const [soundValue, setSoundValue] = useState('')
+    const [pluginValue, setPluginValue] = useState('')
 
     useEffect(() => {
         setScale(Scale.detect(notes))
@@ -31,6 +33,10 @@ function Production({subscriptions = []}) {
         setChordNotes(chordObj.notes)
         setNotes(chordObj.notes)
         setSelectedChord(chord)
+    }
+
+    const buildSound = () => {
+
     }
 
   return (
@@ -74,13 +80,13 @@ function Production({subscriptions = []}) {
                     <h2>Sound Lab</h2>
                     <div className={styles.inputGroup}>
                         <label>I want to build a sound similar to:</label>
-                        <input placeholder='Synth used in A Sky Full Of Stars...'/>
+                        <input placeholder='Synth used in A Sky Full Of Stars...' value={soundValue} onChange={(e) => setSoundValue(e.target.value)}/>
                     </div>
                     <div className={styles.inputGroup}>
                         <label>Using the plugin:</label>
-                        <input placeholder='Sylenth1, Serum, Nexus, Massive...'/>
+                        <input placeholder='Sylenth1, Serum, Nexus, Massive...' value={pluginValue} onChange={(e) => setPluginValue(e.target.value)}/>
                     </div>
-                    <AIActionButtonWide name="Go" pic='/icons/send.png' bright={true}/>
+                    <AIActionButtonWide name="Go" pic='/icons/send.png' bright={true} submit={buildSound}/>
                 </div>
                 <img src='/icons/producer.png' className={styles.aiImage}/>
             </div>
