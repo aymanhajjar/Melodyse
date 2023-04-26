@@ -1,7 +1,7 @@
 import styles from './AIActionButtonWide.module.scss'
 import { useEffect, useState } from 'react'
 
-export default function AIActionButtonWide({name, pic, subscription, submit, disabled, bright=null}: any) {
+export default function AIActionButtonWide({name, pic, subscription, submit, disabled, bright=null, loading}: any) {
 
     return(
         <div 
@@ -9,15 +9,15 @@ export default function AIActionButtonWide({name, pic, subscription, submit, dis
             bright ? `${styles.aibutton} ${styles.bright}` : styles.aibutton } 
             onClick={submit}>
 
-            <h3>{name}</h3>
-            <img src={pic}/>
+            {loading ? <img src='/loadinggif.gif'/> : <h3>{name}</h3>}
+            <img src={pic} />
 
             {subscription && <div style={{backgroundColor: subscription.card_color}} className={styles.subscription}>
 
                     {subscription.tag_on_profile}
 
                 </div>}
-                
+
         </div>
     )
 }
