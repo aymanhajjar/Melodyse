@@ -64,7 +64,19 @@ function Production({subscriptions = []}) {
                 </div>
             </div>
             <div className={styles.DIV3}>
-                <img src='/icons/producer.png'/>
+                <div className={styles.soundLab}>
+                    <h2>Sound Lab</h2>
+                    <div className={styles.inputGroup}>
+                        <label>I want to build a sound similar to:</label>
+                        <input placeholder='Synth used in A Sky Full Of Stars...'/>
+                    </div>
+                    <div className={styles.inputGroup}>
+                        <label>Using the plugin:</label>
+                        <input placeholder='Sylenth1, Serum, Nexus, Massive...'/>
+                    </div>
+                    <AIActionButtonWide/>
+                </div>
+                <img src='/icons/producer.png' className={styles.aiImage}/>
             </div>
         </div>
       </div>
