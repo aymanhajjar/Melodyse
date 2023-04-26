@@ -1,0 +1,13 @@
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    background-color: #47E5BC;
+}
+
+.popup span {
+    font-weight: 600;
+    font-size: 1rem;
+}
