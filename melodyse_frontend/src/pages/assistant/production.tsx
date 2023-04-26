@@ -56,7 +56,10 @@ function Production({subscriptions = []}) {
                 console.error(err)
             })
         }
-       
+    }
+
+    const findBassline = () => {
+        
     }
 
   return (
@@ -92,7 +95,7 @@ function Production({subscriptions = []}) {
                     </div>
                 </div>
 
-                <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png'/>
+                <AIActionButtonWide name="Find Bassline" pic='/icons/bass.png' submit={findBassline}/>
 
             </div>
 
