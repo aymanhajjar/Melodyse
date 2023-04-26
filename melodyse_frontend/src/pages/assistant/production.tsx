@@ -44,7 +44,8 @@ function Production({subscriptions = []}) {
         axios.post(`${process.env.SITE_URL}/buildsound`, data, {
             withCredentials: true
           }).then((res) => {
-            setSoundResponse(res.data.choices[0].text)
+            const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+            setSoundResponse(cleanText)
           }).catch(err => {
               console.error(err)
           })
