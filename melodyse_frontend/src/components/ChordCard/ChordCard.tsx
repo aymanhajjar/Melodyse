@@ -1,17 +1,11 @@
 import styles from './ChordCard.module.scss'
 import { useEffect, useState} from 'react'
 
-export default function ChordCard({chord, select}) {
-    const [active, setActive] = useState(false)
-
-    const handleClick = () => {
-        setActive(!active)
-        select(chord)
-    }
+export default function ChordCard({chord, select, selected}) {
 
   return (
     <>
-      <div className={active ? styles.chordActive : styles.chord} onClick={handleClick}>
+      <div className={selected ? styles.chordActive : styles.chord} onClick={() => select(chord)}>
         <span>{chord}</span>
       </div>
     </>
