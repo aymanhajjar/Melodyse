@@ -23,7 +23,6 @@ export default function UserSkills(props: any) {
         axios.get(`${process.env.SITE_URL}/getskills`, {
             withCredentials: true
         }).then(res => {
-            console.log('skiiii', res)
             setSkills(res.data)
             setLoading(false)
         }).catch(err => console.log(err))

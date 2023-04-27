@@ -6,18 +6,27 @@ import axios from 'axios'
 export default function Learning({ skills } : any) {
     const [withInterests, setWithInterests] = useState(true)
     const [selectValue, setSelectValue] = useState('')
+    const [selectImage, setSelectImage] = useState('')
+
+
+    useEffect(() => {
+        const selectedSkill = skills.find((skill) => skill.name === selectValue)
+        setSelectImage(selectedSkill.picture)
+    }, [selectValue])
 
     return (
         <div className={styles.container}>
             <h1>LEARNING ASSISTANT</h1>
             <div className={styles.contents}>
                 <div className={styles.div1}>
-                    <span>I want to learn:</span>
+                    <label>I want to learn:</label>
                     <select value={selectValue} onChange={(e) => setSelectValue(e.target.value)}>
                         {skills && skills.map((skill) => (
-                            <option value={skill.id}>{skill.name}</option>
+                            <option value={skill.name}>{skill.name}</option>
                         ))}
                     </select>
+
+                    <img src={process.env.SITE_URL +  selectImage}/>
                     <div className={styles.useInterests}>
                         <label>
                             Use my interests to improve responses
