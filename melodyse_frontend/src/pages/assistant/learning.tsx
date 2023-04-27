@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Learning.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWide'
 
 export default function Learning({ skills } : any) {
     const [withInterests, setWithInterests] = useState(true)
@@ -34,10 +35,13 @@ export default function Learning({ skills } : any) {
                         <input type='checkbox' checked={withInterests} onChange={() => setWithInterests(!withInterests)}/>
                     </div>
                 </div>
-                <div>
-
+                <div className={styles.div2}>
+                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
+                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
+                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
                 </div>
-                <div>
+                <div className={styles.div3}>
+                <AIActionButtonWide />
 
                 </div>
             </div>
