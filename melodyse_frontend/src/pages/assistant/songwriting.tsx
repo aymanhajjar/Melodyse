@@ -291,6 +291,6 @@ Songwriting.getInitialProps = async (ctx) => {
             data = res.data
         }).catch(err => console.error(err))
   return {subscriptions: data}
-};
+}
 
 export default Songwriting
