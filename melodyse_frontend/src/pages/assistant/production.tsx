@@ -20,7 +20,6 @@ function Production({subscriptions = []}) {
     const [soundValue, setSoundValue] = useState('')
     const [pluginValue, setPluginValue] = useState('')
     const [soundResponse, setSoundResponse] = useState()
-    const [bassResponse, setBassResponse] = useState()
     const [soundLoading, setSoundLoading] = useState(false)
     const [bassLoading, setBassLoading] = useState(false)
     const [withInterests, setWithInterests] = useState(true)
