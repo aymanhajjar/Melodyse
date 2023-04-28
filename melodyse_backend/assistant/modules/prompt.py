@@ -57,6 +57,8 @@ def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, 
             return "I am an artist who likes " + ', '.join([str(artist['name']) for artist in info.favorite_artists[:5]]) + ' and my favorite songs are ' + ', '.join([str(song['name']) for song in info.favorite_songs[:5]]) + ". I want to practice " + skill + ". What are some good resources i can use to practice this skill."
         else:    
             return "I want to practice " + skill + ". What are some good resources i can use to practice this skill."
-        
-        
+    
+    if type == "explainMusic":
+        return "Explain music theory for practicing " + skill
+    
     return None
