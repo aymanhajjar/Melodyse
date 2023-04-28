@@ -3,31 +3,42 @@ import environ
 import openai
 from django.http import JsonResponse, HttpResponse
 from .modules import prompt
+from users.models import UserInfo
+from django.db.models import F
 
 env = environ.Env()
 environ.Env.read_env()
 
 def improve(request):
     if request.user.is_authenticated:
+        if request.user.info.get().subscription.level >= 1:
 
-        lyrics = request.POST['lyrics']
-        with_interests = request.POST['with_interests'].lower() == "true"
+            lyrics = request.POST['lyrics']
+            with_interests = request.POST['with_interests'].lower() == "true"
 
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt= prompt.genPrompt(user=request.user, lyrics=lyrics, with_interests=with_interests, type="improve"),
-            temperature=0,
-            max_tokens=1000,
-            top_p=1.0,
-            frequency_penalty=0.0,
-            presence_penalty=0.0,
-            stop=["\"\"\""]
-        )
+            UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
 
-        return JsonResponse(response, safe=False)
+            response = openai.Completion.create(
+                model="text-davinci-003",
+                prompt= prompt.genPrompt(user=request.user, lyrics=lyrics, with_interests=with_interests, type="improve"),
+                temperature=0,
+                max_tokens=1000,
+                top_p=1.0,
+                frequency_penalty=0.0,
+                presence_penalty=0.0,
+                stop=["\"\"\""]
+            )
+
+            return JsonResponse(response, safe=False)
+        else:
+            return HttpResponse('Subscription level too low', status=402)
+    else:
+        return HttpResponse('User not logged in', status=403)
 
 def feedback(request):
     if request.user.is_authenticated:
+
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
 
         lyrics = request.POST['lyrics']
         with_interests = request.POST['with_interests'].lower() == "true"
@@ -51,6 +62,8 @@ def feedback(request):
 def grammar(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         lyrics = request.POST['lyrics']
         with_interests = request.POST['with_interests'].lower() == "true"
 
@@ -72,6 +85,8 @@ def grammar(request):
 
 def generate(request):
     if request.user.is_authenticated:
+
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
 
         lyrics = request.POST['lyrics']
         with_interests = request.POST['with_interests'].lower() == "true"
@@ -96,6 +111,8 @@ def generate(request):
 def generateMelody(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         lyrics = request.POST['lyrics']
         with_interests = request.POST['with_interests'].lower() == "true"
 
@@ -117,6 +134,8 @@ def generateMelody(request):
 
 def buildSound(request):
     if request.user.is_authenticated:
+
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
 
         sound = request.POST['sound']
         plugin = request.POST['plugin']
@@ -140,6 +159,8 @@ def buildSound(request):
 def findBass(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         scale = request.POST['scale']
         with_interests = request.POST['with_interests'].lower() == "true"
 
@@ -162,6 +183,8 @@ def findBass(request):
 def getTips(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         skill = request.GET['skill']
 
         response = openai.Completion.create(
@@ -182,6 +205,8 @@ def getTips(request):
     
 def songsToLearn(request):
     if request.user.is_authenticated:
+
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
 
         skill = request.GET['skill']
         with_interests = request.GET['with_interests'].lower() == "true"
@@ -205,6 +230,8 @@ def songsToLearn(request):
 def suggestResources(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         skill = request.GET['skill']
         with_interests = request.GET['with_interests'].lower() == "true"
 
@@ -227,6 +254,8 @@ def suggestResources(request):
 def explainMusic(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         skill = request.GET['skill']
         with_interests = request.GET['with_interests'].lower() == "true"
 
@@ -248,6 +277,8 @@ def explainMusic(request):
     
 def findTitle(request):
     if request.user.is_authenticated:
+
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
 
         lyrics = request.POST['lyrics']
         genre = request.POST['genre']
@@ -273,6 +304,8 @@ def findTitle(request):
 def suggestCover(request):
     if request.user.is_authenticated:
 
+        UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+
         lyrics = request.POST['lyrics']
         genre = request.POST['genre']
         mood = request.POST['mood']
@@ -297,21 +330,23 @@ def suggestCover(request):
     
 def generateCover(request):
     if request.user.is_authenticated:
+        if request.user.info.get().subscription.level >= 2:
+            UserInfo.objects.filter(user=request.user).update(points_used=F('points_used') + 1)
+            
+            genre = request.POST['genre']
+            mood = request.POST['mood']
+            title = request.POST['title']
+            with_interests = request.POST['with_interests'].lower() == "true"
 
-        lyrics = request.POST['lyrics']
-        genre = request.POST['genre']
-        mood = request.POST['mood']
-        title = request.POST['title']
-        with_interests = request.POST['with_interests'].lower() == "true"
+            response = openai.Image.create(
+            prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, genre=genre, mood=mood, title=title, type="generateCover"),
+            n=1,
+            size="1024x1024"
+            )
+            image_url = response['data'][0]['url']
 
-        response = openai.Image.create(
-        prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, genre=genre, mood=mood, title=title, type="generateCover"),
-        n=1,
-        size="1024x1024"
-        )
-        image_url = response['data'][0]['url']
-
-        return JsonResponse(image_url, safe=False)
-    
+            return JsonResponse(image_url, safe=False)
+        else:
+            return HttpResponse('Subscription level too low', status=402)
     else:
         return HttpResponse('User not logged in', status=403)
