@@ -62,9 +62,23 @@ class UserInfo(models.Model):
     points_used = models.IntegerField(default=0)
     def __str__(self):
         return self.user.username + "'s info"
+    def serialize(self):
+        return {
+            "id": self.user.id,
+            "username": self.user.username,
+            "full_name": self.user.first_name + ' ' + self.user.last_name,
+            "gender": self.gender,
+            "favorite_artists": [artist for artist in self.favorite_artists],
+            "favorite_songs": [song for song in self.favorite_songs],
+            "picture": self.picture.url,
+            "rating": self.rating,
+            "friends": self.user.friends.all().count(),
+            "ongoing_projects": [project.serialize() for project in self.user.projects_active.all()],
+            "completed_projects": [project.serialize() for project in self.user.projects_active.filter(is_completed=True)]
+        }
 
 class UserFriend(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friends')
     friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_of')
     date_accepted = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -104,6 +118,19 @@ class Project(models.Model):
     members = models.ManyToManyField(User, related_name="projects_active")
     def __str__(self):
         return self.title
+    def serialize(self):
+        return {
+            'owner': self.owner.username,
+            'title': self.title,
+            'date_started': self.date_started,
+            'description': self.description,
+            'is_collab': self.is_collab,
+            'picture': self.picture.url,
+            'is_completed': self.is_completed,
+            'members': [{
+                'username': member.username, 
+                'picture': member.info.get().picture.url} for member in self.members]
+        }
     
 class ProjectInvite(models.Model):
     initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="invites_sent")

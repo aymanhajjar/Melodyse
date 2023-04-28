@@ -191,3 +191,8 @@ def getSubscriptions(request):
     subs = SubscriptionPlan.objects.all()
     subsArray = [sub.serialize() for sub in subs]
     return JsonResponse(subsArray, safe=False)
+
+def getProfile(request, username):
+    user = User.objects.get(username=username)
+    info = UserInfo.objects.get(user = user)
+    return JsonResponse(info.serialize(), safe=False)

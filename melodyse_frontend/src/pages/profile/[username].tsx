@@ -24,9 +24,8 @@ export default function Profile({data} : any) {
 export async function getServerSideProps(context) {
   let data = {}
   const username = context.query.username
-  axios.get(`${process.env.SITE_URL}/profile/${username}`, {
-    withCredentials: true
-  }).then(res => data = res.data)
+  await axios.get(`${process.env.SERVER_SITE_URL}/profile/${username}`).then(res => data = res.data)
+  .catch(err => console.log(err))
 
   return {props: {data : data}}
 }
