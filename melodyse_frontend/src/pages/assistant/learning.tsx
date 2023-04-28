@@ -8,13 +8,18 @@ export default function Learning({ skills } : any) {
     const [withInterests, setWithInterests] = useState(true)
     const [selectValue, setSelectValue] = useState(skills[Math.floor(Math.random() * skills.length)].name)
     const [selectImage, setSelectImage] = useState('')
-
-    console.log('skci', skills[Math.floor(Math.random() * skills.length)])
+    const [loading, setLoading] = useState(true)
+    const [tips, setTips] = useState()
 
     useEffect(() => {
         if(selectValue) {
             const selectedSkill = skills.find((skill) => skill.name === selectValue)
             setSelectImage(selectedSkill.picture)
+
+            axios.get(`${process.env.SITE_URL}/tipsandtricks`, {
+                withCredentials: true
+            }).then(res => setTips(res.data.choices[0].text.replace(/^\s+/, "")))
+            .catch(err => console.error(err))
         }
     }, [selectValue])
 
@@ -44,7 +49,10 @@ export default function Learning({ skills } : any) {
                             <AIActionButtonWide name="Explain Music Theory" pic='/icons/theory.png'/>
                 </div>
                 <div className={styles.div3}>
-hey
+                    <h3>Tips and Tricks</h3>
+                    {loading && <div className={styles.loading}>
+                            <img src='/loading-melodyse.gif'/>
+                        </div>}
                 </div>
             </div>
             
