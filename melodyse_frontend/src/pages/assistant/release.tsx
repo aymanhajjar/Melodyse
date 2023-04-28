@@ -18,15 +18,21 @@ export default function Release({ subscriptions } : any) {
         <div className={styles.container}>
             <h1>RELEASE ASSISTANT</h1>
             <div className={styles.content}>
-                
-                <div className={styles.div1}>
 
-                <div className={styles.useInterests}>
-                    <label>
-                        Use my interests to improve responses
-                    </label>
-                    <input type='checkbox' checked={withInterests} onChange={() => setWithInterests(!withInterests)}/>
+                <div className={styles.div1}>
+                    <div className={styles.formContainer}>
+                        
+                    </div>
+                    <div className={styles.useInterests}>
+                        <label>
+                            Use my interests to improve responses
+                        </label>
+                        <input type='checkbox' checked={withInterests} onChange={() => setWithInterests(!withInterests)}/>
+                    </div>
+
                 </div>
+
+                <div className={styles.div2}>
 
                 </div>
             </div>
