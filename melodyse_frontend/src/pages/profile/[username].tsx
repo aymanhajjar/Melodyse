@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 
 export default function Profile({data} : any) {
 
-    console.log(data)
   return (
     <>
       <Head>
@@ -16,6 +15,17 @@ export default function Profile({data} : any) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
+        <div className={styles.div1}>
+          <img src={process.env.SITE_URL + data.picture}/>
+        </div>
+
+        <div className={styles.div2}>
+
+        </div>
+
+        <div className={styles.div3}>
+
+        </div>
       </div>
     </>
   )
