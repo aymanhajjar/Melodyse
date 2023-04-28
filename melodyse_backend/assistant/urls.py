@@ -15,4 +15,7 @@ urlpatterns = [
     path("songstolearn", views.songsToLearn),
     path("suggestresources", views.suggestResources),
     path("explainmusic", views.explainMusic),
+    path("suggestcover", views.suggestCover),
+    path("findtitle", views.findTitle),
+    path("generatecover", views.generateCover),
 ]

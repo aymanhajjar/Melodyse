@@ -92,6 +92,7 @@ export default function Release({ subscriptions } : any) {
                 </div>
                 
             </div>
+            {response && <PopupResponse response={response} close={() => setResponse()}/>}
         </div>
 
         </>
