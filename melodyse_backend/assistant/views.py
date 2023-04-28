@@ -7,10 +7,6 @@ from .modules import prompt
 env = environ.Env()
 environ.Env.read_env()
 
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-
-# Create your views here.
-
 def improve(request):
     if request.user.is_authenticated:
 
@@ -215,6 +211,28 @@ def suggestResources(request):
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, skill=skill, type="suggestResources"),
+            temperature=0,
+            max_tokens=1000,
+            top_p=1.0,
+            frequency_penalty=0.0,
+            presence_penalty=0.0,
+            stop=["\"\"\""]
+        )
+
+        return JsonResponse(response, safe=False)
+    
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def explainMusic(request):
+    if request.user.is_authenticated:
+
+        skill = request.GET['skill']
+        with_interests = request.GET['with_interests'].lower() == "true"
+
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, skill=skill, type="explainMusic"),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,

@@ -14,4 +14,5 @@ urlpatterns = [
     path("gettips", views.getTips),
     path("songstolearn", views.songsToLearn),
     path("suggestresources", views.suggestResources),
+    path("explainmusic", views.explainMusic),
 ]
