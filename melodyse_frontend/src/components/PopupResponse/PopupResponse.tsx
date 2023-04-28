@@ -1,12 +1,13 @@
 import styles from './PopupResponse.module.scss'
 import { useEffect, useState} from 'react'
 
-export default function PopupResponse({response, close}) {
+export default function PopupResponse({response, close, pic=null}) {
 
   return (
     <>
       <div className={styles.popup}>
-        <span>{response}</span>
+        {pic ? <img src={pic}/>
+        : <span>{response}</span>}
         <img src='/icons/close.png' onClick={close}/>
       </div>
     </>

@@ -13,6 +13,7 @@ export default function Release({ subscriptions } : any) {
     const [moodVal, setMoodVal] = useState('')
     const [titleVal, setTitleVal] = useState('')
     const [response, setResponse] = useState()
+    const [picResponse, setPicResponse] = useState()
     const [titleLoading, setTitleLoading] = useState(false)
     const [suggCoverLoading, setSuggCoverLoading] = useState(false)
     const [genCoverLoading, setGenCoverLoading] = useState(false)
@@ -36,20 +37,20 @@ export default function Release({ subscriptions } : any) {
     }
 
     const suggestCover = () => {
-        setTitleLoading(true)
+        setSuggCoverLoading(true)
         let data = genForm()
         axios.post(`${process.env.SITE_URL}/suggestcover`, data, {
             withCredentials: true
-        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setSuggCoverLoading(false)})
         .catch(err => console.error(err))
     }
 
     const genCover = () => {
-        setTitleLoading(true)
+        setGenCoverLoading(true)
         let data = genForm()
         axios.post(`${process.env.SITE_URL}/generatecover`, data, {
             withCredentials: true
-        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
+        }).then(res => {setPicResponse(res.data); setGenCoverLoading(false)})
         .catch(err => console.error(err))
     }
 
@@ -92,7 +93,8 @@ export default function Release({ subscriptions } : any) {
                 </div>
                 
             </div>
-            {response && <PopupResponse response={response} close={() => setResponse()}/>}
+            {(response || picResponse) && <PopupResponse response={response} pic={picResponse} 
+            close={() => {setResponse(); setPicResponse()}}/>}
         </div>
 
         </>
