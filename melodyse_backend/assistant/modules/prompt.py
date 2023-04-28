@@ -46,7 +46,11 @@ def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, 
     if type == "getTips":
         return "Tell me tips and tricks in for practicing " + skill + " in the form of bullet points."
     
-    
+    if type == "getSongsToLearn":
+        if with_interests:
+            return "I am an artist who likes " + ', '.join([str(artist['name']) for artist in info.favorite_artists[:5]]) + ' and my favorite songs are ' + ', '.join([str(song['name']) for song in info.favorite_songs[:5]]) + ". I want to practice " + skill + ". Tell me good songs to practice with, for beginner, intermediate and advanced levels."
+        else:    
+            return "I want to practice " + skill + ". Suggest songs to practice with, for beginner, intermediate and advanced levels."
         
         
     return None
