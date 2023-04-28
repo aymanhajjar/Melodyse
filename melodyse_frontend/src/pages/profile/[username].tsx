@@ -5,21 +5,17 @@ import axios from 'axios'
 import AIButton from '@/components/AIButton/AIButton'
 import { useRouter } from 'next/router'
 
-export default function Profile(props : any) {
-    const [points, setPoints] = useState()
-    const router = useRouter()
-    const { username } = router.query
+export default function Profile({data} : any) {
 
-    console.log(username)
+    console.log(data)
   return (
     <>
       <Head>
-        <title>{username} | MELODYSE</title>
+        <title>{data.username} | MELODYSE</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.container}>
-        {username}
       </div>
     </>
   )
