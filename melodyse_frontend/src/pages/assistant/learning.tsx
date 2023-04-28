@@ -6,13 +6,16 @@ import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWi
 
 export default function Learning({ skills } : any) {
     const [withInterests, setWithInterests] = useState(true)
-    const [selectValue, setSelectValue] = useState('')
+    const [selectValue, setSelectValue] = useState(skills[Math.floor(Math.random() * skills.length)].name)
     const [selectImage, setSelectImage] = useState('')
 
+    console.log('skci', skills[Math.floor(Math.random() * skills.length)])
 
     useEffect(() => {
-        const selectedSkill = skills.find((skill) => skill.name === selectValue)
-        setSelectImage(selectedSkill.picture)
+        if(selectValue) {
+            const selectedSkill = skills.find((skill) => skill.name === selectValue)
+            setSelectImage(selectedSkill.picture)
+        }
     }, [selectValue])
 
     return (
@@ -37,7 +40,7 @@ export default function Learning({ skills } : any) {
                 </div>
                 <div className={styles.div2}>
                             <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
-                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
+                            <AIActionButtonWide name="Suggest resources to learn" pic='/icons/question.png'/>
                             <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
                 </div>
                 <div className={styles.div3}>
@@ -51,9 +54,9 @@ export default function Learning({ skills } : any) {
 }
 
 Learning.getInitialProps = async (ctx) => {
-    let data = []
+    let cleanData = []
     await axios.get(`${process.env.SERVER_SITE_URL}/getskills`).then(res => {
-              data = res.data
+              cleanData = res.data.filter(skill => skill.name != 'Record Managing' && skill.name != 'Music Listening' && skill.name != 'Composing')
           }).catch(err => console.error(err))
-    return {skills: data}
+    return {skills: cleanData}
   }

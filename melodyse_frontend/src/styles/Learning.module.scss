@@ -7,7 +7,7 @@
     width: 90%;
     margin: auto;
     margin-top: 2rem;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .div1 {
@@ -53,8 +53,12 @@
 
 .div2 {
     width: 32%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .div3 {
     width: 32%;
+    display: flex;
 }
