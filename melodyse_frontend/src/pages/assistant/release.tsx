@@ -45,22 +45,26 @@ export default function Release({ subscriptions } : any) {
 
     const suggestCover = () => {
         setErrorMessage()
+        if(lyricsVal.length > 0 || titleVal.length > 0 || moodVal.length > 0 || genreVal.length > 0) {
         setSuggCoverLoading(true)
         let data = genForm()
         axios.post(`${process.env.SITE_URL}/suggestcover`, data, {
             withCredentials: true
         }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setSuggCoverLoading(false)})
         .catch(err => {console.error(err); setSuggCoverLoading(false)})
+        } else setErrorMessage('Please fill at least one field!')
     }
 
     const genCover = () => {
         setErrorMessage()
-        setGenCoverLoading(true)
-        let data = genForm()
-        axios.post(`${process.env.SITE_URL}/generatecover`, data, {
-            withCredentials: true
-        }).then(res => {setPicResponse(res.data); setGenCoverLoading(false)})
-        .catch(err => {console.error(err); setGenCoverLoading(false)})
+        if(titleVal.length > 0 || moodVal.length > 0 || genreVal.length > 0) {
+            setGenCoverLoading(true)
+            let data = genForm()
+            axios.post(`${process.env.SITE_URL}/generatecover`, data, {
+                withCredentials: true
+            }).then(res => {setPicResponse(res.data); setGenCoverLoading(false)})
+            .catch(err => {console.error(err); setGenCoverLoading(false)})
+        } else setErrorMessage('Please enter at least a title, mood or genre!')
     }
 
     return (
