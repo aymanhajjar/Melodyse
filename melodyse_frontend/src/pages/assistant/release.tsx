@@ -25,34 +25,42 @@ export default function Release({ subscriptions } : any) {
         data.append('genre', genreVal)
         data.append('mood', moodVal)
         data.append('title', titleVal)
+        data.append('with_interests', withInterests)
         return data
     }
 
     const findTitle = () => {
-        setTitleLoading(true)
-        let data = genForm()
-        axios.post(`${process.env.SITE_URL}/findtitle`, data, {
-            withCredentials: true
-        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
-        .catch(err => console.error(err))
+        setErrorMessage()
+        if(lyricsVal.length > 0) {
+
+            setTitleLoading(true)
+            let data = genForm()
+            axios.post(`${process.env.SITE_URL}/findtitle`, data, {
+                withCredentials: true
+            }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
+            .catch(err => {console.error(err); setTitleLoading(false)})
+            
+        } else setErrorMessage('Please enter your lyrics!')
     }
 
     const suggestCover = () => {
+        setErrorMessage()
         setSuggCoverLoading(true)
         let data = genForm()
         axios.post(`${process.env.SITE_URL}/suggestcover`, data, {
             withCredentials: true
         }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setSuggCoverLoading(false)})
-        .catch(err => console.error(err))
+        .catch(err => {console.error(err); setSuggCoverLoading(false)})
     }
 
     const genCover = () => {
+        setErrorMessage()
         setGenCoverLoading(true)
         let data = genForm()
         axios.post(`${process.env.SITE_URL}/generatecover`, data, {
             withCredentials: true
         }).then(res => {setPicResponse(res.data); setGenCoverLoading(false)})
-        .catch(err => console.error(err))
+        .catch(err => {console.error(err); setGenCoverLoading(false)})
     }
 
     return (
@@ -75,7 +83,7 @@ export default function Release({ subscriptions } : any) {
                             <ReleaseInput label={'Genre'} value={genreVal} setValue={(val) => setGenreVal(val)}/>
                             <ReleaseInput label={'Mood'} value={moodVal} setValue={(val) => setMoodVal(val)}/>
                             <ReleaseInput label={'Title (optional)'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
-                            {errorMessage}
+                            <span className={styles.error}>{errorMessage}</span>
                         </div>
                     </div>
                     <div className={styles.useInterests}>

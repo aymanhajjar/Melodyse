@@ -252,7 +252,7 @@ def findTitle(request):
         lyrics = request.POST['lyrics']
         genre = request.POST['genre']
         mood = request.POST['mood']
-        with_interests = request.GET['with_interests'].lower() == "true"
+        with_interests = request.POST['with_interests'].lower() == "true"
 
         response = openai.Completion.create(
             model="text-davinci-003",
@@ -277,7 +277,7 @@ def suggestCover(request):
         genre = request.POST['genre']
         mood = request.POST['mood']
         title = request.POST['title']
-        with_interests = request.GET['with_interests'].lower() == "true"
+        with_interests = request.POST['with_interests'].lower() == "true"
 
         response = openai.Completion.create(
             model="text-davinci-003",
@@ -302,7 +302,7 @@ def generateCover(request):
         genre = request.POST['genre']
         mood = request.POST['mood']
         title = request.POST['title']
-        with_interests = request.GET['with_interests'].lower() == "true"
+        with_interests = request.POST['with_interests'].lower() == "true"
 
         response = openai.Image.create(
         prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, genre=genre, mood=mood, title=title, type="generateCover"),

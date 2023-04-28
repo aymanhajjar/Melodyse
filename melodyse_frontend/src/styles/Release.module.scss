@@ -1,3 +1,5 @@
+$main_red: #AB4967;
+
 .container {
     padding-top: 1%;
     height: 80%;
@@ -64,4 +66,9 @@
     width: 15rem;
     position: absolute;
     bottom: 0;
+}
+
+.error {
+    color: $main_red;
+    font-weight: 600;
 }
