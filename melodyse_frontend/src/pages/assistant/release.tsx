@@ -39,7 +39,7 @@ export default function Release({ subscriptions } : any) {
                 withCredentials: true
             }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
             .catch(err => {console.error(err); setTitleLoading(false)})
-            
+
         } else setErrorMessage('Please enter your lyrics!')
     }
 

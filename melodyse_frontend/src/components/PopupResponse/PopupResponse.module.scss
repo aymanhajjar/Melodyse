@@ -27,10 +27,16 @@
     font-size: 1rem;
 }
 
-.popup img {
+.close {
     width: 1rem;
     position: absolute;
     top: 1rem;
     right: 1rem;
     cursor: pointer;
+}
+
+.cover {
+    display: flex;
+    width: 35rem;
+    margin: auto;
 }
