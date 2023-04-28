@@ -53,8 +53,8 @@ class UserInfo(models.Model):
     ]
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    favorite_artists = ArrayField(JSONField(), blank=True, null=True)
-    favorite_songs = ArrayField(JSONField(), blank=True, null=True)
+    favorite_artists = ArrayField(JSONField(), blank=True, null=True, default=[])
+    favorite_songs = ArrayField(JSONField(), blank=True, null=True, default=[])
     picture = models.ImageField(upload_to='profile_pictures/',default='profile_pictures/avatar.png')
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     subscription = models.ForeignKey(SubscriptionPlan, related_name="users_subscribed", default=0, to_field='level', on_delete=models.CASCADE)
