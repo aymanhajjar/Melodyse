@@ -12,17 +12,45 @@ export default function Release({ subscriptions } : any) {
     const [genreVal, setGenreVal] = useState('')
     const [moodVal, setMoodVal] = useState('')
     const [titleVal, setTitleVal] = useState('')
+    const [response, setResponse] = useState()
+    const [titleLoading, setTitleLoading] = useState(false)
+    const [suggCoverLoading, setSuggCoverLoading] = useState(false)
+    const [genCoverLoading, setGenCoverLoading] = useState(false)
+
+    const genForm = () => {
+        const data = new FormData()
+        data.append('lyrics', lyricsVal)
+        data.append('genre', genreVal)
+        data.append('mood', moodVal)
+        data.append('title', titleVal)
+        return data
+    }
 
     const findTitle = () => {
-
+        setTitleLoading(true)
+        let data = genForm()
+        axios.post(`${process.env.SITE_URL}/findtitle`, data, {
+            withCredentials: true
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
+        .catch(err => console.error(err))
     }
 
     const suggestCover = () => {
-
+        setTitleLoading(true)
+        let data = genForm()
+        axios.post(`${process.env.SITE_URL}/suggestcover`, data, {
+            withCredentials: true
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
+        .catch(err => console.error(err))
     }
 
     const genCover = () => {
-        
+        setTitleLoading(true)
+        let data = genForm()
+        axios.post(`${process.env.SITE_URL}/generatecover`, data, {
+            withCredentials: true
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTitleLoading(false)})
+        .catch(err => console.error(err))
     }
 
     return (
@@ -57,9 +85,9 @@ export default function Release({ subscriptions } : any) {
                 </div>
 
                 <div className={styles.div2}>
-                    <AIActionButtonWide name="Find a title" pic="/icons/tag.png" submit={findTitle}/>
-                    <AIActionButtonWide name="Suggest cover art" pic="/icons/album.png" submit={suggestCover}/>
-                    <AIActionButtonWide name="Generate cover art" pic="/icons/picture.png" submit={genCover}/>
+                    <AIActionButtonWide name="Find a title" pic="/icons/tag.png" submit={findTitle} loading={titleLoading}/>
+                    <AIActionButtonWide name="Suggest cover art" pic="/icons/album.png" submit={suggestCover} loading={suggCoverLoading}/>
+                    <AIActionButtonWide name="Generate cover art" pic="/icons/picture.png" submit={genCover} subscription={subscriptions.find(sub => sub.level == 2)} loading={genCoverLoading}/>
                     <img className={styles.aiImage} src='/icons/vinyl-record.png'/>
                 </div>
                 
