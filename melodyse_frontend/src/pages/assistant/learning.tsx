@@ -11,6 +11,9 @@ export default function Learning({ skills } : any) {
     const [selectImage, setSelectImage] = useState('')
     const [tips, setTips] = useState()
     const [response, setResponse] = useState()
+    const [songsLoading, setSongsLoading] = useState(false)
+    const [resourcesLoading, setResourcesLoading] = useState(false)
+    const [theoryLoading, setTheoryLoading] = useState(false)
 
     useEffect(() => {
         if(selectValue) {
@@ -25,27 +28,36 @@ export default function Learning({ skills } : any) {
     }, [selectValue])
 
     const suggestSongs = () => {
+        setSongsLoading(true)
         axios.get(`${process.env.SITE_URL}/songstolearn?skill=${selectValue}&&with_interests=${withInterests}`, {
             withCredentials: true
-        }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setSongsLoading(false)})
         .catch(err => console.error(err))
     }
 
     const suggestResources = () => {
+        setResourcesLoading(true)
         axios.get(`${process.env.SITE_URL}/suggestresources?skill=${selectValue}&&with_interests=${withInterests}`, {
             withCredentials: true
-        }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setResourcesLoading(false)})
         .catch(err => console.error(err))
     }
 
     const explainMusic = () => {
+        setTheoryLoading(true)
         axios.get(`${process.env.SITE_URL}/explainmusic?skill=${selectValue}&&with_interests=${withInterests}`, {
             withCredentials: true
-        }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
+        }).then(res => {setResponse(res.data.choices[0].text.replace(/^\s+/, "")); setTheoryLoading(false)})
         .catch(err => console.error(err))
     }
 
     return (
+        <>
+        <Head>
+            <title>Learning Assistant | MELODYSE</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/logo.ico" />
+        </Head>
         <div className={styles.container}>
             <h1>LEARNING ASSISTANT</h1>
             <div className={styles.contents}>
@@ -66,9 +78,9 @@ export default function Learning({ skills } : any) {
                     </div>
                 </div>
                 <div className={styles.div2}>
-                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png' submit={suggestSongs}/>
-                            <AIActionButtonWide name="Suggest resources to use" pic='/icons/book.png' submit={suggestResources}/>
-                            <AIActionButtonWide name="Explain Music Theory" pic='/icons/theory.png' submit={explainMusic}/>
+                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png' submit={suggestSongs} loading={songsLoading}/>
+                            <AIActionButtonWide name="Suggest resources to use" pic='/icons/book.png' submit={suggestResources} loading={resourcesLoading}/>
+                            <AIActionButtonWide name="Explain Music Theory" pic='/icons/theory.png' submit={explainMusic} loading={theoryLoading}/>
                 </div>
                 <div className={styles.div3}>
                     <h3>Tips and Tricks</h3>
@@ -79,6 +91,9 @@ export default function Learning({ skills } : any) {
             </div>
             {response && <PopupResponse response={response} close={() => setResponse()}/>}
         </div>
+
+        </>
+        
     )
 }
 
