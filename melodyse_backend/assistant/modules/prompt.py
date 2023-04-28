@@ -1,6 +1,6 @@
 from users.models import User, UserInfo
 
-def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, scale=None, skill=None):
+def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, scale=None, skill=None, genre='', mood=''):
 
     info = UserInfo.objects.get(user=user)
 
@@ -60,5 +60,17 @@ def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, 
     
     if type == "explainMusic":
         return "Explain music theory for practicing " + skill
+    
+    if type == "findTitle":
+        if with_interests:
+            return "I am an artist who likes " + ', '.join([str(artist['name']) for artist in info.favorite_artists[:5]]) + ' and my favorite songs are ' + ', '.join([str(song['name']) for song in info.favorite_songs[:5]]) + "Find me a title for a song with genre of " + genre + " and a " + mood + " mood, given these lyrics: '" + lyrics + "', explain why you chose the title and if you got any inspiration from my favorite artists or songs, explain how."
+        else:
+            return "Find me a title for a song with genre of " + genre + " and a " + mood + " mood, given these lyrics: '" + lyrics + "', explain why you chose the title."
+        
+    if type == "suggestCover":
+        if with_interests:
+            return "I am an artist who likes " + ', '.join([str(artist['name']) for artist in info.favorite_artists[:5]]) + ' and my favorite songs are ' + ', '.join([str(song['name']) for song in info.favorite_songs[:5]]) + "Find me a title for a song with genre of " + genre + " and a " + mood + " mood, given these lyrics: '" + lyrics + "', explain why you chose the title and if you got any inspiration from my favorite artists or songs, explain how."
+        else:
+            return "Find me a title for a song with genre of " + genre + " and a " + mood + " mood, given these lyrics: '" + lyrics + "', explain why you chose the title."
     
     return None
