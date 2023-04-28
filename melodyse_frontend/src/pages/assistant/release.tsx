@@ -13,6 +13,18 @@ export default function Release({ subscriptions } : any) {
     const [moodVal, setMoodVal] = useState('')
     const [titleVal, setTitleVal] = useState('')
 
+    const findTitle = () => {
+
+    }
+
+    const suggestCover = () => {
+
+    }
+
+    const genCover = () => {
+        
+    }
+
     return (
         <>
         <Head>
@@ -29,10 +41,10 @@ export default function Release({ subscriptions } : any) {
 
                         <ReleaseInput textarea={true} label={'Lyrics'} value={lyricsVal} setValue={(val) => setLyricsVal(val)}/>
 
-                        <div>
+                        <div className={styles.sideInputs}>
                             <ReleaseInput label={'Genre'} value={genreVal} setValue={(val) => setGenreVal(val)}/>
                             <ReleaseInput label={'Mood'} value={moodVal} setValue={(val) => setMoodVal(val)}/>
-                            <ReleaseInput label={'Title'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
+                            <ReleaseInput label={'Title (optional)'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
                         </div>
                     </div>
                     <div className={styles.useInterests}>
@@ -45,9 +57,10 @@ export default function Release({ subscriptions } : any) {
                 </div>
 
                 <div className={styles.div2}>
-                    <AIActionButtonWide name="Find a title" pic="/icons/tag.png"/>
-                    <AIActionButtonWide name="Suggest cover art" pic="/icons/album.png"/>
-                    <AIActionButtonWide name="Generate cover art" pic="/icons/picture.png"/>
+                    <AIActionButtonWide name="Find a title" pic="/icons/tag.png" submit={findTitle}/>
+                    <AIActionButtonWide name="Suggest cover art" pic="/icons/album.png" submit={suggestCover}/>
+                    <AIActionButtonWide name="Generate cover art" pic="/icons/picture.png" submit={genCover}/>
+                    <img className={styles.aiImage} src='/icons/vinyl-record.png'/>
                 </div>
                 
             </div>

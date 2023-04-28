@@ -62,6 +62,7 @@ export default function Learning({ skills } : any) {
             <h1>LEARNING ASSISTANT</h1>
             <div className={styles.contents}>
                 <div className={styles.div1}>
+
                     <label>I want to learn:</label>
                     <select value={selectValue} onChange={(e) => setSelectValue(e.target.value)}>
                         {skills && skills.map((skill) => (
@@ -76,7 +77,9 @@ export default function Learning({ skills } : any) {
                         </label>
                         <input type='checkbox' checked={withInterests} onChange={() => setWithInterests(!withInterests)}/>
                     </div>
+
                 </div>
+                
                 <div className={styles.div2}>
                             <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png' submit={suggestSongs} loading={songsLoading}/>
                             <AIActionButtonWide name="Suggest resources to use" pic='/icons/book.png' submit={suggestResources} loading={resourcesLoading}/>

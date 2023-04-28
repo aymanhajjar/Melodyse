@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.container label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.container textarea {
+    width: 90%;
+    height: 20rem;
+    resize: none;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(235, 235, 235);
+    padding: 1rem;
+    outline: none;
+}
+
+.container input {
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(235, 235, 235);
+    width: 100%;
+    padding: 1rem;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.container input:focus, .container textarea:focus {
+    background-color: rgb(223, 223, 223);
+    transition: all 0.3s;
+}
