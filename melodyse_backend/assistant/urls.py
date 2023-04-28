@@ -13,4 +13,5 @@ urlpatterns = [
     path("findbass", views.findBass),
     path("gettips", views.getTips),
     path("songstolearn", views.songsToLearn),
+    path("suggestresources", views.suggestResources),
 ]
