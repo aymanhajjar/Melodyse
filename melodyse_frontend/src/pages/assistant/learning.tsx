@@ -3,6 +3,7 @@ import styles from '@/styles/Learning.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWide'
+import PopupResponse from '@/components/PopupResponse/PopupResponse'
 
 export default function Learning({ skills } : any) {
     const [withInterests, setWithInterests] = useState(true)
@@ -76,7 +77,7 @@ export default function Learning({ skills } : any) {
                         </div> : <span> {tips} </span>}
                 </div>
             </div>
-            
+            {response && <PopupResponse response={response} close={() => setResponse()}/>}
         </div>
     )
 }
