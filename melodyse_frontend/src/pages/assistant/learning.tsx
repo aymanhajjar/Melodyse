@@ -38,7 +38,10 @@ export default function Learning({ skills } : any) {
     }
 
     const explainMusic = () => {
-
+        axios.get(`${process.env.SITE_URL}/explainMusic?with_interests=${withInterests}`, {
+            withCredentials: true
+        }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
+        .catch(err => console.error(err))
     }
 
     return (
