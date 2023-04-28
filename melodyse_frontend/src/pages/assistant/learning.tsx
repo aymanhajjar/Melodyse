@@ -40,7 +40,7 @@ export default function Learning({ skills } : any) {
                 </div>
                 <div className={styles.div2}>
                             <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
-                            <AIActionButtonWide name="Suggest resources to learn" pic='/icons/question.png'/>
+                            <AIActionButtonWide name="Suggest resources to learn" pic='/icons/book.png'/>
                             <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
                 </div>
                 <div className={styles.div3}>
