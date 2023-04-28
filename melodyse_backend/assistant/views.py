@@ -166,12 +166,11 @@ def findBass(request):
 def getTips(request):
     if request.user.is_authenticated:
 
-        skill = request.POST['skill']
-        with_interests = request.POST['with_interests'].lower() == "true"
+        skill = request.GET['skill']
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, skill=skill, type="getTips"),
+            prompt= prompt.genPrompt(user=request.user, with_interests=False, skill=skill, type="getTips"),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,

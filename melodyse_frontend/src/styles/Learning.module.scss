@@ -69,6 +69,13 @@ $main_red: #AB4967;
     border-radius: 10px;
     color: white;
     height: 40rem;
+    white-space: pre-wrap;
+}
+
+.div3 span {
+    line-height: 1.5rem;
+    margin-top: 1rem;
+    overflow: scroll;
 }
 
 .loading {

@@ -15,7 +15,7 @@ export default function Learning({ skills } : any) {
             const selectedSkill = skills.find((skill) => skill.name === selectValue)
             setSelectImage(selectedSkill.picture)
             setTips()
-            axios.get(`${process.env.SITE_URL}/tipsandtricks`, {
+            axios.get(`${process.env.SITE_URL}/gettips?skill=${selectValue}`, {
                 withCredentials: true
             }).then(res => setTips(res.data.choices[0].text.replace(/^\s+/, "")))
             .catch(err => console.error(err))
