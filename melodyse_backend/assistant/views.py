@@ -276,11 +276,12 @@ def suggestCover(request):
         lyrics = request.POST['lyrics']
         genre = request.POST['genre']
         mood = request.POST['mood']
+        title = request.POST['title']
         with_interests = request.GET['with_interests'].lower() == "true"
 
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, lyrics=lyrics, genre=genre, mood=mood, type="suggestCover"),
+            prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, lyrics=lyrics, genre=genre, mood=mood, type="suggestCover", title=title),
             temperature=0,
             max_tokens=1000,
             top_p=1.0,
@@ -290,6 +291,27 @@ def suggestCover(request):
         )
 
         return JsonResponse(response, safe=False)
+    
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def generateCover(request):
+    if request.user.is_authenticated:
+
+        lyrics = request.POST['lyrics']
+        genre = request.POST['genre']
+        mood = request.POST['mood']
+        title = request.POST['title']
+        with_interests = request.GET['with_interests'].lower() == "true"
+
+        response = openai.Image.create(
+        prompt= prompt.genPrompt(user=request.user, with_interests=with_interests, genre=genre, mood=mood, title=title, type="generateCover"),
+        n=1,
+        size="1024x1024"
+        )
+        image_url = response['data'][0]['url']
+
+        return JsonResponse(image_url, safe=False)
     
     else:
         return HttpResponse('User not logged in', status=403)
