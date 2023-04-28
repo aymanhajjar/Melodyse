@@ -22,6 +22,18 @@ export default function Learning({ skills } : any) {
         }
     }, [selectValue])
 
+    const suggestSongs = () => {
+
+    }
+
+    const suggestResources = () => {
+
+    }
+
+    const explainMusic = () => {
+
+    }
+
     return (
         <div className={styles.container}>
             <h1>LEARNING ASSISTANT</h1>
@@ -43,9 +55,9 @@ export default function Learning({ skills } : any) {
                     </div>
                 </div>
                 <div className={styles.div2}>
-                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png'/>
-                            <AIActionButtonWide name="Suggest resources to use" pic='/icons/book.png'/>
-                            <AIActionButtonWide name="Explain Music Theory" pic='/icons/theory.png'/>
+                            <AIActionButtonWide name="Suggest songs to learn" pic='/icons/question.png' submit={suggestSongs}/>
+                            <AIActionButtonWide name="Suggest resources to use" pic='/icons/book.png' submit={suggestResources}/>
+                            <AIActionButtonWide name="Explain Music Theory" pic='/icons/theory.png' submit={explainMusic}/>
                 </div>
                 <div className={styles.div3}>
                     <h3>Tips and Tricks</h3>
