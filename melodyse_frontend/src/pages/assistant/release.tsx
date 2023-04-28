@@ -30,9 +30,9 @@ export default function Release({ subscriptions } : any) {
                         <ReleaseInput textarea={true} label={'Lyrics'} value={lyricsVal} setValue={(val) => setLyricsVal(val)}/>
 
                         <div>
-                            <ReleaseInput textarea={true} label={'Genre'} value={genreVal} setValue={(val) => setGenreVal(val)}/>
-                            <ReleaseInput textarea={true} label={'Mood'} value={moodVal} setValue={(val) => setMoodVal(val)}/>
-                            <ReleaseInput textarea={true} label={'Title'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
+                            <ReleaseInput label={'Genre'} value={genreVal} setValue={(val) => setGenreVal(val)}/>
+                            <ReleaseInput label={'Mood'} value={moodVal} setValue={(val) => setMoodVal(val)}/>
+                            <ReleaseInput label={'Title'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
                         </div>
                     </div>
                     <div className={styles.useInterests}>
@@ -49,6 +49,7 @@ export default function Release({ subscriptions } : any) {
                     <AIActionButtonWide name="Suggest cover art" pic="/icons/album.png"/>
                     <AIActionButtonWide name="Generate cover art" pic="/icons/picture.png"/>
                 </div>
+                
             </div>
         </div>
 

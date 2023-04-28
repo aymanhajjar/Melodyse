@@ -1,13 +1,15 @@
 .container {
     padding-top: 1%;
+    height: 80%;
 }
 
-.contents {
+.content {
     display: flex;
     width: 90%;
     margin: auto;
     margin-top: 5rem;
     gap: 3rem;
+    height: 100%;
 }
 
 .useInterests {
@@ -23,4 +25,27 @@
     -o-transform: scale(1.4);
     transform: scale(1.4);
     cursor: pointer;
+}
+
+.div1 {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    height: 100%;
+}
+
+.formContainer {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    width: 100%;
+}
+
+.div2 {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }

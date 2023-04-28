@@ -1,6 +1,6 @@
 import styles from './ReleaseInput.module.scss'
 
-export default function ReleaseInput({label, textarea, value, setValue}) {
+export default function ReleaseInput({label, textarea=false, value, setValue}) {
 
   return (
     <>
