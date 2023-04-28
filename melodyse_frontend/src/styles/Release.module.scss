@@ -1,0 +1,26 @@
+.container {
+    padding-top: 1%;
+}
+
+.contents {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    margin-top: 5rem;
+    gap: 3rem;
+}
+
+.useInterests {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.useInterests input {
+    -ms-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -o-transform: scale(1.4);
+    transform: scale(1.4);
+    cursor: pointer;
+}
