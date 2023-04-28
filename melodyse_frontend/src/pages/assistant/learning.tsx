@@ -9,6 +9,7 @@ export default function Learning({ skills } : any) {
     const [selectValue, setSelectValue] = useState(skills[Math.floor(Math.random() * skills.length)].name)
     const [selectImage, setSelectImage] = useState('')
     const [tips, setTips] = useState()
+    const [response, setResponse] = useState()
 
     useEffect(() => {
         if(selectValue) {
