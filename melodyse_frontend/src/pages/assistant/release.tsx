@@ -4,9 +4,14 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWide'
 import PopupResponse from '@/components/PopupResponse/PopupResponse'
+import ReleaseInput from '@/components/ReleaseInput/ReleaseInput'
 
 export default function Release({ subscriptions } : any) {
     const [withInterests, setWithInterests] = useState(true)
+    const [lyricsVal, setLyricsVal] = useState('')
+    const [genreVal, setGenreVal] = useState('')
+    const [moodVal, setMoodVal] = useState('')
+    const [titleVal, setTitleVal] = useState('')
 
     return (
         <>
@@ -21,7 +26,14 @@ export default function Release({ subscriptions } : any) {
 
                 <div className={styles.div1}>
                     <div className={styles.formContainer}>
-                        
+
+                        <ReleaseInput textarea={true} label={'Lyrics'} value={lyricsVal} setValue={(val) => setLyricsVal(val)}/>
+
+                        <div>
+                            <ReleaseInput textarea={true} label={'Genre'} value={genreVal} setValue={(val) => setGenreVal(val)}/>
+                            <ReleaseInput textarea={true} label={'Mood'} value={moodVal} setValue={(val) => setMoodVal(val)}/>
+                            <ReleaseInput textarea={true} label={'Title'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
+                        </div>
                     </div>
                     <div className={styles.useInterests}>
                         <label>
