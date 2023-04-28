@@ -17,6 +17,7 @@ export default function Release({ subscriptions } : any) {
     const [titleLoading, setTitleLoading] = useState(false)
     const [suggCoverLoading, setSuggCoverLoading] = useState(false)
     const [genCoverLoading, setGenCoverLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const genForm = () => {
         const data = new FormData()
@@ -74,6 +75,7 @@ export default function Release({ subscriptions } : any) {
                             <ReleaseInput label={'Genre'} value={genreVal} setValue={(val) => setGenreVal(val)}/>
                             <ReleaseInput label={'Mood'} value={moodVal} setValue={(val) => setMoodVal(val)}/>
                             <ReleaseInput label={'Title (optional)'} value={titleVal} setValue={(val) => setTitleVal(val)}/>
+                            {errorMessage}
                         </div>
                     </div>
                     <div className={styles.useInterests}>
