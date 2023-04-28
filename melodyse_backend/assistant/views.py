@@ -187,6 +187,7 @@ def getTips(request):
 def songsToLearn(request):
     if request.user.is_authenticated:
 
+        skill = request.GET['skill']
         with_interests = request.GET['with_interests'].lower() == "true"
 
         response = openai.Completion.create(
