@@ -68,6 +68,7 @@ class UserInfo(models.Model):
             "id": self.user.id,
             "username": self.user.username,
             "full_name": self.user.first_name + ' ' + self.user.last_name,
+            "description": self.description,
             "gender": self.gender,
             "favorite_artists": [artist for artist in self.favorite_artists],
             "favorite_songs": [song for song in self.favorite_songs],
