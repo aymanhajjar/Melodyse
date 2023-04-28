@@ -45,6 +45,8 @@ def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, 
     
     if type == "getTips":
         return "Tell me tips and tricks in for practicing " + skill + " in the form of bullet points."
+    
+    
         
         
     return None

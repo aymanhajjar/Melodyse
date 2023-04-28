@@ -24,21 +24,21 @@ export default function Learning({ skills } : any) {
     }, [selectValue])
 
     const suggestSongs = () => {
-        axios.get(`${process.env.SITE_URL}/songstolearn?with_interests=${withInterests}`, {
+        axios.get(`${process.env.SITE_URL}/songstolearn?skill=${selectValue}&&with_interests=${withInterests}`, {
             withCredentials: true
         }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
         .catch(err => console.error(err))
     }
 
     const suggestResources = () => {
-        axios.get(`${process.env.SITE_URL}/suggestresources?with_interests=${withInterests}`, {
+        axios.get(`${process.env.SITE_URL}/suggestresources?skill=${selectValue}&&with_interests=${withInterests}`, {
             withCredentials: true
         }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
         .catch(err => console.error(err))
     }
 
     const explainMusic = () => {
-        axios.get(`${process.env.SITE_URL}/explainmusic?with_interests=${withInterests}`, {
+        axios.get(`${process.env.SITE_URL}/explainmusic?skill=${selectValue}&&with_interests=${withInterests}`, {
             withCredentials: true
         }).then(res => setResponse(res.data.choices[0].text.replace(/^\s+/, "")))
         .catch(err => console.error(err))
