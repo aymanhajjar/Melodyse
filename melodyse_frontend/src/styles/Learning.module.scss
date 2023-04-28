@@ -1,3 +1,5 @@
+$main_red: #AB4967;
+
 .container {
     padding-top: 1%;
 }
@@ -6,7 +8,7 @@
     display: flex;
     width: 90%;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 5rem;
     gap: 3rem;
 }
 
@@ -61,4 +63,7 @@
 .div3 {
     width: 32%;
     display: flex;
+    background-color: $main_red;
+    padding: 2rem;
+    height: 80%;
 }
