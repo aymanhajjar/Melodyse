@@ -1,6 +1,6 @@
 from users.models import User, UserInfo
 
-def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, scale=None):
+def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, scale=None, skill=None):
 
     info = UserInfo.objects.get(user=user)
 
@@ -42,6 +42,9 @@ def genPrompt(user, with_interests, type, lyrics=None, sound=None, plugin=None, 
             return "Find me good basslines of 4, 5, 6 steps that fit in this musical scale :'" + scale + "'. Get inspired by favorite artists: " + ', '.join([str(artist['name']) for artist in info.favorite_artists[:5]]) + ' and my favorite songs: ' + ', '.join([str(song['name']) for song in info.favorite_songs[:5]]) + ". Tell me which artists or songs you got inspired by, if any."
         else:    
             return "Find me good basslines of 4, 5, 6 steps that fit in this musical scale :'" + scale
+    
+    if type == "getTips":
+        return "Tell me tips and tricks in for practicing " + skill + " in the form of bullet points."
         
         
     return None
