@@ -45,7 +45,9 @@ export default function Release({ subscriptions } : any) {
                 </div>
 
                 <div className={styles.div2}>
-
+                    <AIActionButtonWide name="Find a title" pic="/icons/tag.png"/>
+                    <AIActionButtonWide name="Suggest cover art" pic="/icons/album.png"/>
+                    <AIActionButtonWide name="Generate cover art" pic="/icons/picture.png"/>
                 </div>
             </div>
         </div>
