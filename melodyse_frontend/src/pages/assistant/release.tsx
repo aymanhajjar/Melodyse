@@ -24,3 +24,11 @@ export default function Release({ subscriptions } : any) {
         
     )
 }
+
+Release.getInitialProps = async (ctx) => {
+    let data = []
+    await axios.get(`${process.env.SERVER_SITE_URL}/getsubscriptions`).then(res => {
+              data = res.data
+          }).catch(err => console.error(err))
+    return {subscriptions: data}
+  };
