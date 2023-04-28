@@ -8,14 +8,13 @@ export default function Learning({ skills } : any) {
     const [withInterests, setWithInterests] = useState(true)
     const [selectValue, setSelectValue] = useState(skills[Math.floor(Math.random() * skills.length)].name)
     const [selectImage, setSelectImage] = useState('')
-    const [loading, setLoading] = useState(true)
     const [tips, setTips] = useState()
 
     useEffect(() => {
         if(selectValue) {
             const selectedSkill = skills.find((skill) => skill.name === selectValue)
             setSelectImage(selectedSkill.picture)
-
+            setTips()
             axios.get(`${process.env.SITE_URL}/tipsandtricks`, {
                 withCredentials: true
             }).then(res => setTips(res.data.choices[0].text.replace(/^\s+/, "")))
@@ -50,9 +49,9 @@ export default function Learning({ skills } : any) {
                 </div>
                 <div className={styles.div3}>
                     <h3>Tips and Tricks</h3>
-                    {loading && <div className={styles.loading}>
+                    {!tips ? <div className={styles.loading}>
                             <img src='/loading-melodyse.gif'/>
-                        </div>}
+                        </div> : <span> {tips} </span>}
                 </div>
             </div>
             
