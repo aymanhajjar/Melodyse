@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'assistant',
+    'listen',
     'django_rename_app',
 ]
 
