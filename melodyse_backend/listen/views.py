@@ -22,3 +22,9 @@ class getTracks(APIView):
             return Response([track.serialize() for track in page])
 
         return Response([track.serialize() for track in queryset])
+
+def getArtists(request):
+    
+    top_artists = UserInfo.objects.all().order_by('-rating')[:6]
+
+    return JsonResponse([artist.serialize() for artist in top_artists], safe=False)
