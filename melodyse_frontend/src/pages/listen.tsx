@@ -4,8 +4,9 @@ import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import TrackCard from '@/components/TrackCard/TrackCard'
 
-export default function Listen({ data } : any) {
-  const [tracks, setTracks] = useState(data)
+export default function Listen({ track_list, artists_list } : any) {
+  const [tracks, setTracks] = useState(track_list)
+  const [artists, setArtists] = useState(artists_list)
   const [activeSection, setActiveSection] = useState('1')
   const [loading, setLoading] = useState(false)
 
@@ -109,9 +110,12 @@ export default function Listen({ data } : any) {
 }
 
 export async function getServerSideProps(context) {
-    let data = {}
-    await axios.get(`${process.env.SERVER_SITE_URL}/gettracks?page=1`).then(res => data = res.data)
+    let tracks = {}
+    let artists = {}
+    await axios.get(`${process.env.SERVER_SITE_URL}/gettracks?page=1`).then(res => tracks = res.data)
+    .catch(err => console.log(err))
+    await axios.get(`${process.env.SERVER_SITE_URL}/getartists`).then(res => artists = res.data)
     .catch(err => console.log(err))
   
-    return {props: {data : data}}
+    return {props: {tracks_list: tracks, artists_list: artists}}
   }
