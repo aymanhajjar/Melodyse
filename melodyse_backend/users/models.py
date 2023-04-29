@@ -188,6 +188,7 @@ class Track(models.Model):
     description = models.TextField(blank=True)
     number_of_plays = models.BigIntegerField(default=0)
     cover = models.ImageField(default='tracks/track.png', upload_to='tracks/')
+    date_posted = models.DateTimeField(auto_now_add=True)
     is_personal = models.BooleanField()
     likes = models.ManyToManyField(User, related_name="likes")
     def __str__(self):
@@ -201,6 +202,7 @@ class Track(models.Model):
             "owner": {
                 'name': self.owner.first_name + ' ' + self.owner.last_name,
                 'username': self.owner.username},
+            "date_posted": self.date_posted,
             "track": self.track.url,
             "name": self.name,
             "description": self.description,
