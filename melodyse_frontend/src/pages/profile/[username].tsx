@@ -5,6 +5,7 @@ import axios from 'axios'
 import AIButton from '@/components/AIButton/AIButton'
 import { useRouter } from 'next/router'
 import ProfileActionButton from '@/components/ProfileActionButton/ProfileActionButton'
+import UserSkillCard from '@/components/UserSkillCard/UserSkillCard'
 
 export default function Profile({data} : any) {
 
@@ -29,7 +30,11 @@ export default function Profile({data} : any) {
         </div>
 
         <div className={styles.div2}>
-
+            <div className={styles.skills}>
+              {data.skills ? data.skills.map(skill => (
+                <UserSkillCard skill={skill}/>
+              )): 'No Skills To Show'}
+            </div>
         </div>
 
         <div className={styles.div3}>
