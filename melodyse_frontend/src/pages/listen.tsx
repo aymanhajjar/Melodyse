@@ -24,13 +24,25 @@ export default function Listen({ track_list, artists_list } : any) {
 
 
   useEffect(() => {
-    !searchLoading && sections[0].ref.current.classList.add(styles.visibleFirst)
+    !searchLoading && !searchRes && sections[0].ref.current.classList.add(styles.visibleFirst)
     const containerRef = container.current
     containerRef.addEventListener('scroll', handleScroll)
     return () => {
         containerRef.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  useEffect(() => {
+    if(searchValue.length == 0) {
+        setSearchRes()
+        setSearchLoading(false)
+        setActiveSection('1')
+    }
+  }, [searchValue])
+
+  useEffect(() => {
+    !searchRes && sections[0].ref.current.classList.add(styles.visibleFirst)
+  }, [searchRes])
 
   useEffect(() => {
     setLoading(true)
@@ -42,18 +54,20 @@ export default function Listen({ track_list, artists_list } : any) {
 
 
   const handleScroll = () => {
-    const { scrollTop, clientHeight } = document.documentElement
-    sections.forEach(({ id, ref }) => {
-        const { top, height } = ref.current.getBoundingClientRect()
-        const sectionElement = ref.current
-        if (top < clientHeight / 2 && top + height > clientHeight / 2) {
-            setActiveSection(id)
-            sectionElement.classList.add(styles.visible)
-        } else {
-            sectionElement.classList.remove(styles.visible)
-            sectionElement.classList.remove(styles.visibleFirst)
-        }
-    })
+    if(!searchRes && !searchLoading) {
+        const { scrollTop, clientHeight } = document.documentElement
+        sections.forEach(({ id, ref }) => {
+            const { top, height } = ref.current.getBoundingClientRect()
+            const sectionElement = ref.current
+            if (top < clientHeight / 2 && top + height > clientHeight / 2) {
+                setActiveSection(id)
+                sectionElement.classList.add(styles.visible)
+            } else {
+                sectionElement.classList.remove(styles.visible)
+                sectionElement.classList.remove(styles.visibleFirst)
+            }
+        })
+    }
 }
 
   const scrollToSection = (id) => {
@@ -84,7 +98,7 @@ export default function Listen({ track_list, artists_list } : any) {
             <h2>TRACKS OF THE DAY</h2>
             <div className={styles.sections} ref={container}>
 
-                {!searchLoading ? <>
+                {!searchLoading ? !searchRes && <>
                     <div className={styles.navDots}>
                         {sections.map(({ id }) => (
                                 <button
@@ -116,6 +130,12 @@ export default function Listen({ track_list, artists_list } : any) {
                     <span></span>
                 </section> </> : <img className={styles.loading} src='/loading-melodyse.gif'/>}
 
+                {searchRes && 
+                    searchRes.tracks.map(track => (
+                        <TrackCard track={track}/>
+                    ))
+                }
+
             </div>
             
         </div>
@@ -123,11 +143,15 @@ export default function Listen({ track_list, artists_list } : any) {
             <h2>TOP ARTISTS</h2>
             <div className={styles.div2Content}>
                 <div className={searchValue.length > 0 ? styles.artistsBottom : styles.artists}>
-                {!searchLoading ? <>
+                {!searchLoading ? !searchRes && <>
                     {artists_list && artists_list.map(artist => (
                         <ArtistCard data={artist} />
                     ))}
                     </> : <img className={styles.loading} src='/loading-melodyse.gif'/>}
+
+                {searchRes && searchRes.artists.map(artist => (
+                        <ArtistCard data={artist} />
+                    ))}
                 </div>
                 <div className={searchValue.length > 0 ? styles.searchTop : styles.search}>
                     <input placeholder='Search'
