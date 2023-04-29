@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Listen.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import TrackCard from '@/components/TrackCard/TrackCard'
 
 export default function Listen({ data } : any) {
   const [tracks, setTracks] = useState(data)
@@ -9,7 +10,7 @@ export default function Listen({ data } : any) {
   useEffect(() => {
 
   }, [])
-  
+
   return (
     <>
       <Head>
@@ -20,6 +21,9 @@ export default function Listen({ data } : any) {
       <div className={styles.container}>
         <div className={styles.div1}>
             <h2>TRACKS OF THE DAY</h2>
+            {tracks && tracks.map(track => (
+                <TrackCard track={track}/>
+            ))}
         </div>
         <div className={styles.div2}>
             <h2>TOP ARTISTS</h2>

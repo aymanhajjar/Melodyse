@@ -1,0 +1,31 @@
+.container {
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    gap: 1rem;
+}
+
+.cover {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.details h2, .details h5 {
+    display: inline;
+}
+
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.details audio::-webkit-media-controls-panel
+{
+    background-color: salmon;
+    border-radius: 5px;
+}
