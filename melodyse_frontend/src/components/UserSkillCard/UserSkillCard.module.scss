@@ -10,7 +10,7 @@
   }
 
 .skill img {
-    width: 6rem;
+    width: 4rem;
     border-radius: 10px;
     object-fit: contain;
 }
@@ -26,8 +26,8 @@
     animation-delay: calc(0.1s * var(--index));
     padding: 1rem;
     border-radius: 10px;
-    width: 10rem;
-    box-shadow: 0 0 10px gray;
+    width: 8rem;
+    box-shadow: 0 0 10px rgb(203, 203, 203);
 }
 
 .skill:hover {
@@ -45,7 +45,7 @@
 }
 
 .stars img {
-  width: 1.2rem;
+  width: 0.8rem;
 }
 
 .stars {
