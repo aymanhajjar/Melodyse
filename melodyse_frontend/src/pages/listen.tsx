@@ -21,9 +21,11 @@ export default function Listen({ data } : any) {
       <div className={styles.container}>
         <div className={styles.div1}>
             <h2>TRACKS OF THE DAY</h2>
-            {tracks && tracks.map(track => (
-                <TrackCard track={track}/>
-            ))}
+            <section>
+                {tracks && tracks.map(track => (
+                    <TrackCard track={track}/>
+                ))}
+            </section>
         </div>
         <div className={styles.div2}>
             <h2>TOP ARTISTS</h2>
