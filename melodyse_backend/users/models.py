@@ -116,7 +116,7 @@ class Project(models.Model):
     date_started = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
     is_collab = models.BooleanField()
-    picture = models.ImageField(blank=True, upload_to='project_pictures/')
+    picture = models.ImageField(blank=True, upload_to='tracks/', default='tracks/vinyl-disc.png')
     is_completed = models.BooleanField(default=False)
     members = models.ManyToManyField(User, related_name="projects_active")
     def __str__(self):
@@ -132,7 +132,7 @@ class Project(models.Model):
             'is_completed': self.is_completed,
             'members': [{
                 'username': member.username, 
-                'picture': member.info.get().picture.url} for member in self.members]
+                'picture': member.info.get().picture.url} for member in self.members.all()]
         }
     
 class ProjectInvite(models.Model):

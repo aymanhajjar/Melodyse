@@ -1,8 +1,11 @@
+$main_red: #AB4967;
+
 .container {
     display: flex;
     width: 92%;
     margin: auto;
     padding-top: 2%;
+    height: 100%;
 }
 
 .div1 {
@@ -11,11 +14,91 @@
     gap: 4rem;
     width: 50%;
     align-items: center;
+    height: 90%;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    overflow: -moz-scrollbars-none;
+    position: relative;
 }
 
 .div1 section {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    overflow: -moz-scrollbars-none;
     width: 90%;
+}
+
+.sections::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+.sections {
+    width: 90%;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+    scroll-snap-align: start;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    overflow: -moz-scrollbars-none;
+
+    section {
+        display: flex;
+        position: relative;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        transition: all 0.5s;
+        opacity: 0;
+        z-index: 1;
+    }
+}
+
+.visible {
+    opacity: 1 !important;
+    transition: all 0.5s;
+    height: 100%;
+}
+
+.visibleFirst {
+    opacity: 1 !important;
+    transition: all 1s !important;
+}
+
+.navDots {
+    position: absolute;
+    right: 0rem;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.dot {
+    cursor: pointer;
+    width: 0.8rem;
+    border-radius: 50%;
+    border: none;
+    height: 0.8rem;
+}
+
+.dotInactive {
+    @extend .dot;
+    background-color: #5E5E5E;
+}
+
+.dotActive {
+    @extend .dot;
+    background-color: $main_red;
 }

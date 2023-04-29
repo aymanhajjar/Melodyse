@@ -195,4 +195,5 @@ def getSubscriptions(request):
 def getProfile(request, username):
     user = User.objects.get(username=username)
     info = UserInfo.objects.get(user = user)
+    print(info.picture.url)
     return JsonResponse(info.serialize(), safe=False)

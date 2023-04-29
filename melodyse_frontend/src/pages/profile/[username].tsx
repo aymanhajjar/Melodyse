@@ -64,7 +64,7 @@ export default function Profile({data} : any) {
               <h2>Ongoing Projects</h2>
               <div className={styles.artists}>
                 {data.ongoing_projects.length > 0 ? data.ongoing_projects.map(prj => (
-                  <Song data={prj}/>
+                  prj.title
                 )): 'No Ongoing Projects'}
               </div>
             </div>
@@ -73,7 +73,7 @@ export default function Profile({data} : any) {
               <h2>Completed Projects</h2>
               <div className={styles.artists}>
                 {data.completed_projects.length > 0 ? data.completed_projects.map(prj => (
-                  <Song data={prj}/>
+                  prj.title
                 )): 'No Completed Projects'}
               </div>
             </div>
