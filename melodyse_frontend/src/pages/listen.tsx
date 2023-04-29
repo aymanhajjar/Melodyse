@@ -61,6 +61,16 @@ export default function Listen({ track_list, artists_list } : any) {
     section.ref.current.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const search = () => {
+    if(searchValue.length > 0) {
+        setSearchLoading(true)
+        axios.get(`${process.env.SITE_URL}/search?q=${searchValue}`).then(res => {
+            setSearchLoading(false)
+            setSearchRes(res.data)})
+        .catch(err => console.log(err))
+    }
+  }
+
   return (
     <>
       <Head>
@@ -113,14 +123,16 @@ export default function Listen({ track_list, artists_list } : any) {
             <h2>TOP ARTISTS</h2>
             <div className={styles.div2Content}>
                 <div className={searchValue.length > 0 ? styles.artistsBottom : styles.artists}>
+                {!searchLoading ? <>
                     {artists_list && artists_list.map(artist => (
                         <ArtistCard data={artist} />
                     ))}
+                    </> : <img className={styles.loading} src='/loading-melodyse.gif'/>}
                 </div>
                 <div className={searchValue.length > 0 ? styles.searchTop : styles.search}>
                     <input placeholder='Search'
                      value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
-                    <ActionButton name="SEARCH"/>
+                    <ActionButton name="SEARCH" onClick={search}/>
                 </div>
             </div>
         </div>
