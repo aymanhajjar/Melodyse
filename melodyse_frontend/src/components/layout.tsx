@@ -63,7 +63,6 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, 
         })
     }
 
-
     const switchPage = (page) => {
         router.push('/' + page)
         page == '' ? setSelected('home') : setSelected(page)

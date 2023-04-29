@@ -3,8 +3,8 @@ import styles from '@/styles/Home.module.scss'
 import { useState } from 'react'
 import axios from 'axios'
 
-export default function Inbox(props : any) {
-  
+export default function Inbox({inbox} : any) {
+  console.log(inbox)
   return (
     <>
       <Head>
@@ -21,8 +21,13 @@ export default function Inbox(props : any) {
 
 export async function getServerSideProps(context) {
     let inbox = {}
-    await axios.get(`${process.env.SERVER_SITE_URL}/getinbox`).then(res => inbox = res.data)
+    await axios.get(`${process.env.SERVER_SITE_URL}/getchats`, {
+        headers: {
+            Cookie: context.req.headers.cookie
+        },
+    }).then(res => inbox = res.data)
     .catch(err => console.log(err))
+    console.log(context.req.cookies)
   
     return {props: {inbox: inbox}}
   }
