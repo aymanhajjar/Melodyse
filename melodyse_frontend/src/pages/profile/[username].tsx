@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import styles from '@/styles/Assistant.module.scss'
+import styles from '@/styles/Profile.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import AIButton from '@/components/AIButton/AIButton'
 import { useRouter } from 'next/router'
+import ProfileActionButton from '@/components/ProfileActionButton/ProfileActionButton'
 
 export default function Profile({data} : any) {
 
@@ -16,7 +17,15 @@ export default function Profile({data} : any) {
       </Head>
       <div className={styles.container}>
         <div className={styles.div1}>
-          <img src={process.env.SITE_URL + data.picture}/>
+          <img src={process.env.SITE_URL + data.picture} className={styles.profilePic}/>
+
+          <div className={styles.info}>
+            <h1>{data.full_name}</h1>
+            <span>@{data.username}</span>
+            <p>{data.description}</p>
+          </div>
+
+          <ProfileActionButton name="Add Friend" pic='/icons/add-friend.png'/>
         </div>
 
         <div className={styles.div2}>
