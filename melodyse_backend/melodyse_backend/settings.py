@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'users',
     'assistant',
     'listen',
+    'rest_framework',
     'django_rename_app',
 ]
 

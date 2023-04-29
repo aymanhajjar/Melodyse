@@ -198,7 +198,7 @@ class Track(models.Model):
             "project_name": self.project.title,
             "project_members": [{
                 'name': member.first_name + ' ' + member.last_name,
-                'username': member.username} for member in self.project.members],
+                'username': member.username} for member in self.project.members.all()],
             "owner": {
                 'name': self.owner.first_name + ' ' + self.owner.last_name,
                 'username': self.owner.username},

@@ -1,9 +1,14 @@
 import Head from 'next/head'
 import styles from '@/styles/Listen.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export default function Listen({ data } : any) {
+  const [tracks, setTracks] = useState(data)
+
+  useEffect(() => {
+
+  }, [])
   
   return (
     <>
@@ -27,7 +32,7 @@ export default function Listen({ data } : any) {
 
 export async function getServerSideProps(context) {
     let data = {}
-    await axios.get(`${process.env.SERVER_SITE_URL}/gettracks`).then(res => data = res.data)
+    await axios.get(`${process.env.SERVER_SITE_URL}/gettracks?page=1`).then(res => data = res.data)
     .catch(err => console.log(err))
   
     return {props: {data : data}}

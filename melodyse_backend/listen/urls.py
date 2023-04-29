@@ -4,5 +4,5 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path("gettracks", views.getTracks),
+    path("gettracks", views.getTracks.as_view()),
 ]
