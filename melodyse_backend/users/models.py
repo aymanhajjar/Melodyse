@@ -72,6 +72,7 @@ class UserInfo(models.Model):
             "gender": self.gender,
             "favorite_artists": [artist for artist in self.favorite_artists],
             "favorite_songs": [song for song in self.favorite_songs],
+            "skills": [skill.serialize() for skill in self.user.skills.all()],
             "picture": self.picture.url,
             "rating": self.rating,
             "friends": self.user.friends.all().count(),
