@@ -3,12 +3,17 @@ import styles from '@/styles/Listen.module.scss'
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import TrackCard from '@/components/TrackCard/TrackCard'
+import ArtistCard from '@/components/ArtistCard/ArtistCard'
+import ActionButton from '@/components/ProfileButton/ActionButton'
 
 export default function Listen({ track_list, artists_list } : any) {
   const [tracks, setTracks] = useState(track_list)
   const [artists, setArtists] = useState(artists_list)
   const [activeSection, setActiveSection] = useState('1')
+  const [searchValue, setSearchValue] = useState('')
   const [loading, setLoading] = useState(false)
+  const [searchLoading, setSearchLoading] = useState(false)
+  const [searchRes, setSearchRes] = useState()
 
   const sections = [
     { id: '1', ref: useRef(null) },
@@ -19,7 +24,7 @@ export default function Listen({ track_list, artists_list } : any) {
 
 
   useEffect(() => {
-    sections[0].ref.current.classList.add(styles.visibleFirst)
+    !searchLoading && sections[0].ref.current.classList.add(styles.visibleFirst)
     const containerRef = container.current
     containerRef.addEventListener('scroll', handleScroll)
     return () => {
@@ -65,17 +70,20 @@ export default function Listen({ track_list, artists_list } : any) {
       </Head>
       <div className={styles.container}>
         <div className={styles.div1}>
-        <div className={styles.navDots}>
-            {sections.map(({ id }) => (
-                    <button
-                    key={id}
-                    className={id === activeSection ? styles.dotActive : styles.dotInactive}
-                    onClick={() => scrollToSection(id)}
-                    />
-                ))}
-        </div>
+        
             <h2>TRACKS OF THE DAY</h2>
             <div className={styles.sections} ref={container}>
+
+                {!searchLoading ? <>
+                    <div className={styles.navDots}>
+                        {sections.map(({ id }) => (
+                                <button
+                                key={id}
+                                className={id === activeSection ? styles.dotActive : styles.dotInactive}
+                                onClick={() => scrollToSection(id)}
+                                />
+                            ))}
+                    </div>
                 <section ref={sections[0].ref}>
                     {!loading && tracks && tracks.map(track => (
                         <TrackCard track={track}/>
@@ -96,13 +104,25 @@ export default function Listen({ track_list, artists_list } : any) {
                     ))}
                     {loading && <img className={styles.loading} src='/loading-melodyse.gif'/>}
                     <span></span>
-                </section>
+                </section> </> : <img className={styles.loading} src='/loading-melodyse.gif'/>}
+
             </div>
             
         </div>
         <div className={styles.div2}>
             <h2>TOP ARTISTS</h2>
-            
+            <div className={styles.div2Content}>
+                <div className={searchValue.length > 0 ? styles.artistsBottom : styles.artists}>
+                    {artists_list && artists_list.map(artist => (
+                        <ArtistCard data={artist} />
+                    ))}
+                </div>
+                <div className={searchValue.length > 0 ? styles.searchTop : styles.search}>
+                    <input placeholder='Search'
+                     value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
+                    <ActionButton name="SEARCH"/>
+                </div>
+            </div>
         </div>
       </div>
     </>

@@ -25,6 +25,6 @@ class getTracks(APIView):
 
 def getArtists(request):
     
-    top_artists = UserInfo.objects.all().order_by('-rating')[:6]
+    top_artists = UserInfo.objects.all().order_by('-rating')[:8]
 
     return JsonResponse([artist.serialize() for artist in top_artists], safe=False)
