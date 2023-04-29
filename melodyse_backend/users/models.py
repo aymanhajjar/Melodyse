@@ -192,7 +192,24 @@ class Track(models.Model):
     likes = models.ManyToManyField(User, related_name="likes")
     def __str__(self):
         return self.name
-
+    def serialize(self):
+        return {
+            "project_name": self.project.title,
+            "project_members": [{
+                'name': member.first_name + ' ' + member.last_name,
+                'username': member.username} for member in self.project.members],
+            "owner": {
+                'name': self.owner.first_name + ' ' + self.owner.last_name,
+                'username': self.owner.username},
+            "track": self.track.url,
+            "name": self.name,
+            "description": self.description,
+            "plays": self.number_of_plays,
+            "cover": self.cover.url,
+            "likes": self.likes.count(),
+            "comments": self.comments.all().count()
+        }
+    
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notifications")
     title = models.CharField(max_length=200)
