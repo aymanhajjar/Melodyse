@@ -3,6 +3,7 @@ from users.models import UserInfo, Track, TrackComment
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from django.db.models import Q
 # Create your views here.
 
 class TrackPagination(PageNumberPagination):
@@ -28,3 +29,16 @@ def getArtists(request):
     top_artists = UserInfo.objects.all().order_by('-rating')[:8]
 
     return JsonResponse([artist.serialize() for artist in top_artists], safe=False)
+
+def search(request):
+    query = request.GET['q']
+
+    artists = UserInfo.objects.filter(Q(user__username__icontains=query) | Q(user__first_name__icontains=query) | Q(user__last_name__icontains=query))
+    tracks = Track.objects.filter(name__icontains=query)
+
+    res = {
+        'artists': [artist.serialize() for artist in artists],
+        'tracks': [track.serialize() for track in tracks]
+    }
+
+    return JsonResponse(res, safe=False)
