@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'listen',
     'channels',
     'chat',
+    'social',
     'rest_framework'
 ]
 

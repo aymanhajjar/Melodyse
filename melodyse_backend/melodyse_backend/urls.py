@@ -24,6 +24,7 @@ urlpatterns = [
     path("", include("assistant.urls")),
     path("", include("listen.urls")),
     path("", include("chat.urls")),
+    path("", include("social.urls")),
 ]
 
 if settings.DEBUG:
