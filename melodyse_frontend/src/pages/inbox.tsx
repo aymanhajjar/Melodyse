@@ -5,6 +5,7 @@ import axios from 'axios'
 import ChatCard from '@/components/ChatCard/ChatCard'
 import ChatInput from '@/components/ChatInput/ChatInput'
 import Message from '@/components/Message/Message'
+import { useRouter } from 'next/router'
 
 export default function Inbox({inbox, userData, chatOpened} : any) {
     const [searchVal, setSearchVal] = useState('')
@@ -13,11 +14,19 @@ export default function Inbox({inbox, userData, chatOpened} : any) {
     const [messages, setMessages] = useState([])
     const [loadingMsg, setLoadingMsg] = useState(false)
     const [messageValue, setMessageValue] = useState('')
+    const [chats, setChats] = useState(inbox)
     const [chatSocket, setChatSocket] = useState(null)
     const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
+    const [hasMore, setHasMore] = useState(true)
 
-    const messagesContainerRef = useRef(null);
+    const messagesContainerRef = useRef(null)
+    const loadMoreRef = useRef(null)
+    const router = useRouter()
+
+    useEffect(() => {
+        setSelectedChat(router.query.chatOpened)
+    }, [chatOpened])
+
     useEffect(() => {
         if(searchVal.length > 0) {
             axios.get(`${process.env.SITE_URL}/searchfriends?q=${searchVal}`, {
@@ -34,39 +43,29 @@ export default function Inbox({inbox, userData, chatOpened} : any) {
         }))
     }
 
-    useEffect(() => {
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 1.0,
-          }
-          const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-              setPage((prevPage) => prevPage + 1);
-              console.log('kss')
-            }
-          }, options);
-      
-          if (messagesContainerRef.current) {
-            observer.observe(messagesContainerRef.current);
-          }
-      
-          return () => {
-            if (messagesContainerRef.current) {
-              observer.unobserve(messagesContainerRef.current);
-            }
-          };
-        }, [hasMore]);
+    const selectFriend = (username) => {
+        axios.get(`${process.env.SITE_URL}/getchat?username=${username}&&page=1`, {
+            withCredentials:true
+        }).then(res => {
+            setSelectedChat(res.data.chat_id)
+            setMessages(res.data.messages)
+            if(res.data.chat) setChats([...chats, res.data.chat])
+            setLoadingMsg(false)
+            setSearchVal('')
+        })
+        .catch(err => console.error(err))
+    }
 
     useEffect(() => {
-        console.log('pagee', page)
+        setPage(1)
         if(selectedChat >= 0) {
             setLoadingMsg(true)
-            axios.get(`${process.env.SITE_URL}/getchat?id=${selectedChat}&&page=${page}`, {
+            axios.get(`${process.env.SITE_URL}/getchat?id=${selectedChat}&&page=1`, {
                 withCredentials:true
             }).then(res => {
-                setMessages(res.data)
+                setMessages(res.data.messages)
                 setLoadingMsg(false)
+                res.data.messages.length < 19 ? setHasMore(false) : setHasMore(true)
             })
             .catch(err => console.error(err))
 
@@ -80,7 +79,37 @@ export default function Inbox({inbox, userData, chatOpened} : any) {
                }
             }
         } 
-    }, [selectedChat, page])
+    }, [selectedChat])
+
+    const handleScroll = () => {
+        const messagesContainer = messagesContainerRef.current;
+        const loadingMore = loadMoreRef.current;
+
+        if (loadingMore) {
+        const containerRect = messagesContainer.getBoundingClientRect();
+        const loadingMoreRect = loadingMore.getBoundingClientRect();
+
+        if (loadingMoreRect.top >= containerRect.top && hasMore) {
+            setHasMore(false)
+            axios.get(`${process.env.SITE_URL}/getchat?id=${selectedChat}&&page=${page+1}`, {
+                withCredentials:true
+            }).then(res => {
+                setMessages([...messages, ...res.data.messages])
+                setLoadingMsg(false)
+                setHasMore(true)
+            })
+            .catch(err => {
+                try {
+                    if (err.response.status === 404) setHasMore(false)
+                } catch {
+                    console.error(err)
+                }
+            })
+            setPage(page+1)
+        }
+        }
+      }
+
 
   return (
     <>
@@ -94,12 +123,12 @@ export default function Inbox({inbox, userData, chatOpened} : any) {
             <input placeholder='Search Friends' value={searchVal} onChange={(e) => setSearchVal(e.target.value)}/>
 
             {searchVal.length > 0 ? (searchRes.length > 0 ?  searchRes.map((friend, index) => (
-                <ChatCard friend={friend} selected={selectedChat} select={(id) => setSelectedChat(id)}/>
+                <ChatCard friend={friend} selected={selectedChat} select={(username) => selectFriend(username)}/>
             ))
             
             : <span>No Results</span>
             )
-            :    inbox && inbox.map((chat, index) => (
+            :    chats && chats.map((chat, index) => (
                     <ChatCard chat={chat} id={chat.chat_id} selected={selectedChat} select={(id) => setSelectedChat(id)}/>
                 ))}
         </div>
@@ -107,12 +136,12 @@ export default function Inbox({inbox, userData, chatOpened} : any) {
                 {selectedChat < 0 && <span className={styles.empty}>Select a conversation</span>}
 
                 {selectedChat >= 0 &&  <div className={styles.chatUI}>
-                    <div className={styles.messagesContainer} ref={messagesContainerRef}>
+                    <div className={styles.messagesContainer} ref={messagesContainerRef} onScroll={handleScroll}>
                         {loadingMsg ? <img className={styles.loadingMsg} src='/loading-melodyse.gif'/> : messages.length > 0 ? messages.map(msg => (
                             <Message message={msg} is_mine={msg.author_username == userData.username}/>
                             
                         )) : <span>Start a conversation</span>}
-                        {hasMore && <div className={styles.loadingMore}>Loading more messages...</div>}
+                        {hasMore && <div className={styles.loadingMore} ref={loadMoreRef}>Loading more messages...</div>}
                     </div>
                     <ChatInput value={messageValue} setValue={(val) => setMessageValue(val)} submit={sendMsg}/>
                     </div>}

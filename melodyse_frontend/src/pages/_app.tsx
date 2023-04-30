@@ -22,6 +22,7 @@ export default function MyApp({ Component, pageProps } : AppProps) {
         }).then(res => {
             setLoggedIn(true)
             setUserData(res.data)
+            getSubscription()
         }).catch(err => {
             try {
                 if (err.response.status === 403 && err.response.data == 'User not logged in') {
@@ -35,9 +36,21 @@ export default function MyApp({ Component, pageProps } : AppProps) {
   }, [])
 
   
-  const getUserInfo = () => {
-    
-    
+  
+  const getSubscription = () => {
+    axios.get(`${process.env.SITE_URL}/getsubscription`, {
+        withCredentials: true
+    }).then(res => {
+        setSubscription(res.data)
+    }).catch(err => {
+        try {
+            if (err.response.status === 403 && err.response.data == 'User not logged in') {
+                setLoggedIn(false)
+            }
+        } catch {
+            console.error(err)
+        }
+    })
 }
 
 

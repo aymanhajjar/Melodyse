@@ -268,7 +268,10 @@ class Chat(models.Model):
         return 'chat between ' + ', '.join([participant.username for participant in self.participants.all()])
     def serialize(self):
         participants_list = [{'id': p.id, 'username': p.username} for p in self.participants.all()]
-        latest_message = self.messages.latest('date_created')
+        try:
+            latest_message = self.messages.latest('date_created')
+        except:
+            latest_message = None
         return {
             'chat_id': self.id,
             'participants': participants_list,
@@ -278,12 +281,8 @@ class Chat(models.Model):
                 'content': latest_message.content,
                 'is_read': latest_message.is_read,
                 'date_created': latest_message.date_created
-            }
+            } if latest_message else None
         }
-    # def getMessages(self):
-    #     return [{
-
-    #     } for message in chat.messages.all()]
 
 class Message(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")

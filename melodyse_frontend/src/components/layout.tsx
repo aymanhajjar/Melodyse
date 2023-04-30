@@ -9,16 +9,12 @@ import FriendButton from './FriendButton/FriendButton'
 import { useRouter } from 'next/router'
 
 
-export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, setSubscription, userData }) {
+export default function Layout({ children, loggedIn, setLoggedOut, setSubscription, userData, subscription }) {
 
     const [selected, setSelected] = useState('home')
     // const [userData, setUserData] = useState({})
 
     const router = useRouter()
-
-    useEffect(() => {
-        // getUserInfo()
-    }, [loggedIn])
 
     useEffect(() => {
         router.asPath == '/' ? setSelected('home')
@@ -28,40 +24,6 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, 
         : router.asPath == '/about' && setSelected('about')
     }, [router])
 
-    // const getUserInfo = () => {
-    //     axios.get(`${process.env.SITE_URL}/getinfo`, {
-    //         withCredentials: true
-    //     }).then(res => {
-    //         setLoggedIn()
-    //         setUserData(res.data)
-    //         getSubscription()
-    //     }).catch(err => {
-    //         try {
-    //             if (err.response.status === 403 && err.response.data == 'User not logged in') {
-    //                 setLoggedOut()
-    //             }
-    //         } catch {
-    //             console.error(err)
-    //         }
-    //     })
-        
-    // }
-
-    const getSubscription = () => {
-        axios.get(`${process.env.SITE_URL}/getsubscription`, {
-            withCredentials: true
-        }).then(res => {
-            setSubscription(res.data)
-        }).catch(err => {
-            try {
-                if (err.response.status === 403 && err.response.data == 'User not logged in') {
-                    setLoggedOut()
-                }
-            } catch {
-                console.error(err)
-            }
-        })
-    }
 
     const switchPage = (page) => {
         router.push('/' + page)
@@ -90,7 +52,8 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, 
                     <ProfileButton 
                         picture={userData['pic']} 
                         setSub={(val) => setSubscription(val)}
-                        loggedOut = {() => setLoggedOut()}/>
+                        loggedOut = {() => setLoggedOut()}
+                        subscription={subscription}/>
                 </div>
                 
                 :<button type='button' className={styles.loginBtn} onClick={() => router.push('/login')}>LOG IN</button>}

@@ -48,14 +48,16 @@ export default function MessageButton(props: any) {
                     <h2>Inbox:</h2>
                 <div className={styles.chatsContainer}>
                     {chats ? chats.map(chat => (
-                        <div className={chat.number_unread > 0 ? styles.chatUnread : styles.chatRead}>
+                        <div className={chat.number_unread > 0 ? styles.chatUnread : styles.chatRead} onClick={() => {
+                            setDropdownOpen(false)
+                            router.push({ pathname: '/inbox', query: { chatOpened: chat.chat_id }})}}>
                             <img className={styles.profPic} src={process.env.SITE_URL + chat.participant_img}/>
                             <div className={styles.details}>
                             <h3>{chat.participant}</h3>
-                            <span>{chat.user_id == chat.latest_message.author_id 
+                            {chat.latest_message && <span>{chat.user_id == chat.latest_message.author_id 
                                     && (chat.latest_message.is_read ? <img className={styles.checkMark} src={'/msg-read.png'}/> : <img className={styles.checkMark} src={'/msg-unread.png'}/>) }
                                     {chat.latest_message.content}
-                                    </span>
+                                    </span>}
                             </div>
                             {chat.number_unread > 0 && <div className={styles.unreadNumber}>
                                 {chat.number_unread}
