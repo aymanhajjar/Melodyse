@@ -1,13 +1,14 @@
 import styles from './messageButton.module.scss'
 import { useEffect, useState } from 'react'
-import FormInput from '../FormInput/FormInput'
 import axios from 'axios'
-import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 export default function MessageButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [chats, setChats] = useState()
+
+    const router = useRouter()
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -42,7 +43,7 @@ export default function MessageButton(props: any) {
                 <div className={styles.messages}>
                     <div className={styles.topActions}>
                         <img src={'/icons/compose.png'}/>
-                        <img src={'/icons/inbox.png'}/>
+                        <img src={'/icons/inbox.png'} onClick={() => {router.push('/inbox'); setDropdownOpen(false)}}/>
                     </div>
                     <h2>Inbox:</h2>
                 <div className={styles.chatsContainer}>

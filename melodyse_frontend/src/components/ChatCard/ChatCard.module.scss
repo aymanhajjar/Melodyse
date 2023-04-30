@@ -1,0 +1,73 @@
+$main_red: #AB4967;
+
+.chatRead {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    background-color: #ffffff;
+    padding: 1rem;
+    color: black;
+    border-radius: 10px;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.chatRead h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.details {
+    width: 100%;
+}
+
+.messages {
+    position: relative;
+}
+
+.chatRead span {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    width: 85%;
+}
+
+.chatRead:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.unreadNumber {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: $main_red;
+    border-radius: 50%;
+    color: white;
+    font-size: 0.8rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatUnread {
+    @extend .chatRead;
+    border: solid $main_red 2px;
+}
+
+.checkMark {
+    width: 0.8rem;
+    object-fit: contain;
+}
+
+.profPic {
+    object-fit: contain;
+    width: 5rem;
+    border-radius: 10px;
+}
