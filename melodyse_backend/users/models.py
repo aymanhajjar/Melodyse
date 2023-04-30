@@ -280,6 +280,10 @@ class Chat(models.Model):
                 'date_created': latest_message.date_created
             }
         }
+    # def getMessages(self):
+    #     return [{
+
+    #     } for message in chat.messages.all()]
 
 class Message(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="messages_sent")
@@ -289,6 +293,14 @@ class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="messages")
     def __str__(self):
         return self.content
+    def serialize(self):
+        return {
+            'author_username': self.author.username,
+            'author_picture': self.author.info.get().picture.url,
+            'content': self.content,
+            'is_read': self.is_read,
+            'date_created': self.date_created,
+        }
 
 class Skill(models.Model):
     name = models.CharField(max_length=200)

@@ -17,14 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from users import routing
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("users.urls")),
     path("", include("assistant.urls")),
     path("", include("listen.urls")),
-    path('ws/', include(routing.websocket_urlpatterns)),
+    path("", include("chat.urls")),
 ]
 
 if settings.DEBUG:

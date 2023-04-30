@@ -1,0 +1,43 @@
+$main_red: #AB4967;
+
+.container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 1rem 1rem;
+}
+
+.container input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    outline: none;
+    box-shadow: 0 0 10px rgb(207, 207, 207);
+    border-radius: 10px;
+    border: none;
+}
+
+.container button {
+    position: absolute;
+    right: 1.5rem;
+    background-color: $main_red;
+    padding: 1rem;
+    height: 3rem;
+    width: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.container button:hover {
+    filter: brightness(110%);
+    transition: all 0.3s;
+}
+
+.container img {
+    width: 1rem;
+    height: 1rem;
+}

@@ -62,8 +62,8 @@ INSTALLED_APPS = [
     'assistant',
     'listen',
     'channels',
-    'rest_framework',
-    'django_rename_app',
+    'chat',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

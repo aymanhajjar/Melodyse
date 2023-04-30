@@ -39,4 +39,31 @@ $main_red: #AB4967;
     height: 100%;
     border-radius: 10px;
     border: solid 1px gray;
+    position: relative;
+}
+
+.empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $main_red;
+    font-weight: 600;
+}
+
+.chatUI {
+    height: 100%;
+}
+
+.loadingMsg {
+    width: 12rem;
+    filter: drop-shadow(0px 0px 1px #808080);
+
+}
+
+.messagesContainer {
+    display: flex;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
 }
