@@ -7,6 +7,7 @@ from .models import *
 import json
 from django.db.models import Max
 from .modules import dataHandler
+from django.db.models import Q
 
 # Create your views here.
 
@@ -197,3 +198,8 @@ def getProfile(request, username):
     info = UserInfo.objects.get(user = user)
     print(info.picture.url)
     return JsonResponse(info.serialize(), safe=False)
+
+def searchFriends(request):
+    query = request.GET['q']
+    friends = UserFriend.objects.get(user=request.user)
+    return JsonResponse(friends.search(query), safe=False)

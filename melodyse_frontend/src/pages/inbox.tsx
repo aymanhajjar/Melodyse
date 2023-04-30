@@ -8,12 +8,13 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 export default function Inbox({inbox} : any) {
     const [searchVal, setSearchVal] = useState('')
     const [searchRes, setSearchRes] = useState([])
+    const [selectedChat, setSelectedChat] = useState()
 
     useEffect(() => {
         if(searchVal.length > 0) {
-            axios.get(`${process.env.SITE_URL}/searchfriends`, {
+            axios.get(`${process.env.SITE_URL}/searchfriends?q=${searchVal}`, {
                 withCredentials:true
-            }).then(res => setSearchRes(res.data))
+            }).then(res => setSearchRes(res.data.friends))
             .catch(err => console.error(err))
         }
     }, [searchVal])
@@ -21,8 +22,11 @@ export default function Inbox({inbox} : any) {
 
 
   useEffect(() => {
-    
-  }, []);
+    selectedChat && axios.get(`${process.env.SITE_URL}/getchat?q=${selectedChat}`, {
+        withCredentials:true
+    }).then(res => console.log(res.data))
+    .catch(err => console.error(err))
+  }, [selectedChat])
 
   return (
     <>
@@ -35,14 +39,14 @@ export default function Inbox({inbox} : any) {
         <div className={styles.chats}>
             <input placeholder='Search Friends' value={searchVal} onChange={(e) => setSearchVal(e.target.value)}/>
 
-            {searchVal.length > 0 ? (searchRes.length > 0 ?  searchRes.map(friend => (
-                <span>{friend.name}</span>
+            {searchVal.length > 0 ? (searchRes.length > 0 ?  searchRes.map((friend, index) => (
+                <ChatCard friend={friend} id={index} selected={selectedChat} select={(id) => setSelectedChat(id)}/>
             ))
             
             : <span>No Results</span>
             )
-            :    inbox && inbox.map(chat => (
-                    <ChatCard chat={chat}/>
+            :    inbox && inbox.map((chat, index) => (
+                    <ChatCard chat={chat} id={index} selected={selectedChat} select={(id) => setSelectedChat(id)}/>
                 ))}
         </div>
         <div className={styles.chat}>

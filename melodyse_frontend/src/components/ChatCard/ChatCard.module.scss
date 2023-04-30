@@ -16,6 +16,7 @@ $main_red: #AB4967;
 .chatRead h3 {
     font-size: 1rem;
     margin-bottom: 0.5rem;
+    color: #AB4967;
 }
 
 .details {
@@ -70,4 +71,35 @@ $main_red: #AB4967;
     object-fit: contain;
     width: 5rem;
     border-radius: 10px;
+}
+
+.chatRead h6 {
+    margin-bottom: 1rem;
+}
+
+.selected {
+    @extend .chatRead;
+    background-color: $main_red;
+    color: white;
+}
+
+.selected h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.selected span {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    width: 85%;
+}
+
+.selected h6 {
+    margin-bottom: 1rem;
+}
+
+.selected h6 {
+    margin-bottom: 1rem;
 }

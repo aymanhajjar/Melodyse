@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
 from django.core import serializers
+from django.db.models import Q
 
 # Create your models here.
 class SubscriptionPlan(models.Model):
@@ -82,10 +83,25 @@ class UserInfo(models.Model):
 
 class UserFriend(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friends')
-    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_of')
-    date_accepted = models.DateTimeField(auto_now_add=True)
+    friends = models.ManyToManyField(User)
     def __str__(self):
         return self.user.username + "'s friends"
+    def serialize(self):
+        return {
+            'friends': [{
+                'name': friend.first_name + ' ' + friend.last_name,
+                'username': friend.username,
+                'picture': friend.info.get().picture.url,
+            } for friend in self.friends.all()]
+        }
+    def search(self, query):
+        return {
+            'friends': [{
+                'name': friend.first_name + ' ' + friend.last_name,
+                'username': friend.username,
+                'picture': friend.info.get().picture.url,
+            } for friend in self.friends.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))]
+        }
 
 class FriendRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_requests")
