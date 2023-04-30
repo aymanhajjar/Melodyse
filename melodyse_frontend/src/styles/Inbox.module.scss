@@ -1,3 +1,5 @@
+$main_red: #AB4967;
+
 .container {
     display: flex;
     width: 85%;
@@ -17,6 +19,19 @@
     border-radius: 10px;
     overflow-y: scroll;
     border: solid 1px gray;
+}
+
+.chats input {
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.chats input:focus {
+    background-color: rgb(225, 225, 225);
+    transition: all 0.3s;
 }
 
 .chat {

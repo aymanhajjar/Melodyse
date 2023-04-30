@@ -23,4 +23,5 @@ urlpatterns = [
     path("getchosenskills", views.getChosenSkills),
     path("getsubscriptions", views.getSubscriptions),
     path("profile/<str:username>", views.getProfile),
+    path("profile/searchfriends", views.searchFriends),
 ]
