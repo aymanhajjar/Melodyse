@@ -53,6 +53,7 @@ $main_red: #AB4967;
 
 .chatUI {
     height: 100%;
+    padding-top: 1rem;
 }
 
 .loadingMsg {
@@ -64,6 +65,11 @@ $main_red: #AB4967;
 .messagesContainer {
     display: flex;
     height: 90%;
-    justify-content: center;
+    flex-direction: column-reverse;
+    padding-bottom: 2rem;
     align-items: center;
+    padding: 1rem;
+    margin: auto;
+    gap: 1rem;
+    overflow-y: scroll;
 }

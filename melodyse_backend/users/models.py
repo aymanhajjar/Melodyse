@@ -299,7 +299,7 @@ class Message(models.Model):
             'author_picture': self.author.info.get().picture.url,
             'content': self.content,
             'is_read': self.is_read,
-            'date_created': self.date_created,
+            'date_created': self.date_created.strftime("%m/%d/%Y, %H:%M:%S"),
         }
 
 class Skill(models.Model):

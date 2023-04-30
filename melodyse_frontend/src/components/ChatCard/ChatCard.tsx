@@ -3,7 +3,6 @@ import { useEffect, useState} from 'react'
 
 export default function ChatCard({chat=null, friend=null, id=null, selected=null, select=null}) {
 
-  console.log(id, selected)
   return (
     <>
     {chat && <div className={styles.container} onClick={() => select(id)}>

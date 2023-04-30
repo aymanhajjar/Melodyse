@@ -9,15 +9,15 @@ import FriendButton from './FriendButton/FriendButton'
 import { useRouter } from 'next/router'
 
 
-export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, setSubscription }) {
+export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, setSubscription, userData }) {
 
     const [selected, setSelected] = useState('home')
-    const [userData, setUserData] = useState({})
+    // const [userData, setUserData] = useState({})
 
     const router = useRouter()
 
     useEffect(() => {
-        getUserInfo()
+        // getUserInfo()
     }, [loggedIn])
 
     useEffect(() => {
@@ -28,24 +28,24 @@ export default function Layout({ children, loggedIn, setLoggedIn, setLoggedOut, 
         : router.asPath == '/about' && setSelected('about')
     }, [router])
 
-    const getUserInfo = () => {
-        axios.get(`${process.env.SITE_URL}/getinfo`, {
-            withCredentials: true
-        }).then(res => {
-            setLoggedIn()
-            setUserData(res.data)
-            getSubscription()
-        }).catch(err => {
-            try {
-                if (err.response.status === 403 && err.response.data == 'User not logged in') {
-                    setLoggedOut()
-                }
-            } catch {
-                console.error(err)
-            }
-        })
+    // const getUserInfo = () => {
+    //     axios.get(`${process.env.SITE_URL}/getinfo`, {
+    //         withCredentials: true
+    //     }).then(res => {
+    //         setLoggedIn()
+    //         setUserData(res.data)
+    //         getSubscription()
+    //     }).catch(err => {
+    //         try {
+    //             if (err.response.status === 403 && err.response.data == 'User not logged in') {
+    //                 setLoggedOut()
+    //             }
+    //         } catch {
+    //             console.error(err)
+    //         }
+    //     })
         
-    }
+    // }
 
     const getSubscription = () => {
         axios.get(`${process.env.SITE_URL}/getsubscription`, {

@@ -1,0 +1,49 @@
+$main_red: #AB4967;
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    align-self:flex-start;
+}
+
+.containerMine {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row-reverse;
+    align-self:flex-end;
+}
+
+.profilePic {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+.container span, .containerMine span {
+    padding: 0.8rem;
+    display: flex;
+    font-size: 0.9rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.white {
+    background-color: white;
+}
+
+.red {
+    background-color: $main_red;
+    color: white;
+}
+
+.checkmark {
+    width: 0.7rem;
+    margin-left: 0.5rem;
+}
+
+.container h6, .containerMine h6 {
+    opacity: 0.5;
+}

@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 export default function MyApp({ Component, pageProps } : AppProps) {
   const [loggedIn, setLoggedIn] = useState(false)
   const [subscription, setSubscription] = useState({})
+  const [userData , setUserData] = useState({})
   
   useEffect(() => {
     axios.get(`${process.env.SITE_URL}/gettoken`, {
@@ -16,8 +17,28 @@ export default function MyApp({ Component, pageProps } : AppProps) {
     }).then(res => {
       const csrf = Cookies.get('csrftoken')
       axios.defaults.headers.common['X-CSRFToken'] = csrf
+      axios.get(`${process.env.SITE_URL}/getinfo`, {
+        withCredentials: true
+        }).then(res => {
+            setLoggedIn(true)
+            setUserData(res.data)
+        }).catch(err => {
+            try {
+                if (err.response.status === 403 && err.response.data == 'User not logged in') {
+                    setLoggedIn(false)
+                }
+            } catch {
+                console.error(err)
+            }
+        })
     })
   }, [])
+
+  
+  const getUserInfo = () => {
+    
+    
+}
 
 
   return (
@@ -27,6 +48,7 @@ export default function MyApp({ Component, pageProps } : AppProps) {
       setLoggedIn={() => setLoggedIn(true)} 
       setLoggedOut={() => setLoggedIn(false)} 
       setSubscription={(sub) => setSubscription(sub)}
+      userData={userData}
       subscription={subscription}>
 
       <Component {...pageProps} 
@@ -34,8 +56,9 @@ export default function MyApp({ Component, pageProps } : AppProps) {
         setLoggedIn={() => setLoggedIn(true)} 
         setLoggedOut={() => setLoggedIn(false)} 
         setSubscription={(sub) => setSubscription(sub)}
+        userData={userData}
         subscription={subscription}/>
-        
+
     </Layout>
   )
 }

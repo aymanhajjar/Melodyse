@@ -4,13 +4,16 @@ import { useState,useEffect } from 'react'
 import axios from 'axios'
 import ChatCard from '@/components/ChatCard/ChatCard'
 import ChatInput from '@/components/ChatInput/ChatInput'
+import Message from '@/components/Message/Message'
 
-export default function Inbox({inbox} : any) {
+export default function Inbox({inbox, userData} : any) {
     const [searchVal, setSearchVal] = useState('')
     const [searchRes, setSearchRes] = useState([])
     const [selectedChat, setSelectedChat] = useState(-1)
     const [messages, setMessages] = useState([])
     const [loadingMsg, setLoadingMsg] = useState(false)
+    const [messageValue, setMessageValue] = useState('')
+    const [chatSocket, setChatSocket] = useState(null)
 
     useEffect(() => {
         if(searchVal.length > 0) {
@@ -21,13 +24,12 @@ export default function Inbox({inbox} : any) {
         }
     }, [searchVal])
 
-    useEffect(() => {
-        const url = `ws://localhost:8000/ws/socket-server/`
-        const chatSocket = new WebSocket(url)
-        chatSocket.onmessage = (e) => {
-            console.log(JSON.parse(e.data))
-        }
-    })
+    const sendMsg = () => {
+        setMessageValue('')
+        chatSocket.send(JSON.stringify({
+            'message': messageValue
+        }))
+    }
 
     useEffect(() => {
         if(selectedChat >= 0) {
@@ -39,6 +41,16 @@ export default function Inbox({inbox} : any) {
                 setLoadingMsg(false)
             })
             .catch(err => console.error(err))
+
+            const url = `ws://localhost:8000/ws/socket-server/${selectedChat}`
+            const socket = new WebSocket(url)
+            setChatSocket(socket)
+            socket.onmessage = (e) => {
+               let data = JSON.parse(e.data)
+               if (data.type == 'chat') {
+                setMessages((prevMessages) => [data.message, ...prevMessages])
+               }
+            }
         } 
     }, [selectedChat])
 
@@ -65,13 +77,15 @@ export default function Inbox({inbox} : any) {
         </div>
         <div className={styles.chat}>
                 {selectedChat < 0 && <span className={styles.empty}>Select a conversation</span>}
+
                 {selectedChat >= 0 &&  <div className={styles.chatUI}>
                     <div className={styles.messagesContainer}>
                         {loadingMsg ? <img className={styles.loadingMsg} src='/loading-melodyse.gif'/> : messages.length > 0 ? messages.map(msg => (
-                            <span>{msg.content}</span>
+                            <Message message={msg} is_mine={msg.author_username == userData.username}/>
+                            
                         )) : <span>Start a conversation</span>}
                     </div>
-                    <ChatInput/>
+                    <ChatInput value={messageValue} setValue={(val) => setMessageValue(val)} submit={sendMsg}/>
                     </div>}
         </div>
       </div>
