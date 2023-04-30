@@ -7,10 +7,11 @@ import Cookies from 'js-cookie'
 export default function Request({ type, request }) {
     const [accepted, setAccepted] = useState(request.is_accepted)
 
-    const respond = (type) => {
+    const respond = (action) => {
         const data = new FormData()
-        data.append('type', type)
-        data.append('id', request.id)
+        data.append('action', action)
+        data.append('type', 'friend')
+        data.append('id', request.request_id)
         axios.post(`${process.env.SITE_URL}/respond-request`, data, {
             withCredentials: true
         }).then(res => {

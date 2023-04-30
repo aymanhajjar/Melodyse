@@ -112,6 +112,7 @@ class FriendRequest(models.Model):
         return self.user.username + "'s friend requests"
     def serialize(self):
         return {
+            "request_id": self.id,
             "sender_id": self.sender.id,
             "sender_name": self.sender.first_name + ' ' + self.sender.last_name,
             "sender_username": self.sender.username,
@@ -164,6 +165,7 @@ class ProjectInvite(models.Model):
         return self.initiator.username + "'s invite"
     def serialize(self):
         return {
+            "request_id": self.id,
             "sender_id": self.initiator.id,
             "sender_name": self.initiator.first_name + ' ' + self.initiator.last_name,
             "sender_username": self.initiator.username,
