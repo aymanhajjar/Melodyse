@@ -214,3 +214,13 @@ def searchFriends(request):
     query = request.GET['q']
     friends = UserFriend.objects.get(user=request.user)
     return JsonResponse(friends.search(query), safe=False)
+
+def changePic(request):
+    picture = request.FILES.get('picture')
+    user_info = UserInfo.objects.get(user=request.user)
+    if picture:
+        user_info.picture = picture
+        user_info.save()
+    pic_url = user_info.picture.url
+    return JsonResponse({'url': pic_url})
+
