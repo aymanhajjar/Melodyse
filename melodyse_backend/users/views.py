@@ -227,3 +227,14 @@ def changePic(request):
     else:
         return HttpResponse('User not logged in', status=403)
 
+def changeName(request):
+    if request.user.is_authenticated:
+        name = request.POST('name')
+        user = User.objects.get(user=request.user)
+        if name:
+            user.first_name = name.split(' ')[0]
+            user.last_name = name.split(' ')[1]
+            user.save()
+        return JsonResponse({'name': name})
+    else:
+        return HttpResponse('User not logged in', status=403)
