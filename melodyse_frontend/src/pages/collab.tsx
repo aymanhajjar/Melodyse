@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from '@/styles/Collab.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import CollabSearchBar from '@/components/CollabSearchBar/CollabSearchBar'
 import FindMatchButton from '@/components/FindMatchButton/FindMatchButton'
@@ -14,6 +14,13 @@ export default function Collab(props : any) {
   const [isVIP, setIsVIP] = useState(false)
   const [isPLUS, setIsPLUS] = useState(false)
   const [skillList, setSkillList] = useState([])
+
+  useEffect(() => {
+    axios.get(`${process.env.SITE_URL}/getmusicians`, {
+      withCredentials: true
+    }).then(res => console.log(res))
+    .catch(err=> console.error(err))
+  })
 
   const findMatches = () => {
     setMatchesLoading(true)

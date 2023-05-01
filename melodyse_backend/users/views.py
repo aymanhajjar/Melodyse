@@ -151,6 +151,7 @@ def addArtists(request):
             info = UserInfo.objects.get(user=request.user)
             info.favorite_genres = genres
             info.save()
+            helpers.addtoDataset(request.user.id, genres)
 
         return JsonResponse({'status': 'success'})
     else:
@@ -165,6 +166,7 @@ def addSongs(request):
             info = UserInfo.objects.get(user=request.user)
             info.favorite_genres = genres
             info.save()
+            helpers.addtoDataset(request.user.id, genres)
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('User not logged in', status=403)
