@@ -3,11 +3,16 @@ import styles from '@/styles/Collab.module.scss'
 import { useState } from 'react'
 import axios from 'axios'
 import CollabSearchBar from '@/components/CollabSearchBar/CollabSearchBar'
-import AIActionButton from '@/components/AIActionButton/AIActionButton'
+import FindMatchButton from '@/components/FindMatchButton/FindMatchButton'
 
 export default function Collab(props : any) {
   const [musiciansTab, setMusiciansTab] = useState(true)
   const [searchVal, setSearchVal] = useState('')
+  const [matchesLoading, setMatchesLoading] = useState(false)
+
+  const findMatches = () => {
+    setMatchesLoading(true)
+  }
   
   return (
     <>
@@ -27,7 +32,7 @@ export default function Collab(props : any) {
 
         <div className={styles.topBar}>
           <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)}/>
-          <AIActionButton name="Find Matches" pic={'/assistant/magic-wand.png'}/>
+          <FindMatchButton name="Find Matches" pic={'/assistant/magic-wand.png'} submit={findMatches} loading={matchesLoading}/>
           <div>
             <span>FILTER BY:</span>
             <input type="checkbox"/>

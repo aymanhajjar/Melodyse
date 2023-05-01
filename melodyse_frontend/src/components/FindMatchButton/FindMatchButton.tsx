@@ -4,9 +4,9 @@ export default function FindMatchButton({name, pic, submit, loading}: any) {
 
     return(
         <div className={styles.aibutton} onClick={submit}>
-        {loading ? <img src='/loading-melodyse.gif'/>
+        {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/>
         :   <> <h3>{name}</h3> 
-            <img src={pic}/></>}
+            <img className={styles.icon} src={pic}/></>}
         </div>
     )
 }
