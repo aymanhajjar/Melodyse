@@ -4,11 +4,16 @@ import { useState } from 'react'
 import axios from 'axios'
 import CollabSearchBar from '@/components/CollabSearchBar/CollabSearchBar'
 import FindMatchButton from '@/components/FindMatchButton/FindMatchButton'
+import CheckBox from '@/components/CheckBox/CheckBox'
+import SelectBox from '@/components/SelectBox/SelectBox'
 
 export default function Collab(props : any) {
   const [musiciansTab, setMusiciansTab] = useState(true)
   const [searchVal, setSearchVal] = useState('')
   const [matchesLoading, setMatchesLoading] = useState(false)
+  const [isVIP, setIsVIP] = useState(false)
+  const [isPLUS, setIsPLUS] = useState(false)
+  const [skillList, setSkillList] = useState([])
 
   const findMatches = () => {
     setMatchesLoading(true)
@@ -35,7 +40,9 @@ export default function Collab(props : any) {
           <FindMatchButton name="Find Matches" pic={'/assistant/magic-wand.png'} submit={findMatches} loading={matchesLoading}/>
           <div>
             <span>FILTER BY:</span>
-            <input type="checkbox"/>
+            <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>
+            <CheckBox text="PLUS" value={isPLUS} setValue={() => setIsPLUS(!isPLUS)}/>
+            <SelectBox text="Skill"/>
           </div>
         </div>
       </div>

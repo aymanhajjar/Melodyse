@@ -1,7 +1,7 @@
-import styles from './ChordCard.module.scss'
+import styles from './CheckBox.module.scss'
 import { useEffect, useState} from 'react'
 
-export default function ChordCard({text, value, setValue}) {
+export default function CheckBox({text, value, setValue}) {
 
   return (
     <div className={styles.container}>
