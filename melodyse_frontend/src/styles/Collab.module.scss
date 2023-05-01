@@ -3,6 +3,8 @@ $main_red: #AB4967;
 .container {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    margin: auto;
     gap: 2rem;
 }
 
@@ -39,4 +41,12 @@ $main_red: #AB4967;
     @extend .tab;
     color: white;
     background-color: #D49BAE;
+}
+
+.topBar {
+    display: flex;
+    justify-content: 
+    space-between;
+    height: 2rem;
+    align-items: center;
 }

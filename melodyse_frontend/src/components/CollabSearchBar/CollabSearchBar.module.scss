@@ -1,0 +1,20 @@
+.container {
+    position: relative;
+    width: 20rem;
+}
+
+.container input {
+    width: 100%;
+    padding: 1rem;
+    border: none;  
+    outline: none;
+    border-radius: 10px;
+}
+
+.container img {
+    position: absolute;
+    right: 1rem;
+    width: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
