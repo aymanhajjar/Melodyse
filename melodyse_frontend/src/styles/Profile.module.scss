@@ -1,3 +1,5 @@
+$main_red: #AB4967;
+
 .container {
     display: flex;
     padding-top: 1%;
@@ -277,11 +279,22 @@
     text-align: center;
   }
 
-  .username input {
+  .usernameField {
     border: none;
     border-radius: 10px;
     padding: 0.5rem;
     font-size: 1rem;
+    outline: none;
+    text-align: center;
+  }
+
+  .usernameError {
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid $main_red;
+    outline: none;
     text-align: center;
   }
 

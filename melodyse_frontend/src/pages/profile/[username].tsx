@@ -48,14 +48,21 @@ export default function Profile({data} : any) {
   const handleKeyDownUsername = (e) => {
     if(e.key === 'Enter') {
       if(usernameVal.length > 0) {
-        const formdata = new FormData()
-        formdata.append('username', usernameVal)
-        axios.post(`${process.env.SITE_URL}/change-username`, formdata, {
-          withCredentials: true
-        }).then(res => {
+        if(usernameVal == data.username) {
           setUsernameEdit(false)
-          data.username = res.data.username
-        }).catch(err => console.error(err))
+        } else {
+          const formdata = new FormData()
+          formdata.append('username', usernameVal)
+          axios.post(`${process.env.SITE_URL}/change-username`, formdata, {
+            withCredentials: true
+          }).then(res => {
+            setUsernameEdit(false)
+            data.username = res.data.username
+          }).catch(err => {
+            if (err.response.status === 400) setUsernameError(true)
+            else console.error(err)
+          })
+        }
       }
     }
   }
@@ -106,7 +113,7 @@ export default function Profile({data} : any) {
             </div>
 
             <div className={styles.username}>
-              {usernameEdit ? <input value={usernameVal} onChange={(e) => setNameVal(e.target.value)} onKeyDown={handleKeyDownUsername}/>
+              {usernameEdit ? <input className={usernameError ? styles.usernameError : styles.usernameField} value={usernameVal} onChange={(e) => setUsernameVal(e.target.value)} onKeyDown={handleKeyDownUsername}/>
 
               : <> <span>@{data.username}</span>
               {data.can_edit && <img src='/icons/edit.png' onClick={() => setUsernameEdit(true)}/>}</>}

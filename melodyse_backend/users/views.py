@@ -7,7 +7,9 @@ from .models import *
 import json
 from django.db.models import Max
 from .modules import dataHandler
+from .modules import helpers
 from django.db.models import Q
+import requests
 
 # Create your views here.
 
@@ -139,8 +141,17 @@ def getSubscription(request):
     
 def addArtists(request):
     if request.user.is_authenticated:
+        genres = []
         artists = json.loads(request.POST['artists'])
         UserInfo.objects.filter(user=request.user).update(favorite_artists = artists)
+        if artists:
+            for artist in artists:
+                for genre in artist['genres']:
+                    genres.append(genre)
+            info = UserInfo.objects.get(user=request.user)
+            info.favorite_genres = genres
+            info.save()
+
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('User not logged in', status=403)
@@ -149,6 +160,11 @@ def addSongs(request):
     if request.user.is_authenticated:
         songs = json.loads(request.POST['songs'])
         UserInfo.objects.filter(user=request.user).update(favorite_songs = songs)
+        if songs:
+            genres = helpers.extractGenres(songs)
+            info = UserInfo.objects.get(user=request.user)
+            info.favorite_genres = genres
+            info.save()
         return JsonResponse({'status': 'success'})
     else:
         return HttpResponse('User not logged in', status=403)
@@ -229,8 +245,8 @@ def changePic(request):
 
 def changeName(request):
     if request.user.is_authenticated:
-        name = request.POST('name')
-        user = User.objects.get(user=request.user)
+        name = request.POST['name']
+        user = User.objects.get(id=request.user.id)
         if name:
             user.first_name = name.split(' ')[0]
             user.last_name = name.split(' ')[1]
@@ -241,18 +257,21 @@ def changeName(request):
     
 def changeUsername(request):
     if request.user.is_authenticated:
-        username = request.POST('username')
-        user = User.objects.get(user=request.user)
+        username = request.POST['username']
+        user = User.objects.get(id=request.user.id)
         if username:
-            user.username = username
-            user.save()
-        return JsonResponse({'username': username})
+            if User.objects.filter(username=username).exists():
+                return HttpResponse('username taken', status=400)   
+            else:
+                user.username = username
+                user.save()
+                return JsonResponse({'username': username})
     else:
         return HttpResponse('User not logged in', status=403)
     
 def changeDescription(request):
     if request.user.is_authenticated:
-        description = request.POST('description')
+        description = request.POST['description']
         user = UserInfo.objects.get(user=request.user)
         if description:
             user.description = description

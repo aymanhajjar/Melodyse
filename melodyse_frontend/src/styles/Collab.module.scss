@@ -1,0 +1,42 @@
+$main_red: #AB4967;
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.tabs {
+    display: flex;
+    gap: 2rem;
+}
+
+.tab {
+    width: 10rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: right;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background-color: $main_red;
+    transition: all 0.3s;
+}
+
+.tabActive {
+    @extend .tab;
+    background-color: $main_red;
+    color: white;
+}
+
+.tabInactive {
+    @extend .tab;
+    color: white;
+    background-color: #D49BAE;
+}

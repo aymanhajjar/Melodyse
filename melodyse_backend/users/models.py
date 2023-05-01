@@ -57,6 +57,7 @@ class UserInfo(models.Model):
     description = models.TextField(blank=True, null=True)
     favorite_artists = ArrayField(JSONField(), blank=True, null=True, default=[])
     favorite_songs = ArrayField(JSONField(), blank=True, null=True, default=[])
+    favorite_genres = ArrayField(models.CharField(max_length=100), blank=True, null=True, default=[])
     picture = models.ImageField(upload_to='profile_pictures/',default='profile_pictures/avatar.png')
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     subscription = models.ForeignKey(SubscriptionPlan, related_name="users_subscribed", default=0, to_field='level', on_delete=models.CASCADE)
@@ -249,7 +250,7 @@ class Notification(models.Model):
             'content': self.content,
             'date': self.date_created,
             'is_read': self.is_read,
-            'target_user': self.target_user.id if self.target_user else None,
+            'target_user': self.target_user.username if self.target_user else None,
             'target_user_pic': self.target_user.info.get().picture.url if self.target_user else None,
             'target_project': self.project.id if self.project else None,
             'target_track': self.track.id if self.track else None
