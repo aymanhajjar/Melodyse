@@ -10,6 +10,7 @@ export default function MyApp({ Component, pageProps } : AppProps) {
   const [loggedIn, setLoggedIn] = useState(false)
   const [subscription, setSubscription] = useState({})
   const [userData , setUserData] = useState({})
+  const [notfCount, setNotfCount] = useState(0)
   
   useEffect(() => {
     axios.get(`${process.env.SITE_URL}/gettoken`, {
@@ -33,6 +34,16 @@ export default function MyApp({ Component, pageProps } : AppProps) {
             }
         })
     })
+
+    const url = `ws://localhost:8000/ws/socket-server-social/`
+            const newsocket = new WebSocket(url)
+            newsocket.onmessage = (e) => {
+               let data = JSON.parse(e.data)
+               console.log(data)
+               if(data.type=='new_notf') {
+                setNotfCount(data.count)
+               }
+            }
   }, [])
 
   
@@ -58,7 +69,8 @@ export default function MyApp({ Component, pageProps } : AppProps) {
 
     <Layout {...pageProps} 
       loggedIn={loggedIn} 
-      setLoggedIn={() => setLoggedIn(true)} 
+      notfCount={notfCount}
+      is_readNotf={() => setNotfCount(0)}
       setLoggedOut={() => setLoggedIn(false)} 
       setSubscription={(sub) => setSubscription(sub)}
       userData={userData}

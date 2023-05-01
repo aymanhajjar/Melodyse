@@ -15,9 +15,11 @@ export default function Request({ type, request }) {
         axios.post(`${process.env.SITE_URL}/respond-request`, data, {
             withCredentials: true
         }).then(res => {
-            type == 'accept' ? setAccepted(true) : setAccepted(false)
+            action == 'accept' ? setAccepted(true) : setAccepted(false)
         }).catch(err => console.error(err))
     }
+
+    console.log(request.is_seen)
 
     return(
 
@@ -32,7 +34,7 @@ export default function Request({ type, request }) {
                     {accepted === null? <div className={styles.actions}>
                         <button className={styles.accept} onClick={() => respond('accept')}><img src={'/icons/check.png'}/>Accept</button>
                         <button className={styles.reject} onClick={() => respond('reject')}><img src={'/icons/x.png'} />Reject</button>
-                    </div> : accepted ? 'accepted' : 'rejected'}
+                    </div> : accepted ? <h6 className={styles.accepted}> <img src={'/icons/check.png'}/> accepted</h6> :  <h6 className={styles.rejected}><img src={'/icons/x.png'} />rejected</h6>}
 
                 </div>
 

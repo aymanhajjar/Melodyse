@@ -30,6 +30,8 @@ $main_green: #47E5BC;
     background-color: #D49BAE;
     color: white;
     right: 0;
+    max-height: 30rem;
+    overflow: scroll;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -50,6 +52,8 @@ $main_green: #47E5BC;
     right: 0;
     width: 25rem;
     display: flex;
+    max-height: 30rem;
+    overflow: scroll;
     flex-direction: column;
     border-radius: 10px;
     gap:1rem;
@@ -229,4 +233,22 @@ $main_green: #47E5BC;
     filter: brightness(110%);
     cursor: pointer;
     transition: all 0.3s;
+}
+
+.details h6 {
+    font-size: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.details h6 img {
+    width: 1rem;
+}
+
+.rejected {
+    color: $main_red;
+}
+
+.accepted {
+    color: $main_green;
 }

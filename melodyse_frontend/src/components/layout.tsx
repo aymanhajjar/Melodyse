@@ -9,12 +9,15 @@ import FriendButton from './FriendButton/FriendButton'
 import { useRouter } from 'next/router'
 
 
-export default function Layout({ children, loggedIn, setLoggedOut, setSubscription, userData, subscription }) {
+export default function Layout({ children, loggedIn, setLoggedOut, setSubscription, userData, subscription, notfCount, msgCount, reqCount, is_readNotf }) {
 
     const [selected, setSelected] = useState('home')
     // const [userData, setUserData] = useState({})
 
     const router = useRouter()
+    useEffect(() => {
+        console.log('countt', notfCount)
+    }, [notfCount])
 
     useEffect(() => {
         router.asPath == '/' ? setSelected('home')
@@ -23,7 +26,6 @@ export default function Layout({ children, loggedIn, setLoggedOut, setSubscripti
         : router.asPath == '/assistant' ? setSelected('assistant')
         : router.asPath == '/about' && setSelected('about')
     }, [router])
-
 
     const switchPage = (page) => {
         router.push('/' + page)
@@ -46,9 +48,9 @@ export default function Layout({ children, loggedIn, setLoggedOut, setSubscripti
 
                 {loggedIn && userData ? 
                 <div className={styles.userbuttons}>
-                    <FriendButton/>
-                    <MessageButton/>
-                    <NotificationButton/>
+                    <FriendButton unread={reqCount}/>
+                    <MessageButton unread={msgCount}/>
+                    <NotificationButton unread={notfCount} is_read={is_readNotf}/>
                     <ProfileButton 
                         picture={userData['pic']} 
                         setSub={(val) => setSubscription(val)}

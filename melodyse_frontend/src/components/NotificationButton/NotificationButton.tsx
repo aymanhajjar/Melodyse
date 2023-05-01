@@ -24,6 +24,7 @@ export default function NotificationButton(props: any) {
         .then(res => {
             if(res.data.length > 0) {
                 setNotifications(res.data)
+                props.is_read()
             } else {
                 setNotifications('')
             }
@@ -36,9 +37,12 @@ export default function NotificationButton(props: any) {
     return(
         <div className={styles.container}>
             <img className={styles.ntfimg} src='/ntf.png' onClick={openDropDown}/>
+            {props.unread > 0 && <div className={styles.count}>{props.unread}</div>}
             <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
             {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/> : 
+
             <div className={styles.notificationsContainer}>
+
                 <h2>Notifications:</h2>
                 {notifications ? notifications.map(notf => (
                     <div className={notf.is_read ? styles.notfRead : styles.notfUnread}>

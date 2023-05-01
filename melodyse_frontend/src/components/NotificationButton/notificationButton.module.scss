@@ -28,6 +28,8 @@ $main_red: #AB4967;
     position: absolute;
     background-color: #D49BAE;
     color: white;
+    max-height: 30rem;
+    overflow-y: scroll;
     right: 0;
     margin-top: 1rem;
     display: flex;
@@ -46,6 +48,8 @@ $main_red: #AB4967;
     right: 0;
     width: 25rem;
     display: flex;
+    max-height: 30rem;
+    overflow-y: scroll;
     border-radius: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 1.2rem;
@@ -56,8 +60,11 @@ $main_red: #AB4967;
     transition: all 0.2s ease-out;
 }
 
-.notificationsContainer h2 {
-    margin-bottom: 1rem;
+
+.notificationsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .noNotf {
@@ -100,4 +107,20 @@ $main_red: #AB4967;
 .notfUnread {
     @extend .notfRead;
     border: solid $main_red 2px;
+}
+
+.count {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: #FFE8D1;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid $main_red;
+    border-radius: 50%;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
 }

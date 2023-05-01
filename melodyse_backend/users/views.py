@@ -105,7 +105,8 @@ def getChats(request):
     
 def getNotifications(request):
     if request.user.is_authenticated:
-        notifications = [notf.serialize() for notf in request.user.notifications.all()]
+        notifications = [notf.serialize() for notf in request.user.notifications.all().order_by('-date_created')]
+        Notification.objects.filter(user=request.user).update(is_read=True)
         return JsonResponse(notifications, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)
@@ -116,6 +117,9 @@ def getRequests(request):
             'friends': [request.serialize() for request in request.user.friend_requests.all()],
             'projects': [invite.serialize() for invite in request.user.project_invites.all()]
         } 
+        FriendRequest.objects.filter(user=request.user).update(is_seen=True)
+        ProjectInvite.objects.filter(recipient=request.user).update(is_seen=True)
+
         return JsonResponse(requests, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)

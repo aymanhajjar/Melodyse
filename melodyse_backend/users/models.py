@@ -117,7 +117,8 @@ class FriendRequest(models.Model):
             "sender_name": self.sender.first_name + ' ' + self.sender.last_name,
             "sender_username": self.sender.username,
             "sender_picture": self.sender.info.get().picture.url,
-            "is_accepted": self.is_accepted
+            "is_accepted": self.is_accepted,
+            "is_seen": self.is_seen,
         }
     
 class UserRating(models.Model):
@@ -175,7 +176,8 @@ class ProjectInvite(models.Model):
             "message": self.message,
             "is_collab": self.is_collab,
             "offered_amount": self.offered_amount,
-            "is_accepted": self.is_accepted
+            "is_accepted": self.is_accepted,
+            "is_seen": self.is_seen,
         }
     
 class File(models.Model):
