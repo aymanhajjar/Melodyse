@@ -249,3 +249,14 @@ def changeUsername(request):
         return JsonResponse({'username': username})
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def changeDescription(request):
+    if request.user.is_authenticated:
+        description = request.POST('description')
+        user = UserInfo.objects.get(user=request.user)
+        if description:
+            user.description = description
+            user.save()
+        return JsonResponse({'description': description})
+    else:
+        return HttpResponse('User not logged in', status=403)
