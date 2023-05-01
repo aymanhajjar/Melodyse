@@ -203,3 +203,97 @@
   .picLoading {
     width: 6rem;
   }
+
+  .description {
+    position: relative;
+  }
+
+  .editPenDetails {
+    position: absolute;
+    width: 2rem;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s;
+    transform: scale(1.1);
+    visibility: none;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .description:hover .editPenDetails{
+
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .username {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .username img {
+    position: absolute;
+    right: -2rem;
+    transition: all 0.3s;
+    transform: scale(1.1);
+    visibility: none;
+    opacity: 0;
+    cursor: pointer;
+    width: 1.5rem;
+
+  }
+
+  .username:hover img {
+    opacity: 1;
+  }
+
+  .full_name {
+    position: relative;
+  }
+
+  .full_name img {
+    position: absolute;
+    right: -2rem;
+    top: 0;
+    transition: all 0.3s;
+    transform: scale(1.1);
+    visibility: none;
+    opacity: 0;
+    cursor: pointer;
+    width: 1.5rem;
+  }
+
+  .full_name:hover img {
+    opacity: 1;
+  }
+
+  .full_name input {
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .username input {
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .description textarea {
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    resize: none;
+    width: 100%;
+    min-height: 10rem;
+    outline: none;
+    max-height: 15rem;
+  }

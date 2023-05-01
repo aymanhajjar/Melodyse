@@ -2,7 +2,6 @@ import Head from 'next/head'
 import styles from '@/styles/Profile.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import AIButton from '@/components/AIButton/AIButton'
 import { useRouter } from 'next/router'
 import ProfileActionButton from '@/components/ProfileActionButton/ProfileActionButton'
 import UserSkillCard from '@/components/UserSkillCard/UserSkillCard'
@@ -11,17 +10,67 @@ import Song from '@/components/Song/Song'
 
 export default function Profile({data} : any) {
   const [picLoading, setPicLoading] = useState(false)
+  const [descriptionEdit, setDescriptionEdit] = useState(false)
+  const [descriptionVal, setDescriptionVal] = useState(data.description)
+  const [usernameEdit, setUsernameEdit] = useState(false)
+  const [usernameVal, setUsernameVal] = useState(data.username)
+  const [nameEdit, setNameEdit] = useState(false)
+  const [nameVal, setNameVal] = useState(data.full_name)
+  const [usernameError, setUsernameError] = useState(false)
 
   const pictureChange = (e) => {
     setPicLoading(true)
     const formdata = new FormData()
     formdata.append('picture', e.target.files[0])
-    axios.post(`${process.env.SITE_URL}/profile/changepic`, data, {
+    axios.post(`${process.env.SITE_URL}/change-pic`, formdata, {
       withCredentials: true
     }).then(res => {
       setPicLoading(false)
-      data.picture = res.data.picture
+      data.picture = res.data.url
     }).catch(err => console.error(err))
+  }
+
+  const handleKeyDownName = (e) => {
+    if(e.key === 'Enter') {
+      if(nameVal.length > 0) {
+        const formdata = new FormData()
+        formdata.append('name', nameVal)
+        axios.post(`${process.env.SITE_URL}/change-name`, formdata, {
+          withCredentials: true
+        }).then(res => {
+          setNameEdit(false)
+          data.full_name = res.data.name
+        }).catch(err => console.error(err))
+      }
+    }
+  }
+
+  const handleKeyDownUsername = (e) => {
+    if(e.key === 'Enter') {
+      if(usernameVal.length > 0) {
+        const formdata = new FormData()
+        formdata.append('username', usernameVal)
+        axios.post(`${process.env.SITE_URL}/change-username`, formdata, {
+          withCredentials: true
+        }).then(res => {
+          setUsernameEdit(false)
+          data.username = res.data.username
+        }).catch(err => console.error(err))
+      }
+    }
+  }
+
+  const handleKeyDownDescription = (e) => {
+    if(e.key === 'Enter') {
+      const formdata = new FormData()
+      formdata.append('description', descriptionVal)
+      axios.post(`${process.env.SITE_URL}/change-description`, formdata, {
+        withCredentials: true
+      }).then(res => {
+        setDescriptionEdit(false)
+        data.description = res.data.description
+      }).catch(err => console.error(err))
+    }
   }
 
   const router = useRouter()
@@ -48,9 +97,28 @@ export default function Profile({data} : any) {
           </div>
 
           <div className={styles.info}>
-            <h1>{data.full_name}</h1>
-            <span>@{data.username}</span>
-            <p>{data.description}</p>
+          
+            <div className={styles.full_name}>
+              {nameEdit ? <input value={nameVal} onChange={(e) => setNameVal(e.target.value)} onKeyDown={handleKeyDownName}/>
+              
+              : <><h1>{data.full_name}</h1>
+              {data.can_edit && <img src='/icons/edit.png' onClick={() => setNameEdit(true)}/>}</>}
+            </div>
+
+            <div className={styles.username}>
+              {usernameEdit ? <input value={usernameVal} onChange={(e) => setNameVal(e.target.value)} onKeyDown={handleKeyDownUsername}/>
+
+              : <> <span>@{data.username}</span>
+              {data.can_edit && <img src='/icons/edit.png' onClick={() => setUsernameEdit(true)}/>}</>}
+            </div>
+
+            <div className={styles.description}>
+            {descriptionEdit ? <textarea value={descriptionVal} onChange={(e) => setDescriptionVal(e.target.value)} onKeyDown={handleKeyDownDescription}/>
+
+            : <><p>{data.description}</p>
+              {data.can_edit && <img className={styles.editPenDetails} src='/icons/edit.png' onClick={() => setDescriptionEdit(true)}/>}</>}
+            </div>
+
           </div>
 
           {!data.can_edit && <ProfileActionButton name="Add Friend" pic='/icons/add-friend.png'/>}
