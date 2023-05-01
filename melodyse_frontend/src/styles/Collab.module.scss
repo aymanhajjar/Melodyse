@@ -1,4 +1,12 @@
 $main_red: #AB4967;
+@keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
 .container {
     display: flex;
@@ -6,6 +14,7 @@ $main_red: #AB4967;
     width: 90%;
     margin: auto;
     gap: 2rem;
+    animation: fade 0.5s;
 }
 
 .tabs {
