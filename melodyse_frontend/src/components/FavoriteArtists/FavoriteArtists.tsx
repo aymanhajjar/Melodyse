@@ -1,5 +1,6 @@
 import styles from './FavoriteArtists.module.scss'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import Artist from '../Artist/Artist'
 import ChosenCard from '../ChosenCard/ChosenCard'
@@ -14,6 +15,8 @@ export default function FavoriteArtists(props: any) {
     const [chosenIDs, setChosenIDs] = useState([])
     const [buttonLoading, setButtonLoading] = useState(false)
     const [errorMsg, setErrorMessage] = useState()
+
+    const router = useRouter()
 
     useEffect(() => {
         !spotifyToken && getToken()
@@ -80,7 +83,7 @@ export default function FavoriteArtists(props: any) {
             withCredentials: true
             }).then((res) => {
             setLoading(false)
-            props.nextStep()
+            props.edit ? router.push(`/profile/${props.username}`) : props.nextStep()
         }).catch(err => {
             setLoading(false)
             setErrorMessage('Server Error')
@@ -126,8 +129,8 @@ export default function FavoriteArtists(props: any) {
         <div className={styles.container}>
             <h2>Choose up to 10 of your favorite artists!</h2>
             <div className={styles.later}>
-                <a >I will finish my profile later >></a>
-                <NextButton loading={buttonLoading} submit={submit}/>
+                {!props.edit && <a onClick={() => router.push('/')}>I will finish my profile later >></a>}
+                <NextButton text={props.edit ? 'DONE' : 'NEXT'} loading={buttonLoading} submit={submit}/>
                 <span className={styles.error}>{errorMsg}</span>
             </div>
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :

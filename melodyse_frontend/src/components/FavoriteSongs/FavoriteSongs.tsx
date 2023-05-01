@@ -1,7 +1,7 @@
 import styles from './FavoriteSongs.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Artist from '../Artist/Artist'
+import { useRouter } from 'next/router'
 import ChosenCard from '../ChosenCard/ChosenCard'
 import NextButton from '../NextButton/NextButton'
 import Song from '../Song/Song'
@@ -15,6 +15,8 @@ export default function FavoriteSongs(props: any) {
     const [chosenIDs, setChosenIDs] = useState([])
     const [buttonLoading, setButtonLoading] = useState(false)
     const [errorMsg, setErrorMessage] = useState()
+
+    const router = useRouter()
 
     useEffect(() => {
         !spotifyToken && getToken()
@@ -68,7 +70,6 @@ export default function FavoriteSongs(props: any) {
                 ids.push(song.id)
             })
             setChosenIDs(ids)
-            setLoading(false)
         }).catch(err => console.log(err))
     }
 
@@ -81,7 +82,7 @@ export default function FavoriteSongs(props: any) {
             withCredentials: true
             }).then((res) => {
             setLoading(false)
-            props.nextStep()
+            props.edit ? router.push(`/profile/${props.username}`): props.nextStep()
         }).catch(err => {
             setLoading(false)
             console.error(err)
@@ -132,10 +133,10 @@ export default function FavoriteSongs(props: any) {
     return(
         <div className={styles.container}>
             <h2>Choose up to 10 of your favorite songs!</h2>
-            <button type='button' className={styles.backbutton}  onClick={() => props.prevStep()}>BACK</button>
+            {!props.edit && <button type='button' className={styles.backbutton}  onClick={() => props.prevStep()}>BACK</button>}
             <div className={styles.later}>
-                <a >I will finish my profile later >></a>
-                <NextButton loading={buttonLoading} submit={submit}/>
+                {!props.edit && <a onClick={() => router.push('/')} >I will finish my profile later >></a>}
+                <NextButton text={props.edit ? 'DONE' : 'NEXT'} loading={buttonLoading} submit={submit}/>
                 <span className={styles.error}>{errorMsg}</span>
             </div>
                 {loading ? <img src={'/loading-melodyse.gif'} className={styles.loading}/> :

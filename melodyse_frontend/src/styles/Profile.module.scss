@@ -64,6 +64,7 @@
     background-color: white;
     border-radius: 10px;
     width: 100%;
+    position: relative;
 }
 
 .skills {
@@ -82,11 +83,13 @@
     background-color: white;
     border-radius: 10px;
     width: 100%;
+    position: relative;
 }
 
 .artists {
     display: flex;
     gap: 2rem;
+    padding-top: 0.5rem;
     overflow-x: scroll;
 }
 
@@ -131,3 +134,39 @@
     align-items: center;
     gap: 1rem;
 }
+
+.editPen {
+    position: absolute;
+    width: 2rem;
+    right: 2rem;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: scale(1.1);
+    visibility: none;
+    cursor: pointer;
+}
+
+.editPen:hover {
+    filter: brightness((110%));
+    transition: all 0.3s;
+}
+
+.skillsContainer:hover .editPen {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s;
+    transform: scale(1);
+  }
+
+  .favorite:hover .editPen {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s;
+    transform: scale(1);
+  }
+
+  .editText {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 2rem;
+  }

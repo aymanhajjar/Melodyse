@@ -2,14 +2,15 @@ import Head from 'next/head'
 import styles from '@/styles/Login.module.scss'
 import Login from '../components/login/login'
 import Register from '../components/register/register'
-import { useState } from 'react'
-import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import FavoriteArtists from '@/components/FavoriteArtists/FavoriteArtists'
 import FavoriteSongs from '@/components/FavoriteSongs/FavoriteSongs'
 import UserSkills from '@/components/UserSkills/UserSkills'
 import Success from '@/components/Success/Success'
 
-export default function Home(props : any) {
+export default function LoginPage(props : any) {
+  const router = useRouter()
   const [loginActive, setLoginActive] = useState(true)
   const [step, setStep] = useState(0)
 
@@ -17,10 +18,16 @@ export default function Home(props : any) {
     setLoginActive(!loginActive)
   }
 
+  useEffect(() => {
+    if(props.loggedIn) {
+      router.push('/')
+    }
+  }, [props.loggedIn])
+
   return (
     <>
       <Head>
-        <title>Home | MELODYSE</title>
+        <title>Log In | MELODYSE</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.ico" />
       </Head>

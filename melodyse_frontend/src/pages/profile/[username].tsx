@@ -11,7 +11,7 @@ import Song from '@/components/Song/Song'
 
 export default function Profile({data} : any) {
 
-  console.log(data)
+  const router = useRouter()
 
   return (
     <>
@@ -30,14 +30,16 @@ export default function Profile({data} : any) {
             <p>{data.description}</p>
           </div>
 
-          <ProfileActionButton name="Add Friend" pic='/icons/add-friend.png'/>
+          {!data.can_edit && <ProfileActionButton name="Add Friend" pic='/icons/add-friend.png'/>}
         </div>
 
         <div className={styles.div2}>
 
             <div className={styles.skillsContainer}>
               <h2>Skills</h2>
-                {data.can_edit && <div>CANNN</div>}
+              
+                {data.can_edit && <img className={styles.editPen} src='/icons/edit.png' onClick={() => router.push({ pathname: '/profile/edit', query: { q: 'skills' }})}/>}
+
               <div className={styles.skills}>
               {data.skills.length > 0 ? data.skills.map(skill => (
                 <UserSkillCard skill={skill}/>
@@ -47,6 +49,8 @@ export default function Profile({data} : any) {
 
             <div className={styles.favorite}>
               <h2>Favorite Artists</h2>
+              {data.can_edit && <img className={styles.editPen} src='/icons/edit.png' onClick={() => router.push({ pathname: '/profile/edit', query: { q: 'artists' }})}/>}
+
               <div className={styles.artists}>
                 {data.favorite_artists.length > 0 ? data.favorite_artists.map(artist => (
                   <Artist data={artist}/>
@@ -56,6 +60,8 @@ export default function Profile({data} : any) {
 
             <div className={styles.favorite}>
               <h2>Favorite Songs</h2>
+              {data.can_edit && <img className={styles.editPen} src='/icons/edit.png' onClick={() => router.push({ pathname: '/profile/edit', query: { q: 'songs' }})}/>}
+
               <div className={styles.artists}>
                 {data.favorite_songs.length > 0 ? data.favorite_songs.map(song => (
                   <Song data={song}/>
@@ -83,11 +89,11 @@ export default function Profile({data} : any) {
         </div>
 
         <div className={styles.div3}>
-          <div className={styles.actions}>
+          {!data.can_edit ? <div className={styles.actions}>
             <ProfileActionButton name="Hire" pic='/icons/briefcase.png' color='#47E5BC'/>
             <ProfileActionButton name="Collab" pic='/icons/handshake.png' color="#FFE8D1"/>
             <ProfileActionButton name="Message" pic='/icons/email.png' color="#D49BAE"/>
-          </div>
+          </div> : <span className={styles.editText}>This is how others see your profile. Hover to edit.</span>}
           
           <div className={styles.additionalInfo}>
 
@@ -105,7 +111,7 @@ export default function Profile({data} : any) {
 
             <div className={styles.stats}>
               <img src='/icons/like.png'/>
-              <span>{} likes recieved</span>
+              <span>{data.likes_count} likes received</span>
             </div>
 
             <div className={styles.stats}>
