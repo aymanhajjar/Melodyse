@@ -200,8 +200,15 @@ def getSubscriptions(request):
 def getProfile(request, username):
     user = User.objects.get(username=username)
     info = UserInfo.objects.get(user = user)
-    print(info.picture.url)
-    return JsonResponse(info.serialize(), safe=False)
+    serialized = info.serialize()
+    if request.user.is_authenticated:
+        if username == request.user.username:
+            serialized['can_edit'] = True
+        else:
+            serialized['can_edit'] = False
+    else:
+        serialized['can_edit'] = False
+    return JsonResponse(serialized, safe=False)
 
 def searchFriends(request):
     query = request.GET['q']

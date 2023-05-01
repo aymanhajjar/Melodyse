@@ -11,6 +11,8 @@ import Song from '@/components/Song/Song'
 
 export default function Profile({data} : any) {
 
+  console.log(data)
+
   return (
     <>
       <Head>
@@ -35,6 +37,7 @@ export default function Profile({data} : any) {
 
             <div className={styles.skillsContainer}>
               <h2>Skills</h2>
+                {data.can_edit && <div>CANNN</div>}
               <div className={styles.skills}>
               {data.skills.length > 0 ? data.skills.map(skill => (
                 <UserSkillCard skill={skill}/>
@@ -120,7 +123,11 @@ export default function Profile({data} : any) {
 export async function getServerSideProps(context) {
   let data = {}
   const username = context.query.username
-  await axios.get(`${process.env.SERVER_SITE_URL}/profile/${username}`).then(res => data = res.data)
+  await axios.get(`${process.env.SERVER_SITE_URL}/profile/${username}`, {
+    headers: {
+        Cookie: context.req.headers.cookie
+    },
+}).then(res => data = res.data)
   .catch(err => console.log(err))
 
   return {props: {data : data}}

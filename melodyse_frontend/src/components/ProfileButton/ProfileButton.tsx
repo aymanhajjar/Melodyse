@@ -1,5 +1,6 @@
 import styles from './profileButton.module.scss'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router';
 import ActionButton from './ActionButton'
 import Cookies from 'js-cookie';
 import axios from 'axios'
@@ -8,6 +9,8 @@ export default function ProfileButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [sub, setSub] = useState()
+
+    const router = useRouter()
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -52,7 +55,10 @@ export default function ProfileButton(props: any) {
                 <div className={styles.subContainer}>
                     <div className={styles.subPic}></div>
                 </div>
-                <ActionButton name="My Profile"/>
+                <ActionButton name="My Profile" onClick={() => {
+                    router.push(`/profile/${props.username}`)
+                    setDropdownOpen(false)
+                }}/>
                 <ActionButton name="Log Out" onClick={logout}/>
             </div>
         </div>

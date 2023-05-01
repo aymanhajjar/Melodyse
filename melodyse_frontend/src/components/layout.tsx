@@ -52,7 +52,8 @@ export default function Layout({ children, loggedIn, setLoggedOut, setSubscripti
                     <MessageButton unread={msgCount}/>
                     <NotificationButton unread={notfCount} is_read={is_readNotf}/>
                     <ProfileButton 
-                        picture={userData['pic']} 
+                        picture={userData['pic']}
+                        username={userData['username']}
                         setSub={(val) => setSubscription(val)}
                         loggedOut = {() => setLoggedOut()}
                         subscription={subscription}/>
