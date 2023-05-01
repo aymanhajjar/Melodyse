@@ -59,3 +59,10 @@ $main_red: #AB4967;
     height: 2rem;
     align-items: center;
 }
+
+.filters {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-between;
+}

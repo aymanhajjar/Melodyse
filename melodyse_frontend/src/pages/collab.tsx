@@ -37,12 +37,13 @@ export default function Collab(props : any) {
 
         <div className={styles.topBar}>
           <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)}/>
-          <FindMatchButton name="Find Matches" pic={'/assistant/magic-wand.png'} submit={findMatches} loading={matchesLoading}/>
-          <div>
+          {/* <FindMatchButton name="Find Matches" pic={'/assistant/magic-wand.png'} submit={findMatches} loading={matchesLoading}/> */}
+          <div className={styles.filters}>
             <span>FILTER BY:</span>
             <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>
             <CheckBox text="PLUS" value={isPLUS} setValue={() => setIsPLUS(!isPLUS)}/>
             <SelectBox text="Skill"/>
+            <SelectBox text="Rating"/>
           </div>
         </div>
       </div>

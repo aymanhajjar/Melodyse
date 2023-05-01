@@ -67,13 +67,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
     'users',
     'assistant',
     'listen',
     'channels',
     'chat',
     'social',
-    'rest_framework'
+    'collab'
 ]
 
 MIDDLEWARE = [
