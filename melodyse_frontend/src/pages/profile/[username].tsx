@@ -10,6 +10,19 @@ import Artist from '@/components/Artist/Artist'
 import Song from '@/components/Song/Song'
 
 export default function Profile({data} : any) {
+  const [picLoading, setPicLoading] = useState(false)
+
+  const pictureChange = (e) => {
+    setPicLoading(true)
+    const formdata = new FormData()
+    formdata.append('picture', e.target.files[0])
+    axios.post(`${process.env.SITE_URL}/profile/changepic`, data, {
+      withCredentials: true
+    }).then(res => {
+      setPicLoading(false)
+      data.picture = res.data.picture
+    }).catch(err => console.error(err))
+  }
 
   const router = useRouter()
 
@@ -22,7 +35,17 @@ export default function Profile({data} : any) {
       </Head>
       <div className={styles.container}>
         <div className={styles.div1}>
-          <img src={process.env.SITE_URL + data.picture} className={styles.profilePic}/>
+
+          <div className={styles.profileDiv}>
+            
+            <img src={process.env.SITE_URL + data.picture} className={styles.profilePic}/>
+
+            <div className={styles.profileEdit} onClick={() => document.getElementById('profile-upload').click()}>
+              {picLoading ? <img className={styles.picLoading} src='/loading-melodyse.gif'/> : <img src='/icons/camera.png' className={styles.camera}/>}
+              <input id="profile-upload" type="file" accept="image/*" onChange={pictureChange} hidden/>
+            </div>
+
+          </div>
 
           <div className={styles.info}>
             <h1>{data.full_name}</h1>
