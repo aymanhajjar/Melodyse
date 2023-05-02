@@ -1,10 +1,10 @@
 import styles from './SelectBox.module.scss'
 import { useEffect, useState} from 'react'
 
-export default function SelectBox({text, value, setValue, data}) {
+export default function SelectBox({text, value, setValue, data=null}) {
 
   return (
-    <select className={styles.select}>
+    <select className={styles.select} value={value} onChange={(e) => setValue(e.target.value)}>
       <option selected>{text}</option>
       {data ? data.map(item => (<option value={item.name}>{item.name}</option>)):
       <>

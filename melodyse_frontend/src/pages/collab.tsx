@@ -16,18 +16,59 @@ export default function Collab(props : any) {
   const [isPLUS, setIsPLUS] = useState(false)
   const [page, setPage] = useState(1)
   const [artists, setArtists] = useState([])
+  const [hasMore, setHasMore] = useState(true)
+  const [skillValue, setSkillValue] = useState()
+  const [ratingValue, setRatingValue] = useState()
 
   useEffect(() => {
     axios.get(`${process.env.SITE_URL}/getmusicians?page=1`, {
       withCredentials: true
     }).then(res => {
       setLoading(false)
-      console.log(res.data)
       setArtists(res.data)
     })
     .catch(err=> console.error(err))
-    console.log(props.skills)
   }, [])
+
+  useEffect(() => {
+    setLoading(true)
+    axios.get(`${process.env.SITE_URL}/getmusicians?page=${1}${skillValue ? `&&skill=${skillValue}` : ''}${ratingValue ? `&&rating=${ratingValue}` : ''}${isVIP ? `&&is_vip=true` : ''}${isPLUS ? `&&is_plus=true` : ''}`, {
+      withCredentials: true
+    }).then(res => {
+      setLoading(false)
+      setHasMore(false)
+      setArtists(res.data)
+    })
+    .catch(err=> {
+      try {
+        if (err.response.status === 404) setHasMore(false)
+    } catch {
+        console.error(err)
+    }})
+    if(!skillValue && !ratingValue && !isPLUS && !isVIP) {
+      setHasMore(true)
+      setPage(1)
+    }
+  }, [skillValue, ratingValue, isVIP, isPLUS])
+
+  function handleScroll(e) {
+    console.log(e.target.scrollHeight - e.target.scrollTop, e.target.clientHeight )
+    if (Math. trunc(e.target.scrollHeight - e.target.scrollTop) == e.target.clientHeight) {
+      axios.get(`${process.env.SITE_URL}/getmusicians?page=${page+1}`, {
+        withCredentials: true
+      }).then(res => {
+        setLoading(false)
+        setArtists([...artists, ...res.data])
+        setPage(page+1)
+      })
+      .catch(err=> {
+        try {
+          if (err.response.status === 404) setHasMore(false)
+      } catch {
+          console.error(err)
+      }})
+    }
+  }
 
   
   return (
@@ -37,7 +78,7 @@ export default function Collab(props : any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.ico" />
       </Head>
-      <div className={styles.container}>
+      <div className={styles.container} onScroll={handleScroll}>
 
         <div className={styles.tabs}>
           <button type='button' className={musiciansTab ? styles.tabActive : styles.tabInactive}
@@ -48,13 +89,12 @@ export default function Collab(props : any) {
 
         <div className={styles.topBar}>
           <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)}/>
-          {/* <FindMatchButton name="Find Matches" pic={'/assistant/magic-wand.png'} submit={findMatches} loading={matchesLoading}/> */}
           <div className={styles.filters}>
             <span>FILTER BY:</span>
             <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>
             <CheckBox text="PLUS" value={isPLUS} setValue={() => setIsPLUS(!isPLUS)}/>
-            <SelectBox text="Skill" data={props.skills}/>
-            <SelectBox text="Min Rating"/>
+            <SelectBox text="Skill" data={props.skills} value={skillValue} setValue={(val) => setSkillValue(val)}/>
+            <SelectBox text="Min Rating" value={ratingValue} setValue={(val) => setRatingValue(val)}/>
           </div>
         </div>
 
@@ -63,6 +103,7 @@ export default function Collab(props : any) {
           {artists.map((artist, key) => (
           <MusicianCard key={key} artist={artist}/>
         )) }</div>}
+        {hasMore && !loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
       </div>
     </>
   )

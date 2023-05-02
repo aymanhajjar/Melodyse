@@ -16,16 +16,62 @@ class UsersView(APIView):
     pagination_class = UsersPagination()  
 
     def get(self, request):
+        is_VIP = False
+        is_PLUS = False
+        rating = False
+        skill = False
+        try:
+            is_VIP = request.GET['is_vip']
+        except:
+            print('novip')
+            pass
+
+        try:
+            is_PLUS = request.GET['is_plus']
+        except:
+            pass
+
+        try:
+            rating = request.GET['rating']
+        except:
+            pass
+
+        try:
+            skill = request.GET['skill']
+        except:
+            pass
 
         if request.user.is_authenticated:
             matches = findMatch.get(request.user.id)
             users = []
+            kwargs = {}
+            if is_VIP:
+                kwargs['subscription__level'] = 2
+            if is_PLUS:
+                kwargs['subscription__level'] = 1
+            if is_PLUS and is_VIP:
+                del kwargs['subscription__level']
+                kwargs['subscription__level__in'] = [1,2]
+            if rating:
+                kwargs['rating__gt'] = int(rating)-1
+            if skill:
+                kwargs['user__skills__skill__name'] = skill
             for id in matches:
-                model = UserInfo.objects.get(user__id=id)
-                serialized = model.serialize()
-                serialized['is_match'] = True
-                users.append(serialized)
-            others = UserInfo.objects.filter(~Q(user__id__in=matches))
+                kwargs['user__id'] = id
+                
+                model = UserInfo.objects.filter(**kwargs).first()
+                if model is not None:
+                    serialized = model.serialize()
+                    serialized['is_match'] = True
+                    users.append(serialized)
+                    
+            others = UserInfo.objects.filter(
+                    ~Q(user__id__in=matches),
+                    Q(subscription__level=2) if is_VIP else Q() | Q(subscription__level=1) if is_PLUS else Q(),
+                    Q(rating__gt=int(rating)-1) if rating else Q(),
+                    Q(user__skills__skill__name=skill) if skill else Q(),
+                )
+            
             for user in others:
                 try:
                     users.append(user.serialize())
