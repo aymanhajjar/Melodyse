@@ -17,6 +17,9 @@ export default function Profile({data} : any) {
   const [nameEdit, setNameEdit] = useState(false)
   const [nameVal, setNameVal] = useState(data.full_name)
   const [usernameError, setUsernameError] = useState(false)
+  const [requested, setRequested] = useState(false)
+
+  const router = useRouter()
 
   const pictureChange = (e) => {
     setPicLoading(true)
@@ -80,7 +83,19 @@ export default function Profile({data} : any) {
     }
   }
 
-  const router = useRouter()
+  const addRemoveFriendReq = (action) => {
+    const formdata = new FormData()
+    formdata.append('username', data.username)
+    formdata.append('action', action)
+    axios.post(`${process.env.SITE_URL}/request-friend`, formdata, {
+      withCredentials: true
+    }).then(res => {
+      if(res.data.status == 'requested') {
+        setRequested(true)
+      } else setRequested(false)
+    }).catch(err => console.error(err))
+  }
+
 
   return (
     <>
@@ -128,7 +143,7 @@ export default function Profile({data} : any) {
 
           </div>
 
-          {!data.can_edit && <ProfileActionButton name="Add Friend" pic='/icons/add-friend.png'/>}
+          {!data.can_edit && <ProfileActionButton name={requested ? "Requested" : "Add Friend"} pic='/icons/add-friend.png' submit={requested ? addRemoveFriendReq('remove') : addRemoveFriendReq('add')} />}
         </div>
 
         <div className={styles.div2}>
@@ -198,9 +213,7 @@ export default function Profile({data} : any) {
             <div className={styles.rating}> 
               <div className={styles.stars}>
                 {[...Array(5)].map((_, index) => (
-                        <img
-                        key={index}
-                        src={index < data.rating ? '/icons/starEnabled.png' : '/icons/starDisabled.png'}
+                        <img key={index} src={index < data.rating ? '/icons/starEnabled.png' : '/icons/starDisabled.png'}
                       />
                     ))}
               </div>
