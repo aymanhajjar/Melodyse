@@ -96,10 +96,10 @@ export default function Profile({data} : any) {
             
             <img src={process.env.SITE_URL + data.picture} className={styles.profilePic}/>
 
-            <div className={styles.profileEdit} onClick={() => document.getElementById('profile-upload').click()}>
+            {data.can_edit && <div className={styles.profileEdit} onClick={() => document.getElementById('profile-upload').click()}>
               {picLoading ? <img className={styles.picLoading} src='/loading-melodyse.gif'/> : <img src='/icons/camera.png' className={styles.camera}/>}
               <input id="profile-upload" type="file" accept="image/*" onChange={pictureChange} hidden/>
-            </div>
+            </div>}
 
           </div>
 
@@ -122,7 +122,7 @@ export default function Profile({data} : any) {
             <div className={styles.description}>
             {descriptionEdit ? <textarea value={descriptionVal} onChange={(e) => setDescriptionVal(e.target.value)} onKeyDown={handleKeyDownDescription}/>
 
-            : <><p>{data.description}</p>
+            : <><p>{data.description  ? data.description : data.can_edit && 'Add a description...'}</p>
               {data.can_edit && <img className={styles.editPenDetails} src='/icons/edit.png' onClick={() => setDescriptionEdit(true)}/>}</>}
             </div>
 

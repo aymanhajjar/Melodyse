@@ -12,4 +12,4 @@ def get_recommendations(user_id):
 
 def get(id):
     recommended_genres = get_recommendations(str(id))
-    return [int(x) for x in recommended_genres if x.isdigit()]
+    return [int(x) for x in recommended_genres if x.isdigit()][:5]

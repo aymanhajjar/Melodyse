@@ -49,9 +49,12 @@ def addtoDataset(id, genres):
     genres = genres
 
     user_data = {'pop': 0, 'rock': 0, 'pop rock': 0, 'hip hop music': 0, 'acoustic': 0, 'edm': 0, 'classical': 0, 
-                    'indie pop': 0, 'indie rock': 0, 'country': 0, 'latin': 0, 'jazz': 0, 'drill': 0, 'house': 0, 
-                    'teen': 0, 'trap': 0, 'dubstep': 0, 'pop dance': 0, 'country rock': 0, 'canadian pop': 0, 
-                    'contemporary r&b': 0, 'tropical house': 0, 'viral pop': 0, 'pop rap': 0, 'southern hip hop': 0, 'celtic rock': 0, 'rap': 0, 'boy band': 0, 'post-teen pop': 0}
+             'indie pop': 0, 'indie rock': 0, 'country': 0, 'latin': 0, 'jazz': 0, 'drill': 0, 'house': 0, 
+             'teen pop': 0, 'trap': 0, 'dubstep': 0, 'pop dance': 0, 'country rock': 0, 'canadian pop': 0, 
+             'canadian contemporary r&b': 0, 'tropical house': 0, 'viral pop': 0, 'pop rap': 0, 
+             'southern hip hop': 0, 'celtic rock': 0, 'rap': 0, 'boy band': 0, 'post-teen pop': 0}
+
+
     if str(user_id) in df.index:
         user_data = df.loc[str(user_id)]
 

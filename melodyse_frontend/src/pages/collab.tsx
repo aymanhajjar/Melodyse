@@ -6,25 +6,29 @@ import CollabSearchBar from '@/components/CollabSearchBar/CollabSearchBar'
 import FindMatchButton from '@/components/FindMatchButton/FindMatchButton'
 import CheckBox from '@/components/CheckBox/CheckBox'
 import SelectBox from '@/components/SelectBox/SelectBox'
+import MusicianCard from '@/components/MusicianCard/MusicianCard'
 
 export default function Collab(props : any) {
   const [musiciansTab, setMusiciansTab] = useState(true)
   const [searchVal, setSearchVal] = useState('')
-  const [matchesLoading, setMatchesLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [isVIP, setIsVIP] = useState(false)
   const [isPLUS, setIsPLUS] = useState(false)
-  const [skillList, setSkillList] = useState([])
+  const [page, setPage] = useState(1)
+  const [artists, setArtists] = useState([])
 
   useEffect(() => {
-    axios.get(`${process.env.SITE_URL}/getmusicians`, {
+    axios.get(`${process.env.SITE_URL}/getmusicians?page=1`, {
       withCredentials: true
-    }).then(res => console.log(res))
+    }).then(res => {
+      setLoading(false)
+      console.log(res.data)
+      setArtists(res.data)
+    })
     .catch(err=> console.error(err))
-  })
+    console.log(props.skills)
+  }, [])
 
-  const findMatches = () => {
-    setMatchesLoading(true)
-  }
   
   return (
     <>
@@ -49,11 +53,26 @@ export default function Collab(props : any) {
             <span>FILTER BY:</span>
             <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>
             <CheckBox text="PLUS" value={isPLUS} setValue={() => setIsPLUS(!isPLUS)}/>
-            <SelectBox text="Skill"/>
-            <SelectBox text="Rating"/>
+            <SelectBox text="Skill" data={props.skills}/>
+            <SelectBox text="Min Rating"/>
           </div>
         </div>
+
+        {loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
+        {!loading && artists && <div className={styles.artists}>
+          {artists.map((artist, key) => (
+          <MusicianCard key={key} artist={artist}/>
+        )) }</div>}
       </div>
     </>
   )
+}
+
+Collab.getInitialProps = async (ctx) => {
+  let data = []
+  await axios.get(`${process.env.SERVER_SITE_URL}/getskills`).then(res => {
+            data = res.data
+            console.log(res)
+        }).catch(err => console.error(err))
+  return {skills: data}
 }

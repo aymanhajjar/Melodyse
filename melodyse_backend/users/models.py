@@ -77,9 +77,13 @@ class UserInfo(models.Model):
             "skills": [skill.serialize() for skill in self.user.skills.all()],
             "picture": self.picture.url,
             "rating": self.rating,
+            "rating_count": self.user.ratings.count(),
             "friends": self.user.friends.all().count(),
+            "subscription_tag": self.subscription.tag_on_profile,
+            "subscription_color": self.subscription.profile_color,
+            "subscription_tag_color": self.subscription.card_color,
             "ongoing_projects": [project.serialize() for project in self.user.projects_active.all()],
-            "completed_projects": [project.serialize() for project in self.user.projects_active.filter(is_completed=True)]
+            "completed_projects": [project.serialize() for project in self.user.projects_active.filter(is_completed=True)],
         }
 
 class UserFriend(models.Model):
@@ -123,8 +127,8 @@ class FriendRequest(models.Model):
         }
     
 class UserRating(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
-    target_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings_given")
+    target_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="ratings")
     rating = models.IntegerField()
     def __str__(self):
         return self.user.username + "'s ratings"
