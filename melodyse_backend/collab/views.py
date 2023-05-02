@@ -20,10 +20,10 @@ class UsersView(APIView):
         is_PLUS = False
         rating = False
         skill = False
+        q = False
         try:
             is_VIP = request.GET['is_vip']
         except:
-            print('novip')
             pass
 
         try:
@@ -38,6 +38,11 @@ class UsersView(APIView):
 
         try:
             skill = request.GET['skill']
+        except:
+            pass
+
+        try:
+            q = request.GET['q']
         except:
             pass
 
@@ -56,6 +61,9 @@ class UsersView(APIView):
                 kwargs['rating__gt'] = int(rating)-1
             if skill:
                 kwargs['user__skills__skill__name'] = skill
+            if q:
+                kwargs['user__username__icontains'] = q 
+
             for id in matches:
                 kwargs['user__id'] = id
                 
@@ -64,12 +72,13 @@ class UsersView(APIView):
                     serialized = model.serialize()
                     serialized['is_match'] = True
                     users.append(serialized)
-                    
+
             others = UserInfo.objects.filter(
                     ~Q(user__id__in=matches),
                     Q(subscription__level=2) if is_VIP else Q() | Q(subscription__level=1) if is_PLUS else Q(),
                     Q(rating__gt=int(rating)-1) if rating else Q(),
                     Q(user__skills__skill__name=skill) if skill else Q(),
+                    Q(user__username__icontains=q) if q else Q()
                 )
             
             for user in others:

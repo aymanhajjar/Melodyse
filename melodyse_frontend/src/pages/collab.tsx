@@ -3,7 +3,7 @@ import styles from '@/styles/Collab.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import CollabSearchBar from '@/components/CollabSearchBar/CollabSearchBar'
-import FindMatchButton from '@/components/FindMatchButton/FindMatchButton'
+import { useRouter } from 'next/router'
 import CheckBox from '@/components/CheckBox/CheckBox'
 import SelectBox from '@/components/SelectBox/SelectBox'
 import MusicianCard from '@/components/MusicianCard/MusicianCard'
@@ -20,7 +20,20 @@ export default function Collab(props : any) {
   const [skillValue, setSkillValue] = useState()
   const [ratingValue, setRatingValue] = useState()
 
+  const router = useRouter()
+
   useEffect(() => {
+
+    if (router.query.skill) {
+      setSkillValue(router.query.skill)
+    } else getUsers()
+  }, [])
+
+  useEffect(() => {
+    getUsersFilters()
+  }, [skillValue, ratingValue, isVIP, isPLUS])
+
+  const getUsers = () => {
     axios.get(`${process.env.SITE_URL}/getmusicians?page=1`, {
       withCredentials: true
     }).then(res => {
@@ -28,31 +41,32 @@ export default function Collab(props : any) {
       setArtists(res.data)
     })
     .catch(err=> console.error(err))
-  }, [])
+  }
 
-  useEffect(() => {
-    setLoading(true)
-    axios.get(`${process.env.SITE_URL}/getmusicians?page=${1}${skillValue ? `&&skill=${skillValue}` : ''}${ratingValue ? `&&rating=${ratingValue}` : ''}${isVIP ? `&&is_vip=true` : ''}${isPLUS ? `&&is_plus=true` : ''}`, {
-      withCredentials: true
-    }).then(res => {
-      setLoading(false)
-      setHasMore(false)
-      setArtists(res.data)
-    })
-    .catch(err=> {
-      try {
-        if (err.response.status === 404) setHasMore(false)
-    } catch {
-        console.error(err)
-    }})
-    if(!skillValue && !ratingValue && !isPLUS && !isVIP) {
+  const getUsersFilters = () => {
+    if(!skillValue && !ratingValue && !isPLUS && !isVIP && !searchVal) {
       setHasMore(true)
       setPage(1)
+    } else {
+      setLoading(true)
+      axios.get(`${process.env.SITE_URL}/getmusicians?${searchVal ? `q=${searchVal}` : ''}${skillValue ? `&&skill=${skillValue}` : ''}${ratingValue ? `&&rating=${ratingValue}` : ''}${isVIP ? `&&is_vip=true` : ''}${isPLUS ? `&&is_plus=true` : ''}`, {
+        withCredentials: true
+      }).then(res => {
+        setLoading(false)
+        setHasMore(false)
+        setArtists(res.data)
+        console.log('resulttedd', res.data)
+      })
+      .catch(err=> {
+        try {
+          if (err.response.status === 404) setHasMore(false)
+      } catch {
+          console.error(err)
+      }})
     }
-  }, [skillValue, ratingValue, isVIP, isPLUS])
+  }
 
   function handleScroll(e) {
-    console.log(e.target.scrollHeight - e.target.scrollTop, e.target.clientHeight )
     if (Math. trunc(e.target.scrollHeight - e.target.scrollTop) == e.target.clientHeight) {
       axios.get(`${process.env.SITE_URL}/getmusicians?page=${page+1}`, {
         withCredentials: true
@@ -88,7 +102,7 @@ export default function Collab(props : any) {
         </div>
 
         <div className={styles.topBar}>
-          <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)}/>
+          <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)} submit={getUsersFilters}/>
           <div className={styles.filters}>
             <span>FILTER BY:</span>
             <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>

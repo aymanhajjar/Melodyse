@@ -24,7 +24,8 @@ $main_red: #AB4967;
 }
 
 .container:hover {
-    transform: scale(1.05);
+    transform: translateY(-0.2rem);
+    filter: brightness(110%);
     transition: all 0.3s;
 }
 
@@ -40,4 +41,10 @@ $main_red: #AB4967;
 
 .black {
     color: black;
+}
+
+.loading {
+    width: 2rem;
+    margin: auto;
+    text-align: center;
 }
