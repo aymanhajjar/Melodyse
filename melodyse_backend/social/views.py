@@ -69,12 +69,29 @@ def requestFriend(request):
                     'count': count
                 }
             )
-            return JsonResponse({'status': 'added'})
+            return JsonResponse({'status': 'requested'})
 
         if action == 'remove':
             target_user = User.objects.get(username=username)
-            FriendRequest.objects.delete(user=target_user, sender=request.user)
+            FriendRequest.objects.get(user=target_user, sender=request.user, is_accepted=None).delete()
             return JsonResponse({'status': 'removed'})
     
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def removeFriend(request):
+    if request.user.is_authenticated:
+        username = request.POST['username']
+        target_user = User.objects.get(username=username)
+        
+        request.user.friends.get().friends.remove(target_user)
+        request.user.save()
+        target_user.friends.get().friends.remove(request.user)
+        target_user.save()
+
+        friends_manager = request.user.friends
+
+        return JsonResponse({'status': 'removed'})
+
     else:
         return HttpResponse('User not logged in', status=403)

@@ -7,6 +7,7 @@ import ProfileActionButton from '@/components/ProfileActionButton/ProfileActionB
 import UserSkillCard from '@/components/UserSkillCard/UserSkillCard'
 import Artist from '@/components/Artist/Artist'
 import Song from '@/components/Song/Song'
+import CollabPrompt from '@/components/CollabPrompt/CollabPrompt'
 
 export default function Profile({data} : any) {
   const [picLoading, setPicLoading] = useState(false)
@@ -18,8 +19,14 @@ export default function Profile({data} : any) {
   const [nameVal, setNameVal] = useState(data.full_name)
   const [usernameError, setUsernameError] = useState(false)
   const [requested, setRequested] = useState(false)
+  const [isFriend, setIsFriend] = useState(false)
 
   const router = useRouter()
+
+  useEffect(() => {
+    if(data.requested) setRequested(true)
+    if(data.is_friend) setIsFriend(true)
+  }, [])
 
   const pictureChange = (e) => {
     setPicLoading(true)
@@ -96,6 +103,19 @@ export default function Profile({data} : any) {
     }).catch(err => console.error(err))
   }
 
+  const removeFriend = () => {
+    const formdata = new FormData()
+    formdata.append('username', data.username)
+    axios.post(`${process.env.SITE_URL}/remove-friend`, formdata, {
+      withCredentials: true
+    }).then(res => {
+      if(res.data.status == 'removed') {
+        setIsFriend(false)
+        setRequested(false)
+      }
+    }).catch(err => console.error(err))
+  }
+
 
   return (
     <>
@@ -143,7 +163,10 @@ export default function Profile({data} : any) {
 
           </div>
 
-          {!data.can_edit && <ProfileActionButton name={requested ? "Requested" : "Add Friend"} pic='/icons/add-friend.png' submit={requested ? addRemoveFriendReq('remove') : addRemoveFriendReq('add')} />}
+          {!data.can_edit && <ProfileActionButton 
+          name={isFriend ? 'Friends' : requested ? "Requested" : "Add Friend"} 
+          pic={isFriend ? '/icons/friend.png' : requested ? '/icons/request.png' : '/icons/add-friend.png'}
+          submit={isFriend ? removeFriend : requested ? () => addRemoveFriendReq('remove') : () => addRemoveFriendReq('add')} />}
         </div>
 
         <div className={styles.div2}>
@@ -229,6 +252,8 @@ export default function Profile({data} : any) {
               <img src='/icons/friends.png'/>
               <span>{data.friends} friends</span>
             </div>
+
+            <CollabPrompt type='hire' />
 
           </div>
         </div>

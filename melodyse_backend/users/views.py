@@ -224,6 +224,14 @@ def getProfile(request, username):
             serialized['can_edit'] = True
         else:
             serialized['can_edit'] = False
+        try:
+            friend_request = FriendRequest.objects.get(user=user, sender=request.user, is_accepted=None)
+            serialized['requested'] = True
+        except:
+            pass
+        if UserFriend.objects.filter(user=request.user, friends=user).exists():
+            serialized['is_friend'] = True
+
     else:
         serialized['can_edit'] = False
     return JsonResponse(serialized, safe=False)
