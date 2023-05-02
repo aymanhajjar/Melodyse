@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     path("respond-request", views.respondRequest),
+    path("request-friend", views.requestFriend),
 ]

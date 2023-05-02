@@ -35,7 +35,7 @@ def respondRequest(request):
             count = Notification.objects.filter(user=req.sender, is_read=False).count()
 
             channel_layer = get_channel_layer()
-            print(str('gtsssss' + str(req.sender.id)))
+
             async_to_sync(channel_layer.group_send)(
                 str(req.sender.id),
                 {
@@ -50,3 +50,31 @@ def respondRequest(request):
             req.is_accepted = False
             req.save()
             return JsonResponse({'status': 'rejected'})
+        
+def requestFriend(request):
+    if request.user.is_authenticated:
+        action = request.POST['action']
+        username = request.POST['username']
+
+        if action == 'add':
+            target_user = User.objects.get(username=username)
+            FriendRequest.objects.create(user=target_user, sender=request.user)
+
+            channel_layer = get_channel_layer()
+            count = FriendRequest.objects.filter(user=target_user, is_seen=False).count()
+            async_to_sync(channel_layer.group_send)(
+                str(target_user.id),
+                {
+                    'type': 'new_friend',
+                    'count': count
+                }
+            )
+            return JsonResponse({'status': 'added'})
+
+        if action == 'remove':
+            target_user = User.objects.get(username=username)
+            FriendRequest.objects.delete(user=target_user, sender=request.user)
+            return JsonResponse({'status': 'removed'})
+    
+    else:
+        return HttpResponse('User not logged in', status=403)
