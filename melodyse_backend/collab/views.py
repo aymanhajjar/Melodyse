@@ -75,6 +75,7 @@ class UsersView(APIView):
 
             others = UserInfo.objects.filter(
                     ~Q(user__id__in=matches),
+                    ~Q(user__id=request.user.id),
                     Q(subscription__level=2) if is_VIP else Q() | Q(subscription__level=1) if is_PLUS else Q(),
                     Q(rating__gt=int(rating)-1) if rating else Q(),
                     Q(user__skills__skill__name=skill) if skill else Q(),

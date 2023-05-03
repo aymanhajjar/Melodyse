@@ -59,9 +59,9 @@
 | ---| ---| ---|
 | ![fsdaf](./readme/melodyse/production.png) | ![fsdaf](./readme/melodyse/songwriting.png) | ![Landing](./readme/melodyse/learning.png) | 
 
-| Release Assistant Screen | | |
+| Release Assistant Screen | Listen Screen | |
 | ---| ---| ---|
-|![fsdaf](./readme/melodyse/release.png) | | |
+|![fsdaf](./readme/melodyse/release.png) | ![fsdaf](./readme/melodyse/release.png)| |
 
 > To implement a matching algorithm, we used a small dataset that contains users and their favorite genres. We then used cosine similarity to calculate the similarities between the users. Here is what the dataset looks like :
 
