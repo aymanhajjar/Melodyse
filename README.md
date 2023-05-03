@@ -27,7 +27,7 @@
 <!-- Prototyping -->
 <img src="./readme/title3.svg"/>
 
-> We designed Coffee Express using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
+> We designed Melodyse using wireframes and mockups, iterating on the design until we reached the ideal layout for easy navigation and a seamless user experience.
 
 ### Wireframes
 | Profile screen  | Production Assistant screen |  Assistant screen |
@@ -58,6 +58,7 @@
 | Production Assistant Screen | Songwriting Assistant Screen | Learning Assistant screen  |
 | ---| ---| ---|
 | ![fsdaf](./readme/melodyse/production.png) | ![fsdaf](./readme/melodyse/songwriting.png) | ![Landing](./readme/melodyse/learning.png) | 
+
 | Release Assistant Screen |
 | ---| ---| ---|
 |![fsdaf](./readme/melodyse/release.png) |
