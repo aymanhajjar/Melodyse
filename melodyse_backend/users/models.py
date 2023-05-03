@@ -146,6 +146,7 @@ class Project(models.Model):
         return self.title
     def serialize(self):
         return {
+            'id': self.id,
             'owner': self.owner.username,
             'title': self.title,
             'date_started': self.date_started,

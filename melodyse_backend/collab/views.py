@@ -125,6 +125,10 @@ def sendInvite(request):
     
 def getProject(request, id):
     if request.user.is_authenticated:
-
+        project = Project.objects.get(id=id, members=request.user)
+        if project is not None:
+            return JsonResponse(project.serialize(), safe=False)
+        else:
+            return HttpResponse('Not Found', status=404)
     else:
         return HttpResponse('User not logged in', status=403)
