@@ -147,7 +147,9 @@ class Project(models.Model):
     def serialize(self):
         return {
             'id': self.id,
-            'owner': self.owner.username,
+            "owner": {
+                'name': self.owner.first_name + ' ' + self.owner.last_name,
+                'username': self.owner.username},
             'title': self.title,
             'date_started': self.date_started,
             'description': self.description,
@@ -155,6 +157,7 @@ class Project(models.Model):
             'picture': self.picture.url,
             'is_completed': self.is_completed,
             'members': [{
+                'name': member.first_name + ' ' + member.last_name,
                 'username': member.username, 
                 'picture': member.info.get().picture.url} for member in self.members.all()]
         }
