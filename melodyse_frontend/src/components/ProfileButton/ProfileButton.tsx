@@ -55,7 +55,16 @@ export default function ProfileButton(props: any) {
                 <div className={styles.subContainer}>
                     <div className={styles.subPic}></div>
                 </div>
+                
                 <ActionButton name="My Profile" onClick={() => {
+                    router.push(`/profile/${props.username}`)
+                    setDropdownOpen(false)
+                }}/>
+                <ActionButton name="My Projects" onClick={() => {
+                    router.push(`/profile/${props.username}`)
+                    setDropdownOpen(false)
+                }}/>
+                <ActionButton name="Settings" onClick={() => {
                     router.push(`/profile/${props.username}`)
                     setDropdownOpen(false)
                 }}/>

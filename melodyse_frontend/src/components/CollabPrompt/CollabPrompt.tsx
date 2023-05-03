@@ -2,7 +2,7 @@ import styles from './CollabPrompt.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function CollabPrompt({ type, name, first_name, close, done }) {
+export default function CollabPrompt({ type, name, username, first_name, close, done }) {
 
     const [prjNameVal, setPrjNameVal] = useState()
     const [prjDescVal, setPrjDescVal] = useState()
@@ -12,13 +12,14 @@ export default function CollabPrompt({ type, name, first_name, close, done }) {
     const sendInvite = (type) => {
         const data = new FormData()
         data.append('type', type)
+        data.append('username', username)
         data.append('project_name', prjNameVal)
         data.append('project_description', prjDescVal)
         data.append('offered_amount', offeredAmountVal),
         data.append('message', messageVal)
         axios.post(`${process.env.SITE_URL}/send-invite`, data, {
             withCredentials: true
-        }).then(res => done())
+        }).then(res => {done(); close()})
         .catch(err => console.error(err))
     }
 

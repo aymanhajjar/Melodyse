@@ -102,7 +102,10 @@ def sendInvite(request):
         username = request.POST['username']
         name = request.POST['project_name']
         description = request.POST['project_description']
-        amount = request.POST['offered_amount']
+        if type == 'hire':
+            amount = request.POST['offered_amount']
+        else:
+            amount = None
         message = request.POST['message']
 
         is_collab = True if type == 'collab' else False

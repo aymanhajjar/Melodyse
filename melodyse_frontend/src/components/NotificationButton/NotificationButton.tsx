@@ -1,13 +1,14 @@
 import styles from './notificationButton.module.scss'
 import { useEffect, useState } from 'react'
-import FormInput from '../FormInput/FormInput'
+import { useRouter } from 'next/router'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 
 export default function NotificationButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [notifications, setNotifications] = useState()
+
+    const router = useRouter()
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -16,6 +17,7 @@ export default function NotificationButton(props: any) {
         }
         setDropdownOpen(!dropdownOpen)
     }
+
 
     const getNotfs = () => {
         axios.get(`${process.env.SITE_URL}/getnotifications`, {
@@ -45,7 +47,10 @@ export default function NotificationButton(props: any) {
 
                 <h2>Notifications:</h2>
                 {notifications ? notifications.map(notf => (
-                    <div className={notf.is_read ? styles.notfRead : styles.notfUnread}>
+                    <div className={notf.is_read ? styles.notfRead : styles.notfUnread} 
+                        onClick={() => {
+                            setDropdownOpen(false)
+                            router.push(`/profile/${notf.target_user}`)}}>
                         <div className={styles.details}>
                         <h3>{notf.title}</h3>
                         <span>{notf.content}</span>

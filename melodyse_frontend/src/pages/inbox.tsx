@@ -7,7 +7,7 @@ import ChatInput from '@/components/ChatInput/ChatInput'
 import Message from '@/components/Message/Message'
 import { useRouter } from 'next/router'
 
-export default function Inbox({inbox, userData, chatOpened} : any) {
+export default function Inbox({inbox, userData, chatOpened, username} : any) {
     const [searchVal, setSearchVal] = useState('')
     const [searchRes, setSearchRes] = useState([])
     const [selectedChat, setSelectedChat] = useState(-1)
@@ -26,6 +26,21 @@ export default function Inbox({inbox, userData, chatOpened} : any) {
     useEffect(() => {
         setSelectedChat(router.query.chatOpened)
     }, [chatOpened])
+
+    useEffect(() => {
+        if(router.query.username) {
+            axios.get(`${process.env.SITE_URL}/getchat?username=${router.query.username}&&page=1`, {
+                withCredentials:true
+            }).then(res => {
+                setSelectedChat(res.data.chat_id)
+                setMessages(res.data.messages)
+                if(res.data.chat) setChats([...chats, res.data.chat])
+                setLoadingMsg(false)
+                setSearchVal('')
+            })
+            .catch(err => console.error(err))
+        }
+    }, [username])
 
     useEffect(() => {
         if(searchVal.length > 0) {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import AIButton from '@/components/AIButton/AIButton'
 
-export default function Listen(props : any) {
+export default function Assistant(props : any) {
     const [points, setPoints] = useState()
   
     useEffect(() => {

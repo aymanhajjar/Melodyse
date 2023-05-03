@@ -10,6 +10,7 @@ import Song from '@/components/Song/Song'
 import CollabPrompt from '@/components/CollabPrompt/CollabPrompt'
 
 export default function Profile({data} : any) {
+
   const [picLoading, setPicLoading] = useState(false)
   const [descriptionEdit, setDescriptionEdit] = useState(false)
   const [descriptionVal, setDescriptionVal] = useState(data.description)
@@ -24,10 +25,8 @@ export default function Profile({data} : any) {
   const [collabOpen, setCollabOpen] = useState(false)
   const [status, setStatus] = useState(false)
 
-
   const router = useRouter()
 
-  console.log(data)
 
   useEffect(() => {
     if(data.requested) setRequested(true)
@@ -238,11 +237,15 @@ export default function Profile({data} : any) {
 
         <div className={styles.div3}>
           {!data.can_edit ? <div className={styles.actions}>
+
             <ProfileActionButton name="Hire" pic='/icons/briefcase.png' color='#47E5BC' submit={() => setHireOpen(true)}/>
+
             <ProfileActionButton name="Collab" pic='/icons/handshake.png' color="#FFE8D1" submit={() => setCollabOpen(true)}/>
-            <ProfileActionButton name="Message" pic='/icons/email.png' color="#D49BAE"/>
+
+            <ProfileActionButton name="Message" pic='/icons/email.png' color="#D49BAE" submit={() => router.push({ pathname: '/inbox', query: { username: data.username }})}/>
+
+          {status && <span className={styles.inviteSent}>Invite Sent!</span>}
           </div> : <span className={styles.editText}>This is how others see your profile. Hover to edit.</span>}
-          
           <div className={styles.additionalInfo}>
 
             <div className={styles.rating}> 

@@ -75,6 +75,7 @@ $main_red: #AB4967;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding-bottom: 1rem;
 }
 
 .noChat {
@@ -85,7 +86,8 @@ $main_red: #AB4967;
     display: flex;
     width: 100%;
     gap: 1rem;
-    background-color: #FFE8D1;
+    background-color: white;
+    box-shadow: 5 5 10px rgba(89, 89, 89, 0.5);
     padding: 1rem;
     color: black;
     border-radius: 10px;
@@ -129,7 +131,9 @@ $main_red: #AB4967;
 
 .profPic {
     width: 4rem;
-    object-fit: contain;
+    aspect-ratio: 1/1;
+    height: 4rem;
+    object-fit: cover;
     border-radius: 10px;
 }
 
