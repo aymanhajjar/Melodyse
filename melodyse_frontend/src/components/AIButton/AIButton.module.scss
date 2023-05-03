@@ -16,7 +16,8 @@ $main_red: #AB4967;
 }
 
 .aibutton:hover {
-    transform: scale(1.1);
+    transform: translateY(-0.2rem);
+    filter: brightness(110%);
     transition: all 0.3s;
 }
 
