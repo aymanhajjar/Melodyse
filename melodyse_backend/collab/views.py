@@ -113,7 +113,7 @@ def sendInvite(request):
         project.members.add(request.user)
         project.members.add(recipient)
 
-        ProjectInvite.objects.create(initiator=request.user, recipient=recipient, is_collab=is_collab, project=project, message=message)
+        ProjectInvite.objects.create(initiator=request.user, recipient=recipient, is_collab=is_collab, project=project, message=message, offered_amount=amount)
 
         return JsonResponse({'status': 'invite sent'})
         
