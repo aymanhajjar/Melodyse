@@ -122,3 +122,9 @@ def sendInvite(request):
         
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def getProject(request, id):
+    if request.user.is_authenticated:
+
+    else:
+        return HttpResponse('User not logged in', status=403)
