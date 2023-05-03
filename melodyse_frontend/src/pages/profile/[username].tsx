@@ -22,6 +22,8 @@ export default function Profile({data} : any) {
   const [isFriend, setIsFriend] = useState(false)
   const [hireOpen, setHireOpen] = useState(false)
   const [collabOpen, setCollabOpen] = useState(false)
+  const [status, setStatus] = useState(false)
+
 
   const router = useRouter()
 
@@ -81,6 +83,13 @@ export default function Profile({data} : any) {
     }
   }
 
+  const showStatus = () => {
+    setStatus(true)
+    setInterval(() => {
+      setStatus(false)
+    }, 4000)
+  }
+
   const handleKeyDownDescription = (e) => {
     if(e.key === 'Enter') {
       const formdata = new FormData()
@@ -119,7 +128,6 @@ export default function Profile({data} : any) {
       }
     }).catch(err => console.error(err))
   }
-
 
   return (
     <>
@@ -260,8 +268,8 @@ export default function Profile({data} : any) {
 
           </div>
         </div>
-            {hireOpen && <CollabPrompt type='hire' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setHireOpen(false)}/>}
-            {collabOpen && <CollabPrompt type='collab' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setCollabOpen(false)}/>}
+            {hireOpen && <CollabPrompt type='hire' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setHireOpen(false)} username={data.username} done={showStatus}/>}
+            {collabOpen && <CollabPrompt type='collab' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setCollabOpen(false)} username={data.username} done={showStatus}/>}
       </div>
     </>
   )
