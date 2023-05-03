@@ -4,5 +4,6 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path("getmusicians", views.UsersView.as_view())
+    path("getmusicians", views.UsersView.as_view()),
+    path("send-invite", views.sendInvite)
 ]

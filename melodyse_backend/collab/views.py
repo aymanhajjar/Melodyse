@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
-from users.models import User, UserInfo
+from users.models import User, UserInfo, ProjectInvite, Project
 from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -95,3 +95,27 @@ class UsersView(APIView):
             users = UserInfo.objects.all()
             page = self.pagination_class.paginate_queryset(users, request)
             return Response([user.serialize() for user in page])
+        
+def sendInvite(request):
+    if request.user.is_authenticated:
+        type = request.POST['type']
+        username = request.POST['username']
+        name = request.POST['project_name']
+        description = request.POST['project_description']
+        amount = request.POST['offered_amount']
+        message = request.POST['message']
+
+        is_collab = True if type == 'collab' else False
+
+        recipient = User.objects.get(username=username)
+        
+        project = Project.objects.create(owner=request.user, title=name, description=description, is_collab=is_collab)
+        project.members.add(request.user)
+        project.members.add(recipient)
+
+        ProjectInvite.objects.create(initiator=request.user, recipient=recipient, is_collab=is_collab, project=project, message=message)
+
+        return JsonResponse({'status': 'invite sent'})
+        
+    else:
+        return HttpResponse('User not logged in', status=403)
