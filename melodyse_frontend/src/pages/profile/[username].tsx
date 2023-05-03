@@ -253,10 +253,10 @@ export default function Profile({data} : any) {
               <span>{data.friends} friends</span>
             </div>
 
-            <CollabPrompt type='hire' />
 
           </div>
         </div>
+            {/* <CollabPrompt type='hire' name={data.full_name.toUpperCase()} /> */}
       </div>
     </>
   )
