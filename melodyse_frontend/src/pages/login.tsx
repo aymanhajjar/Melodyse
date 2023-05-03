@@ -20,7 +20,7 @@ export default function LoginPage(props : any) {
 
   useEffect(() => {
     if(props.loggedIn) {
-      router.push('/')
+      // router.push('/')
     }
   }, [props.loggedIn])
 

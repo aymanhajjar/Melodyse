@@ -20,6 +20,7 @@ export default function Profile({data} : any) {
   const [usernameError, setUsernameError] = useState(false)
   const [requested, setRequested] = useState(false)
   const [isFriend, setIsFriend] = useState(false)
+  const [hireOpen, setHireOpen] = useState(false)
 
   const router = useRouter()
 
@@ -226,7 +227,7 @@ export default function Profile({data} : any) {
 
         <div className={styles.div3}>
           {!data.can_edit ? <div className={styles.actions}>
-            <ProfileActionButton name="Hire" pic='/icons/briefcase.png' color='#47E5BC'/>
+            <ProfileActionButton name="Hire" pic='/icons/briefcase.png' color='#47E5BC' submit={() => setHireOpen(true)}/>
             <ProfileActionButton name="Collab" pic='/icons/handshake.png' color="#FFE8D1"/>
             <ProfileActionButton name="Message" pic='/icons/email.png' color="#D49BAE"/>
           </div> : <span className={styles.editText}>This is how others see your profile. Hover to edit.</span>}
@@ -256,7 +257,7 @@ export default function Profile({data} : any) {
 
           </div>
         </div>
-            {/* <CollabPrompt type='hire' name={data.full_name.toUpperCase()} /> */}
+            {hireOpen && <CollabPrompt type='hire' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setHireOpen(false)}/>}
       </div>
     </>
   )
