@@ -26,22 +26,22 @@ export default function CollabPrompt({ type, name, first_name, close, done }) {
     
     <div className={type == 'hire' ? styles.hireContainer : styles.collabContainer}>
             {type == 'hire' && <>
-                    <h2>HIRE {name} FOR A PROJECT </h2>
+                    <h2>HIRE {name} FOR A PROJECT</h2>
                     <div className={styles.inputDiv}>
                         <label>Project Name:</label>
-                        <input placeholder='Wake Me Up...'/>
+                        <input placeholder='Wake Me Up...' value={prjNameVal} onChange={(e) => setPrjNameVal(e.target.value)}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label>Project Description:</label>
-                        <textarea placeholder='Project description...'/>
+                        <textarea placeholder='Project description...' value={prjDescVal} onChange={(e) => setPrjDescVal(e.target.value)}/>
                     </div>
                     <div className={styles.payDiv}>
                         <label>Offered Amout:</label>
-                        $<input type='number' placeholder='0.00'/>
+                        $<input type='number' placeholder='0.00' value={offeredAmountVal} onChange={(e) => setOfferedAmountVal(e.target.value)}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label>Message to {first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()} (optional):</label>
-                        <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`}/>
+                        <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`} value={messageVal} onChange={(e) => setMessageVal(e.target.value)}/>
                     </div>
                     <button type='button' className={styles.sendBtnHire} onClick={() => sendInvite('hire')}>SEND INVITE</button>
                     <div className={styles.close} onClick={close}>
@@ -50,18 +50,18 @@ export default function CollabPrompt({ type, name, first_name, close, done }) {
                 </>
             }
             {type == 'collab' && <>
-                    <h2>COLLAB WITH {name} ON A PROJECT </h2>
+                    <h2>COLLAB WITH {name} ON A PROJECT</h2>
                     <div className={styles.inputDiv}>
                         <label>Project Name:</label>
-                        <input placeholder='Wake Me Up...'/>
+                        <input placeholder='Wake Me Up...' value={prjDescVal} onChange={(e) => setPrjDescVal(e.target.value)}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label>Project Description:</label>
-                        <textarea placeholder='Project description...'/>
+                        <textarea placeholder='Project description...' value={offeredAmountVal} onChange={(e) => setOfferedAmountVal(e.target.value)}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label>Message to {first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()} (optional):</label>
-                        <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`}/>
+                        <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`} value={messageVal} onChange={(e) => setMessageVal(e.target.value)}/>
                     </div>
                     <button type='button' className={styles.sendBtnCollab} onClick={() => sendInvite('collab')}>SEND INVITE</button>
                     <div className={styles.close} onClick={close}>
