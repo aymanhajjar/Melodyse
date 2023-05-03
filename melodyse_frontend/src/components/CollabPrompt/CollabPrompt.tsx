@@ -44,7 +44,7 @@ export default function CollabPrompt({ type, name, first_name, close, submit }) 
                         <label>Message to {first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()} (optional):</label>
                         <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`}/>
                     </div>
-                    <button type='button' className={styles.sendBtn}>SEND INVITE</button>
+                    <button type='button' className={type=='hire' ? styles.sendBtnHire : styles.sendBtnCollab}>SEND INVITE</button>
                     <div className={styles.close} onClick={close}>
                         <img src='/icons/close.png'/>
                     </div>

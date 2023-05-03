@@ -38,6 +38,24 @@ $main_red: #AB4967;
     z-index: 1;
 }
 
+.collabContainer {
+    animation: fadeIn 0.5s forwards;
+    background-color: #FFE8D1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 1;
+}
+
 .inputDiv {
     display: flex;
     flex-direction: column;
