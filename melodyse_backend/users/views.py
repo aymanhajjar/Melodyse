@@ -10,7 +10,7 @@ from .modules import dataHandler
 from .modules import helpers
 from django.db.models import Q
 import requests
-
+from django.db.models import Sum
 # Create your views here.
 
 def getToken(request):
@@ -219,6 +219,8 @@ def getProfile(request, username):
     user = User.objects.get(username=username)
     info = UserInfo.objects.get(user = user)
     serialized = info.serialize()
+    total_likes = Track.objects.filter(owner=user).aggregate(total_likes=Sum('likes'))['total_likes']
+    serialized['total_likes'] = total_likes
     if request.user.is_authenticated:
         if username == request.user.username:
             serialized['can_edit'] = True

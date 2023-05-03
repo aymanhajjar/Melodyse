@@ -97,7 +97,7 @@ $main_red: #AB4967;
     width: 20%;
 }
 
-.sendBtn {
+.sendBtnHire {
     padding: 1rem;
     border-radius: 10px;
     border: none;
@@ -105,6 +105,16 @@ $main_red: #AB4967;
     cursor: pointer;
     font-weight: 600;
     background-color: #17A17C;
+}
+
+.sendBtnCollab {
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #FFB870;
 }
 
 .close {

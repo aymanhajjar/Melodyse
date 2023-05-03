@@ -1,7 +1,26 @@
 import styles from './CollabPrompt.module.scss'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-export default function CollabPrompt({ type, name, first_name, close, submit }) {
+export default function CollabPrompt({ type, name, first_name, close, done }) {
+
+    const [prjNameVal, setPrjNameVal] = useState()
+    const [prjDescVal, setPrjDescVal] = useState()
+    const [offeredAmountVal, setOfferedAmountVal] = useState()
+    const [messageVal, setMessageVal] = useState()
+
+    const sendInvite = (type) => {
+        const data = new FormData()
+        data.append('type', type)
+        data.append('project_name', prjNameVal)
+        data.append('project_description', prjDescVal)
+        data.append('offeredAmountVal', offeredAmountVal),
+        data.append('message', messageVal)
+        axios.post(`${process.env.SITE_URL}/send-invite`, data, {
+            withCredentials: true
+        }).then(res => done())
+        .catch(err => console.error(err))
+    }
 
     return(<>
     
@@ -24,7 +43,7 @@ export default function CollabPrompt({ type, name, first_name, close, submit }) 
                         <label>Message to {first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()} (optional):</label>
                         <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`}/>
                     </div>
-                    <button type='button' className={styles.sendBtn}>SEND INVITE</button>
+                    <button type='button' className={styles.sendBtnHire} onClick={() => sendInvite('hire')}>SEND INVITE</button>
                     <div className={styles.close} onClick={close}>
                         <img src='/icons/close.png'/>
                     </div>
@@ -44,7 +63,7 @@ export default function CollabPrompt({ type, name, first_name, close, submit }) 
                         <label>Message to {first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()} (optional):</label>
                         <textarea placeholder={`Hey ${first_name.charAt(0).toUpperCase()+ first_name.slice(1).toLowerCase()}!...`}/>
                     </div>
-                    <button type='button' className={type=='hire' ? styles.sendBtnHire : styles.sendBtnCollab}>SEND INVITE</button>
+                    <button type='button' className={styles.sendBtnCollab} onClick={() => sendInvite('collab')}>SEND INVITE</button>
                     <div className={styles.close} onClick={close}>
                         <img src='/icons/close.png'/>
                     </div>

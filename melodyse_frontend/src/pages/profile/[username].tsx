@@ -25,6 +25,8 @@ export default function Profile({data} : any) {
 
   const router = useRouter()
 
+  console.log(data)
+
   useEffect(() => {
     if(data.requested) setRequested(true)
     if(data.is_friend) setIsFriend(true)
@@ -242,12 +244,12 @@ export default function Profile({data} : any) {
                       />
                     ))}
               </div>
-              <span>Rated by:</span>
+              <span>Rated by {data.rating_count} people</span>
             </div>
 
             <div className={styles.stats}>
               <img src='/icons/like.png'/>
-              <span>{data.likes_count} likes received</span>
+              <span>{data.total_likes? data.total_likes : 0} likes received</span>
             </div>
 
             <div className={styles.stats}>
@@ -259,7 +261,7 @@ export default function Profile({data} : any) {
           </div>
         </div>
             {hireOpen && <CollabPrompt type='hire' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setHireOpen(false)}/>}
-            {collabOpen && <CollabPrompt type='collab' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setHireOpen(false)}/>}
+            {collabOpen && <CollabPrompt type='collab' name={data.full_name.toUpperCase()} first_name={data.full_name.split(' ')[0]} close={() => setCollabOpen(false)}/>}
       </div>
     </>
   )
