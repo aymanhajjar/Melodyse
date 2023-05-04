@@ -159,7 +159,15 @@ class Project(models.Model):
             'members': [{
                 'name': member.first_name + ' ' + member.last_name,
                 'username': member.username, 
-                'picture': member.info.get().picture.url} for member in self.members.all()]
+                'picture': member.info.get().picture.url} for member in self.members.all()],
+            'tasks': [{
+                'target_user_name': task.target_user.first_name + ' ' + task.target_user.last_name,
+                'target_username': task.target_user.username,
+                'name': task.name,
+                'description': task.description,
+                'order': task.order,
+                'is_completed': task.is_completed,
+            } for task in self.tasks.all()]
         }
     
 class ProjectInvite(models.Model):
@@ -205,7 +213,7 @@ class Task(models.Model):
     order = models.IntegerField(default=0)
     is_completed = models.BooleanField(default=False)
     is_milestone = models.BooleanField(default=False)
-    payout = models.IntegerField(blank=True)
+    payout = models.IntegerField(blank=True, null=True)
     def __str__(self):
         return self.name + ' in ' + self.project.title
 
