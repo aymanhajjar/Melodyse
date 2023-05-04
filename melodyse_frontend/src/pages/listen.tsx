@@ -8,7 +8,6 @@ import ActionButton from '@/components/ProfileButton/ActionButton'
 
 export default function Listen({ track_list, artists_list } : any) {
   const [tracks, setTracks] = useState(track_list)
-  const [artists, setArtists] = useState(artists_list)
   const [activeSection, setActiveSection] = useState('1')
   const [searchValue, setSearchValue] = useState('')
   const [loading, setLoading] = useState(false)
@@ -21,7 +20,6 @@ export default function Listen({ track_list, artists_list } : any) {
     { id: '3', ref: useRef(null) },
   ]
   const container = useRef(null)
-
 
   useEffect(() => {
     !searchLoading && !searchRes && sections[0].ref.current.classList.add(styles.visibleFirst)
@@ -46,6 +44,7 @@ export default function Listen({ track_list, artists_list } : any) {
 
   useEffect(() => {
     setLoading(true)
+    console.log(`${process.env.SITE_URL}/gettracks?page=${activeSection}`)
     axios.get(`${process.env.SITE_URL}/gettracks?page=${activeSection}`).then(res => {
         setLoading(false)
         setTracks(res.data)})
@@ -108,21 +107,21 @@ export default function Listen({ track_list, artists_list } : any) {
                                 />
                             ))}
                     </div>
-                <section ref={sections[0].ref}>
+                <section id={sections[0].id} ref={sections[0].ref}>
                     {!loading && tracks && tracks.map(track => (
                         <TrackCard track={track}/>
                     ))}
                     <span></span>
                     {loading && <img className={styles.loading} src='/loading-melodyse.gif'/>}
                 </section>
-                <section ref={sections[1].ref}>
+                <section id={sections[1].id} ref={sections[1].ref}>
                     {!loading && tracks && tracks.map(track => (
                         <TrackCard track={track}/>
                     ))}
                     <span></span>
                     {loading && <img className={styles.loading} src='/loading-melodyse.gif'/>}
                 </section>
-                <section ref={sections[2].ref}>
+                <section id={sections[2].id} ref={sections[2].ref}>
                     {!loading && tracks && tracks.map(track => (
                         <TrackCard track={track}/>
                     ))}

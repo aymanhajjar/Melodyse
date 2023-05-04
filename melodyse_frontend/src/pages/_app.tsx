@@ -34,7 +34,7 @@ export default function MyApp({ Component, pageProps } : AppProps) {
             }
         })
     })
-
+    
     const url = `ws://localhost:8000/ws/socket-server-social/`
             const newsocket = new WebSocket(url)
             newsocket.onmessage = (e) => {
@@ -46,8 +46,38 @@ export default function MyApp({ Component, pageProps } : AppProps) {
             }
   }, [])
 
+  useEffect(() => {
+    if(!loggedIn) {
+      setUserData({})
+    } else {
+      getInfo()
+    }
+  }, [loggedIn])
   
-  
+  const getInfo = () => {
+    axios.get(`${process.env.SITE_URL}/gettoken`, {
+      withCredentials: true
+    }).then(res => {
+      const csrf = Cookies.get('csrftoken')
+      axios.defaults.headers.common['X-CSRFToken'] = csrf
+      axios.get(`${process.env.SITE_URL}/getinfo`, {
+        withCredentials: true
+        }).then(res => {
+            setLoggedIn(true)
+            setUserData(res.data)
+            getSubscription()
+        }).catch(err => {
+            try {
+                if (err.response.status === 403 && err.response.data == 'User not logged in') {
+                    setLoggedIn(false)
+                }
+            } catch {
+                console.error(err)
+            }
+        })
+    })
+  }
+
   const getSubscription = () => {
     axios.get(`${process.env.SITE_URL}/getsubscription`, {
         withCredentials: true

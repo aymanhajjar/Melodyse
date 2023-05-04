@@ -74,14 +74,15 @@ export default function Project({ project, messages_list, userData} : any) {
 
         <div className={styles.div2}>
             <div className={styles.tasks}>
-                
+                <h1>Tasks</h1>
             </div>
             <div className={styles.files}>
-
+                <h1>Files</h1>
             </div>
             <AIActionButtonWide name='Assistant'/>
             <div className={styles.actions}>
-
+                <button className={styles.actionBtn}></button>
+                <button className={styles.actionBtn}/>
             </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ $main_red: #AB4967;
   }
 
 .inputGroup:focus-within {
-    width: 45%;
+    width: 40%;
     transition: all 0.3s;
 }
 
@@ -44,7 +44,7 @@ $main_red: #AB4967;
   }
 
   .inputField:focus {
-    background-color: #dedede;
+    background-color: #e8e8e8;
     outline: none;
     // width: 45%;
     transition: all 0.3s;
