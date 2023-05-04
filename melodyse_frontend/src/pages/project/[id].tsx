@@ -31,7 +31,6 @@ export default function Project({ project, messages_list, userData} : any) {
             axios.post(`${process.env.SITE_URL}/update-tasks`, data, {
                 withCredentials: true
             }).catch(err => console.error(err))
-            console.log('taaaa ', tasks)
         }
     }, [tasks])
   console.log(project, messages_list)
@@ -48,8 +47,17 @@ export default function Project({ project, messages_list, userData} : any) {
         })
     }
   }
-  const addTask = () => {
-
+  const addTask = (task) => {
+    const data = new FormData()
+    data.append('task', JSON.stringify(task))
+    data.append('id', project.id)
+    axios.post(`${process.env.SITE_URL}/add-task`, data, {
+        withCredentials: true
+    }).then(res => {
+        setTasks([...tasks, res.data])
+        setAddTaskFormOpen(false)
+    })
+    .catch(err => console.error(err))
   }
   const markAsDone = (id) => {
     const updatedTasks = tasks.map(obj => {
@@ -59,7 +67,6 @@ export default function Project({ project, messages_list, userData} : any) {
         return obj
       })
       setTasks(updatedTasks)
-      console.log(updatedTasks)
   }
   return (
     <>
@@ -141,7 +148,7 @@ export default function Project({ project, messages_list, userData} : any) {
                     : <button className={styles.actionBtn}>LEAVE</button>}
             </div>
         </div>
-        {addTaskFormOpen && <AddTask members={project.members} close={() => setAddTaskFormOpen(false)} />}
+        {addTaskFormOpen && <AddTask members={project.members} close={() => setAddTaskFormOpen(false)} addTask={addTask}/>}
       </div>
     </>
   )

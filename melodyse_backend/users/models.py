@@ -217,7 +217,8 @@ class Task(models.Model):
     payout = models.IntegerField(blank=True, null=True)
     def __str__(self):
         return self.name + ' in ' + self.project.title
-    def serialize(self):{
+    def serialize(self):
+        return {
         'id': self.id,
         'target_user_name': self.target_user.first_name + ' ' + self.target_user.last_name,
         'target_username': self.target_user.username,

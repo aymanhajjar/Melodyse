@@ -176,11 +176,12 @@ def removeTask(request):
 def addTask(request):
     if request.user.is_authenticated:
         id = request.POST['id']
-        task = request.POST['task']
+        task_json = request.POST['task']
+        task = json.loads(task_json)
         project = Project.objects.get(id=id, members=request.user)
         target_user = User.objects.get(username=task['target_username'])
-        task = Task.objects.create(project=project, target_user=target_user, name=task['name'], description=task['description'], order=0)
+        newtask = Task.objects.create(project=project, target_user=target_user, name=task['name'], description=task['description'], order=0)
 
-        return JsonResponse(task.serialize(), safe=False)
+        return JsonResponse(newtask.serialize(), safe=False)
     else:
         return HttpResponse('User not logged in', status=403)

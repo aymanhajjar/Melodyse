@@ -2,18 +2,19 @@ import styles from './AddTask.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function AddTask({ members, close  }) {
+export default function AddTask({ members, close, addTask  }) {
 
-    const [taskName, setTaskName] = useState()
-    const [taskDescription, setTaskDescription] = useState()
-    const [targetUser, setTargetUser] = useState()
+    const [taskName, setTaskName] = useState('')
+    const [taskDescription, setTaskDescription] = useState('')
+    const [targetUser, setTargetUser] = useState('')
 
-    const addTask = () => {
+    const addTaskFunc = () => {
         let task = {
             'name': taskName,
             'description': taskDescription,
             'target_username': targetUser,
         }
+        addTask(task)
     }
 
     return(<>
@@ -37,7 +38,7 @@ export default function AddTask({ members, close  }) {
                             ))}
                         </select>
                     </div>
-                    <button type='button' className={styles.sendBtnHire} onClick={addTask}>ADD TASK</button>
+                    <button type='button' className={styles.sendBtnHire} onClick={addTaskFunc}>ADD TASK</button>
                     <div className={styles.close} onClick={close}>
                         <img src='/icons/close.png'/>
                     </div>
