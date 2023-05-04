@@ -15,16 +15,34 @@ export default function Project({ project, messages_list, userData} : any) {
     const [messages, setMessages] = useState(messages_list)
     const [loadingMsg, setLoadingMsg] = useState(false)
     const [hasMore, setHasMore] = useState(true)
+    const [tasks, setTasks] = useState(project.tasks)
     const [messageValue, setMessageValue] = useState('')
     
     const messagesContainerRef = useRef(null)
     const loadMoreRef = useRef(null)
-  console.log(project, messages_list)
+
+    useEffect(() => {
+        if(tasks != project.tasks) {
+            const data = new FormData()
+            data.append('tasks', tasks)
+            axios.post(`${process.env.SITE_URL}/change-tasks`, data, {
+                withCredentials: true
+            }).catch(err => console.error(err))
+        }
+    }, [tasks])
+//   console.log(project, messages_list)
   const handleScroll = () => {
 
   }
   const handleDragEnd = (event) => {
-
+    const {active, over} = event
+    if(active.id !== over.id) {
+        setTasks((items) => {
+            const activeIndex = tasks.findIndex(task => task.id === active.id)
+            const overIndex = tasks.findIndex(task => task.id === over.id)
+            return arrayMove(items, activeIndex, overIndex)
+        })
+    }
   }
   return (
     <>
@@ -55,7 +73,7 @@ export default function Project({ project, messages_list, userData} : any) {
                         <h3>Members:</h3>
                         <div className={styles.artistList}>
                             {project.members.map(member => (
-                                <ProjectArtistCard artist={member}/>
+                                <ProjectArtistCard key={member.username} artist={member}/>
                             ))}
                         </div>
                     </div>
@@ -66,7 +84,7 @@ export default function Project({ project, messages_list, userData} : any) {
                 <div className={styles.chatUI}>
                     <div className={styles.messagesContainer} ref={messagesContainerRef} onScroll={handleScroll}>
                         {loadingMsg ? <img className={styles.loadingMsg} src='/loading-melodyse.gif'/> : messages.length > 0 ? messages.map(msg => (
-                            <Message message={msg} is_mine={msg.author_username == userData.username}/>
+                            <Message key={msg.id} message={msg} is_mine={msg.author_username == userData.username}/>
                             
                         )) : <span>Start a conversation</span>}
                         {hasMore && <div className={styles.loadingMore} ref={loadMoreRef}>Loading more messages...</div>}
@@ -82,9 +100,9 @@ export default function Project({ project, messages_list, userData} : any) {
                 { project.tasks.length > 0 ? 
                         <div className={styles.tasks}>
                         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                            <SortableContext items={project.tasks} strategy={verticalListSortingStrategy}>
+                            <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
 
-                                {project.tasks.map(task => (
+                                {tasks.map(task => (
                                         <TaskCard key={task.id} task={task} id={task.id}/>
                                     ))}
                             </SortableContext>

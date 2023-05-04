@@ -10,7 +10,7 @@ export default function TaskCard({task, id}) {
         transform: CSS.Transform.toString(transform),
         transition
     }
-    console.log(id)
+    
     return (
         <div ref={setNodeRef} style={style} className={styles.container} {...attributes} {...listeners}>
             {task.name}
