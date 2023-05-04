@@ -19,10 +19,14 @@ class ChatView(APIView):
     def get(self, request):
         id = None
         username = None
+        project = None
         try:
             id = request.GET['id']
         except:
-            username = request.GET['username']
+            try:
+                username = request.GET['username']
+            except:
+                project = request.GET['project']
 
         if request.user.is_authenticated:
             
@@ -31,6 +35,8 @@ class ChatView(APIView):
             elif username:
                 target_user = User.objects.get(username=username)
                 chat = Chat.objects.filter(participants__username=request.user.username).filter(participants__username=username).first()
+            elif project:
+                chat = Chat.objects.get(project__id=project)
 
             if chat:
                 messages = chat.messages.all().order_by('-date_created')

@@ -278,7 +278,7 @@ class Chat(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="chat", blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return 'chat between ' + ', '.join([participant.username for participant in self.participants.all()])
+        return 'chat between ' + ', '.join([participant.username for participant in self.participants.all()]) + ' ' + str(self.id)
     def serialize(self):
         participants_list = [{'id': p.id, 'username': p.username} for p in self.participants.all()]
         try:

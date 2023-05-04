@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
     "@next/font": "^13.3.0",
     "@tonaljs/tonal": "^4.10.0",
     "@types/node": "18.15.11",
