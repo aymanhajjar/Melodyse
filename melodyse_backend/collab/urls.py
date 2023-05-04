@@ -7,5 +7,5 @@ urlpatterns = [
     path("getmusicians", views.UsersView.as_view()),
     path("send-invite", views.sendInvite),
     path("get-project/<int:id>", views.getProject),
-    path("change-tasks", views.changeTasks),
+    path("update-tasks", views.updateTasks),
 ]

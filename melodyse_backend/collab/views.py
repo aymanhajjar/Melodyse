@@ -1,10 +1,11 @@
 from rest_framework.pagination import PageNumberPagination
-from users.models import User, UserInfo, ProjectInvite, Project
+from users.models import User, UserInfo, ProjectInvite, Project, Task
 from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import findMatch
 from django.db.models import Q
+import json
 
 class UsersPagination(PageNumberPagination):
     page_size = 9
@@ -130,5 +131,44 @@ def getProject(request, id):
             return JsonResponse(project.serialize(), safe=False)
         else:
             return HttpResponse('Not Found', status=404)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def updateTasks(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        tasks_array = request.POST.get('tasks')
+        tasks = json.loads(tasks_array)
+        project = Project.objects.get(id=id, members=request.user)
+        if project.owner == request.user:
+            order = 0
+            for task in tasks:
+                try:
+                    if task['id']:
+                        oldtask = project.tasks.get(id=task['id'])
+                        oldtask.order = order
+                        oldtask.is_completed = task['is_completed']
+                        oldtask.save()
+                        order = order + 1
+                    else:
+                        target_user = User.objects.get(username=task['target_username'])
+                        Task.objects.create(project=project, target_user=target_user, name=task['name'], description=task['description'], order=order)
+                except Project.DoesNotExist:
+                    target_user = User.objects.get(username=task['target_username'])
+                    Task.objects.create(project=project, target_user=target_user, name=task['name'], description=task['description'], order=order)
+
+            return JsonResponse({'status': 'tasks updated'})
+        else:
+            return HttpResponse('Not Allowed', status=403)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def removeTask(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        task = Task.objects.get(id=id)
+        task.delete()
+
+        return JsonResponse({'status': 'task deleted'})
     else:
         return HttpResponse('User not logged in', status=403)

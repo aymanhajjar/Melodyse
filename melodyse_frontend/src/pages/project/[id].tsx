@@ -9,6 +9,7 @@ import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWi
 import { DndContext, closestCenter } from "@dnd-kit/core"
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import TaskCard from '@/components/TaskCard/TaskCard'
+import AddTask from '@/components/AddTask/AddTask'
 
 export default function Project({ project, messages_list, userData} : any) {
     const [moreInfo, setMoreInfo] = useState(false)
@@ -17,6 +18,7 @@ export default function Project({ project, messages_list, userData} : any) {
     const [hasMore, setHasMore] = useState(true)
     const [tasks, setTasks] = useState(project.tasks)
     const [messageValue, setMessageValue] = useState('')
+    const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
     
     const messagesContainerRef = useRef(null)
     const loadMoreRef = useRef(null)
@@ -24,13 +26,15 @@ export default function Project({ project, messages_list, userData} : any) {
     useEffect(() => {
         if(tasks != project.tasks) {
             const data = new FormData()
-            data.append('tasks', tasks)
-            axios.post(`${process.env.SITE_URL}/change-tasks`, data, {
+            data.append('tasks', JSON.stringify(tasks))
+            data.append('id', project.id)
+            axios.post(`${process.env.SITE_URL}/update-tasks`, data, {
                 withCredentials: true
             }).catch(err => console.error(err))
+            console.log('taaaa ', tasks)
         }
     }, [tasks])
-//   console.log(project, messages_list)
+  console.log(project, messages_list)
   const handleScroll = () => {
 
   }
@@ -43,6 +47,19 @@ export default function Project({ project, messages_list, userData} : any) {
             return arrayMove(items, activeIndex, overIndex)
         })
     }
+  }
+  const addTask = () => {
+
+  }
+  const markAsDone = (id) => {
+    const updatedTasks = tasks.map(obj => {
+        if (obj.id === id) { 
+          return { ...obj, is_completed: true }
+        }
+        return obj
+      })
+      setTasks(updatedTasks)
+      console.log(updatedTasks)
   }
   return (
     <>
@@ -98,12 +115,12 @@ export default function Project({ project, messages_list, userData} : any) {
             <div className={styles.tasks}>
                 <h1>Tasks</h1>
                 { project.tasks.length > 0 ? 
-                        <div className={styles.tasks}>
+                        <div className={styles.taskslist}>
                         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                             <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
 
                                 {tasks.map(task => (
-                                        <TaskCard key={task.id} task={task} id={task.id}/>
+                                        <TaskCard key={task.id} task={task} id={task.id} is_owner={project.owner.username == userData.username} markAsDone={markAsDone}/>
                                     ))}
                             </SortableContext>
                     </DndContext>
@@ -111,6 +128,7 @@ export default function Project({ project, messages_list, userData} : any) {
                     
                 : <span>No tasks assigned.</span>
                 }
+                <img src="/icons/plus.png" className={styles.addBtn} onClick={() => setAddTaskFormOpen(true)}/>
             </div>
             <div className={styles.files}>
                 <h1>Files</h1>
@@ -123,6 +141,7 @@ export default function Project({ project, messages_list, userData} : any) {
                     : <button className={styles.actionBtn}>LEAVE</button>}
             </div>
         </div>
+        {addTaskFormOpen && <AddTask members={project.members} close={() => setAddTaskFormOpen(false)} />}
       </div>
     </>
   )

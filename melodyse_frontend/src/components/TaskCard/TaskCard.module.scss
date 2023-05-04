@@ -1,7 +1,33 @@
-.container {
+$main_red: #AB4967;
+
+.container, .doneContainer {
     padding: 1rem;
     background-color: white;
     border-radius: 10px;
-    cursor: pointer;
+    cursor: grab;
     color: black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    outline: none;
+}
+
+.doneContainer {
+    background-color: #47E5BC;
+}
+
+.check {
+    width: 4rem;
+    position: absolute;
+    right: 1rem;
+}
+
+.container h4 {
+    color: $main_red;
+}
+
+.container span, .doneContainer span {
+    font-size: 0.9rem;
 }

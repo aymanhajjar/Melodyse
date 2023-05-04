@@ -168,7 +168,7 @@ class Project(models.Model):
                 'description': task.description,
                 'order': task.order,
                 'is_completed': task.is_completed,
-            } for task in self.tasks.all()]
+            } for task in self.tasks.all().order_by('order')]
         }
     
 class ProjectInvite(models.Model):
