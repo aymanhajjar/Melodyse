@@ -13,7 +13,8 @@ $main_red: #AB4967;
 .container {
     width: 92%;
     display: flex;
-    height: 100%;
+    height: 98%;
+    padding-top: 1%;
     justify-content: space-between;
     margin: auto;
 }
@@ -153,6 +154,7 @@ $main_red: #AB4967;
     width: 28%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
 }
 
@@ -171,4 +173,26 @@ $main_red: #AB4967;
     background-color: white;
     padding: 1.5rem;
     border-radius: 10px;
+}
+
+.actionBtn {
+    padding: 1rem;
+    width: 100%;
+    background-color: #47E5BC;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    border-radius: 10px;
+  }
+
+.actionBtn:hover {
+    transform: translateY(-0.2rem);
+    transition: all 0.3s;
+    filter: brightness(110%s);
+    cursor: pointer;
+}
+
+.tasks h1, .files h1 {
+    margin-bottom: 1rem;
 }

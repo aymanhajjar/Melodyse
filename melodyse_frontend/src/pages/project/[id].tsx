@@ -8,6 +8,7 @@ import ChatInput from '@/components/ChatInput/ChatInput'
 import AIActionButtonWide from '@/components/AIActionButtonWide/AIActionButtonWide'
 import { DndContext, closestCenter } from "@dnd-kit/core"
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import TaskCard from '@/components/TaskCard/TaskCard'
 
 export default function Project({ project, messages_list, userData} : any) {
     const [moreInfo, setMoreInfo] = useState(false)
@@ -20,6 +21,9 @@ export default function Project({ project, messages_list, userData} : any) {
     const loadMoreRef = useRef(null)
   console.log(project, messages_list)
   const handleScroll = () => {
+
+  }
+  const handleDragEnd = (event) => {
 
   }
   return (
@@ -75,14 +79,30 @@ export default function Project({ project, messages_list, userData} : any) {
         <div className={styles.div2}>
             <div className={styles.tasks}>
                 <h1>Tasks</h1>
+                { project.tasks.length > 0 ? 
+                        <div className={styles.tasks}>
+                        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                            <SortableContext items={project.tasks} strategy={verticalListSortingStrategy}>
+
+                                {project.tasks.map(task => (
+                                        <TaskCard key={task.id} task={task} id={task.id}/>
+                                    ))}
+                            </SortableContext>
+                    </DndContext>
+                        </div>
+                    
+                : <span>No tasks assigned.</span>
+                }
             </div>
             <div className={styles.files}>
                 <h1>Files</h1>
+                <span>No files uploaded.</span>
             </div>
-            <AIActionButtonWide name='Assistant'/>
+            <AIActionButtonWide name='Assistant' pic='/icons/send.png'/>
             <div className={styles.actions}>
-                <button className={styles.actionBtn}></button>
-                <button className={styles.actionBtn}/>
+                {project.owner.username == userData.username ? 
+                    <button className={styles.actionBtn}>END PROJECT</button>
+                    : <button className={styles.actionBtn}>LEAVE</button>}
             </div>
         </div>
       </div>

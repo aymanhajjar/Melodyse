@@ -161,6 +161,7 @@ class Project(models.Model):
                 'username': member.username, 
                 'picture': member.info.get().picture.url} for member in self.members.all()],
             'tasks': [{
+                'id': task.id,
                 'target_user_name': task.target_user.first_name + ' ' + task.target_user.last_name,
                 'target_username': task.target_user.username,
                 'name': task.name,
