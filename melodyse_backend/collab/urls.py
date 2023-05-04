@@ -8,4 +8,5 @@ urlpatterns = [
     path("send-invite", views.sendInvite),
     path("get-project/<int:id>", views.getProject),
     path("update-tasks", views.updateTasks),
+    path("add-task", views.addTask),
 ]

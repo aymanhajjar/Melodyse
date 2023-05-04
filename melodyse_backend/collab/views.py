@@ -172,3 +172,15 @@ def removeTask(request):
         return JsonResponse({'status': 'task deleted'})
     else:
         return HttpResponse('User not logged in', status=403)
+    
+def addTask(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        task = request.POST['task']
+        project = Project.objects.get(id=id, members=request.user)
+        target_user = User.objects.get(username=task['target_username'])
+        task = Task.objects.create(project=project, target_user=target_user, name=task['name'], description=task['description'], order=0)
+
+        return JsonResponse(task.serialize(), safe=False)
+    else:
+        return HttpResponse('User not logged in', status=403)
