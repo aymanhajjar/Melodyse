@@ -26,6 +26,7 @@ urlpatterns = [
     path("", include("chat.urls")),
     path("", include("social.urls")),
     path("", include("collab.urls")),
+    path("", include("admin.urls")),
 ]
 
 if settings.DEBUG:
