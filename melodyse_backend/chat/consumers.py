@@ -4,6 +4,7 @@ from channels.layers import get_channel_layer
 from channels.db import database_sync_to_async
 from users.models import Message, Chat
 from asgiref.sync import async_to_sync
+import re
 
 class ChatConsumer(WebsocketConsumer):
 
@@ -47,47 +48,43 @@ class ChatConsumer(WebsocketConsumer):
             'message': message
         }))
 
-    # def disconnect(self, close_code):
-    #     await self.channel_layer.group_discard(
-    #         self.room_group_name,
-    #         self.channel_name
-    #     )
 
-    # @database_sync_to_async
-    # def create_message(self, message, username):
-    #     message_obj = Message.objects.create(
-    #         content=message,
-    #         username=username
-    #     )
-    #     return message_obj
+class ProjectConsumer(WebsocketConsumer):
+    def connect(self):
+        self.project_id = re.search(r'/ws/socket-server/project/(?P<project_id>\d+)', self.scope['path']).group('project_id')
+        self.group_name = str(self.project_id)
 
-    # async def receive(self, text_data):
-    #     data = json.loads(text_data)
-    #     message = data['message']
-    #     username = data['username']
+        # Join group
+        async_to_sync(self.channel_layer.group_add)(
+            self.group_name,
+            self.channel_name
+        )
+        self.accept()
+        self.send(text_data=json.dumps({
+            'type': 'connection_established',
+            'message':'You are now connected!'
+        }))
 
-    #     # Create a new message object and save it to the database
-    #     message_obj = await self.create_message(message, username)
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message = text_data_json['message']
 
-    #     # Send the message to the group
-    #     await self.channel_layer.group_send(
-    #         self.room_group_name,
-    #         {
-    #             'type': 'chat_message',
-    #             'message': message_obj.content,
-    #             'username': message_obj.username,
-    #             'timestamp': str(message_obj.timestamp)
-    #         }
-    #     )
+        user = self.scope['user']
+        chat = Chat.objects.get(project__id=self.project_id)
+        msg = Message.objects.create(author=user, content=message, is_read=False, chat=chat)
 
-    # async def chat_message(self, event):
-    #     message = event['message']
-    #     username = event['username']
-    #     timestamp = event['timestamp']
+        async_to_sync(self.channel_layer.group_send)(
+            self.group_name,
+            {
+                'type': 'chat_message',
+                'message': msg.serialize()
+            }
+        )
+    
+    def chat_message(self, event):
+        message = event['message']
 
-    #     # Send the message to the websocket
-    #     await self.send(text_data=json.dumps({
-    #         'message': message,
-    #         'username': username,
-    #         'timestamp': timestamp
-    #     }))
+        self.send(text_data=json.dumps({
+            'type': 'chat',
+            'message': message
+        }))

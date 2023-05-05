@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
 from django.core import serializers
 from django.db.models import Q
-
+import os
 # Create your models here.
 class SubscriptionPlan(models.Model):
     level = models.IntegerField(unique=True)
@@ -168,7 +168,15 @@ class Project(models.Model):
                 'description': task.description,
                 'order': task.order,
                 'is_completed': task.is_completed,
-            } for task in self.tasks.all().order_by('order')]
+            } for task in self.tasks.all().order_by('order')],
+            'files': [{
+                'id': file.id,
+                'name': file.name,
+                'extension': os.path.splitext(os.path.basename(file.file.url))[1],
+                'url': file.file.url,
+                'owner_name': file.owner.first_name + ' ' + file.owner.last_name,
+                'owner_username': file.owner.username
+            } for file in self.files.all()]
         }
     
 class ProjectInvite(models.Model):

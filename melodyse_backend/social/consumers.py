@@ -4,10 +4,10 @@ from channels.layers import get_channel_layer
 from channels.db import database_sync_to_async
 from users.models import Message, Chat, User, Notification
 from asgiref.sync import async_to_sync
+import re
 
 class NotificationConsumer(WebsocketConsumer):
     def connect(self):
-        print('gtooooo' + str(self.scope['user'].id))
         self.group_name = str(self.scope['user'].id)
 
         # Join group

@@ -13,7 +13,6 @@ export default function Inbox({inbox, userData, chatOpened, username} : any) {
     const [selectedChat, setSelectedChat] = useState(-1)
     const [messages, setMessages] = useState([])
     const [loadingMsg, setLoadingMsg] = useState(false)
-    const [messageValue, setMessageValue] = useState('')
     const [chats, setChats] = useState(inbox)
     const [chatSocket, setChatSocket] = useState(null)
     const [page, setPage] = useState(1);
@@ -51,10 +50,9 @@ export default function Inbox({inbox, userData, chatOpened, username} : any) {
         }
     }, [searchVal])
 
-    const sendMsg = () => {
-        setMessageValue('')
+    const sendMsg = (msg) => {
         chatSocket.send(JSON.stringify({
-            'message': messageValue
+            'message': msg
         }))
     }
 
@@ -158,7 +156,7 @@ export default function Inbox({inbox, userData, chatOpened, username} : any) {
                         )) : <span>Start a conversation</span>}
                         {hasMore && <div className={styles.loadingMore} ref={loadMoreRef}>Loading more messages...</div>}
                     </div>
-                    <ChatInput value={messageValue} setValue={(val) => setMessageValue(val)} submit={sendMsg}/>
+                    <ChatInput submit={sendMsg}/>
                     </div>}
         </div>
       </div>

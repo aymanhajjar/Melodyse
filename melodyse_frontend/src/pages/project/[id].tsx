@@ -10,18 +10,34 @@ import { DndContext, closestCenter } from "@dnd-kit/core"
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import TaskCard from '@/components/TaskCard/TaskCard'
 import AddTask from '@/components/AddTask/AddTask'
+import FileCard from '@/components/FileCard/FileCard'
 
 export default function Project({ project, messages_list, userData} : any) {
     const [moreInfo, setMoreInfo] = useState(false)
     const [messages, setMessages] = useState(messages_list)
     const [loadingMsg, setLoadingMsg] = useState(false)
     const [hasMore, setHasMore] = useState(true)
+    const [page, setPage] = useState(1)
     const [tasks, setTasks] = useState(project.tasks)
-    const [messageValue, setMessageValue] = useState('')
     const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
+    const [chatSocket, setChatSocket] = useState(null)
     
     const messagesContainerRef = useRef(null)
     const loadMoreRef = useRef(null)
+
+    useEffect(() => {
+        const url = `ws://localhost:8000/ws/socket-server/project/${project.id}`
+        const socket = new WebSocket(url)
+        setChatSocket(socket)
+        socket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        if (data.type == 'chat') {
+            console.log('received')
+            setMessages((prevMessages) => [data.message, ...prevMessages])
+        }
+        }
+        console.log(project, messages_list)
+    }, [])
 
     useEffect(() => {
         if(tasks != project.tasks) {
@@ -33,7 +49,6 @@ export default function Project({ project, messages_list, userData} : any) {
             }).catch(err => console.error(err))
         }
     }, [tasks])
-  console.log(project, messages_list)
   const handleScroll = () => {
 
   }
@@ -68,6 +83,12 @@ export default function Project({ project, messages_list, userData} : any) {
       })
       setTasks(updatedTasks)
   }
+  const sendMsg = (msg) => {
+    console.log('sent', msg)
+    chatSocket.send(JSON.stringify({
+        'message': msg
+    }))
+}
   return (
     <>
       <Head>
@@ -113,7 +134,7 @@ export default function Project({ project, messages_list, userData} : any) {
                         )) : <span>Start a conversation</span>}
                         {hasMore && <div className={styles.loadingMore} ref={loadMoreRef}>Loading more messages...</div>}
                     </div>
-                    <ChatInput value={messageValue} setValue={(val) => setMessageValue(val)} />
+                    <ChatInput submit={sendMsg}/>
                     </div>
             </div>
         </div>
@@ -139,7 +160,12 @@ export default function Project({ project, messages_list, userData} : any) {
             </div>
             <div className={styles.files}>
                 <h1>Files</h1>
-                <span>No files uploaded.</span>
+                { project.files.length > 0 ? <div className={styles.fileslist}>
+                    {project.files.map(file => (
+                        <FileCard file={file}/>
+                    ))}
+                </div>
+                : <span>No files uploaded.</span>}
             </div>
             <AIActionButtonWide name='Assistant' pic='/icons/send.png'/>
             <div className={styles.actions}>
