@@ -9,9 +9,15 @@ from django.db.models import Max
 from .modules import dataHandler
 from .modules import helpers
 from django.db.models import Q
-import requests
+from google.oauth2 import id_token
+from google.auth.transport import requests
 from django.db.models import Sum
+import environ
+from datetime import datetime
 # Create your views here.
+
+env = environ.Env()
+environ.Env.read_env()
 
 def getToken(request):
     response = JsonResponse({'status': 'success'})
@@ -38,7 +44,7 @@ def userLogin(request):
         if google_id_token:
             user.google_id_token = google_id_token
             user.save()
-            
+
         user_data = dataHandler.getData(user)
 
         return JsonResponse(user_data)
@@ -91,12 +97,21 @@ def register(request):
 
 def googleSignIn(request):
     data = json.loads(request.POST['response'])
-    print(data['zc']['id_token'])
+    token = data['zc']['id_token']
+    id_info = id_token.verify_oauth2_token(token, requests.Request())
+    if id_info['aud'] != env('GOOGLE_CLIENT_ID'):
+        raise ValueError('Invalid client ID')
+    
+    if datetime.fromtimestamp(id_info['exp']) <= datetime.utcnow():
+        raise ValueError('ID token has expired')
+    
+    google_id = id_info['sub']
+
     if User.objects.filter(email=data['wv']['iw']).exists():
         user = User.objects.get(email=data['wv']['iw'])
-        if user.google_id_token:
-            if user.google_id_token == data['zc']['id_token']:
-                login(request, user)
+        if user.google_id:
+            if user.google_id == google_id:
+                login(request, user, backend='users.modules.auth.AuthBackend')
                 user_data = dataHandler.getData(user)
                 return JsonResponse(user_data)
             else:
@@ -112,12 +127,14 @@ def googleSignIn(request):
             new_username = data['wv']['ZZ'].lower().replace(" ", "") + data['wv']['pY'].lower().replace(" ", "") + str(i)
             i += 1
 
-        user = User.objects.create_user(username=new_username, email=data['wv']['iw'], first_name=data['wv']['ZZ'], last_name=data['wv']['pY'], google_access_token=data['zc']['access_token'], google_id_token=['zc']['id_token'])
+        user = User.objects.create_user(username=new_username, email=data['wv']['iw'], first_name=data['wv']['ZZ'], last_name=data['wv']['pY'], google_id=google_id)
 
-        login(request, user)
+        UserInfo.objects.create(user=user, picture=data['wv']['QO'])
+
+        login(request, user, backend='users.modules.auth.AuthBackend')
+        
         user_data = dataHandler.getData(user)
         return JsonResponse(user_data)
-
 
 def getInfo(request):
     if request.user.is_authenticated:

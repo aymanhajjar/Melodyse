@@ -36,15 +36,25 @@ export default function Login(props: any) {
 
     function handleGoogleSignIn() {
         gapi.auth2.getAuthInstance().signIn().then(googleUser => {
-
-            console.log('sucessss', googleUser)
+            console.log(googleUser)
             const data = new FormData()
             data.append('response', JSON.stringify(googleUser))
             axios.post(`${process.env.SITE_URL}/google-signin`, data, {
                 withCredentials: true
             }).then(response => {
-                    
-                }).catch(err => console.error(err))
+                    setLoading(false)
+                    const csrf = Cookies.get('csrftoken')
+                    axios.defaults.headers.common['X-CSRFToken'] = csrf
+                    props.setLoggedIn()
+                    router.push('/')
+                }).catch(err => {
+                    if(err.response.status == 400) {
+                        setErrorMessage('You seem to already have an account but never used Google Sign In. Enter your password to link your account with Google.')
+                    }
+                    if(err.response.status == 401) {
+                        setErrorMessage('Failed to verify user.')
+                    }
+                    console.error(err)})
         })
       }
     

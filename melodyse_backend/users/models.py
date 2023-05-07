@@ -40,14 +40,13 @@ class SubscriptionPlan(models.Model):
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    google_access_token = models.CharField(max_length=255, blank=True, null=True)
-    google_id_token = models.CharField(max_length=255, blank=True, null=True)
+    google_id = models.TextField(blank=True, null=True)
     def __str__(self):
         return self.username
 
 class UserInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name="info")
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True)
 
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -55,7 +54,7 @@ class UserInfo(models.Model):
         ('O', 'Other'),
     ]
 
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
     description = models.TextField(blank=True, null=True)
     favorite_artists = ArrayField(JSONField(), blank=True, null=True, default=[])
     favorite_songs = ArrayField(JSONField(), blank=True, null=True, default=[])
