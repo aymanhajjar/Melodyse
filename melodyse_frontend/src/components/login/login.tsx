@@ -50,6 +50,7 @@ export default function Login(props: any) {
                 }).catch(err => {
                     if(err.response.status == 400) {
                         setErrorMessage('You seem to already have an account but never used Google Sign In. Enter your password to link your account with Google.')
+                        setUserEmailValue(err.response.data.split(": ")[1])
                     }
                     if(err.response.status == 401) {
                         setErrorMessage('Failed to verify user.')
