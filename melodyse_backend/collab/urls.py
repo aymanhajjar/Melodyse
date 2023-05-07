@@ -13,4 +13,5 @@ urlpatterns = [
     path('endproject', views.endProject),
     path('uploadproject', views.uploadProject),   
     path('getmyprojects', views.getMyProjects),   
+    path('getallprojects', views.getAllProjects),   
 ]

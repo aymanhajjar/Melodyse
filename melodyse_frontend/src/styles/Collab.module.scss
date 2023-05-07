@@ -96,6 +96,10 @@ $main_red: #AB4967;
     width: 27% 
   }
 
-  .actionBtn {
-    padding: 0.5rem;
-  }
+.projects{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 2rem;
+}

@@ -1,5 +1,5 @@
 import styles from './profileButton.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router';
 import ActionButton from './ActionButton'
 import Cookies from 'js-cookie';
@@ -9,8 +9,21 @@ export default function ProfileButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [sub, setSub] = useState()
-
+    const dropdownRef = useRef(null)
+  
     const router = useRouter()
+
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setDropdownOpen(false)
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+    }, [dropdownRef])
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -49,7 +62,7 @@ export default function ProfileButton(props: any) {
     }
 
     return(
-        <div className={styles.container}>
+        <div className={styles.container} ref={dropdownRef}>
             <img className={styles.profileimg} src={`${process.env.SITE_URL + props.picture}`} onClick={openDropDown}/>
             <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
                 <div className={styles.subContainer}>

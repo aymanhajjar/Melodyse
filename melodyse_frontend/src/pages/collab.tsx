@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import CheckBox from '@/components/CheckBox/CheckBox'
 import SelectBox from '@/components/SelectBox/SelectBox'
 import MusicianCard from '@/components/MusicianCard/MusicianCard'
+import ProjectCard from '@/components/ProjectCard/ProjectCard'
 
 export default function Collab(props : any) {
   const [musiciansTab, setMusiciansTab] = useState(true)
@@ -16,6 +17,7 @@ export default function Collab(props : any) {
   const [isPLUS, setIsPLUS] = useState(false)
   const [page, setPage] = useState(1)
   const [artists, setArtists] = useState([])
+  const [projects, setProjects] = useState([])
   const [hasMore, setHasMore] = useState(true)
   const [skillValue, setSkillValue] = useState()
   const [ratingValue, setRatingValue] = useState()
@@ -30,15 +32,31 @@ export default function Collab(props : any) {
   }, [])
 
   useEffect(() => {
+    musiciansTab ? getUsers() : getProjects()
+  }, [musiciansTab])
+
+  useEffect(() => {
     getUsersFilters()
   }, [skillValue, ratingValue, isVIP, isPLUS])
 
   const getUsers = () => {
+    setLoading(true)
     axios.get(`${process.env.SITE_URL}/getmusicians?page=1`, {
       withCredentials: true
     }).then(res => {
       setLoading(false)
       setArtists(res.data)
+    })
+    .catch(err=> console.error(err))
+  }
+
+  const getProjects = () => {
+    setLoading(true)
+    axios.get(`${process.env.SITE_URL}/getallprojects`, {
+      withCredentials: true
+    }).then(res => {
+      setLoading(false)
+      setProjects(res.data)
     })
     .catch(err=> console.error(err))
   }
@@ -123,12 +141,10 @@ export default function Collab(props : any) {
       {!musiciansTab && <>
 
           {loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
-          {!loading && artists && <div className={styles.artists}>
-            {artists.map((artist, key) => (
-            <MusicianCard key={key} artist={artist}/>
-          )) }</div>}
-          {hasMore && !loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>
-        }</>}
+          {!loading && projects && <div className={styles.projects}>
+            {projects.map((prj, key) => (
+            <ProjectCard key={key} project={prj} ongoing={true}/>
+          )) }</div>}</>}
 
       </div>
     </>

@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
-from users.models import User, UserInfo, ProjectInvite, Project, Task, File, Track
+from users.models import User, UserInfo, ProjectInvite, Project, Task, File, Track, Chat
 from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -101,6 +101,7 @@ class UsersView(APIView):
 def sendInvite(request):
     if request.user.is_authenticated:
         type = request.POST['type']
+        exists = request.POST['exists']
         username = request.POST['username']
         name = request.POST['project_name']
         description = request.POST['project_description']
@@ -118,6 +119,7 @@ def sendInvite(request):
             return HttpResponse('User not found', status=404)
         
         project = Project.objects.create(owner=request.user, title=name, description=description, is_collab=is_collab)
+        chat = Chat.objects.create(admin=request.user, paricipants=request.user, project=project)
         project.members.add(request.user)
         project.members.add(recipient)
 
@@ -130,15 +132,15 @@ def sendInvite(request):
     
 def getProject(request, id):
     if request.user.is_authenticated:
-        project = Project.objects.get(id=id, members=request.user)
-        if project is not None:
+        try:
+            project = Project.objects.get(id=id, members=request.user)
             serialized = project.serialize()
             if not project.is_collab:
                 total = ProjectInvite.objects.filter(project=project).aggregate(Sum('offered_amount'))['offered_amount__sum']
                 serialized['payout'] = total
             return JsonResponse(serialized, safe=False)
-        else:
-            return HttpResponse('Not Found', status=404)
+        except:
+            return HttpResponse('Not Allowed', status=403)
     else:
         return HttpResponse('User not logged in', status=403)
     
@@ -253,5 +255,12 @@ def getMyProjects(request):
         response_data = {'completed': completed_projects, 'ongoing': ongoing_projects}
         return JsonResponse(response_data)
 
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getAllProjects(request):
+    if request.user.is_authenticated:
+        projects = Project.objects.filter(~Q(members=request.user) & Q(is_completed=False))
+        return JsonResponse([prj.serialize() for prj in projects], safe=False)
     else:
         return HttpResponse('User not logged in', status=403)

@@ -7,6 +7,7 @@ urlpatterns = [
     path("login", views.userLogin),
     path("logout", views.logoutUser),
     path("register", views.register),
+    path("google-signin", views.googleSignIn),
     path("checkusername", views.checkUsername),
     path("gettoken", views.getToken),
     path("getinfo", views.getInfo),

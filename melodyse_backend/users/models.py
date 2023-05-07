@@ -40,6 +40,8 @@ class SubscriptionPlan(models.Model):
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+    google_access_token = models.CharField(max_length=255, blank=True, null=True)
+    google_id_token = models.CharField(max_length=255, blank=True, null=True)
     def __str__(self):
         return self.username
 

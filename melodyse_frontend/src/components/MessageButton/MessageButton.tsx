@@ -1,5 +1,5 @@
 import styles from './messageButton.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
@@ -7,6 +7,19 @@ export default function MessageButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [chats, setChats] = useState()
+    const dropdownRef = useRef(null)
+  
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setDropdownOpen(false)
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [dropdownRef])
 
     const router = useRouter()
 
@@ -36,7 +49,7 @@ export default function MessageButton(props: any) {
     }
 
     return(
-        <div className={styles.container}>
+        <div className={styles.container} ref={dropdownRef}>
             <img className={styles.msgimg} src='/msg.png' onClick={openDropDown}/>
             <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
                 {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/> : 

@@ -13,6 +13,7 @@ $main_red: #AB4967;
     flex-direction: column;
     gap: 0.5rem;
     position: relative;
+    box-shadow: 0 0 10px gray;
 }
 
 .completed {
@@ -36,6 +37,7 @@ $main_red: #AB4967;
 
 .ongoing:hover {
     filter: brightness(110%);
+    transform: scale(1.02);
     transition: all 0.3s;
     cursor: pointer;
 }

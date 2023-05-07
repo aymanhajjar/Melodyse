@@ -1,5 +1,5 @@
 import styles from './friendButton.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import FormInput from '../FormInput/FormInput'
 import axios from 'axios'
 import Request from './Request'
@@ -11,6 +11,19 @@ export default function FriendButton(props: any) {
     const [friendsTab, setFriendsTab] = useState(true)
     const [friendRequests, setFriendRequests] = useState()
     const [projectRequests, setProjectRequests] = useState()
+    const dropdownRef = useRef(null)
+  
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setDropdownOpen(false)
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+    }, [dropdownRef])
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -40,7 +53,7 @@ export default function FriendButton(props: any) {
     }
 
     return(
-        <div className={styles.container}>
+        <div className={styles.container} ref={dropdownRef}>
             <img className={styles.frdimg} src='/friendss.png' onClick={openDropDown}/>
             <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>
                 {loading ? <img className={styles.loading} src='/loading-melodyse.gif'/> : 

@@ -21,12 +21,24 @@ def getToken(request):
 def userLogin(request):
     username_email = request.POST['username_email']
     password = request.POST['password']
+    try:
+        google_access_token = request.POST['google_access_token']
+        google_id_token = request.POST['google_id_token']
+    except:
+        google_access_token = False
+        google_id_token = False
 
     user = authenticate(request, username=username_email, password=password)
 
     if user is not None:
         login(request, user)
-
+        if google_access_token:
+            user.google_access_token = google_access_token
+            user.save()
+        if google_id_token:
+            user.google_id_token = google_id_token
+            user.save()
+            
         user_data = dataHandler.getData(user)
 
         return JsonResponse(user_data)
@@ -76,6 +88,36 @@ def register(request):
     user_data = dataHandler.getData(user)
     
     return JsonResponse(user_data)
+
+def googleSignIn(request):
+    data = json.loads(request.POST['response'])
+    print(data['zc']['id_token'])
+    if User.objects.filter(email=data['wv']['iw']).exists():
+        user = User.objects.get(email=data['wv']['iw'])
+        if user.google_id_token:
+            if user.google_id_token == data['zc']['id_token']:
+                login(request, user)
+                user_data = dataHandler.getData(user)
+                return JsonResponse(user_data)
+            else:
+                return HttpResponse('Failed to verify user', status=401)
+        else:
+            return HttpResponse('password required for: ' + user.email , status=400)
+    else:
+        new_username = data['wv']['ZZ'].lower().replace(" ", "") + data['wv']['pY'].lower().replace(" ", "")
+
+        i = 2
+
+        while User.objects.filter(username=new_username).exists():
+            new_username = data['wv']['ZZ'].lower().replace(" ", "") + data['wv']['pY'].lower().replace(" ", "") + str(i)
+            i += 1
+
+        user = User.objects.create_user(username=new_username, email=data['wv']['iw'], first_name=data['wv']['ZZ'], last_name=data['wv']['pY'], google_access_token=data['zc']['access_token'], google_id_token=['zc']['id_token'])
+
+        login(request, user)
+        user_data = dataHandler.getData(user)
+        return JsonResponse(user_data)
+
 
 def getInfo(request):
     if request.user.is_authenticated:

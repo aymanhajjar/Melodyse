@@ -1,5 +1,5 @@
 import styles from './notificationButton.module.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
@@ -7,8 +7,21 @@ export default function NotificationButton(props: any) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [notifications, setNotifications] = useState()
-
+    const dropdownRef = useRef(null)
+  
     const router = useRouter()
+
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setDropdownOpen(false)
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+    }, [dropdownRef])
 
     const openDropDown = () => {
         if(!dropdownOpen) {
@@ -37,7 +50,7 @@ export default function NotificationButton(props: any) {
         })
     }
     return(
-        <div className={styles.container}>
+        <div className={styles.container} ref={dropdownRef}>
             <img className={styles.ntfimg} src='/ntf.png' onClick={openDropDown}/>
             {props.unread > 0 && <div className={styles.count}>{props.unread}</div>}
             <div className={dropdownOpen ? styles.dropdownOpen : styles.dropdownHidden }>

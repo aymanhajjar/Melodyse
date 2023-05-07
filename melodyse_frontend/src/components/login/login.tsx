@@ -25,6 +25,29 @@ export default function Login(props: any) {
         }, 300)
     }
     
+    useEffect(() => {
+        gapi.load('auth2', () => {
+            gapi.auth2.init({
+              client_id: process.env.GOOGLE_CLIENT_ID,
+              plugin_name: "chat"
+            })
+          })
+    }, [])
+
+    function handleGoogleSignIn() {
+        gapi.auth2.getAuthInstance().signIn().then(googleUser => {
+
+            console.log('sucessss', googleUser)
+            const data = new FormData()
+            data.append('response', JSON.stringify(googleUser))
+            axios.post(`${process.env.SITE_URL}/google-signin`, data, {
+                withCredentials: true
+            }).then(response => {
+                    
+                }).catch(err => console.error(err))
+        })
+      }
+    
     const handleSubmit = () => {
         setLoading(true)
 
@@ -73,7 +96,7 @@ export default function Login(props: any) {
         <span>Don't have an account? <a onClick={() => changeForm()}>Create one</a></span>
         <span>or, sign in using:</span>
         <div className={styles.socialIcons}>
-        <img src='/icons/google-icon.png' alt='Google'></img>
+        <img src='/icons/google-icon.png' alt='Google' onClick={handleGoogleSignIn}></img>
         <img src='/icons/twitter-icon.png' alt='Twitter'></img>
         <img src='/icons/facebook-icon.png' alt='Facebook'></img>
         </div>

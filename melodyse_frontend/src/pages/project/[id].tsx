@@ -13,8 +13,9 @@ import AddTask from '@/components/AddTask/AddTask'
 import FileCard from '@/components/FileCard/FileCard'
 import EndProject from '@/components/EndProject/EndProject'
 import CollabPrompt from '@/components/CollabPrompt/CollabPrompt'
+import { useRouter } from 'next/router'
 
-export default function Project({ project, messages_list, userData} : any) {
+export default function Project({ project, messages_list, userData, notallowed} : any) {
     const [moreInfo, setMoreInfo] = useState(false)
     const [messages, setMessages] = useState(messages_list)
     const [loadingMsg, setLoadingMsg] = useState(false)
@@ -24,6 +25,11 @@ export default function Project({ project, messages_list, userData} : any) {
     const [endOpen, setEndOpen] = useState(false)
     const [addOpen, setAddOpen] = useState(false)
     
+    const router = useRouter()
+
+    useEffect(() => {
+        if(notallowed) router.push('/')
+    }, [])
 
     useEffect(() => {
         const url = `ws://localhost:8000/ws/socket-server/project/${project.id}`
@@ -97,7 +103,7 @@ export default function Project({ project, messages_list, userData} : any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.ico" />
       </Head>
-      <div className={styles.container}>
+      {project.length > 0 && <div className={styles.container}>
 
         <div className={styles.div1}>
 
@@ -176,7 +182,7 @@ export default function Project({ project, messages_list, userData} : any) {
             </div>
         </div>
         {addTaskFormOpen && <AddTask members={project.members} close={() => setAddTaskFormOpen(false)} addTask={addTask}/>}
-      </div>
+      </div>}
       {endOpen && <EndProject project={project} close={() => setEndOpen(false)}/>}
       {addOpen && <CollabPrompt project={project} type={project.is_collab ? 'collabInvite' : 'hireInvite'} close={() =>setAddOpen(false)}/>}
     </>
@@ -186,12 +192,17 @@ export default function Project({ project, messages_list, userData} : any) {
 export async function getServerSideProps(context) {
     let project = {}
     let messages = []
+    let notallowed = false
     await axios.get(`${process.env.SERVER_SITE_URL}/get-project/${context.query.id}`, {
         headers: {
             Cookie: context.req.headers.cookie
         },
     }).then(res => project = res.data)
-    .catch(err => console.log(err))
+    .catch(err => {
+        if(err.response.status) {
+            notallowed = true
+        }
+        console.log(err)})
     await axios.get(`${process.env.SERVER_SITE_URL}/getchat?project=${context.query.id}`, {
         headers: {
             Cookie: context.req.headers.cookie
@@ -201,5 +212,5 @@ export async function getServerSideProps(context) {
     })
     .catch(err => console.error(err))
   
-    return {props: {project: project, messages_list: messages}}
+    return {props: {project: project, messages_list: messages, notallowed: notallowed}}
   }
