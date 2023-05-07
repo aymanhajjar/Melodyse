@@ -213,6 +213,11 @@ class File(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="files")
     def __str__(self):
         return self.name + ' in ' + self.project.title
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
 
 class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
@@ -251,6 +256,7 @@ class Track(models.Model):
         return self.name
     def serialize(self):
         return {
+            "id": self.id,
             "project_name": self.project.title,
             "project_members": [{
                 'name': member.first_name + ' ' + member.last_name,

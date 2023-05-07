@@ -7,4 +7,5 @@ urlpatterns = [
     path("gettracks", views.getTracks.as_view()),
     path("getartists", views.getArtists),
     path("search", views.search),
+    path("liketrack", views.likeTrack),
 ]

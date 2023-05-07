@@ -1,11 +1,12 @@
 from rest_framework.pagination import PageNumberPagination
-from users.models import User, UserInfo, ProjectInvite, Project, Task, File
+from users.models import User, UserInfo, ProjectInvite, Project, Task, File, Track
 from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import findMatch
 from django.db.models import Q
 import json
+from django.db.models import Sum
 
 class UsersPagination(PageNumberPagination):
     page_size = 9
@@ -111,7 +112,10 @@ def sendInvite(request):
 
         is_collab = True if type == 'collab' else False
 
-        recipient = User.objects.get(username=username)
+        try:
+            recipient = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return HttpResponse('User not found', status=404)
         
         project = Project.objects.create(owner=request.user, title=name, description=description, is_collab=is_collab)
         project.members.add(request.user)
@@ -128,7 +132,11 @@ def getProject(request, id):
     if request.user.is_authenticated:
         project = Project.objects.get(id=id, members=request.user)
         if project is not None:
-            return JsonResponse(project.serialize(), safe=False)
+            serialized = project.serialize()
+            if not project.is_collab:
+                total = ProjectInvite.objects.filter(project=project).aggregate(Sum('offered_amount'))['offered_amount__sum']
+                serialized['payout'] = total
+            return JsonResponse(serialized, safe=False)
         else:
             return HttpResponse('Not Found', status=404)
     else:
@@ -196,5 +204,54 @@ def downloadFile(request, id):
             return response
         else:
             return HttpResponse('Not Allowed', status=403)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def endProject(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        project = Project.objects.get(id=id, members=request.user)
+        if project.owner == request.user:
+            project.is_completed = True
+            project.save()
+
+            return JsonResponse({'status': 'done'})
+
+        return HttpResponse('Not allowed', status=403)
+
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def uploadProject(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        song = request.FILES.get('file')
+        project = Project.objects.get(id=id, members=request.user)
+        if project.owner == request.user:
+            project.is_completed = True
+            project.save()
+            Track.objects.create(track=song, owner=request.user, project=project, name=project.title)
+            return JsonResponse({'status': 'done'})
+
+        return HttpResponse('Not allowed', status=403)
+
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def getMyProjects(request):
+    if request.user.is_authenticated:
+        projects = Project.objects.filter(members=request.user)
+        completed_projects = []
+        ongoing_projects = []
+        for project in projects:
+            serialized_project = project.serialize()
+            if project.is_completed:
+                completed_projects.append(serialized_project)
+            else:
+                ongoing_projects.append(serialized_project)
+        
+        response_data = {'completed': completed_projects, 'ongoing': ongoing_projects}
+        return JsonResponse(response_data)
+
     else:
         return HttpResponse('User not logged in', status=403)

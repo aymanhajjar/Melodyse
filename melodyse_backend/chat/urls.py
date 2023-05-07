@@ -4,5 +4,6 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path("getchat", views.ChatView.as_view())
+    path("getchat", views.ChatView.as_view()),
+    path("uploadfile", views.uploadFile)
 ]

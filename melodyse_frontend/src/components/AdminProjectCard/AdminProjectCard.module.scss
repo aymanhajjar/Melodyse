@@ -1,0 +1,33 @@
+$main_red: #AB4967;
+
+.container {
+    display: flex;
+    padding: 1.5rem;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 2rem;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.actions button{
+    padding: 0.5rem 1rem;
+    background-color: $main_red;
+    color: white;
+    border: none;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -10,4 +10,7 @@ urlpatterns = [
     path("update-tasks", views.updateTasks),
     path("add-task", views.addTask),
     path("downloadfile/<int:id>", views.downloadFile),
+    path('endproject', views.endProject),
+    path('uploadproject', views.uploadProject),   
+    path('getmyprojects', views.getMyProjects),   
 ]

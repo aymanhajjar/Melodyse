@@ -45,7 +45,9 @@ export default function Listen({ track_list, artists_list } : any) {
   useEffect(() => {
     setLoading(true)
     console.log(`${process.env.SITE_URL}/gettracks?page=${activeSection}`)
-    axios.get(`${process.env.SITE_URL}/gettracks?page=${activeSection}`).then(res => {
+    axios.get(`${process.env.SITE_URL}/gettracks?page=${activeSection}`, {
+        withCredentials: true
+    }).then(res => {
         setLoading(false)
         setTracks(res.data)})
     .catch(err => console.log(err))
@@ -167,7 +169,11 @@ export default function Listen({ track_list, artists_list } : any) {
 export async function getServerSideProps(context) {
     let tracks = {}
     let artists = {}
-    await axios.get(`${process.env.SERVER_SITE_URL}/gettracks?page=1`).then(res => tracks = res.data)
+    await axios.get(`${process.env.SERVER_SITE_URL}/gettracks?page=1`, {
+        headers: {
+            Cookie: context.req.headers.cookie
+        },
+    }).then(res => tracks = res.data)
     .catch(err => console.log(err))
     await axios.get(`${process.env.SERVER_SITE_URL}/getartists`).then(res => artists = res.data)
     .catch(err => console.log(err))

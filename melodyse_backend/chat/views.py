@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.pagination import PageNumberPagination
-from users.models import Chat, User
+from users.models import Chat, User, File, Project
 from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q
+import os
+import json
 
 # Create your views here.
 class MessagePagination(PageNumberPagination):
@@ -66,3 +68,14 @@ class ChatView(APIView):
             
         else:
             return HttpResponse('User not logged in', status=403)
+
+def uploadFile(request):
+    if request.user.is_authenticated:
+        file = request.FILES.get('file')
+        id = request.POST['id']
+        print('iddd ', id)
+        project = Project.objects.get(id=id)
+        newfile = File.objects.create(file=file, name = os.path.splitext(file.name)[0], owner=request.user, project=project)
+        return JsonResponse(newfile.serialize(), safe=False)
+    else:
+        return HttpResponse('User not logged in', status=403)

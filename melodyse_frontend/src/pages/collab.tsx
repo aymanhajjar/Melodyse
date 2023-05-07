@@ -101,23 +101,35 @@ export default function Collab(props : any) {
             onClick={() => setMusiciansTab(false)}>PROJECTS</button>
         </div>
 
-        <div className={styles.topBar}>
-          <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)} submit={getUsersFilters}/>
-          <div className={styles.filters}>
-            <span>FILTER BY:</span>
-            <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>
-            <CheckBox text="PLUS" value={isPLUS} setValue={() => setIsPLUS(!isPLUS)}/>
-            <SelectBox text="Skill" data={props.skills} value={skillValue} setValue={(val) => setSkillValue(val)}/>
-            <SelectBox text="Min Rating" value={ratingValue} setValue={(val) => setRatingValue(val)}/>
+        {musiciansTab && <><div className={styles.topBar}>
+            <CollabSearchBar value={searchVal} setValue={(val) => setSearchVal(val)} submit={getUsersFilters}/>
+            <div className={styles.filters}>
+              <span>FILTER BY:</span>
+              <CheckBox text="VIP" value={isVIP} setValue={() => setIsVIP(!isVIP)}/>
+              <CheckBox text="PLUS" value={isPLUS} setValue={() => setIsPLUS(!isPLUS)}/>
+              <SelectBox text="Skill" data={props.skills} value={skillValue} setValue={(val) => setSkillValue(val)}/>
+              <SelectBox text="Min Rating" value={ratingValue} setValue={(val) => setRatingValue(val)}/>
+            </div>
           </div>
-        </div>
 
-        {loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
-        {!loading && artists && <div className={styles.artists}>
-          {artists.map((artist, key) => (
-          <MusicianCard key={key} artist={artist}/>
-        )) }</div>}
-        {hasMore && !loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
+          {loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
+          {!loading && artists && <div className={styles.artists}>
+            {artists.map((artist, key) => (
+            <MusicianCard key={key} artist={artist}/>
+          )) }</div>}
+          {hasMore && !loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>
+        }</>}
+
+      {!musiciansTab && <>
+
+          {loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
+          {!loading && artists && <div className={styles.artists}>
+            {artists.map((artist, key) => (
+            <MusicianCard key={key} artist={artist}/>
+          )) }</div>}
+          {hasMore && !loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>
+        }</>}
+
       </div>
     </>
   )

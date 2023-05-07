@@ -18,9 +18,13 @@ class getTracks(APIView):
     def get(self, request):
         queryset = Track.objects.all()
         page = self.pagination_class.paginate_queryset(queryset, request)
+        serialized = [track.serialize() for track in page]
+        for track in serialized:
+            track_obj = Track.objects.get(id=track['id'])
+            track['liked'] = request.user in track_obj.likes.all()
 
         if page is not None:
-            return Response([track.serialize() for track in page])
+            return Response(serialized)
 
         return Response([track.serialize() for track in queryset])
 
@@ -42,3 +46,15 @@ def search(request):
     }
 
     return JsonResponse(res, safe=False)
+
+def likeTrack(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        track = Track.objects.get(id=id)
+        if request.user in track.likes.all():
+            track.likes.remove(request.user)
+        else:
+            track.likes.add(request.user)
+        return JsonResponse({'status': 'done'}, safe=False)
+    else:
+        return HttpResponse('User not logged in', status=403)

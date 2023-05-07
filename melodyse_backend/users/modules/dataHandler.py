@@ -21,5 +21,6 @@ def getData(user):
         'subscription_tag': user_info.subscription.tag_on_profile,
         'notifications': notification_count,
         'chats': unread_chats,
-        'requests': request_count
+        'requests': request_count,
+        'is_admin': user.is_admin
     }

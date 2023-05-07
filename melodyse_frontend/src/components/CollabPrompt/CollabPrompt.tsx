@@ -2,12 +2,14 @@ import styles from './CollabPrompt.module.scss'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function CollabPrompt({ type, name, username, first_name, close, done }) {
+export default function CollabPrompt({ type, name=null, username=null, first_name=null, close, done=null, project=null }) {
 
-    const [prjNameVal, setPrjNameVal] = useState()
-    const [prjDescVal, setPrjDescVal] = useState()
-    const [offeredAmountVal, setOfferedAmountVal] = useState()
-    const [messageVal, setMessageVal] = useState()
+    const [prjNameVal, setPrjNameVal] = useState('')
+    const [prjDescVal, setPrjDescVal] = useState('')
+    const [offeredAmountVal, setOfferedAmountVal] = useState('')
+    const [messageVal, setMessageVal] = useState('')
+    const [usernameHireVal, setUsernameHireVal] = useState('')
+    const [errMsg, setErrMsg] = useState()
 
     const sendInvite = (type) => {
         const data = new FormData()
@@ -23,9 +25,28 @@ export default function CollabPrompt({ type, name, username, first_name, close, 
         .catch(err => console.error(err))
     }
 
+    const sendInviteProject = () => {
+        const data = new FormData()
+        data.append('type', type == 'hireInvite' ? 'hire' : 'collab')
+        data.append('username', usernameHireVal)
+        data.append('project_name', project.username)
+        data.append('project_description', project.description)
+        data.append('offered_amount', offeredAmountVal),
+        data.append('message', messageVal)
+        axios.post(`${process.env.SITE_URL}/send-invite`, data, {
+            withCredentials: true
+        }).then(res => {close()})
+        .catch(err => {
+            if(err.response.status == 404) {
+                setErrMsg('User not found')
+            }
+            console.error(err)
+        })
+    }
+
     return(<>
     
-    <div className={type == 'hire' ? styles.hireContainer : styles.collabContainer}>
+    <div className={type == 'hire' || 'hireInvite' ? styles.hireContainer : styles.collabContainer}>
             {type == 'hire' && <>
                     <h2>HIRE {name} FOR A PROJECT</h2>
                     <div className={styles.inputDiv}>
@@ -70,6 +91,44 @@ export default function CollabPrompt({ type, name, username, first_name, close, 
                     </div>
                 </>
             }
+
+            {type == 'hireInvite' && <>
+                    <h2>INVITE PEOPLE TO THIS PROJECT</h2>
+                    <div className={styles.inputDivSearch}>
+                        <label>Username:</label>
+                        <input placeholder='Username' value={usernameHireVal} onChange={(e) => setUsernameHireVal(e.target.value)}/>
+                    </div>
+                    <div className={styles.payDiv}>
+                        <label>Offered Amout:</label>
+                        $<input type='number' placeholder='0.00' value={offeredAmountVal} onChange={(e) => setOfferedAmountVal(e.target.value)}/>
+                    </div>
+                    <div className={styles.inputDiv}>
+                        <label>Message to invited people (optional):</label>
+                        <textarea value={messageVal} onChange={(e) => setMessageVal(e.target.value)}/>
+                    </div>
+                    {errMsg && <span>{errMsg}</span>}
+                    <button type='button' className={styles.sendBtnHire} onClick={() => sendInviteProject()}>SEND INVITE</button>
+                    <div className={styles.close} onClick={close}>
+                        <img src='/icons/close.png'/>
+                    </div>
+                </>}
+
+                {type == 'collabInvite' && <>
+                    <h2>INVITE PEOPLE TO THIS PROJECT</h2>
+                    <div className={styles.inputDivSearch}>
+                        <label>Username:</label>
+                        <input placeholder='Username' value={usernameHireVal} onChange={(e) => setUsernameHireVal(e.target.value)}/>
+                    </div>
+                    <div className={styles.inputDiv}>
+                        <label>Message to invited people (optional):</label>
+                        <textarea value={messageVal} onChange={(e) => setMessageVal(e.target.value)}/>
+                    </div>
+                    {errMsg && <span>{errMsg}</span>}
+                    <button type='button' className={styles.sendBtnCollab} onClick={() => sendInviteProject()}>SEND INVITE</button>
+                    <div className={styles.close} onClick={close}>
+                        <img src='/icons/close.png'/>
+                    </div>
+                </>}
         </div>
         <div className={styles.overlay}></div>
     </>

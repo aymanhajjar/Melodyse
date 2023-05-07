@@ -11,19 +11,19 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-ki
 import TaskCard from '@/components/TaskCard/TaskCard'
 import AddTask from '@/components/AddTask/AddTask'
 import FileCard from '@/components/FileCard/FileCard'
+import EndProject from '@/components/EndProject/EndProject'
+import CollabPrompt from '@/components/CollabPrompt/CollabPrompt'
 
 export default function Project({ project, messages_list, userData} : any) {
     const [moreInfo, setMoreInfo] = useState(false)
     const [messages, setMessages] = useState(messages_list)
     const [loadingMsg, setLoadingMsg] = useState(false)
-    const [hasMore, setHasMore] = useState(true)
-    const [page, setPage] = useState(1)
     const [tasks, setTasks] = useState(project.tasks)
     const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
     const [chatSocket, setChatSocket] = useState(null)
+    const [endOpen, setEndOpen] = useState(false)
+    const [addOpen, setAddOpen] = useState(false)
     
-    const messagesContainerRef = useRef(null)
-    const loadMoreRef = useRef(null)
 
     useEffect(() => {
         const url = `ws://localhost:8000/ws/socket-server/project/${project.id}`
@@ -88,6 +88,7 @@ export default function Project({ project, messages_list, userData} : any) {
     chatSocket.send(JSON.stringify({
         'message': msg
     }))
+
 }
   return (
     <>
@@ -106,7 +107,7 @@ export default function Project({ project, messages_list, userData} : any) {
                         <h1>{project.title}</h1>
                         <h4>• Started by {project.owner.name}</h4>
                     </div>
-                    <span className={styles.moreInfo} onClick={() => setMoreInfo(!moreInfo)}>More Info</span>
+                    <span className={styles.moreInfo} onClick={() => setMoreInfo(!moreInfo)}>{moreInfo ? 'Less Info' : 'More Info'}</span>
                 </div>
 
                 {moreInfo && <div className={styles.details}>
@@ -121,20 +122,20 @@ export default function Project({ project, messages_list, userData} : any) {
                                 <ProjectArtistCard key={member.username} artist={member}/>
                             ))}
                         </div>
+                        <h4 className={styles.addMembers} onClick={() => setAddOpen(true)}>Add Members</h4>
                     </div>
                 </div>}
             </div>
 
             <div className={styles.chat}>
                 <div className={styles.chatUI}>
-                    <div className={styles.messagesContainer} ref={messagesContainerRef} onScroll={handleScroll}>
+                    <div className={styles.messagesContainer} onScroll={handleScroll}>
                         {loadingMsg ? <img className={styles.loadingMsg} src='/loading-melodyse.gif'/> : messages.length > 0 ? messages.map(msg => (
                             <Message key={msg.id} message={msg} is_mine={msg.author_username == userData.username}/>
                             
                         )) : <span>Start a conversation</span>}
-                        {hasMore && <div className={styles.loadingMore} ref={loadMoreRef}>Loading more messages...</div>}
                     </div>
-                    <ChatInput submit={sendMsg}/>
+                    <ChatInput submit={sendMsg} project={project} user={userData.first_name}/>
                     </div>
             </div>
         </div>
@@ -170,12 +171,14 @@ export default function Project({ project, messages_list, userData} : any) {
             <AIActionButtonWide name='Assistant' pic='/icons/send.png'/>
             <div className={styles.actions}>
                 {project.owner.username == userData.username ? 
-                    <button className={styles.actionBtn}>END PROJECT</button>
+                    <button className={styles.actionBtn} onClick={() => setEndOpen(true)}>END PROJECT</button>
                     : <button className={styles.actionBtn}>LEAVE</button>}
             </div>
         </div>
         {addTaskFormOpen && <AddTask members={project.members} close={() => setAddTaskFormOpen(false)} addTask={addTask}/>}
       </div>
+      {endOpen && <EndProject project={project} close={() => setEndOpen(false)}/>}
+      {addOpen && <CollabPrompt project={project} type={project.is_collab ? 'collabInvite' : 'hireInvite'} close={() =>setAddOpen(false)}/>}
     </>
   )
 }
@@ -189,7 +192,7 @@ export async function getServerSideProps(context) {
         },
     }).then(res => project = res.data)
     .catch(err => console.log(err))
-    await axios.get(`${process.env.SERVER_SITE_URL}/getchat?project=${context.query.id}&page=1`, {
+    await axios.get(`${process.env.SERVER_SITE_URL}/getchat?project=${context.query.id}`, {
         headers: {
             Cookie: context.req.headers.cookie
         },

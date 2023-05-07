@@ -61,7 +61,7 @@ export default function ProfileButton(props: any) {
                     setDropdownOpen(false)
                 }}/>
                 <ActionButton name="My Projects" onClick={() => {
-                    router.push(`/profile/${props.username}`)
+                    router.push(`/myprojects`)
                     setDropdownOpen(false)
                 }}/>
                 <ActionButton name="Settings" onClick={() => {

@@ -62,8 +62,14 @@ $main_red: #AB4967;
     gap: 0.5rem;
     width: 100%;
 }
+.inputDivSearch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
 
-.inputDiv input {
+.inputDiv input, .inputDivSearch input {
     padding: 1rem;
     border: none;
     border-radius: 10px;
