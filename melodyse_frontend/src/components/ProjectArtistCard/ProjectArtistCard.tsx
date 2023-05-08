@@ -9,7 +9,7 @@ export default function ProjectArtistCard({artist, remove}: any) {
     return(
         <div className={styles.container} onClick={() => router.push(`/profile/${artist.username}`)}>
             <img src={process.env.SITE_URL + artist.picture}/>
-            <span>{artist.name}</span>
+            <span>{artist.name.slice(0, 100) + "..."}</span>
         </div>
     )
 }

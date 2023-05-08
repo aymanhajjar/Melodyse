@@ -107,7 +107,7 @@ $main_green: #47E5BC;
 .reqRead h3:hover {
     filter: brightness(110%);
     cursor: pointer;
-    transform: translateX(10%);
+    transform: translateX(5%);
     transition: all 0.3s;
 }
 
@@ -157,13 +157,15 @@ $main_green: #47E5BC;
 .moredetails:hover {
     filter: brightness(110%);
     cursor: pointer;
-    transform: translateX(10%);
+    transform: translateX(5%);
     transition: all 0.3s;
 }
 
 .profPic {
     width: 4rem;
-    object-fit: contain;
+    height: 4rem;
+    object-fit: cover;
+    aspect-ratio: 1/1;
     border-radius: 10px;
 }
 

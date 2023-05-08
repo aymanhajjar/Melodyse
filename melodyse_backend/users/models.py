@@ -207,6 +207,29 @@ class ProjectInvite(models.Model):
             "is_seen": self.is_seen,
         }
     
+class JoinRequest(models.Model):
+    initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="requests_sent")
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name="join_requests")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="requests")
+    message = models.TextField(blank=True)
+    is_accepted = models.BooleanField(blank=True, null=True)
+    is_seen = models.BooleanField(default=False)
+    def __str__(self):
+        return self.initiator.username + "'s invite"
+    def serialize(self):
+        return {
+            "request_id": self.id,
+            "sender_id": self.initiator.id,
+            "sender_name": self.initiator.first_name + ' ' + self.initiator.last_name,
+            "sender_username": self.initiator.username,
+            "sender_picture": self.initiator.info.get().picture.url,
+            "project_name": self.project.title,
+            "project_id": self.project.id,
+            "message": self.message,
+            "is_accepted": self.is_accepted,
+            "is_seen": self.is_seen,
+        }
+
 class File(models.Model):
     file = models.FileField(upload_to='project_files/')
     name = models.CharField(max_length=200, default='File')

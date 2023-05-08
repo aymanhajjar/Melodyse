@@ -23,7 +23,7 @@ $main_red: #AB4967;
 .hireContainer {
     animation: fadeIn 0.5s forwards;
     background-color: #47E5BC;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);

@@ -143,7 +143,7 @@ export default function Collab(props : any) {
           {loading && <div className={styles.loading}><img src='/loading-melodyse.gif'/></div>}
           {!loading && projects && <div className={styles.projects}>
             {projects.map((prj, key) => (
-            <ProjectCard key={key} project={prj} ongoing={true}/>
+            <ProjectCard key={key} project={prj} ongoing={true} browse={true} loggedIn={props.loggedIn}/>
           )) }</div>}</>}
 
       </div>

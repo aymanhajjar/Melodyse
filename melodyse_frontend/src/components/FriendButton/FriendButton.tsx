@@ -11,6 +11,7 @@ export default function FriendButton(props: any) {
     const [friendsTab, setFriendsTab] = useState(true)
     const [friendRequests, setFriendRequests] = useState()
     const [projectRequests, setProjectRequests] = useState()
+    const [joinRequests, setJoinRequests] = useState()
     const dropdownRef = useRef(null)
   
     useEffect(() => {
@@ -41,9 +42,11 @@ export default function FriendButton(props: any) {
             if(res.data) {
                 setFriendRequests(res.data.friends)
                 setProjectRequests(res.data.projects)
+                setJoinRequests(res.data.join)
             } else {
                 setFriendRequests('')
                 setProjectRequests('')
+                setJoinRequests('')
             }
             console.log(res)
             setLoading(false)
@@ -75,9 +78,14 @@ export default function FriendButton(props: any) {
                                     <Request type='friend' request={req}/>
                                 )) :   <span className={styles.noReq}>You don't have any friend requests</span>)}
 
-                        { !friendsTab && (projectRequests ? projectRequests.map(req => (
+                        { !friendsTab && (projectRequests ? <>
+                            {projectRequests.map(req => (
                                     <Request type='project' request={req}/>
-                                )) :   <span className={styles.noReq}>You don't have any project requests</span>)}
+                                ))}
+                            {joinRequests.map(req => (
+                                <Request type='join' request={req}/>
+                            ))}
+                        </> :   <span className={styles.noReq}>You don't have any project requests</span>)}
                     </div>
                 </>
                 }

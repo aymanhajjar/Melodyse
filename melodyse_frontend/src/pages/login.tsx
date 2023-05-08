@@ -13,13 +13,14 @@ export default function LoginPage(props : any) {
   const router = useRouter()
   const [loginActive, setLoginActive] = useState(true)
   const [step, setStep] = useState(0)
+  const [signUp, setSignUp] = useState(false)
 
   function handleFormChange() {
     setLoginActive(!loginActive)
   }
 
   useEffect(() => {
-    if(props.loggedIn) {
+    if(props.loggedIn && !signUp) {
       router.push('/')
     }
   }, [props.loggedIn])
@@ -35,7 +36,7 @@ export default function LoginPage(props : any) {
         <div className={step==0 ? styles.leftSide : styles.leftSideExpanded}>
           {loginActive ? <Login active={loginActive} onChangeForm={handleFormChange} token={props.token} setLoggedIn={() => props.setLoggedIn()}/> : 
           (
-            step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)} setLoggedIn={() => props.setLoggedIn()}/> :
+            step == 0 ? <Register active={loginActive} onChangeForm={handleFormChange} token={props.token} nextStep = {() => setStep(step+1)} setLoggedIn={() => props.setLoggedIn()} signUp={() => setSignUp(true)}/> :
             (step == 1 ? <FavoriteArtists nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
             step == 2 ? <FavoriteSongs nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> :
             step == 3 ? <UserSkills nextStep = {() => setStep(step+1)} prevStep = {() => setStep(step-1)}/> : <Success prevStep = {() => setStep(step-1)}/>)

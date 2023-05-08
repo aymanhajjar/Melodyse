@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
-from users.models import User, UserInfo, ProjectInvite, Project, Task, File, Track, Chat
+from users.models import User, UserInfo, ProjectInvite, Project, Task, File, Track, Chat, JoinRequest
 from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -49,7 +49,10 @@ class UsersView(APIView):
             pass
 
         if request.user.is_authenticated:
-            matches = findMatch.get(request.user.id)
+            if request.user.info.get().favorite_artists or request.user.info.get().favorite_songs:
+                matches = findMatch.get(request.user.id)
+            else:
+                matches = []
             users = []
             kwargs = {}
             if is_VIP:
@@ -224,6 +227,18 @@ def endProject(request):
     else:
         return HttpResponse('User not logged in', status=403)
     
+def leaveProject(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        project = Project.objects.get(id=id, members=request.user)
+        project.members.remove(request.user)
+        project.save()
+
+        return JsonResponse({'status': 'success'})
+
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
 def uploadProject(request):
     if request.user.is_authenticated:
         id = request.POST['id']
@@ -258,9 +273,67 @@ def getMyProjects(request):
     else:
         return HttpResponse('User not logged in', status=403)
     
+def acceptRequest(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        action = request.POST['action']
+        username = request.POST['username']
+        joinrequest = JoinRequest.objects.get(id=id)
+        project = joinrequest.project
+        target_user = User.objects.get(username=username)
+        if action == 'accept':
+            project.members.add(target_user)
+            project.save()
+            joinrequest.is_accepted=True
+            joinrequest.save()
+            return JsonResponse({'status': 'accepted'}, safe=False)
+        elif action == 'reject':
+            joinrequest.is_accepted=False
+            joinrequest.save()
+            return JsonResponse({'status': 'rejected'}, safe=False)
+            
+        return HttpResponse('No action', status=400)
+    else:
+        return HttpResponse('User not logged in', status=403)
+    
+def acceptInvite(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        action = request.POST['action']
+        invite = ProjectInvite.objects.get(id=id)
+        project = invite.project
+
+        if action == 'accept':
+            project.members.add(request.user)
+            project.save()
+            invite.is_accepted=True
+            invite.save()
+            return JsonResponse({'status': 'accepted'}, safe=False)
+        elif action == 'reject':
+            invite.is_accepted=False
+            invite.save()
+            return JsonResponse({'status': 'rejected'}, safe=False)
+            
+        return JsonResponse({'status': 'none'}, safe=False)
+    else:
+        return HttpResponse('User not logged in', status=403)
+     
 def getAllProjects(request):
     if request.user.is_authenticated:
         projects = Project.objects.filter(~Q(members=request.user) & Q(is_completed=False))
         return JsonResponse([prj.serialize() for prj in projects], safe=False)
+    else:
+        projects = Project.objects.all()
+        return JsonResponse([prj.serialize() for prj in projects], safe=False)
+    
+def joinRequest(request):
+    if request.user.is_authenticated:
+        id = request.POST['id']
+        username = request.POST['owner']
+        message = request.POST['message']
+        project = Project.objects.get(id=id)
+        target_user = User.objects.get(username=username)
+        JoinRequest.objects.create(initiator=request.user, recipient=target_user, message=message, project=project)
+        return JsonResponse({'status': 'success'}, safe=False)
     else:
         return HttpResponse('User not logged in', status=403)

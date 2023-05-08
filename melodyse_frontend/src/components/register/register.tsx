@@ -4,6 +4,7 @@ import FormInput from '../FormInput/FormInput'
 import PasswordStrengthBar from 'react-password-strength-bar'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 export default function Register(props : any) {
     const [active, setActive] = useState(false)
@@ -27,15 +28,41 @@ export default function Register(props : any) {
     const [passwordError, setPasswordError] = useState(false)
     const [confPasswordError, setConfPasswordError] = useState(false)
     const [dateError, setDateError] = useState(false)
+
+    const router = useRouter()
     
     useEffect(() => {
-        // Load the Google Sign-In API
-        // gapi.load('auth2', () => {
-        //   gapi.auth2.init({
-        //     client_id: 'YOUR_CLIENT_ID',
-        //   });
-        // });
-      }, []);
+        gapi.load('auth2', () => {
+            gapi.auth2.init({
+              client_id: process.env.GOOGLE_CLIENT_ID,
+              plugin_name: "chat"
+            })
+          })
+    }, [])
+
+    function handleGoogleSignIn() {
+        gapi.auth2.getAuthInstance().signIn().then(googleUser => {
+            console.log(googleUser)
+            const data = new FormData()
+            data.append('response', JSON.stringify(googleUser))
+            axios.post(`${process.env.SITE_URL}/google-signin`, data, {
+                withCredentials: true
+            }).then(response => {
+                    setLoading(false)
+                    const csrf = Cookies.get('csrftoken')
+                    axios.defaults.headers.common['X-CSRFToken'] = csrf
+                    props.setLoggedIn()
+                    router.push('/')
+                }).catch(err => {
+                    if(err.response.status == 400) {
+                        router.push('/login')
+                    }
+                    if(err.response.status == 401) {
+                        setErrorMessage('Failed to verify user.')
+                    }
+                    console.error(err)})
+        })
+      }
 
     useEffect(() => {
         setActive(!props.active)
@@ -69,6 +96,7 @@ export default function Register(props : any) {
                 axios.defaults.headers.common['X-CSRFToken'] = csrf   
                 props.setLoggedIn()
                 props.nextStep()
+                props.signUp()
             }).catch(err => {
                 setLoading(false)
                 if(err.response.data == 'failed to validate password') {
@@ -228,7 +256,7 @@ export default function Register(props : any) {
         <span>Already have an account? <a onClick={() => changeForm()}>Log In</a></span>
         <span>or, sign up using:</span>
         <div className={styles.socialIcons}>
-        <img src='/icons/google-icon.png' alt='Google'></img>
+        <img src='/icons/google-icon.png' alt='Google' onClick={handleGoogleSignIn}></img>
         <img src='/icons/twitter-icon.png' alt='Twitter'></img>
         <img src='/icons/facebook-icon.png' alt='Facebook'></img>
         </div>

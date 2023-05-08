@@ -13,6 +13,8 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.db.models import Sum
 import environ
+import requests as requests_py
+from django.core.files.base import ContentFile
 from datetime import datetime
 # Create your views here.
 
@@ -28,21 +30,17 @@ def userLogin(request):
     username_email = request.POST['username_email']
     password = request.POST['password']
     try:
-        google_access_token = request.POST['google_access_token']
         google_id_token = request.POST['google_id_token']
     except:
-        google_access_token = False
         google_id_token = False
 
     user = authenticate(request, username=username_email, password=password)
 
     if user is not None:
         login(request, user)
-        if google_access_token:
-            user.google_access_token = google_access_token
-            user.save()
         if google_id_token:
-            user.google_id_token = google_id_token
+            id_info = id_token.verify_oauth2_token(google_id_token, requests.Request())
+            user.google_id = id_info['sub']
             user.save()
 
         user_data = dataHandler.getData(user)
@@ -129,7 +127,12 @@ def googleSignIn(request):
 
         user = User.objects.create_user(username=new_username, email=data['wv']['iw'], first_name=data['wv']['ZZ'], last_name=data['wv']['pY'], google_id=google_id)
 
-        UserInfo.objects.create(user=user, picture=data['wv']['QO'])
+        url = data['wv']['QO']
+        response = requests_py.get(url)
+        image_data = response.content
+
+        info = UserInfo.objects.create(user=user)
+        info.picture.save(new_username + '.jpg', ContentFile(image_data), save=True)
 
         login(request, user, backend='users.modules.auth.AuthBackend')
         
@@ -176,7 +179,8 @@ def getRequests(request):
     if request.user.is_authenticated:
         requests = {
             'friends': [request.serialize() for request in request.user.friend_requests.all()],
-            'projects': [invite.serialize() for invite in request.user.project_invites.all()]
+            'projects': [invite.serialize() for invite in request.user.project_invites.all()],
+            'join': [req.serialize() for req in request.user.join_requests.all()]
         } 
         FriendRequest.objects.filter(user=request.user).update(is_seen=True)
         ProjectInvite.objects.filter(recipient=request.user).update(is_seen=True)

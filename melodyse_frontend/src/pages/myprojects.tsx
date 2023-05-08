@@ -28,7 +28,7 @@ export default function MyProjects({loggedIn, projects} : any) {
             <h3>Ongoing Projects</h3>
             {projects.ongoing.length > 0 ? <div className={styles.projects}>
                 {projects.ongoing.map(prj => (
-                    <ProjectCard project={prj} ongoing={true}/>
+                    <ProjectCard project={prj} ongoing={true} loggedIn={loggedIn}/>
                 ))}
             </div>
             
@@ -36,7 +36,7 @@ export default function MyProjects({loggedIn, projects} : any) {
             <h3>Completed Projects</h3>
             {projects.completed.length > 0 ? <div className={styles.projects}>
                 {projects.completed.map(prj => (
-                    <ProjectCard project={prj} ongoing={false}/>
+                    <ProjectCard project={prj} ongoing={false} loggedIn={loggedIn}/>
                 ))}
             </div> : <span>No completed projects</span>}
       </div>

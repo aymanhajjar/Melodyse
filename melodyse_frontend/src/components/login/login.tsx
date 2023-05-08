@@ -11,6 +11,7 @@ export default function Login(props: any) {
     const [passwordValue, setPasswordValue] = useState('')
     const [errormessage, setErrorMessage] = useState('')
     const [loading, setLoading] = useState(false)
+    const [googleToken, setGoogleToken] = useState()
 
     const router = useRouter()
 
@@ -37,6 +38,7 @@ export default function Login(props: any) {
     function handleGoogleSignIn() {
         gapi.auth2.getAuthInstance().signIn().then(googleUser => {
             console.log(googleUser)
+            setGoogleToken(googleUser.zc.id_token)
             const data = new FormData()
             data.append('response', JSON.stringify(googleUser))
             axios.post(`${process.env.SITE_URL}/google-signin`, data, {
@@ -65,6 +67,7 @@ export default function Login(props: any) {
         const data = new FormData
         data.append('username_email', userEmailValue)
         data.append('password', passwordValue)
+        googleToken && data.append('google_id_token', googleToken)
 
         axios.post(`${process.env.SITE_URL}/login`, data, {
             withCredentials: true

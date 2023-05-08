@@ -56,6 +56,7 @@ export default function ProfileButton(props: any) {
         })
         .then(res => {
             props.loggedOut()
+            router.push('/')
         }).catch(err => {
             console.error(err)
         })

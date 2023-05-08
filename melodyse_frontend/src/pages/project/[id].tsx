@@ -14,6 +14,7 @@ import FileCard from '@/components/FileCard/FileCard'
 import EndProject from '@/components/EndProject/EndProject'
 import CollabPrompt from '@/components/CollabPrompt/CollabPrompt'
 import { useRouter } from 'next/router'
+import LeaveProject from '@/components/LeaveProject/LeaveProject'
 
 export default function Project({ project, messages_list, userData, notallowed} : any) {
     const [moreInfo, setMoreInfo] = useState(false)
@@ -23,6 +24,7 @@ export default function Project({ project, messages_list, userData, notallowed} 
     const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
     const [chatSocket, setChatSocket] = useState(null)
     const [endOpen, setEndOpen] = useState(false)
+    const [leaveOpen, setLeaveOpen] = useState(false)
     const [addOpen, setAddOpen] = useState(false)
     
     const router = useRouter()
@@ -103,7 +105,7 @@ export default function Project({ project, messages_list, userData, notallowed} 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.ico" />
       </Head>
-      {project.length > 0 && <div className={styles.container}>
+      <div className={styles.container}>
 
         <div className={styles.div1}>
 
@@ -128,7 +130,7 @@ export default function Project({ project, messages_list, userData, notallowed} 
                                 <ProjectArtistCard key={member.username} artist={member}/>
                             ))}
                         </div>
-                        <h4 className={styles.addMembers} onClick={() => setAddOpen(true)}>Add Members</h4>
+                        {project.owner.username == userData.username && <h4 className={styles.addMembers} onClick={() => setAddOpen(true)}>Add Members</h4>}
                     </div>
                 </div>}
             </div>
@@ -163,7 +165,7 @@ export default function Project({ project, messages_list, userData, notallowed} 
                     
                 : <span>No tasks assigned.</span>
                 }
-                <img src="/icons/plus.png" className={styles.addBtn} onClick={() => setAddTaskFormOpen(true)}/>
+                {project.owner.username == userData.username && <img src="/icons/plus.png" className={styles.addBtn} onClick={() => setAddTaskFormOpen(true)}/>}
             </div>
             <div className={styles.files}>
                 <h1>Files</h1>
@@ -178,12 +180,13 @@ export default function Project({ project, messages_list, userData, notallowed} 
             <div className={styles.actions}>
                 {project.owner.username == userData.username ? 
                     <button className={styles.actionBtn} onClick={() => setEndOpen(true)}>END PROJECT</button>
-                    : <button className={styles.actionBtn}>LEAVE</button>}
+                    : <button className={styles.actionBtn} onClick={() => setLeaveOpen(true)}>LEAVE</button>}
             </div>
         </div>
         {addTaskFormOpen && <AddTask members={project.members} close={() => setAddTaskFormOpen(false)} addTask={addTask}/>}
-      </div>}
+      </div>
       {endOpen && <EndProject project={project} close={() => setEndOpen(false)}/>}
+      {leaveOpen && <LeaveProject project={project} close={() => setLeaveOpen(false)}/>}
       {addOpen && <CollabPrompt project={project} type={project.is_collab ? 'collabInvite' : 'hireInvite'} close={() =>setAddOpen(false)}/>}
     </>
   )
@@ -199,7 +202,7 @@ export async function getServerSideProps(context) {
         },
     }).then(res => project = res.data)
     .catch(err => {
-        if(err.response.status) {
+        if(err.response.status == 403) {
             notallowed = true
         }
         console.log(err)})
