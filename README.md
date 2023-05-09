@@ -72,10 +72,6 @@
 | ---| ---| ---|
 | ![fsdaf](./readme/melodyse/gif/profile.gif) | ![Landing](./readme/melodyse/gif/songwriting.gif) | ![fsdaf](./readme/melodyse/gif/release.gif) |
 
-| Production Assistant Screen | Songwriting Assistant Screen | Learning Assistant screen  |
-| ---| ---| ---|
-| ![fsdaf](./readme/melodyse/production.jpg) | ![fsdaf](./readme/melodyse/songwriting.jpg) | ![Landing](./readme/melodyse/learning.jpg) | 
-
 | Collab Screen | Project Screen |  |
 | ---| ---| ---|
 |![fsdaf](./readme/melodyse/gif/collab.gif) | ![fsdaf](./readme/melodyse/gif/project.gif)| |
