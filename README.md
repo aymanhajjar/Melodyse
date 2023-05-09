@@ -63,6 +63,23 @@
 | ---| ---| ---|
 |![fsdaf](./readme/melodyse/release.jpg) | ![fsdaf](./readme/melodyse/admin.jpg)|![fsdaf](./readme/melodyse/project.jpg) |
 
+### Animated
+| Home screen  | Sign up screen | Menus |
+| ---| ---| ---|
+| ![Landing](./readme/melodyse/gif/home.gif) | ![fsdaf](./readme/melodyse/gif/signup.gif) | ![fsdaf](./readme/melodyse/gif/menus.gif) |
+
+| Profile screen | Songwriting Assistant screen  | Release Assistant Screen |
+| ---| ---| ---|
+| ![fsdaf](./readme/melodyse/gif/profile.gif) | ![Landing](./readme/melodyse/gif/songwriting.gif) | ![fsdaf](./readme/melodyse/gif/release.gif) |
+
+| Production Assistant Screen | Songwriting Assistant Screen | Learning Assistant screen  |
+| ---| ---| ---|
+| ![fsdaf](./readme/melodyse/production.jpg) | ![fsdaf](./readme/melodyse/songwriting.jpg) | ![Landing](./readme/melodyse/learning.jpg) | 
+
+| Collab Screen | Project Screen |  |
+| ---| ---| ---|
+|![fsdaf](./readme/melodyse/gif/collab.gif) | ![fsdaf](./readme/melodyse/gif/project.gif)| |
+
 > To implement a matching algorithm, we used a small dataset that contains users and their favorite genres. We then used cosine similarity to calculate the similarities between the users. Here is what the dataset looks like :
 
 ### Dataset
