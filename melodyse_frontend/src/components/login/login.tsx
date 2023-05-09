@@ -37,7 +37,6 @@ export default function Login(props: any) {
 
     function handleGoogleSignIn() {
         gapi.auth2.getAuthInstance().signIn().then(googleUser => {
-            console.log(googleUser)
             setGoogleToken(googleUser.zc.id_token)
             const data = new FormData()
             data.append('response', JSON.stringify(googleUser))

@@ -42,7 +42,6 @@ export default function Register(props : any) {
 
     function handleGoogleSignIn() {
         gapi.auth2.getAuthInstance().signIn().then(googleUser => {
-            console.log(googleUser)
             const data = new FormData()
             data.append('response', JSON.stringify(googleUser))
             axios.post(`${process.env.SITE_URL}/google-signin`, data, {

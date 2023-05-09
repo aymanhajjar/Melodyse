@@ -9,7 +9,6 @@ import AdminProjectCard from '@/components/AdminProjectCard/AdminProjectCard';
 
 export default function Admin({ userData, data } : any) {
     ChartJS.register(ArcElement, Tooltip, Legend)
-    console.log(data)
     const pieUserData = {
         labels: ['Male', 'Female'],
         datasets: [
@@ -27,7 +26,7 @@ export default function Admin({ userData, data } : any) {
         }).then(res => data = res.data)
           .catch(err => console.error(err))
     }
-    
+
     const pieProjectData = {
         labels: ['Completed', 'Ongoing'],
         datasets: [

@@ -18,7 +18,7 @@ export default function MessageButton(props: any) {
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
-      };
+      }
     }, [dropdownRef])
 
     const router = useRouter()
@@ -41,7 +41,6 @@ export default function MessageButton(props: any) {
             } else {
                 setChats('')
             }
-            console.log(res)
             setLoading(false)
         }).catch(err => {
             console.error(err)

@@ -13,7 +13,6 @@ export default function MyProjects({loggedIn, projects} : any) {
         if(!loggedIn) {
             router.push('/')
         }
-        console.log(projects)
     }, [])
   
   return (

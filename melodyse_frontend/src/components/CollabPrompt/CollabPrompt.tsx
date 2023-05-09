@@ -33,6 +33,7 @@ export default function CollabPrompt({ type, name=null, username=null, first_nam
         data.append('project_description', project.description)
         data.append('offered_amount', offeredAmountVal),
         data.append('message', messageVal)
+        data.append('id', project.id)
         axios.post(`${process.env.SITE_URL}/send-invite`, data, {
             withCredentials: true
         }).then(res => {close()})

@@ -40,11 +40,9 @@ export default function Project({ project, messages_list, userData, notallowed} 
         socket.onmessage = (e) => {
         let data = JSON.parse(e.data)
         if (data.type == 'chat') {
-            console.log('received')
             setMessages((prevMessages) => [data.message, ...prevMessages])
         }
         }
-        console.log(project, messages_list)
     }, [])
 
     useEffect(() => {
@@ -92,7 +90,6 @@ export default function Project({ project, messages_list, userData, notallowed} 
       setTasks(updatedTasks)
   }
   const sendMsg = (msg) => {
-    console.log('sent', msg)
     chatSocket.send(JSON.stringify({
         'message': msg
     }))

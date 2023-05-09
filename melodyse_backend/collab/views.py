@@ -51,6 +51,7 @@ class UsersView(APIView):
         if request.user.is_authenticated:
             if request.user.info.get().favorite_artists or request.user.info.get().favorite_songs:
                 matches = findMatch.get(request.user.id)
+                print(matches)
             else:
                 matches = []
             users = []
@@ -104,7 +105,10 @@ class UsersView(APIView):
 def sendInvite(request):
     if request.user.is_authenticated:
         type = request.POST['type']
-        exists = request.POST['exists']
+        try:
+            id = request.POST['id']
+        except:
+            id = False
         username = request.POST['username']
         name = request.POST['project_name']
         description = request.POST['project_description']
@@ -121,10 +125,15 @@ def sendInvite(request):
         except User.DoesNotExist:
             return HttpResponse('User not found', status=404)
         
-        project = Project.objects.create(owner=request.user, title=name, description=description, is_collab=is_collab)
-        chat = Chat.objects.create(admin=request.user, paricipants=request.user, project=project)
-        project.members.add(request.user)
-        project.members.add(recipient)
+        if not id:
+            project = Project.objects.create(owner=request.user, title=name, description=description, is_collab=is_collab)
+            chat = Chat.objects.create(admin=request.user, project=project)
+            chat.participants.add(request.user)
+            chat.save()
+            project.members.add(request.user)
+            project.members.add(recipient)
+        else:
+            project = Project.objects.get(id=id)
 
         ProjectInvite.objects.create(initiator=request.user, recipient=recipient, is_collab=is_collab, project=project, message=message, offered_amount=amount)
 

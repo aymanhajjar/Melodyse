@@ -44,7 +44,6 @@ export default function Listen({ track_list, artists_list } : any) {
 
   useEffect(() => {
     setLoading(true)
-    console.log(`${process.env.SITE_URL}/gettracks?page=${activeSection}`)
     axios.get(`${process.env.SITE_URL}/gettracks?page=${activeSection}`, {
         withCredentials: true
     }).then(res => {

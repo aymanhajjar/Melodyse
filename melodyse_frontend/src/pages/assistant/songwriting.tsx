@@ -40,7 +40,6 @@ function Songwriting({subscriptions = []}) {
         present: previous,
         future: [present, ...future],
       }
-    console.log(historyRef.current)
     setLyrics(previous)
     }
   }
@@ -69,68 +68,74 @@ function Songwriting({subscriptions = []}) {
   }
 
   const feedback = () => {
-    setLoading(true)
-    setDisabled(true)
-    const data = new FormData()
-    data.append('lyrics', lyrics)
-    data.append('with_interests', useInterests.toString())
-    axios.post(`${process.env.SITE_URL}/feedback`, data, {
-      withCredentials: true
-    }).then((res) => {
-      setLoading(false)
-      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-      setFeedbackText(cleanText)
-      setDisabled(false)
-      setFeedbackBox(true)
-    }).catch(err => {
-        setDisabled(false)
+    if(lyrics.length > 0) {
+      setLoading(true)
+      setDisabled(true)
+      const data = new FormData()
+      data.append('lyrics', lyrics)
+      data.append('with_interests', useInterests.toString())
+      axios.post(`${process.env.SITE_URL}/feedback`, data, {
+        withCredentials: true
+      }).then((res) => {
         setLoading(false)
-        console.error(err)
-    })
+        const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+        setFeedbackText(cleanText)
+        setDisabled(false)
+        setFeedbackBox(true)
+      }).catch(err => {
+          setDisabled(false)
+          setLoading(false)
+          console.error(err)
+      })
+    }
   }
 
   const fixGrammar = () => {
-    setLoading(true)
-    setDisabled(true)
-    const data = new FormData()
-    data.append('lyrics', lyrics)
-    data.append('with_interests', useInterests.toString())
-    axios.post(`${process.env.SITE_URL}/grammar`, data, {
-      withCredentials: true
-    }).then((res) => {
-      setLoading(false)
-      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-      const difs = diff.diffWords(lyrics, cleanText)
-      setTempLyrics(cleanText)
-      setDisabled(false)
-      setDifferences(difs)
-    }).catch(err => {
-        setDisabled(false)
+    if(lyrics.length > 0) {
+      setLoading(true)
+      setDisabled(true)
+      const data = new FormData()
+      data.append('lyrics', lyrics)
+      data.append('with_interests', useInterests.toString())
+      axios.post(`${process.env.SITE_URL}/grammar`, data, {
+        withCredentials: true
+      }).then((res) => {
         setLoading(false)
-        console.error(err)
-    })
+        const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+        const difs = diff.diffWords(lyrics, cleanText)
+        setTempLyrics(cleanText)
+        setDisabled(false)
+        setDifferences(difs)
+      }).catch(err => {
+          setDisabled(false)
+          setLoading(false)
+          console.error(err)
+      })
+    }
   }
 
   const improveLyrics = () => {
-    setLoading(true)
-    setDisabled(true)
-    const data = new FormData()
-    data.append('lyrics', lyrics)
-    data.append('with_interests', useInterests.toString())
-    axios.post(`${process.env.SITE_URL}/improve`, data, {
-      withCredentials: true
-    }).then((res) => {
-      setLoading(false)
-      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-      const difs = diff.diffWords(lyrics, cleanText)
-      setTempLyrics(cleanText)
-      setDifferences(difs)
-      setDisabled(false)
-    }).catch(err => {
-        setDisabled(false)
+    if(lyrics.length > 0) {
+      setLoading(true)
+      setDisabled(true)
+      const data = new FormData()
+      data.append('lyrics', lyrics)
+      data.append('with_interests', useInterests.toString())
+      axios.post(`${process.env.SITE_URL}/improve`, data, {
+        withCredentials: true
+      }).then((res) => {
         setLoading(false)
-        console.error(err)
-    })
+        const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+        const difs = diff.diffWords(lyrics, cleanText)
+        setTempLyrics(cleanText)
+        setDifferences(difs)
+        setDisabled(false)
+      }).catch(err => {
+          setDisabled(false)
+          setLoading(false)
+          console.error(err)
+      })
+    }
   }
 
   const generate = () => {
@@ -154,24 +159,26 @@ function Songwriting({subscriptions = []}) {
   }
 
   const generateMelody = () => {
-    setLoading(true)
-    setDisabled(true)
-    const data = new FormData()
-    data.append('lyrics', lyrics)
-    data.append('with_interests', useInterests.toString())
-    axios.post(`${process.env.SITE_URL}/generatemelody`, data, {
-      withCredentials: true
-    }).then((res) => {
-      setLoading(false)
-      const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
-      setFeedbackText(cleanText)
-      setDisabled(false)
-      setFeedbackBox(true)
-    }).catch(err => {
-        setDisabled(false)
+    if(lyrics.length > 0) {
+      setLoading(true)
+      setDisabled(true)
+      const data = new FormData()
+      data.append('lyrics', lyrics)
+      data.append('with_interests', useInterests.toString())
+      axios.post(`${process.env.SITE_URL}/generatemelody`, data, {
+        withCredentials: true
+      }).then((res) => {
         setLoading(false)
-        console.error(err)
-    })
+        const cleanText = res.data.choices[0].text.replace(/^\s+/, "")
+        setFeedbackText(cleanText)
+        setDisabled(false)
+        setFeedbackBox(true)
+      }).catch(err => {
+          setDisabled(false)
+          setLoading(false)
+          console.error(err)
+      })
+    }
   }
 
   const accept = () => {

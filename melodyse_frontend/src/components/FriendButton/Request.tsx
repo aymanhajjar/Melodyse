@@ -74,8 +74,8 @@ export default function Request({ type, request }) {
                     {!request.is_collab && <span><b>Offered amount: </b>${request.offered_amount}</span>}
                     <span className={styles.moredetails} onClick={() => setDetailsOpen(true)}>More details >></span>
                     {accepted === null? <div className={styles.actions}>
-                        <button className={styles.accept}><img src={'/icons/check.png'} onClick={() => respondInvite('accept')}/>Accept</button>
-                        <button className={styles.reject}><img src={'/icons/x.png'} onClick={() => respondInvite('reject')}/>Reject</button> 
+                        <button className={styles.accept} onClick={() => respondInvite('accept')}><img src={'/icons/check.png'} />Accept</button>
+                        <button className={styles.reject} onClick={() => respondInvite('reject')}><img src={'/icons/x.png'} />Reject</button> 
 
                     </div> : accepted ? <h6 className={styles.accepted}> <img src={'/icons/check.png'}/> accepted</h6> :  <h6 className={styles.rejected}><img src={'/icons/x.png'} />rejected</h6>}
                 </div>

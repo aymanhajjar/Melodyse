@@ -49,19 +49,19 @@
 ### User Screens
 | Home screen #1  | Home screen #2 | Chat screen |
 | ---| ---| ---|
-| ![Landing](./readme/melodyse/home1.png) | ![fsdaf](./readme/melodyse/home2.png) | ![fsdaf](./readme/melodyse/chat.png) |
+| ![Landing](./readme/melodyse/home1.jpg) | ![fsdaf](./readme/melodyse/home2.jpg) | ![fsdaf](./readme/melodyse/chat.jpg) |
 
-| Assistant screen | Collab screen  | Profile Screen |
+| Listen screen | Collab screen  | Profile Screen |
 | ---| ---| ---|
-| ![fsdaf](./readme/melodyse/assistant.png) | ![Landing](./readme/melodyse/collab.png) | ![fsdaf](./readme/melodyse/profile.png) |
+| ![fsdaf](./readme/melodyse/listen.jpg) | ![Landing](./readme/melodyse/collab.jpg) | ![fsdaf](./readme/melodyse/profile.jpg) |
 
 | Production Assistant Screen | Songwriting Assistant Screen | Learning Assistant screen  |
 | ---| ---| ---|
-| ![fsdaf](./readme/melodyse/production.png) | ![fsdaf](./readme/melodyse/songwriting.png) | ![Landing](./readme/melodyse/learning.png) | 
+| ![fsdaf](./readme/melodyse/production.jpg) | ![fsdaf](./readme/melodyse/songwriting.jpg) | ![Landing](./readme/melodyse/learning.jpg) | 
 
-| Release Assistant Screen | Listen Screen | |
+| Release Assistant Screen | Admin Screen | Project Screen |
 | ---| ---| ---|
-|![fsdaf](./readme/melodyse/release.png) | ![fsdaf](./readme/melodyse/listen.png)| |
+|![fsdaf](./readme/melodyse/release.jpg) | ![fsdaf](./readme/melodyse/admin.jpg)|![fsdaf](./readme/melodyse/project.jpg) |
 
 > To implement a matching algorithm, we used a small dataset that contains users and their favorite genres. We then used cosine similarity to calculate the similarities between the users. Here is what the dataset looks like :
 

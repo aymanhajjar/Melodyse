@@ -30,7 +30,6 @@ export default function FavoriteSongs(props: any) {
     const getToken = () => {
         const client_id = process.env.SPOTIFY_CLIENT_ID
         const client_secret = process.env.SPOTIFY_CLIENT_SECRET
-        console.log(client_id, client_secret)
         axios.post(
             'https://accounts.spotify.com/api/token',
             new URLSearchParams({
@@ -53,7 +52,6 @@ export default function FavoriteSongs(props: any) {
                 "Authorization": `Bearer ${spotifyToken}`
             }
         }).then(res => {
-            console.log(res)
             setSongs(res.data.tracks)
             setLoading(false)
         })
@@ -63,14 +61,13 @@ export default function FavoriteSongs(props: any) {
         axios.get(`${process.env.SITE_URL}/getfavoritesongs`, {
             withCredentials: true
         }).then(res => {
-            console.log(res)
             res.data && setChosenSongs(res.data)
             const ids = []
             res.data && res.data.forEach(song => {
                 ids.push(song.id)
             })
             setChosenIDs(ids)
-        }).catch(err => console.log(err))
+        }).catch(err => console.error(err))
     }
 
     const submit = () => {
@@ -100,7 +97,6 @@ export default function FavoriteSongs(props: any) {
                     "Authorization": `Bearer ${spotifyToken}`
                 }
             }).then(res => {
-                console.log(res)
                 setSongs(res.data.tracks.items)
                 setLoading(false)
             })

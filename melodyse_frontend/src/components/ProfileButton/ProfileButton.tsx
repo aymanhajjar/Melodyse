@@ -42,7 +42,6 @@ export default function ProfileButton(props: any) {
                 setSub(res.data)
                 props.setSub(res.data)
             }
-            console.log(res)
             setLoading(false)
         }).catch(err => {
             console.error(err)

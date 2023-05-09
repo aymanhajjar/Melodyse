@@ -12,12 +12,8 @@ import { useRouter } from 'next/router'
 export default function Layout({ children, loggedIn, setLoggedOut, setSubscription, userData, subscription, notfCount, msgCount, reqCount, is_readNotf }) {
 
     const [selected, setSelected] = useState('home')
-    // const [userData, setUserData] = useState({})
 
     const router = useRouter()
-    useEffect(() => {
-        console.log('countt', notfCount)
-    }, [notfCount])
 
     useEffect(() => {
         router.asPath == '/' ? setSelected('home')

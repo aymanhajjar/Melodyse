@@ -26,17 +26,16 @@ export default function UserSkills(props: any) {
         }).then(res => {
             setSkills(res.data)
             setLoading(false)
-        }).catch(err => console.log(err))
+        }).catch(err => console.error(err))
     }
 
     const getChosenSkills = () => {
         axios.get(`${process.env.SITE_URL}/getchosenskills`, {
             withCredentials: true
         }).then(res => {
-            console.log(res)
             res.data && setChosenSkills(res.data)
             setLoading(false)
-        }).catch(err => console.log(err))
+        }).catch(err => console.error(err))
     }
 
     const submit = () => {

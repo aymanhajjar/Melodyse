@@ -73,7 +73,6 @@ export default function Collab(props : any) {
         setLoading(false)
         setHasMore(false)
         setArtists(res.data)
-        console.log('resulttedd', res.data)
       })
       .catch(err=> {
         try {
@@ -155,7 +154,6 @@ Collab.getInitialProps = async (ctx) => {
   let data = []
   await axios.get(`${process.env.SERVER_SITE_URL}/getskills`).then(res => {
             data = res.data
-            console.log(res)
         }).catch(err => console.error(err))
   return {skills: data}
 }

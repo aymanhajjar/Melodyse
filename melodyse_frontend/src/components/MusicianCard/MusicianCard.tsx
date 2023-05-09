@@ -17,7 +17,6 @@ export default function MusicianCard({artist}) {
             'name': 'MATCH'
         })
         setCards(card_list)
-        console.log(card_list)
     }, [])
 
   return (

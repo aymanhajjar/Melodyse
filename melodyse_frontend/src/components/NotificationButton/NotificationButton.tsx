@@ -43,7 +43,6 @@ export default function NotificationButton(props: any) {
             } else {
                 setNotifications('')
             }
-            console.log(res)
             setLoading(false)
         }).catch(err => {
             console.error(err)

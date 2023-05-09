@@ -48,7 +48,6 @@ export default function FriendButton(props: any) {
                 setProjectRequests('')
                 setJoinRequests('')
             }
-            console.log(res)
             setLoading(false)
         }).catch(err => {
             console.error(err)
