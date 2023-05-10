@@ -100,32 +100,65 @@
 <!-- How to run -->
 <img src="./readme/title6.svg"/>
 
-<!-- > To set up Coffee Express locally, follow these steps:
+> To set up Melodyse locally, follow these steps:
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+ * Node.js and npm
+To install, visit https://nodejs.org/en/download/ and follow the instructions for your operating system
+ * Python 3 and pip
+To install, visit https://www.python.org/downloads/ and follow the instructions for your operating system
+ * PostgreSQL
+To install, visit https://www.postgresql.org/download/ and follow the instructions for your operating system
+ * Redis
+To install, visit https://redis.io/download and follow the instructions for your operating system
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Sign up on Google Cloud Console, start a new app and get a free CLIENT_ID key [https://console.cloud.google.com/](https://console.cloud.google.com/)
+2. Sign up for Spotify for Developers, and get a free CLIENT_ID and CLIENT_SECRET, you can follow the instructions here: [https://developer.spotify.com/documentation/web-api](https://developer.spotify.com/documentation/web-api)
+3. Sign up for an OPEN AI developer account, and get a free API key: [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
+3. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/aymanhajjar/Melodyse.git
+   cd melodyse
    ```
-3. Install NPM packages
+4. Install NPM packages for the frontend
    ```sh
+   cd melodyse_frontend
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+5. Install python packages for the backend
+   ```sh
+   cd melodyse_backend
+   pip install -r requirements.txt
    ```
+6. Set up the database
+   Create a PostgreSQL database with the name "melodysedb"
+7. Create a file inside the folder "melodyse_frontend" called ".env.local", and put the keys you got in the previous steps. The file should be in the following form: 
+ ```sh
+   GOOGLE_CLIENT_ID=  //your_client_id
+   SITE_URL=   //'http://localhost:8000'
+   SERVER_SITE_URL=   //'http://127.0.0.1:8000'
+   SPOTIFY_CLIENT_ID=   //your_spotify_client_id
+   SPOTIFY_CLIENT_SECRET=   //your_spotify_client_secret
+   ```
+8. Create a file inside the folder "melodyse_backend" called ".env", the file should have the following structure: 
+ ```sh
+   DB_NAME=  //name_of_the_db_you_created
+   DB_USER=   //name_of_the_db_user
+   DB_PASSWORD=   //db_password
+   DB_HOST=   //localhost
+   DB_PORT=   //5432_or_your_custom_port
+   OPENAI_API_KEY=   //your_open_ai_key
+   SPOTIFY_CLIENT_ID=   //your_spotify_client_id
+   SPOTIFY_CLIENT_SECRET=    //your_spotify_client_secret
+   GOOGLE_CLIENT_ID=   //your_google_client_id
+   ```
+9. Run database migrations from the melodyse_backend folder:
+   ```sh
+   python manage.py migrate
+   ```
+10. Setup Redis and make sure it is running.
 
-Now, you should be able to run Coffee Express locally and explore its features. -->
+Now, you should be able to run Melodyse locally and explore its features.
