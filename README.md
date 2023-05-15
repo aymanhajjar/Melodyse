@@ -14,7 +14,6 @@
 - As a musician, i want the AI assistant to help me write better lyrics, improve my melodies and give me some tips, so that i can become a better musician.
 - As a project manager, I want to be able to assign tasks to team members and organize them efficiently, so that we can complete work on time.
 - As a musician, I want to be able to post my finished project on the platform and receive feedback, so that I can gain recognition and improve my skills.
-- As a music fan, I want to be able to listen to music created on the website, so that I can discover new artists and enjoy a variety of music.
 
 ### Admin Stories
 - As an admin, I want to be able to check the statistics of the website, so that i can identify my target audiance better.
