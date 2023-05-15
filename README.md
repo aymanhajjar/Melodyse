@@ -10,17 +10,15 @@
 > Our mission is to bring musicians together and foster meaningful collaborations.
 
 ### User Stories
-- As a user, i want to be able to signup and login, so that i can access my account and manage my projects.
 - As a musician looking for collaboration opportunities, I want to be able to find musicians with similar insterests, so that I can find compatible collaborators.
-- As a musician looking for help, I want to be able to hire musicians on a work-for-hire basis, so that I can receive help while retaining all rights to my work.
-- As a beginner musician, I want to use the AI-assisted learning feature to improve my skills so that I can find better collaboration and work opportunities.
-- As a songwriter, I want to use the AI-assisted songwriting feature to generate ideas inspired by my favorite artists, so that I can write better lyrics
-- As a music producer, I want the AI assistant to help me with musical scales and notes, and mixing/mastering techniques so that I can produce better music.
+- As a musician, i want the AI assistant to help me write better lyrics, improve my melodies and give me some tips, so that i can become a better musician.
 - As a project manager, I want to be able to assign tasks to team members and organize them efficiently, so that we can complete work on time.
-- As a musician working in a team, I want to be able to chat with my team, share files and make/receive payments, so that we can work together seamlessly and get paid for our work.
 - As a musician, I want to be able to post my finished project on the platform and receive feedback, so that I can gain recognition and improve my skills.
 - As a music fan, I want to be able to listen to music created on the website, so that I can discover new artists and enjoy a variety of music.
-- As an admin, I want to be able to check the statistics of the website, manage users and update subscription plans, so that i can keep the website up and running.
+
+### Admin Stories
+- As an admin, I want to be able to check the statistics of the website, so that i can identify my target audiance better.
+- As an admin, I want to be able to end or delete projects, so that i can make sure everyone is satisfied and rules are not broken.
 
 <br><br>
 
@@ -63,7 +61,7 @@
 | ---| ---| ---|
 |![fsdaf](./readme/melodyse/release.jpg) | ![fsdaf](./readme/melodyse/admin.jpg)|![fsdaf](./readme/melodyse/project.jpg) |
 
-### Animated
+### Melodyse in Action
 | Home screen  | Sign up screen | Menus |
 | ---| ---| ---|
 | ![Landing](./readme/melodyse/gif/home.gif) | ![fsdaf](./readme/melodyse/gif/signup.gif) | ![fsdaf](./readme/melodyse/gif/menus.gif) |
