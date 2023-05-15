@@ -1,18 +1,18 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .artistCard img {
-    width: 1.2rem;
-    cursor: pointer;
+  width: 1.2rem;
+  cursor: pointer;
 }
 
 .artistCard {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    background-color: $main_red;
-    border-radius: 10px;
-    color: white;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background-color: $main_red;
+  border-radius: 10px;
+  color: white;
 }

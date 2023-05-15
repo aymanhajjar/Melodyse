@@ -1,111 +1,111 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .active {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    opacity: 1;
-    transition: all 0.3s ease-out;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 1;
+  transition: all 0.3s ease-out;
 }
 
+.active h2,
+.hidden h2 {
+  font-size: 2rem;
+}
 
-.active h2, .hidden h2 {
-    font-size: 2rem
-  }
-  
-  .active a, .hidden a {
-    color: $main_red;
-    text-decoration: underline;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  
-  .inputField {
-    width: 40%;
-    border: none;
-    padding: 1.1rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 2px 2px 10px #cdcdcd;
-    transition: all 0.3s;
-  }
-  
-  .inputField:focus {
-    background-color: #dedede;
-    outline: none;
-    width: 45%;
-    transition: all 0.3s;
-  }
-  
-  .loginBtn {
-    @extend .inputField;
-    cursor: pointer;
-    background-color: $main_red;
-    color: white;
-    font-size: 1.1rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-  }
+.active a,
+.hidden a {
+  color: $main_red;
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-  .loginBtn:active {
-    background-color: #D49BAE;
-  }
+.inputField {
+  width: 40%;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  box-shadow: 2px 2px 10px #cdcdcd;
+  transition: all 0.3s;
+}
 
-  .loginBtn:focus {
-    width: 40%;
-    background-color: $main_red;
-  }
-  
-  .socialIcons img {
-    width: 3.5rem;
-    transition: all 0.3s;
-  }
-  
-  .socialIcons img:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .socialIcons {
-    display: flex;
-    width: 30%;
-    justify-content: space-between;
-  }
-  
-  .forgotPassword {
-    text-decoration: none;
-    margin-top: -1.2rem;
-    text-align: right;
-    width: 40%;
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: $main_red;
-  }
-  
+.inputField:focus {
+  background-color: #dedede;
+  outline: none;
+  width: 45%;
+  transition: all 0.3s;
+}
+
+.loginBtn {
+  @extend .inputField;
+  cursor: pointer;
+  background-color: $main_red;
+  color: white;
+  font-size: 1.1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+
+.loginBtn:active {
+  background-color: #d49bae;
+}
+
+.loginBtn:focus {
+  width: 40%;
+  background-color: $main_red;
+}
+
+.socialIcons img {
+  width: 3.5rem;
+  transition: all 0.3s;
+}
+
+.socialIcons img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.socialIcons {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.forgotPassword {
+  text-decoration: none;
+  margin-top: -1.2rem;
+  text-align: right;
+  width: 40%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: $main_red;
+}
 
 .hidden {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    opacity: 0;
-    transform: translate(-5%);
-    transition: all 0.3s ease-out;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  transform: translate(-5%);
+  transition: all 0.3s ease-out;
 }
 
 .loginBtn img {
-    width: 1.1rem;
-  }
+  width: 1.1rem;
+}
 
 .errorMsg {
-    color: $main_red;
-    width: 50%;
-    text-align: center;
+  color: $main_red;
+  width: 50%;
+  text-align: center;
 }

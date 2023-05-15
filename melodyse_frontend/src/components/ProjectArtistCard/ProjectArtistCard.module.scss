@@ -1,27 +1,27 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .container {
-    background-color: $main_red;
-    display: flex;
-    color: white;
-    padding: 0.5rem 1rem;
-    align-items: center;
-    gap: 1rem;
-    border-radius: 10px;
-    transition: all 0.3s;
-    font-weight: 500;
+  background-color: $main_red;
+  display: flex;
+  color: white;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 10px;
+  transition: all 0.3s;
+  font-weight: 500;
 }
 
 .container img {
-    width: 2rem;
-    height: 2rem;
-    object-fit: cover;
-    border-radius: 50%;
-    aspect-ratio: 1/1;
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 
 .container:hover {
-    cursor: pointer;
-    filter: brightness(110%);
-    transition: all 0.3s;
+  cursor: pointer;
+  filter: brightness(110%);
+  transition: all 0.3s;
 }

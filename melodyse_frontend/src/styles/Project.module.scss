@@ -1,240 +1,240 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 @keyframes slideIn {
- 0% {
+  0% {
     opacity: 0;
     height: 0;
- }
- 100% {
+  }
+  100% {
     height: 100%;
     opacity: 1;
- }
+  }
 }
 .container {
-    width: 92%;
-    display: flex;
-    height: 98%;
-    padding-top: 1%;
-    justify-content: space-between;
-    margin: auto;
+  width: 92%;
+  display: flex;
+  height: 98%;
+  padding-top: 1%;
+  justify-content: space-between;
+  margin: auto;
 }
 
 .div1 {
-    width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .div1 h4 {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .moreInfo:hover {
-    cursor: pointer;
-    color: $main_red;
-    text-decoration: underline;
+  cursor: pointer;
+  color: $main_red;
+  text-decoration: underline;
 }
 
 .topInfo {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 10px;
-    align-items: center;
-    height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  align-items: center;
+  height: 4rem;
 }
 
 .header {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    gap: 1rem;
-    border-radius: 10px;
-    background-color: white;
-    transition: all 0.3s;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  border-radius: 10px;
+  background-color: white;
+  transition: all 0.3s;
 }
 
 .details {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    transition: all 0.3s;
-    animation: slideIn 0.3s forwards;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: all 0.3s;
+  animation: slideIn 0.3s forwards;
 }
 
 .detailsClosed {
-    @extend .details;
-    height: 0rem;
-    opacity: 0;
-    visibility: hidden;
+  @extend .details;
+  height: 0rem;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .detailsOpen {
-    @extend .details;
-    opacity: 1;
-    height: 100%;
-    visibility: visible;
+  @extend .details;
+  opacity: 1;
+  height: 100%;
+  visibility: visible;
 }
 
 .title {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    height: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 2rem;
 }
 
 .description {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .artists {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
 }
 
 .artistList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
 }
 
 .chat {
-    width: 100%;
-    display: flex;
-    height: 70%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    gap: 1rem;
-    flex-grow: 1;
-    border-radius: 10px;
-    background-color: white;
-    transition: 0.3s all;
+  width: 100%;
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  flex-grow: 1;
+  border-radius: 10px;
+  background-color: white;
+  transition: 0.3s all;
 }
 
 .chatUI {
-    width: 100%;
-    position: relative;
-    height: 100%;
-    padding-top: 1rem;
+  width: 100%;
+  position: relative;
+  height: 100%;
+  padding-top: 1rem;
 }
 
 .loadingMsg {
-    width: 12rem;
-    filter: drop-shadow(0px 0px 1px #808080);
-
+  width: 12rem;
+  filter: drop-shadow(0px 0px 1px #808080);
 }
 
 .messagesContainer {
-    display: flex;
-    height: 88%;
-    flex-direction: column-reverse;
-    padding-bottom: 2rem;
-    align-items: center;
-    padding: 1rem;
-    margin: auto;
-    gap: 1rem;
-    overflow-y: scroll;
+  display: flex;
+  height: 88%;
+  flex-direction: column-reverse;
+  padding-bottom: 2rem;
+  align-items: center;
+  padding: 1rem;
+  margin: auto;
+  gap: 1rem;
+  overflow-y: scroll;
 }
 
 .div2 {
-    width: 28%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+  width: 28%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .tasks {
-    height: 50%;
-    width: 100%;
-    border-radius: 10px;
-    padding: 1.5rem;
-    background-color: $main_red;
-    color: white;
+  height: 50%;
+  width: 100%;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background-color: $main_red;
+  color: white;
 }
 
 .files {
-    height: 30%;
-    width: 100%;
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 10px;
+  height: 30%;
+  width: 100%;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
 }
 
 .actionBtn {
-    padding: 1rem;
-    width: 100%;
-    background-color: #47E5BC;
-    border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s;
-    border-radius: 10px;
-  }
-
-.actionBtn:hover {
-    transform: translateY(-0.2rem);
-    transition: all 0.3s;
-    filter: brightness(110%s);
-    cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  background-color: #47e5bc;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  border-radius: 10px;
 }
 
-.tasks h1, .files h1 {
-    margin-bottom: 1rem;
+.actionBtn:hover {
+  transform: translateY(-0.2rem);
+  transition: all 0.3s;
+  filter: brightness(110%s);
+  cursor: pointer;
+}
+
+.tasks h1,
+.files h1 {
+  margin-bottom: 1rem;
 }
 
 .tasks {
-    overflow-y: scroll;
-    position: relative;
+  overflow-y: scroll;
+  position: relative;
 }
 
 .taskslist {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow-y: scroll;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: scroll;
 }
 
 .addBtn {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 2rem;
-    cursor: pointer;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2rem;
+  cursor: pointer;
 }
 
 .fileslist {
-    display: flex;
-    gap: 1rem;
-    overflow-x: scroll;
+  display: flex;
+  gap: 1rem;
+  overflow-x: scroll;
 }
 
 .addMembers {
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: $main_red;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: $main_red;
 }
 
 .addMembers:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }

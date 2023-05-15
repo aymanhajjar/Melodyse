@@ -1,43 +1,43 @@
 .container {
-    display: flex;
-    gap: 2rem;
-    height: 100%;
-    margin-top: 1%;
-    width: 90%;
-    height: 100%;
-    margin: auto;
-    text-align: center;
-    animation: fade 0.5s;
-    padding-top: 2%;
+  display: flex;
+  gap: 2rem;
+  height: 100%;
+  margin-top: 1%;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  animation: fade 0.5s;
+  padding-top: 2%;
 }
 
 .DIV1 {
-    width: 70%;
-    text-align: left;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    gap: 2rem;
+  width: 70%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .DIV2 {
-    height: 100%;
+  height: 100%;
 }
 
 .chart {
-    height: 50%;
+  height: 50%;
 }
 .logo {
-    width: 22rem;
+  width: 22rem;
 }
 
 .container h1 {
-    font-size: 3rem;
-    margin-bottom: 5rem;
+  font-size: 3rem;
+  margin-bottom: 5rem;
 }
 
 .pieChart {
-    width: 20rem;
-    height: 20rem;
-    position: absolute;
+  width: 20rem;
+  height: 20rem;
+  position: absolute;
 }

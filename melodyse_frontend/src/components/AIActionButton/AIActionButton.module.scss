@@ -1,62 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700&display=swap');
-$main_red: #AB4967;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700&display=swap");
+$main_red: #ab4967;
 
 .aibutton {
-    padding: 0.8rem 2rem;
-    border: none;
-    border-radius: 10px;
-    background-color: $main_red;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    width: 20rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s;
-    cursor: pointer;
-    position: relative;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: $main_red;
+  color: white;
+  font-family: "Inter", sans-serif;
+  width: 20rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
 }
 
-.aibutton h3, .disabled h3 {
-    width: 80%;
-    font-size: 1.2rem;
-    text-align: center;
+.aibutton h3,
+.disabled h3 {
+  width: 80%;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .aibutton:hover {
-    transform: translateY(-0.2rem);
-    filter: brightness(110%);
-    transition: all 0.3s;
+  transform: translateY(-0.2rem);
+  filter: brightness(110%);
+  transition: all 0.3s;
 }
 
-.aibutton:active, .aibutton:focus {
-    transform: scale(1);
-    transition: all 0.3s;
+.aibutton:active,
+.aibutton:focus {
+  transform: scale(1);
+  transition: all 0.3s;
 }
 
-.aibutton img, .disabled img {
-    width: 15%;
-    object-fit: contain;
+.aibutton img,
+.disabled img {
+  width: 15%;
+  object-fit: contain;
 }
 
 .subscription {
-    padding: 1rem;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    font-size: 0.6rem;
-    font-weight: 600;
-    box-shadow: 0 0 2px gray;
-    top: -0.5rem;
-    right: -0.5rem;
+  padding: 1rem;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 600;
+  box-shadow: 0 0 2px gray;
+  top: -0.5rem;
+  right: -0.5rem;
 }
 
 .disabled {
-    @extend .aibutton;
-    pointer-events: none;
+  @extend .aibutton;
+  pointer-events: none;
 }

@@ -1,175 +1,171 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .active {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    opacity: 1;
-    transition: all 0.3s ease-out;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 1;
+  transition: all 0.3s ease-out;
 }
 
+.active h2,
+.hidden h2 {
+  font-size: 2rem;
+}
 
-.active h2, .hidden h2 {
-    font-size: 2rem
-  }
-  
-  .active a, .hidden a {
-    color: $main_red;
-    text-decoration: underline;
-    font-weight: 600;
-    cursor: pointer;
-  }
+.active a,
+.hidden a {
+  color: $main_red;
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-  .visible-label {
-    opacity: 1;
-    transition: all 0.3s;
-  }
+.visible-label {
+  opacity: 1;
+  transition: all 0.3s;
+}
 
-  .hidden-label {
-    opacity: 0;
-    transition: all 0.3s;
-  }
-  
-  .inputGroup {
-    width: 40%;
-    position: relative;
-    transition: all 0.3s;
-  }
-    .inputGroup:focus-within {
-    width: 45%;
-    transition: all 0.3s;
-    }
+.hidden-label {
+  opacity: 0;
+  transition: all 0.3s;
+}
 
-  .inputGroup label {
-    position: absolute;
-    left: -1.2rem;
-    top: -1.2rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-align: right;
-  }
-  .inputField {
-    width: 100%;
-    border: none;
-    padding: 1.1rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 2px 2px 10px #cdcdcd;
-    transition: all 0.3s;
-  }
+.inputGroup {
+  width: 40%;
+  position: relative;
+  transition: all 0.3s;
+}
+.inputGroup:focus-within {
+  width: 45%;
+  transition: all 0.3s;
+}
 
-  .fullName {
-    width: 40%;
-    display: flex;
-    justify-content: space-between
-  }
+.inputGroup label {
+  position: absolute;
+  left: -1.2rem;
+  top: -1.2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: right;
+}
+.inputField {
+  width: 100%;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  box-shadow: 2px 2px 10px #cdcdcd;
+  transition: all 0.3s;
+}
 
-  .inputName {
-    @extend .inputField;
-    width: 48%;
-  }
+.fullName {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .selectField {
-    width: 48%;
-    border: none;
-    padding: 1.1rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 2px 2px 10px #cdcdcd;
-    transition: all 0.3s;
-  }
+.inputName {
+  @extend .inputField;
+  width: 48%;
+}
 
-  .selectField:focus {
-    background-color: #f1f1f1;
-    outline: none;
-    transition: all 0.3s;
-  }
+.selectField {
+  width: 48%;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  box-shadow: 2px 2px 10px #cdcdcd;
+  transition: all 0.3s;
+}
 
-  .inputField:focus {
-    background-color: #dedede;
-    outline: none;
-    transition: all 0.3s;
-  }
+.selectField:focus {
+  background-color: #f1f1f1;
+  outline: none;
+  transition: all 0.3s;
+}
 
+.inputField:focus {
+  background-color: #dedede;
+  outline: none;
+  transition: all 0.3s;
+}
 
-  .inputName:focus {
-    background-color: #dedede;
-    outline: none;
-    width: 60%;
-    transition: all 0.3s;
-  }
-  
-  
-  .loginBtn {
-    @extend .inputField;
-    cursor: pointer;
-    background-color: $main_red;
-    color: white;
-    width: 40%;
-    font-size: 1.1rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-  }
+.inputName:focus {
+  background-color: #dedede;
+  outline: none;
+  width: 60%;
+  transition: all 0.3s;
+}
 
-  .loginBtn img {
-    width: 1.1rem;
-  }
-  
-  .socialIcons img {
-    width: 3.5rem;
-    transition: all 0.3s;
-  }
-  
-  .socialIcons img:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  
-  .socialIcons {
-    display: flex;
-    width: 30%;
-    justify-content: space-between;
-  }
-  
-  
+.loginBtn {
+  @extend .inputField;
+  cursor: pointer;
+  background-color: $main_red;
+  color: white;
+  width: 40%;
+  font-size: 1.1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+
+.loginBtn img {
+  width: 1.1rem;
+}
+
+.socialIcons img {
+  width: 3.5rem;
+  transition: all 0.3s;
+}
+
+.socialIcons img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.socialIcons {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
 
 .hidden {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    opacity: 0;
-    transform: translate(-5%);
-    transition: all 0.3s ease-out;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translate(-5%);
+  transition: all 0.3s ease-out;
 }
-
 
 .errorMsg {
-    color: $main_red;
-    width: 40%;
-    text-align: center;
+  color: $main_red;
+  width: 40%;
+  text-align: center;
 }
 
-
-.inputErrorName, .inputErrorName:focus {
-    @extend .inputName;
-    background-color: #D49BAE;
-    color: white;
+.inputErrorName,
+.inputErrorName:focus {
+  @extend .inputName;
+  background-color: #d49bae;
+  color: white;
 }
 
 .inputErrorName::placeholder {
-    color: white;
+  color: white;
 }
 
 .strengthBar {
-    width: 40%;
-    margin-top: -1rem;
+  width: 40%;
+  margin-top: -1rem;
 }

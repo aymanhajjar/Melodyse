@@ -1,12 +1,16 @@
-import styles from './HomeButton.module.scss'
-import { useRouter } from 'next/router'
+import styles from "./HomeButton.module.scss";
+import { useRouter } from "next/router";
 
-export default function  HomeButton({ text, link, top }: any) {
+export default function HomeButton({ text, link, top }: any) {
+  const router = useRouter();
 
-    const router = useRouter()
-
-    return(
-        <button type='button' className={top ? styles.homebuttonTop : styles.homebutton} onClick={() => router.push(link)}>
-            {text}</button>
-    )
+  return (
+    <button
+      type="button"
+      className={top ? styles.homebuttonTop : styles.homebutton}
+      onClick={() => router.push(link)}
+    >
+      {text}
+    </button>
+  );
 }

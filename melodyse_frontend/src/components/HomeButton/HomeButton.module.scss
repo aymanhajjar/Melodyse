@@ -1,20 +1,19 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .homebutton {
-    font-size: 1rem;
-    font-weight: 500;
-    background-color: $main_red;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 5rem;
-    width: 50%;
-  }
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: $main_red;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5rem;
+  width: 50%;
+}
 
-  .homebuttonTop {
-    @extend .homebutton;
-    width: 30%;
-  }
-
+.homebuttonTop {
+  @extend .homebutton;
+  width: 30%;
+}

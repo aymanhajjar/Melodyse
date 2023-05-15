@@ -1,23 +1,26 @@
-import styles from './WhiteButton.module.scss'
-import { useEffect, useState} from 'react'
+import styles from "./WhiteButton.module.scss";
+import { useEffect, useState } from "react";
 
-export default function WhiteButton({note, select, selected}) {
-    const [active, setActive] = useState(false)
+export default function WhiteButton({ note, select, selected }) {
+  const [active, setActive] = useState(false);
 
-    useEffect(() => {
-        setActive(selected)
-    }, [selected])
+  useEffect(() => {
+    setActive(selected);
+  }, [selected]);
 
-    const handleClick = () => {
-        setActive(!active)
-        select()
-    }
+  const handleClick = () => {
+    setActive(!active);
+    select();
+  };
 
   return (
     <>
-      <div className={active ? styles.whiteButtonActive : styles.whiteButton} onClick={handleClick}>
+      <div
+        className={active ? styles.whiteButtonActive : styles.whiteButton}
+        onClick={handleClick}
+      >
         <span>{note}</span>
       </div>
     </>
-  )
+  );
 }

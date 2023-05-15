@@ -1,4 +1,4 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 @keyframes slideIn {
   0% {
@@ -51,18 +51,17 @@ $main_red: #AB4967;
 }
 
 .container img {
-    width: 25rem;
+  width: 25rem;
 }
 
 .goHome {
-    width: 20%;
-    font-size: 1rem;
-    font-weight: 600;
-    background-color: $main_red;
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-
+  width: 20%;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: $main_red;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
 }

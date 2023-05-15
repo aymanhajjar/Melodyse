@@ -1,179 +1,179 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .msgimg {
-    width: 2.2rem;
-    object-fit: contain;
-    transition: all 0.3s;
+  width: 2.2rem;
+  object-fit: contain;
+  transition: all 0.3s;
 }
 
 .msgimg:hover {
-    cursor: pointer;
-    filter: brightness(130%);
-    transition: all 0.3s;
+  cursor: pointer;
+  filter: brightness(130%);
+  transition: all 0.3s;
 }
 
-
 .container {
-    position: relative;
+  position: relative;
 }
 
 .loading {
-    width: 5rem;
-    text-align: center;
-    margin: auto;
+  width: 5rem;
+  text-align: center;
+  margin: auto;
 }
 
 .dropdownOpen {
-    opacity: 1;
-    visibility: visible;
-    position: absolute;
-    background-color: #D49BAE;
-    color: white;
-    right: 0;
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    width: 25rem;
-    max-height: 30rem;
-    overflow-y: scroll;
-    padding-bottom: 1rem;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    z-index: 4;
-    transition: all 0.2s ease-out;
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  background-color: #d49bae;
+  color: white;
+  right: 0;
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  width: 25rem;
+  max-height: 30rem;
+  overflow-y: scroll;
+  padding-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  z-index: 4;
+  transition: all 0.2s ease-out;
 }
 
-.dropdownOpen h2, .dropdownHidden h2 {
-    margin-bottom: 1rem;
+.dropdownOpen h2,
+.dropdownHidden h2 {
+  margin-bottom: 1rem;
 }
 
 .dropdownHidden {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    right: 0;
-    width: 25rem;
-    display: flex;
-    max-height: 30rem;
-    overflow-y: scroll;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    margin-top: 1rem;
-    color: white;
-    z-index: 4;
-    transform: translateX(-10%) scale(1.1);
-    transition: all 0.2s ease-out;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  width: 25rem;
+  display: flex;
+  max-height: 30rem;
+  overflow-y: scroll;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  margin-top: 1rem;
+  color: white;
+  z-index: 4;
+  transform: translateX(-10%) scale(1.1);
+  transition: all 0.2s ease-out;
 }
 
 .chatsContainer h2 {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .chatsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 1rem;
 }
 
 .noChat {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .chatRead {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    background-color: white;
-    box-shadow: 5 5 10px rgba(89, 89, 89, 0.5);
-    padding: 1rem;
-    color: black;
-    border-radius: 10px;
-    align-items: center;
-    position: relative;
-    transition: all 0.3s;
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  background-color: white;
+  box-shadow: 5 5 10px rgba(89, 89, 89, 0.5);
+  padding: 1rem;
+  color: black;
+  border-radius: 10px;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s;
 }
 
 .chatRead h3 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .details {
-    width: 100%;
+  width: 100%;
 }
 
 .messages {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .topActions {
-    position: absolute;
-    top: 0rem;
-    display: flex;
-    gap: 1rem;
-    right: 1rem;
+  position: absolute;
+  top: 0rem;
+  display: flex;
+  gap: 1rem;
+  right: 1rem;
 }
 
 .topActions img {
-    width: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s;
+  width: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .topActions img:hover {
-    transform: scale(1.1);
-    transition: all 0.3s;
+  transform: scale(1.1);
+  transition: all 0.3s;
 }
 
 .profPic {
-    width: 4rem;
-    aspect-ratio: 1/1;
-    height: 4rem;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 4rem;
+  aspect-ratio: 1/1;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .chatRead span {
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    width: 85%;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  width: 85%;
 }
 
 .chatRead:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-    transition: all 0.3s;
+  filter: brightness(110%);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .unreadNumber {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: $main_red;
-    border-radius: 50%;
-    color: white;
-    font-size: 0.8rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: $main_red;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chatUnread {
-    @extend .chatRead;
-    border: solid $main_red 2px;
+  @extend .chatRead;
+  border: solid $main_red 2px;
 }
 
 .checkMark {
-    width: 0.8rem;
-    object-fit: contain;
-    margin-right: 0.5rem;
+  width: 0.8rem;
+  object-fit: contain;
+  margin-right: 0.5rem;
 }

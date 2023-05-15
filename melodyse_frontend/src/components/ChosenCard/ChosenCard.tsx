@@ -1,12 +1,11 @@
-import styles from './ChosenCard.module.scss'
-import { useEffect, useState } from 'react'
+import styles from "./ChosenCard.module.scss";
 
-export default function ChosenCard({name, remove}: any) {
+export default function ChosenCard({ name, remove }: any) {
+  return (
+    <div className={styles.artistCard}>
+      <span>{name}</span>
 
-    return(
-        <div className={styles.artistCard}>
-            <span>{name}</span>
-            <img src={'/icons/x.png'} onClick={remove}/>
-        </div>
-    )
+      <img src={"/icons/x.png"} onClick={remove} />
+    </div>
+  );
 }

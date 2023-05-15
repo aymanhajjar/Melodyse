@@ -1,41 +1,42 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .undobutton {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $main_red;
-    transition: all 0.3s;
-    cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $main_red;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .undobutton:hover {
-    transform: scale(1.1);
-    transition: all 0.3s;
+  transform: scale(1.1);
+  transition: all 0.3s;
 }
 
-.undobutton img, .undodisabled img {
-    width: 1.5rem;
-    object-fit: contain;
-    filter: invert(100%);
-    user-select: none;
+.undobutton img,
+.undodisabled img {
+  width: 1.5rem;
+  object-fit: contain;
+  filter: invert(100%);
+  user-select: none;
 }
 
 .undodisabled {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #D49BAE;
-    transition: all 0.3s;
-    pointer-events: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d49bae;
+  transition: all 0.3s;
+  pointer-events: none;
 }
 
 .redo {
-    transform: scaleX(-1)
+  transform: scaleX(-1);
 }

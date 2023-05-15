@@ -1,122 +1,122 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    background-color: $main_red;
-    padding: 1rem 2rem;
-    padding-top: 16rem;
-    height: 32rem;
-    width: 27%;
-    color: white;
-    border-radius: 20px;
-    transition: all 0.3s;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgb(153, 153, 153);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: $main_red;
+  padding: 1rem 2rem;
+  padding-top: 16rem;
+  height: 32rem;
+  width: 27%;
+  color: white;
+  border-radius: 20px;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgb(153, 153, 153);
 }
 
 .container:hover {
-    filter: brightness(110%);
-    transform: scale(1.02);
-    transition: all 0.3s;
+  filter: brightness(110%);
+  transform: scale(1.02);
+  transition: all 0.3s;
 }
 
 .profilePic {
-    width: 17rem;
-    height: 17rem;
-    object-fit: cover;
-    position: absolute;
-    top: -2rem;
-    border-radius: 50%;
+  width: 17rem;
+  height: 17rem;
+  object-fit: cover;
+  position: absolute;
+  top: -2rem;
+  border-radius: 50%;
 }
 
 .container h4 {
-    font-weight: 500;
-    // font-size: 0.8rem;
+  font-weight: 500;
+  // font-size: 0.8rem;
 }
 
 .rating {
-    display: flex;
-    align-items: center;
-    position: relative;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .stars {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .rating span {
-    position: absolute;
-    right: -2rem;
+  position: absolute;
+  right: -2rem;
 }
 
 .stars img {
-    width: 2rem;
+  width: 2rem;
 }
 
 .skills {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .skill {
-    padding: 0.4rem;
-    background-color: white;
-    color: black;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    gap: 0.2rem;
-    width: 30%;
-    justify-content: center;
+  padding: 0.4rem;
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  gap: 0.2rem;
+  width: 30%;
+  justify-content: center;
 }
 
 .skill img {
-    width: 1.2rem;
+  width: 1.2rem;
 }
 
 .skill span {
-    font-size: 0.6rem;
+  font-size: 0.6rem;
 }
 
 .favoriteArtists {
-    font-size: 0.7rem;
+  font-size: 0.7rem;
 }
 
 .cardOne {
-    color: black;
-    font-weight: 600;
-    height: 4rem;
-    width: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: -1.5rem;
-    background-color: #D49BAE;
-    font-size: 0.8rem;
-    right: -1.5rem;
-    box-shadow: 0 0 1px gray;
-    border-radius: 50%;
+  color: black;
+  font-weight: 600;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -1.5rem;
+  background-color: #d49bae;
+  font-size: 0.8rem;
+  right: -1.5rem;
+  box-shadow: 0 0 1px gray;
+  border-radius: 50%;
 }
 
 .cardTwo {
-    color: black;
-    font-weight: 600;
-    height: 4rem;
-    width: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 4rem;
-    right: -2.5rem;
-    font-size: 0.7rem;
-    border-radius: 50%;
-    background-color: #D49BAE;
+  color: black;
+  font-weight: 600;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 4rem;
+  right: -2.5rem;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  background-color: #d49bae;
 }

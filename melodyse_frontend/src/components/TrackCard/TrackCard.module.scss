@@ -1,105 +1,105 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .container {
-    padding: 1.5rem;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    position: relative;
-    box-shadow: 0 0 10px rgb(199, 199, 199);
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  position: relative;
+  box-shadow: 0 0 10px rgb(199, 199, 199);
 }
 
 .cover {
-    width: 8rem;
-    height: 8rem;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 10px;
+  width: 8rem;
+  height: 8rem;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .coverContainer {
-    position: relative;
+  position: relative;
 }
 
 .like {
-    width: 4rem;
-    height: 4rem;
-    background-color: rgba(232, 232, 232, 0.5);
-    padding: 0.5rem;
-    position: absolute;
-    border-radius: 10px;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(232, 232, 232, 0.5);
+  padding: 0.5rem;
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .container:hover .like {
-    opacity: 1;
+  opacity: 1;
 }
 
-.details h2, .details h5, .details h6 {
-    display: inline;
+.details h2,
+.details h5,
+.details h6 {
+  display: inline;
 }
 
 .details span {
-    font-size: 0.9rem;
-    opacity: 0.6;
+  font-size: 0.9rem;
+  opacity: 0.6;
 }
 
 .details {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .details audio::-webkit-media-controls,
 .details audio::-webkit-media-controls-enclosure,
 .details audio::-webkit-media-controls-panel,
-.details audio
-{
-    border-radius: 5px;
-    background-color: rgb(255, 255, 255);
-    padding: 0rem;
-    width: 100%;
-    height: 3rem;
+.details audio {
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  padding: 0rem;
+  width: 100%;
+  height: 3rem;
 }
 
-.details audio::-webkit-media-controls-seek-back-button
-{
-    background-color: $main_red;
+.details audio::-webkit-media-controls-seek-back-button {
+  background-color: $main_red;
 }
 
 .member:hover {
-    text-decoration: underline;
-    cursor: pointer;
-    color: $main_red;
+  text-decoration: underline;
+  cursor: pointer;
+  color: $main_red;
 }
 
 .details h6 {
-    font-size: 0.8rem;
-    font-weight: 400;
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .stats {
-    position: absolute;
-    top: 1rem;
-    display: flex;
-    gap: 1rem;
-    right: 1rem;
+  position: absolute;
+  top: 1rem;
+  display: flex;
+  gap: 1rem;
+  right: 1rem;
 }
 
 .stat img {
-    width: 0.8rem;
+  width: 0.8rem;
 }
 
 .stat {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
 }

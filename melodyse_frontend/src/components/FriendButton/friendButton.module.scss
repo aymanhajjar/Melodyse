@@ -1,256 +1,254 @@
-$main_red: #AB4967;
-$main_green: #47E5BC;
+$main_red: #ab4967;
+$main_green: #47e5bc;
 
 .frdimg {
-    width: 2.2rem;
-    object-fit: contain;
-    transition: all 0.3s;
+  width: 2.2rem;
+  object-fit: contain;
+  transition: all 0.3s;
 }
 
 .frdimg:hover {
-    cursor: pointer;
-    filter: brightness(130%);
-    transition: all 0.3s;
+  cursor: pointer;
+  filter: brightness(130%);
+  transition: all 0.3s;
 }
 
 .container {
-    position: relative;
+  position: relative;
 }
 
 .loading {
-    width: 5rem;
-    text-align: center;
-    margin: auto;
+  width: 5rem;
+  text-align: center;
+  margin: auto;
 }
 
 .dropdownOpen {
-    opacity: 1;
-    visibility: visible;
-    position: absolute;
-    background-color: #D49BAE;
-    color: white;
-    right: 0;
-    max-height: 30rem;
-    overflow: scroll;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 25rem;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    z-index: 4;
-    transition: all 0.2s ease-out;
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  background-color: #d49bae;
+  color: white;
+  right: 0;
+  max-height: 30rem;
+  overflow: scroll;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 25rem;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  z-index: 4;
+  transition: all 0.2s ease-out;
 }
 
-
 .dropdownHidden {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    right: 0;
-    width: 25rem;
-    display: flex;
-    max-height: 30rem;
-    overflow: scroll;
-    flex-direction: column;
-    border-radius: 10px;
-    gap:1rem;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    margin-top: 1rem;
-    color: white;
-    z-index: 4;
-    transform: translateX(-10%) scale(1.1);
-    transition: all 0.2s ease-out;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  width: 25rem;
+  display: flex;
+  max-height: 30rem;
+  overflow: scroll;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 1rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  margin-top: 1rem;
+  color: white;
+  z-index: 4;
+  transform: translateX(-10%) scale(1.1);
+  transition: all 0.2s ease-out;
 }
 
 .request {
-    width: 100%;
+  width: 100%;
 }
 
 .reqContainer h2 {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .reqContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 }
 
 .noReq {
-    opacity: 0.6;
-    font-size: 0.8rem;
+  opacity: 0.6;
+  font-size: 0.8rem;
 }
 
 .reqRead {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    background-color: white;
-    padding: 1rem;
-    color: black;
-    border-radius: 10px;
-    align-items: center;
-    position: relative;
-    transition: all 0.3s;
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  background-color: white;
+  padding: 1rem;
+  color: black;
+  border-radius: 10px;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s;
 }
 
 .reqRead h3 {
-    font-size: 1rem;
-    transition: all 0.3s;
+  font-size: 1rem;
+  transition: all 0.3s;
 }
 
 .reqRead h3:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-    transform: translateX(5%);
-    transition: all 0.3s;
+  filter: brightness(110%);
+  cursor: pointer;
+  transform: translateX(5%);
+  transition: all 0.3s;
 }
 
 .username {
-    display: inline;
-    font-weight: normal;
-    opacity: 0.5;
+  display: inline;
+  font-weight: normal;
+  opacity: 0.5;
 }
 
 .reqRead h3 span {
-    display: inline;
-    font-weight: normal;
+  display: inline;
+  font-weight: normal;
 }
 
 .reqRead img {
-    width: 4rem;
-    object-fit: contain;
-    border-radius: 10px;
+  width: 4rem;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .reqRead span {
-    font-size: 0.8rem;
-    display: inline-block;
-    width: 85%;
+  font-size: 0.8rem;
+  display: inline-block;
+  width: 85%;
 }
 
-
 .tabs {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .details {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 .moredetails {
-    font-weight: 600;
-    color: $main_red;
-    font-size: 0.9rem !important;
-    transition: all 0.3s;
+  font-weight: 600;
+  color: $main_red;
+  font-size: 0.9rem !important;
+  transition: all 0.3s;
 }
 
 .moredetails:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-    transform: translateX(5%);
-    transition: all 0.3s;
+  filter: brightness(110%);
+  cursor: pointer;
+  transform: translateX(5%);
+  transition: all 0.3s;
 }
 
 .profPic {
-    width: 4rem;
-    height: 4rem;
-    object-fit: cover;
-    aspect-ratio: 1/1;
-    border-radius: 10px;
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
 }
 
 .reqBtn {
-    border: none;
-    border-radius: 10px;
-    width: 8rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s;
+  border: none;
+  border-radius: 10px;
+  width: 8rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .reqBtn:hover {
-    opacity: 1;
-    transition: all 0.3s;
+  opacity: 1;
+  transition: all 0.3s;
 }
 
 .reqBtnActive {
-    @extend .reqBtn;
-    background-color: $main_red;
-    color: white;
+  @extend .reqBtn;
+  background-color: $main_red;
+  color: white;
 }
 
 .reqBtnInactive {
-    @extend .reqBtn;
-    background-color: $main_red;
-    opacity: 0.5;
-    color: white;
+  @extend .reqBtn;
+  background-color: $main_red;
+  opacity: 0.5;
+  color: white;
 }
 
 .reqUnread {
-    @extend .reqRead;
-    border: solid $main_red 2px;
+  @extend .reqRead;
+  border: solid $main_red 2px;
 }
 
 .actions {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
-.actions button img{
-    width: 1.5rem;
+.actions button img {
+  width: 1.5rem;
 }
 
 .actions button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border: none;
-    padding: 0.2rem 1rem;
-    font-size: 0.9rem;
-    border-radius: 10px;
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  padding: 0.2rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
 .accept {
-    background-color: $main_green;
+  background-color: $main_green;
 }
 
 .reject {
-    background-color: $main_red;
-    color: white;
+  background-color: $main_red;
+  color: white;
 }
 
 .actions button:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-    transition: all 0.3s;
+  filter: brightness(110%);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .details h6 {
-    font-size: 1rem;
-    display: flex;
-    gap: 0.5rem;
+  font-size: 1rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .details h6 img {
-    width: 1rem;
+  width: 1rem;
 }
 
 .rejected {
-    color: $main_red;
+  color: $main_red;
 }
 
 .accepted {
-    color: $main_green;
+  color: $main_green;
 }

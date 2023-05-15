@@ -1,327 +1,324 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .container {
-    display: flex;
-    padding-top: 1%;
-    width: 95%;
-    margin: auto;
-    justify-content: space-between;
-    height: 100%;
+  display: flex;
+  padding-top: 1%;
+  width: 95%;
+  margin: auto;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .div1 {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 90%;
-    gap: 2rem;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
+  gap: 2rem;
 }
 
 .div2 {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    height: 100%;
-    overflow-y: scroll;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .div3 {
-    width: 22%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .profilePic {
-    width: 16rem;
-    height: 16rem;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .profileDiv {
-    position: relative;
-    border-radius: 50%;
+  position: relative;
+  border-radius: 50%;
 }
 
 .info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .info span {
-    opacity: 0.5;
-    margin-bottom: 2rem;
+  opacity: 0.5;
+  margin-bottom: 2rem;
 }
 
 .info p {
-    font-size: 1.2rem;
-    margin-bottom: 5rem;
+  font-size: 1.2rem;
+  margin-bottom: 5rem;
 }
 
 .skillsContainer {
-    padding: 2rem;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    width: 100%;
-    position: relative;
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
 }
 
 .skills {
-    display: flex;
-    gap: 2rem;
-    padding: 0.5rem;
-    overflow-x: scroll;
+  display: flex;
+  gap: 2rem;
+  padding: 0.5rem;
+  overflow-x: scroll;
 }
 
-
 .favorite {
-    padding: 2rem;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    width: 100%;
-    position: relative;
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  position: relative;
 }
 
 .artists {
-    display: flex;
-    gap: 2rem;
-    padding-top: 0.5rem;
-    overflow-x: scroll;
+  display: flex;
+  gap: 2rem;
+  padding-top: 0.5rem;
+  overflow-x: scroll;
 }
 
 .actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 5rem;
 }
 
 .additionalInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .rating img {
-    width: 1.5rem;
+  width: 1.5rem;
 }
 
 .rating {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .rating span {
-   font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .stars {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .stats img {
-    width: 1.2rem;
+  width: 1.2rem;
 }
 
 .stats {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .editPen {
-    position: absolute;
-    width: 2rem;
-    right: 2rem;
-    transition: all 0.3s;
-    opacity: 0;
-    transform: scale(1.1);
-    visibility: none;
-    cursor: pointer;
+  position: absolute;
+  width: 2rem;
+  right: 2rem;
+  transition: all 0.3s;
+  opacity: 0;
+  transform: scale(1.1);
+  visibility: none;
+  cursor: pointer;
 }
 
 .editPen:hover {
-    filter: brightness((110%));
-    transition: all 0.3s;
+  filter: brightness((110%));
+  transition: all 0.3s;
 }
 
 .skillsContainer:hover .editPen {
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.3s;
-    transform: scale(1);
-  }
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s;
+  transform: scale(1);
+}
 
-  .favorite:hover .editPen {
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.3s;
-    transform: scale(1);
-  }
+.favorite:hover .editPen {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s;
+  transform: scale(1);
+}
 
-  .editText {
-    text-align: center;
-    font-size: 1.2rem;
-    margin: 2rem;
-  }
+.editText {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 2rem;
+}
 
-  .camera {
-    width: 2rem;
-  }
+.camera {
+  width: 2rem;
+}
 
-  .profileEdit{
-    position: absolute;
-    opacity: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: rgba(128, 128, 128, 0.3);
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+.profileEdit {
+  position: absolute;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.3);
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  .profileDiv:hover .profileEdit {
-    opacity: 1;
-    cursor: pointer;
-  }
+.profileDiv:hover .profileEdit {
+  opacity: 1;
+  cursor: pointer;
+}
 
-  .picLoading {
-    width: 6rem;
-  }
+.picLoading {
+  width: 6rem;
+}
 
-  .description {
-    position: relative;
-  }
+.description {
+  position: relative;
+}
 
-  .editPenDetails {
-    position: absolute;
-    width: 2rem;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: all 0.3s;
-    transform: scale(1.1);
-    visibility: none;
-    opacity: 0;
-    cursor: pointer;
-  }
+.editPenDetails {
+  position: absolute;
+  width: 2rem;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s;
+  transform: scale(1.1);
+  visibility: none;
+  opacity: 0;
+  cursor: pointer;
+}
 
-  .description:hover .editPenDetails{
+.description:hover .editPenDetails {
+  opacity: 1;
+  cursor: pointer;
+}
 
-    opacity: 1;
-    cursor: pointer;
-  }
+.username {
+  position: relative;
+  margin-bottom: 3rem;
+}
 
-  .username {
-    position: relative;
-    margin-bottom: 3rem;
-  }
+.username img {
+  position: absolute;
+  right: -2rem;
+  transition: all 0.3s;
+  transform: scale(1.1);
+  visibility: none;
+  opacity: 0;
+  cursor: pointer;
+  width: 1.5rem;
+}
 
-  .username img {
-    position: absolute;
-    right: -2rem;
-    transition: all 0.3s;
-    transform: scale(1.1);
-    visibility: none;
-    opacity: 0;
-    cursor: pointer;
-    width: 1.5rem;
+.username:hover img {
+  opacity: 1;
+}
 
-  }
+.full_name {
+  position: relative;
+}
 
-  .username:hover img {
-    opacity: 1;
-  }
+.full_name img {
+  position: absolute;
+  right: -2rem;
+  top: 0;
+  transition: all 0.3s;
+  transform: scale(1.1);
+  visibility: none;
+  opacity: 0;
+  cursor: pointer;
+  width: 1.5rem;
+}
 
-  .full_name {
-    position: relative;
-  }
+.full_name:hover img {
+  opacity: 1;
+}
 
-  .full_name img {
-    position: absolute;
-    right: -2rem;
-    top: 0;
-    transition: all 0.3s;
-    transform: scale(1.1);
-    visibility: none;
-    opacity: 0;
-    cursor: pointer;
-    width: 1.5rem;
-  }
+.full_name input {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+}
 
-  .full_name:hover img {
-    opacity: 1;
-  }
+.usernameField {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+}
 
-  .full_name input {
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-size: 1.6rem;
-    font-weight: 600;
-    text-align: center;
-  }
+.usernameError {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid $main_red;
+  outline: none;
+  text-align: center;
+}
 
-  .usernameField {
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    outline: none;
-    text-align: center;
-  }
+.description textarea {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+  resize: none;
+  width: 100%;
+  min-height: 10rem;
+  outline: none;
+  max-height: 15rem;
+}
 
-  .usernameError {
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid $main_red;
-    outline: none;
-    text-align: center;
-  }
+.inviteSent {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1cc497;
+}
 
-  .description textarea {
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    text-align: center;
-    resize: none;
-    width: 100%;
-    min-height: 10rem;
-    outline: none;
-    max-height: 15rem;
-  }
-
-  .inviteSent {
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: #1CC497;
-  }
-
-  .project {
-    background-color: $main_red;
-    color: white;
-    padding: 1rem;
-    border-radius: 10px;
-  }
+.project {
+  background-color: $main_red;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}

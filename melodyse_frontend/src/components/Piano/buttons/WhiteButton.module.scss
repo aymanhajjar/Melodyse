@@ -1,35 +1,35 @@
 .whiteButton {
-    width: 20rem;
-    height: 6rem;
-    background-color: white;
-    border: solid rgb(85, 85, 85) 1px;
-    border-radius: 8px;
-    text-align: right;
-    padding-right: 2rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  width: 20rem;
+  height: 6rem;
+  background-color: white;
+  border: solid rgb(85, 85, 85) 1px;
+  border-radius: 8px;
+  text-align: right;
+  padding-right: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .whiteButton span {
-    color: gray;
-    font-weight: 500;
+  color: gray;
+  font-weight: 500;
 }
 
 .whiteButton:hover {
-    cursor: pointer;
-    background-color: rgb(222, 222, 222);
+  cursor: pointer;
+  background-color: rgb(222, 222, 222);
 }
 
 .whiteButtonActive {
-    @extend .whiteButton;
-    background-color: #47E5BC;
+  @extend .whiteButton;
+  background-color: #47e5bc;
 }
 
 .whiteButtonActive:hover {
-    background-color: #8bf4d8;
+  background-color: #8bf4d8;
 }
 
 .whiteButtonActive span {
-    color: white;
+  color: white;
 }

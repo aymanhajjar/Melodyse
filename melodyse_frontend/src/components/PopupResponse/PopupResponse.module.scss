@@ -1,42 +1,42 @@
 @keyframes fadeIn {
-    0% {
-      transform: scale(1.1) translate(-50%,-50%);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1) translate(-50%,-50%);
-      opacity: 1;
-    }
+  0% {
+    transform: scale(1.1) translate(-50%, -50%);
+    opacity: 0;
   }
+  100% {
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
+  }
+}
 
 .popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 50%;
-    background-color: #47E5BC;
-    padding: 2rem;
-    animation: fadeIn 0.5s ease-in-out;
-    border-radius: 10px;
-    white-space: pre-wrap;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: #47e5bc;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+  border-radius: 10px;
+  white-space: pre-wrap;
 }
 
 .popup span {
-    font-weight: 600;
-    font-size: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .close {
-    width: 1rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
+  width: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
 }
 
 .cover {
-    display: flex;
-    width: 35rem;
-    margin: auto;
+  display: flex;
+  width: 35rem;
+  margin: auto;
 }

@@ -1,20 +1,20 @@
 .blackButton {
-    width: 12rem;
-    height: 3rem;
-    background-color: rgb(46, 46, 46);
+  width: 12rem;
+  height: 3rem;
+  background-color: rgb(46, 46, 46);
 }
 
 .blackButton:hover {
-    cursor: pointer;
-    background-color: rgb(104, 104, 104);
+  cursor: pointer;
+  background-color: rgb(104, 104, 104);
 }
 
 .blackButtonActive {
-    @extend .blackButton;
-    background-color: #47E5BC;
-    border: solid gray 1px;
+  @extend .blackButton;
+  background-color: #47e5bc;
+  border: solid gray 1px;
 }
 
 .blackButtonActive:hover {
-    background-color: #8bf4d8;
+  background-color: #8bf4d8;
 }

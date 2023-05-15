@@ -1,129 +1,130 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 @keyframes fadeIn {
-    0% {
-      transform: scale(1.1)translate(-50%,-50%);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1)translate(-50%,-50%);
-      opacity: 1;
-    }
+  0% {
+    transform: scale(1.1) translate(-50%, -50%);
+    opacity: 0;
   }
+  100% {
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
+  }
+}
 
-  @keyframes fadeInBack {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+@keyframes fadeInBack {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
 
 .hireContainer {
-    animation: fadeIn 0.5s forwards;
-    background-color: #47E5BC;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    opacity: 0;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px gray;
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    z-index: 5;
+  animation: fadeIn 0.5s forwards;
+  background-color: #47e5bc;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px gray;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 5;
 }
 
 .inputDiv {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
 .inputDivSearch {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
 
-.inputDiv input, .inputDivSearch input {
-    padding: 1rem;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Inter';
-    outline: none;
+.inputDiv input,
+.inputDivSearch input {
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-family: "Inter";
+  outline: none;
 }
 
 .inputDiv textarea {
-    padding: 1rem;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    resize: none;
-    height: 10rem;
-    font-family: 'Inter';
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  resize: none;
+  height: 10rem;
+  font-family: "Inter";
 }
 
 .payDiv {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
 }
 
 .payDiv input {
-    padding: 0.5rem 1rem;
-    border: none;
-    font-size: 1rem;
-    border-radius: 10px;
-    outline: none;
-    width: 20%;
+  padding: 0.5rem 1rem;
+  border: none;
+  font-size: 1rem;
+  border-radius: 10px;
+  outline: none;
+  width: 20%;
 }
 
 .sendBtnHire {
-    padding: 1rem;
-    border-radius: 10px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: #17A17C;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: #17a17c;
 }
 
 .sendBtnCollab {
-    padding: 1rem;
-    border-radius: 10px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: #FFB870;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: #ffb870;
 }
 
 .close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    border-radius: 50%;
-    display: flex;
-    padding: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .close:hover {
-    background-color: rgba(173, 173, 173, 0.5);
+  background-color: rgba(173, 173, 173, 0.5);
 }
 
 .close img {
-    width: 1rem;
-    object-fit: contain;
+  width: 1rem;
+  object-fit: contain;
 }
 
 .overlay {
@@ -132,7 +133,7 @@ $main_red: #AB4967;
   top: 0;
   left: 0;
   width: 100%;
-    z-index: 2;
-    height: 100%;
+  z-index: 2;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }

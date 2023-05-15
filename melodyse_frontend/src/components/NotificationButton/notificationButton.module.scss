@@ -1,127 +1,126 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 
 .ntfimg {
-    width: 2.2rem;
-    object-fit: contain;
-    transition: all 0.3s;
+  width: 2.2rem;
+  object-fit: contain;
+  transition: all 0.3s;
 }
 
 .container {
-    position: relative;
+  position: relative;
 }
 
 .loading {
-    width: 5rem;
-    text-align: center;
-    margin: auto;
+  width: 5rem;
+  text-align: center;
+  margin: auto;
 }
 
 .ntfimg:hover {
-    cursor: pointer;
-    filter: brightness(130%);
-    transition: all 0.3s;
+  cursor: pointer;
+  filter: brightness(130%);
+  transition: all 0.3s;
 }
 
 .dropdownOpen {
-    opacity: 1;
-    visibility: visible;
-    position: absolute;
-    background-color: #D49BAE;
-    color: white;
-    max-height: 30rem;
-    overflow-y: scroll;
-    right: 0;
-    margin-top: 1rem;
-    display: flex;
-    width: 25rem;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    z-index: 4;
-    transition: all 0.2s ease-out;
+  opacity: 1;
+  visibility: visible;
+  position: absolute;
+  background-color: #d49bae;
+  color: white;
+  max-height: 30rem;
+  overflow-y: scroll;
+  right: 0;
+  margin-top: 1rem;
+  display: flex;
+  width: 25rem;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  z-index: 4;
+  transition: all 0.2s ease-out;
 }
 
 .dropdownHidden {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    right: 0;
-    width: 25rem;
-    display: flex;
-    max-height: 30rem;
-    overflow-y: scroll;
-    border-radius: 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    margin-top: 1rem;
-    color: white;
-    z-index: 4;
-    transform: translateX(-10%) scale(1.1);
-    transition: all 0.2s ease-out;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  width: 25rem;
+  display: flex;
+  max-height: 30rem;
+  overflow-y: scroll;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 1.2rem;
+  margin-top: 1rem;
+  color: white;
+  z-index: 4;
+  transform: translateX(-10%) scale(1.1);
+  transition: all 0.2s ease-out;
 }
 
-
 .notificationsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2rem;
 }
 
 .noNotf {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .notfRead {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    background-color: white;
-    padding: 1rem;
-    color: black;
-    border-radius: 10px;
-    align-items: center;
-    transition: all 0.3s;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: white;
+  padding: 1rem;
+  color: black;
+  border-radius: 10px;
+  align-items: center;
+  transition: all 0.3s;
 }
 
 .notfRead h3 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .notfRead img {
-    width: 4rem;
-    object-fit: contain;
-    border-radius: 10px;
+  width: 4rem;
+  object-fit: contain;
+  border-radius: 10px;
 }
 
 .notfRead span {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .notfRead:hover {
-    filter: brightness(110%);
-    cursor: pointer;
-    transition: all 0.3s;
+  filter: brightness(110%);
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .notfUnread {
-    @extend .notfRead;
-    border: solid $main_red 2px;
+  @extend .notfRead;
+  border: solid $main_red 2px;
 }
 
 .count {
-    position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
-    background-color: #FFE8D1;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 1px solid $main_red;
-    border-radius: 50%;
-    display: flex;
-    font-size: 0.8rem;
-    font-weight: 600;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background-color: #ffe8d1;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid $main_red;
+  border-radius: 50%;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
 }

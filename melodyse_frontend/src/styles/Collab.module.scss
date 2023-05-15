@@ -1,105 +1,104 @@
-$main_red: #AB4967;
+$main_red: #ab4967;
 @keyframes fade {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
 
 .container {
-    display: flex;
-    flex-direction: column;
-    padding: 0 5%;
-    height: 100%;
-    margin: auto;
-    gap: 2rem;
-    animation: fade 0.5s;
-    overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5%;
+  height: 100%;
+  margin: auto;
+  gap: 2rem;
+  animation: fade 0.5s;
+  overflow-y: scroll;
 }
 
 .tabs {
-    display: flex;
-    gap: 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .tab {
-    width: 10rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: right;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    transition: all 0.3s;
-    cursor: pointer;
+  width: 10rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: right;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .tab:hover {
-    background-color: $main_red;
-    transition: all 0.3s;
+  background-color: $main_red;
+  transition: all 0.3s;
 }
 
 .tabActive {
-    @extend .tab;
-    background-color: $main_red;
-    color: white;
+  @extend .tab;
+  background-color: $main_red;
+  color: white;
 }
 
 .tabInactive {
-    @extend .tab;
-    color: white;
-    background-color: #D49BAE;
+  @extend .tab;
+  color: white;
+  background-color: #d49bae;
 }
 
 .topBar {
-    display: flex;
-    justify-content: 
-    space-between;
-    height: 2rem;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+  align-items: center;
 }
 
 .filters {
-    display: flex;
-    width: 50%;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .loading {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .loading img {
-    width: 20rem;
+  width: 20rem;
   filter: drop-shadow(0px 0px 1px #808080);
 }
 
 .artists {
-    display: flex;
-    width: 100%;
-    padding-top: 4rem;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 4rem;
+  display: flex;
+  width: 100%;
+  padding-top: 4rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4rem;
 }
 
-.artists::after{
-    content: '';
-    width: 27% 
-  }
+.artists::after {
+  content: "";
+  width: 27%;
+}
 
-.projects{
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    gap: 2rem;
+.projects {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  gap: 2rem;
 }
